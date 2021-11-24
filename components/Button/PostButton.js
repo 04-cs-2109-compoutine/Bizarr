@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "./colors";
+import colors from "../colors";
 
 function PostButton({ onPress }) {
   return (
