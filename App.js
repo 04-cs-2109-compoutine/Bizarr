@@ -7,11 +7,14 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import LaunchScreen from './screens/LaunchScreen';
 import MyMap from './MyMap.js'
+import SignUpScreen from "./screens/SignUpScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+
+//     <SignUpScreen />
     <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Launch" component={LaunchScreen} />
@@ -25,8 +28,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
