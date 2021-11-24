@@ -1,26 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image} from 'react-native';
 import { Button } from 'react-native-elements';
-import RaisedButton from '../nonPages/launchButton'
+import RaisedButton from '../nonPages/launchButton';
+import Login from './LoginScreen';
 
-const LaunchScreen = ({ navigation }) =>{
-return(
-    <View style={styles.container}>
-    <Image style={{width: 300, height: 300}} source={require('../src/image/logotransparent.png')} />
-    <Text>
-    </Text>
-    <View>
-    <RaisedButton
-  text="Login"
-  onPress={() =>
-    navigation.navigate('Login')} />
-<RaisedButton
-text="Sign Up"
-/>
-
-    </View>
-    </View>
-)
+const LaunchScreen = ({navigation}) =>{
+    console.log({navigation});
+    return(
+        <View style={styles.container}>
+            <Image style={{width: 300, height: 300}} source={require('../assets/image/logotransparent.png')} />
+            <RaisedButton
+                text="Login"
+                onPress={() => navigation.navigate("Login")}/>
+            <RaisedButton 
+                text="Sign Up"
+                onPress={() => navigation.navigate("Home")}/>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
