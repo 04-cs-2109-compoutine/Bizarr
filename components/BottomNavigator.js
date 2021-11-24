@@ -5,7 +5,7 @@ import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from "@expo/vector-ic
 import HomeScreen from "../screens/HomeScreen";
 import MessageNavigator from "./MessageNavigator";
 import PostListingScreen from "../screens/PostListingScreen";
-import PostButton from "./PostButton";
+import PostButton from "./Button/PostButton";
 import ListNavigator from "./ListNavigator";
 import AccountNavigator from "./AccountNavigator";
 import routes from "./routes";
