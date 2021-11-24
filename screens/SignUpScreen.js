@@ -11,6 +11,10 @@ import {
 } from "react-native";
 import { auth } from "../firebase";
 
+// const SignUpScreen = () => {
+//     const [email, setEmail] = useState("");
+//     const [password, setPassword] = useState("");
+
 const handleSignUp = () => {
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -31,8 +35,18 @@ function SignUpScreen(props) {
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <TextInput placeholder="First Name" style={styles.input} />
+          <TextInput placeholder="Last Name" style={styles.input} />
+          <TextInput placeholder="Username" style={styles.input} />
+          <TextInput
+            placeholder="E-mail"
+            // value={email}
+            // onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+          />
           <TextInput
             placeholder="Password"
+            // value={password}
+            // onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
           />
@@ -63,12 +77,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
-    bottom: 30,
+    bottom: 20,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "25%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
