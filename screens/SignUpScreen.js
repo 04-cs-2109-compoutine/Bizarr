@@ -11,40 +11,21 @@ import {
 } from "react-native";
 import { auth } from "../firebase";
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+// const SignUpScreen = () => {
+//     const [email, setEmail] = useState("");
+//     const [password, setPassword] = useState("");
 
-  const navigation = useNavigation();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
+const handleSignUp = () => {
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCredentials) => {
+      const user = userCredentials.user;
+      console.log("Registered with:", user.email);
+    })
+    .catch((error) => alert(error.message));
+};
 
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       console.log("Registered with:", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
-
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
+function SignUpScreen(props) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image
@@ -53,39 +34,35 @@ const LoginScreen = () => {
       />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
+          <TextInput placeholder="First Name" style={styles.input} />
+          <TextInput placeholder="Last Name" style={styles.input} />
+          <TextInput placeholder="Username" style={styles.input} />
           <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+            placeholder="E-mail"
+            // value={email}
+            // onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
+            // value={password}
+            // onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
           />
         </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleLogin} style={styles.button}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-        </View>
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
-      <Text style={styles.signUpLink}>Don't have an Account? Sign up!</Text>
+      <Text style={styles.LoginLink}>Already have an Account? Login!</Text>
     </KeyboardAvoidingView>
   );
-};
-
-export default LoginScreen;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -100,12 +77,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
-    bottom: 30,
+    bottom: 20,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "25%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -124,15 +101,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#5C8389",
-    width: "100%",
-    padding: 15,
+    width: "60%",
+    padding: 10,
     borderRadius: 10,
     alignItems: "center",
   },
   buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#0782F9",
+    backgroundColor: "#5C8389",
+    marginTop: 15,
+    borderColor: "#5C8389",
     borderWidth: 2,
   },
   buttonText: {
@@ -141,12 +118,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: "#0782F9",
+    color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
-  signUpLink: {
+  LoginLink: {
     color: "white",
     top: 70,
   },
 });
+export default SignUpScreen;
