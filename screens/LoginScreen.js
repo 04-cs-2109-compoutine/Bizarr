@@ -80,6 +80,7 @@ const LoginScreen = () => {
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity> */}
       </View>
+      <Text style={styles.signUpLink}>Don't have an Account? Sign up!</Text>
     </KeyboardAvoidingView>
   );
 };
@@ -143,5 +144,9 @@ const styles = StyleSheet.create({
     color: "#0782F9",
     fontWeight: "700",
     fontSize: 16,
+  },
+  signUpLink: {
+    color: "white",
+    top: 70,
   },
 });
