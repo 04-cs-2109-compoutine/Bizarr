@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image} from 'react-native';
 import { Button } from 'react-native-elements';
 import RaisedButton from '../nonPages/launchButton'
 
-const LaunchScreen = () =>{
+const LaunchScreen = ({ navigation }) =>{
 return(
     <View style={styles.container}>
     <Image style={{width: 300, height: 300}} source={require('../src/image/logotransparent.png')} />
@@ -13,7 +13,7 @@ return(
     <RaisedButton
   text="Login"
   onPress={() =>
-    this.props.navigation.navigate('Login')} />
+    navigation.navigate('Login')} />
 <RaisedButton
 text="Sign Up"
 />
