@@ -4,10 +4,11 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native'
 // SafeAreaView to keep content in safe area
 import { auth } from '../firebase'
+import * as Location from 'expo-location'
 
 const HomeScreen = () => {
   // commenting out because we probably dont need a 'back' button
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
 
   const handleSignOut = () => {
     auth
