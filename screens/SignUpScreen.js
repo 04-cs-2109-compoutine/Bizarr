@@ -77,18 +77,19 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: "gray",
+    marginTop: 10,
     marginBottom: 10,
     marginLeft: "40%",
   },
   logo: {
     width: 200,
     height: 200,
-    bottom: 20,
+    bottom: 10,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "40%",
+    height: "45%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   LoginLink: {
     color: "white",
-    top: 70,
+    top: 45,
   },
 });
 export default SignUpScreen;
