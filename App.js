@@ -11,14 +11,10 @@ export default function App() {
   const [user, setUser] = useState();
 
   return (
-    // <AuthContext.Provider value={{ user, setUser }}>
-    //   <NavigationContainer theme={navigationTheme}>
-    //     {user ? <BottomNavigator /> : <AuthNavigator />}
-    //   </NavigationContainer>
-    // </AuthContext.Provider>
-
-    <View>
-      <SendMessage/>
-    </View>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <BottomNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
