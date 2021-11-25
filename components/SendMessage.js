@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import SubmitButton from '../components/Button/SubmitButton';
 import { auth, db } from '../firebase';
-import styles from './styles';
+import TextInputField from '../components/TextInputField'
 
 function SendMessage(props) {
   const [message, setMessage] = useState("");

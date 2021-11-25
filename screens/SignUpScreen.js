@@ -50,7 +50,7 @@ const SignUpScreen = () => {
         <View style={styles.inputContainer}>
           <TextInput placeholder="First Name" style={styles.input} />
           <TextInput placeholder="Last Name" style={styles.input} />
-          <TextInput placeholder="Username" style={styles.input} />
+          {/* <TextInput placeholder="Username" style={styles.input} /> */}
           <TextInput
             placeholder="E-mail"
             // value={email}
