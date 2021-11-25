@@ -11,22 +11,24 @@ import ListingsScreen from "./screens/ListingsScreen";
 import LaunchScreen from "./screens/LaunchScreen";
 import MyMap from "./MyMap.js";
 import SignUpScreen from "./screens/SignUpScreen";
+import SingleMessageScreen from "./screens/SingleMessageScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Launch"
-          component={LaunchScreen}
-        />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Sign up" component={SignUpScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SingleMessageScreen />
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       options={{ headerShown: false }}
+    //       name="Launch"
+    //       component={LaunchScreen}
+    //     />
+    //     <Stack.Screen name="Login" component={LoginScreen} />
+    //     <Stack.Screen name="Sign up" component={SignUpScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
 
