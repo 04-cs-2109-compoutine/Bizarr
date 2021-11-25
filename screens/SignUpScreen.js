@@ -34,6 +34,7 @@ function SignUpScreen(props) {
       />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
+          <Text style={styles.signUpText}>Sign Up</Text>
           <TextInput placeholder="First Name" style={styles.input} />
           <TextInput placeholder="Last Name" style={styles.input} />
           <TextInput placeholder="Username" style={styles.input} />
@@ -73,6 +74,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "80%",
+  },
+  signUpText: {
+    color: "gray",
+    marginBottom: 10,
+    marginLeft: "40%",
   },
   logo: {
     width: 200,
