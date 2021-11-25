@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
-    bottom: 30,
+    bottom: 20,
   },
   loginText: {
     color: "gray",
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 25,
+    marginTop: 20,
   },
   button: {
     backgroundColor: "#5C8389",
