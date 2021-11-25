@@ -28,10 +28,7 @@ const handleSignUp = () => {
 function SignUpScreen(props) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image
-        style={styles.logo}
-        source={require("../assets/logotransparent.png")}
-      />
+      <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.signUpText}>Sign Up</Text>
