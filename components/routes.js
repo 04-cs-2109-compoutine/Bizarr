@@ -3,5 +3,5 @@ export default Object.freeze({
   POST_LISTING: "ListingPost",
   LOGIN: "Login",
   MESSAGES: "Messages",
-  REGISTER: "Register",
+  SIGNUP: "Sign up",
 });
