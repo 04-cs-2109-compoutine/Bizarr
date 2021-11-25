@@ -53,6 +53,7 @@ const LoginScreen = () => {
       />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
+          <Text style={styles.loginText}>Login</Text>
           <TextInput
             placeholder="Email"
             value={email}
@@ -80,7 +81,12 @@ const LoginScreen = () => {
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity> */}
       </View>
-      <Text style={styles.signUpLink}>Don't have an Account? Sign up!</Text>
+      <Text
+        style={styles.signUpLink}
+        onPress={() => navigation.navigate("Sign Up")}
+      >
+        Don't have an Account? Sign up!
+      </Text>
     </KeyboardAvoidingView>
   );
 };
@@ -102,10 +108,15 @@ const styles = StyleSheet.create({
     height: 200,
     bottom: 30,
   },
+  loginText: {
+    color: "gray",
+    marginBottom: 10,
+    marginLeft: "43%",
+  },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "25%",
+    height: "30%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -120,7 +131,7 @@ const styles = StyleSheet.create({
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 25,
   },
   button: {
     backgroundColor: "#5C8389",
