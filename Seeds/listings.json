@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 2,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 3,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 4,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 5,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 6,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 7,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 8,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 9,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  },
+  {
+    "id": 10,
+    "title": "A new bike which just used once",
+    "price": 200,
+    "uid": 1,
+    "images": "",
+    "location": ["35N", "75W"],
+    "categoryId": "KBOzzwtPItRNziYctELU",
+    "description": "Hi, this bike is basically new and I just used it once. I want to sell it since I don't have space for it."
+  }
+]

@@ -53,29 +53,6 @@ const HomeScreen = () => {
       </View>
     );
   }
-
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.navigate("Login")
-      })
-      .catch(error => alert(error.message))
-  }
-
-  return (
-    <View style={styles.container}>
-       {/* <MapContainer /> */}
-      <Text>Hi, welcome!</Text>
-      <GoogleMapApp />
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Set My Current Location</Text>
-      </TouchableOpacity>
-    </View>
-  )
 }
 
 export default HomeScreen
