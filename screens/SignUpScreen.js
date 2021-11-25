@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { auth } from "../firebase";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,23 +10,29 @@ import {
   View,
   Image,
 } from "react-native";
-import { auth } from "../firebase";
+import BottomNavigator from "../components/BottomNavigator"
 
-// const SignUpScreen = () => {
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
+const SignUpScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const handleSignUp = () => {
-  auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredentials) => {
-      const user = userCredentials.user;
-      console.log("Registered with:", user.email);
-    })
-    .catch((error) => alert(error.message));
-};
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+            <BottomNavigator/>
+        }
+    });
+    return unsubscribe;
+  }, []);
 
-function SignUpScreen(props) {
+  const handleSignUp = () => {
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("Registered with:", user.email);
+      }).catch((error) => alert(error.message));
+    };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image
