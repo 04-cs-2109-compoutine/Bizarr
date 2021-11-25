@@ -7,6 +7,7 @@ import Icon from "../components/Icon";
 import Screen from "../components/Screen";
 import AuthContext from "../components/context";
 import Text from "../components/Text";
+import { auth } from "../firebase";
 
 const menuItems = [
   {
@@ -20,12 +21,13 @@ const menuItems = [
     title: "Account Details",
     icon: {
       name: "account",
-      backgroundColor: colors.secondary,
+      backgroundColor: colors.danger,
     },
     targetScreen: "Account Details",
   },
 ];
 
+//we can also use useAuthState
 function AccountScreen({ navigation }) {
   const {user, setUser} = useContext(AuthContext)
 

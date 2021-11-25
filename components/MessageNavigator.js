@@ -1,6 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleMessageScreen from "../screens/SingleMessageScreen";
+import ChatScreen from "../screens/ChatScreen";
 import MessagesScreen from "../screens/MessagesScreen"
 
 const Stack = createNativeStackNavigator();
@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 const ListNavigator = () =>{
   <Stack.Navigator>
     <Stack.Screen name="Messages" component={MessagesScreen} />
-    <Stack.Screen name="SingleMessage" component={SingleMessageScreen} />
+    <Stack.Screen name="SingleMessage" component={ChatScreen} />
   </Stack.Navigator>
 }
 
