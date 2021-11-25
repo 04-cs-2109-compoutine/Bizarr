@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import navigationTheme from "./components/NavigationTheme"
 import BottomNavigator from './components/BottomNavigator';
 import AuthNavigator from './components/AuthNavigator';
 import AuthContext from "./components/context";
 import SendMessage from './components/SendMessage'
-import { View } from 'react-native';
+import ListingsScreen from './screens/ListingsScreen';
+import LaunchScreen from './screens/LaunchScreen';
+import SignUpScreen from "./screens/SignUpScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState();
