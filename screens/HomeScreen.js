@@ -1,64 +1,76 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native'
-// SafeAreaView to keep content in safe area
+import { useState } from 'react'
+import { Marker } from 'google-maps-react';
+import * as React from 'react';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
+// import { useEffect } from 'react-'
+import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Dimensions } from 'react-native'
 import { auth } from '../firebase'
-import * as Location from 'expo-location'
-import MyMap from '../MyMap'
+import MapView, { Callout } from 'react-native-maps';
 
 const HomeScreen = () => {
-  // commenting out because we probably dont need a 'back' button
-  const navigation = useNavigation()
-
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.navigate("Login")
-      })
-      .catch(error => alert(error.message))
-  }
-
-  // let map;
-
-  // const initMap = () => {
-  //   map = new google.maps.Map(document.getElementById("map"), {
-  //     center: { lat: -34.397, lng: 150.644 },
-  //     zoom: 8,
-  //   });
-  // }
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-      <View style={{
-        backgroundColor: "#E4EFE7",
-        width: '50%',
-        height: '70',
-        justifyContent: 'center'
-      }}>
-        <Text>Hi, welcome!</Text>
-      </View>
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.button}
-      >
-        {/* <Text style={styles.buttonText}>Sign out</Text> */}
-        <Text style={styles.buttonText}>Set My Current Location</Text>
-      </TouchableOpacity>
-        <MapView
-          key={"AIzaSyAbids5u5V37mkGJ-cPeoxS2bUjUBnduSg"}
-          style={{ flex: 1, margin: 15 }}
-          region={{
+  
+  const GoogleMapApp = () => {
+    const [region, setRegion] = useState({
+      latitude: 51.5079145,
+      longitude: -0.0899163,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
+    const [pin, setPin] = useState({
+      latitude: 37.78825,
+      longitude: -122.4324,
+    })
+    return (
+      <View style={styles.container}>
+          <SafeAreaView style={styles.container}>
+          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+            <View style={{
+              backgroundColor: "#E4EFE7",
+              width: '50%',
+              height: '70',
+              justifyContent: 'center'
+            }}>
+              <Text>Hi, welcome!</Text>
+            </View>
+            <TouchableOpacity
+              onPress={handleSignOut}
+              style={styles.button}
+            >
+            {/* <Text style={styles.buttonText}>Sign out</Text> */}
+              <Text style={styles.buttonText}>Set My Current Location</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+          <MapView style={styles.map} 
+            provider={PROVIDER_GOOGLE}
+            intialRegion={{
             latitude: 37.78825,
             longitude: -122.4324,
-            latitudeDelta: 0.0992,
-            longitudeDelta: 0.0421
-          }}
-          />
-    </SafeAreaView>
-  )
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+            }}
+            onRegionChangeComplete={(region) => setRegion(region)}
+           >
+            <Marker coordinate={pin} pinColor="green"
+              draggable={true}
+              onDragStart={(e) => {
+                console.log("Drag Start", e.nativeEvent.coordinates)
+              }}
+              onDragEnd={(e) => {
+              setPin({
+                lattitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude
+              })
+              }}
+            > 
+            <Callout>
+              <Text> hello poopy pants </Text>
+            </Callout>
+            </Marker>
+        </MapView>
+      </View>
+    );
+  }
 }
 
 export default HomeScreen
@@ -71,7 +83,6 @@ const styles = StyleSheet.create({
   },
    button: {
     backgroundColor: '#74B49B',
-    // changed color
     width: '60%',
     padding: 15,
     borderRadius: 10,
@@ -83,4 +94,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+  map: {
+    width: 400,
+    height: 400,
+    borderRadius: 8,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  
 })
