@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import firebase from "firebase";
+import { auth } from "../firebase";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,32 +11,55 @@ import {
   View,
   Image,
 } from "react-native";
-import { auth } from "../firebase";
+import BottomNavigator from "../components/BottomNavigator";
 
-// const SignUpScreen = () => {
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
+const SignUpScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [imageURL, setImageUrl] = useState("");
 
-const handleSignUp = () => {
-  auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredentials) => {
-      const user = userCredentials.user;
-      console.log("Registered with:", user.email);
-    })
-    .catch((error) => alert(error.message));
-};
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //       if (user) {
+  //           <BottomNavigator/>
+  //       }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
-function SignUpScreen(props) {
+  const handleSignUp = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        user.updateProfile({
+          displayName: name,
+          photoURL: imageURL
+            ? imageURL
+            : "https://pngimg.com/uploads/compass/compass_PNG25581.png",
+        });
+        console.log("Registered with:", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  //sign in with google
+  function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image style={styles.logo} source={require("../assets/logoid.png")} />
+      <Image
+        style={styles.logo}
+        source={require("../assets/logotransparent.png")}
+      />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          <Text style={styles.signUpText}>Sign Up</Text>
           <TextInput placeholder="First Name" style={styles.input} />
           <TextInput placeholder="Last Name" style={styles.input} />
-          <TextInput placeholder="Username" style={styles.input} />
+          {/* <TextInput placeholder="Username" style={styles.input} /> */}
           <TextInput
             placeholder="E-mail"
             // value={email}
@@ -48,6 +73,13 @@ function SignUpScreen(props) {
             style={styles.input}
             secureTextEntry
           />
+          <TextInput
+            placeholder="image Url"
+            label="Profile Picture"
+            value={imageURL}
+            style={styles.input}
+            onChangeText={(text) => setImageUrl(text)}
+          />
         </View>
 
         <TouchableOpacity
@@ -57,10 +89,18 @@ function SignUpScreen(props) {
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
+      <View>
+        <TouchableOpacity
+          onPress={signInWithGoogle}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Google</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={styles.LoginLink}>Already have an Account? Login!</Text>
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -72,21 +112,15 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "80%",
   },
-  signUpText: {
-    color: "gray",
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: "40%",
-  },
   logo: {
     width: 200,
     height: 200,
-    bottom: 10,
+    bottom: 20,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "45%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -128,7 +162,7 @@ const styles = StyleSheet.create({
   },
   LoginLink: {
     color: "white",
-    top: 45,
+    top: 70,
   },
 });
 export default SignUpScreen;
