@@ -1,37 +1,51 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { auth, db } from "../firebase";
+import React, { useState, useCallback, useLayoutEffect } from "react";
 import colors from "../components/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 
 export function SingleMessageScreen() {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello. Where is the bubble tea?",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "Grace Lin",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+  //connecting to database
+  useLayoutEffect(() => {
+    const unsubscribe = db
+      .collection("chat")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) =>
+        setMessages(
+          snapshot.docs.map((doc) => ({
+            _id: doc.data()._id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().use,
+          }))
+        )
+      );
+    return unsubscribe;
   }, []);
 
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
+    const { _id, createdAt, text, user } = messages[0];
+    db.collection("chats").add({
+      _id,
+      createdAt,
+      text,
+      user,
+    });
   }, []);
 
   return (
     <GiftedChat
       messages={messages}
+      showAvatarForEveryMessage={true}
       onSend={(messages) => onSend(messages)}
       user={{
-        _id: 1,
+        _id: auth?.currentUser?.email,
+        name: auth?.currentUser?.displayName,
+        avatar: auth?.currentUser?.photoURL,
       }}
     />
   );
