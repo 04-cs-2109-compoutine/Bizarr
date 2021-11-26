@@ -34,7 +34,7 @@ const SignUpScreen = () => {
       }).catch((error) => alert(error.message));
     };
   
-    //sign in with google
+  //sign in with google
   function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
@@ -68,8 +68,7 @@ const SignUpScreen = () => {
 
         <TouchableOpacity
           onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>

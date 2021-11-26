@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../colors";
 
-function AppButton({ title, onPress, color = "primary" }) {
+function SubmitButton({ title, onPress, color = "primary" }) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: colors[color] }]}
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-    padding: 15,
-    width: "100%",
+    padding: 20,
+    width: "50%",
     marginVertical: 10,
   },
   text: {
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppButton;
+export default SubmitButton;
