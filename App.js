@@ -8,6 +8,7 @@ import SendMessage from './components/SendMessage'
 import { View } from 'react-native';
 import PostListingScreen from './screens/PostListingScreen';
 import PhotoPicker from './components/PhotoPicker';
+import SearchLocation from './components/SearchLocation';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -19,7 +20,7 @@ export default function App() {
     //   </NavigationContainer>
     // </AuthContext.Provider>
     
-      <PostListingScreen/>
+      <SearchLocation/>
    
   );
 }

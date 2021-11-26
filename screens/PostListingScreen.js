@@ -1,19 +1,11 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
 import Screen from '../components/Screen';
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from '../components/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/colors';
 import PhotoPicker from '../components/PhotoPicker';
 
-//dummy data for categories
-
-const categories = [
-  { label: "Furniture", value: 1 },
-  { label: "Clothing", value: 2 },
-  { label: "Camera", value: 3 },
-]
 
 function PostListingScreen() {
   const [modalVisible, setModalVisible] = useState(false);

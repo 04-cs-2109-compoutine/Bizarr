@@ -5,6 +5,7 @@ import * as ImagePicker from "expo-image-picker";
 import colors from './colors';
 
 function PhotoPicker({imageUri, onChangeImage}) {
+  
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
