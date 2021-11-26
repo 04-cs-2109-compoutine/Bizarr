@@ -16,7 +16,6 @@ import BottomNavigator from "../components/BottomNavigator";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageURL, setImageUrl] = useState("");
 
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -32,12 +31,6 @@ const SignUpScreen = () => {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        user.updateProfile({
-          displayName: name,
-          photoURL: imageURL
-            ? imageURL
-            : "https://pngimg.com/uploads/compass/compass_PNG25581.png",
-        });
         console.log("Registered with:", user.email);
       })
       .catch((error) => alert(error.message));
@@ -51,10 +44,7 @@ const SignUpScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image
-        style={styles.logo}
-        source={require("../assets/logotransparent.png")}
-      />
+      <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <TextInput placeholder="First Name" style={styles.input} />
@@ -72,13 +62,6 @@ const SignUpScreen = () => {
             // onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
-          />
-          <TextInput
-            placeholder="image Url"
-            label="Profile Picture"
-            value={imageURL}
-            style={styles.input}
-            onChangeText={(text) => setImageUrl(text)}
           />
         </View>
 
