@@ -6,6 +6,8 @@ import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Screen from "../components/Screen";
 import colors from "../components/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
+import SingleMessageScreen from "../screens/SingleMessageScreen";
+
 const initialMessages = [
   {
     id: 1,
@@ -38,7 +40,7 @@ function MessagesScreen(props) {
         renderItem={({ item }) => (
           <ListItem
             title={item.title}
-            description={item.description}
+            subTitle={item.description}
             image={item.image}
             onPress={() => console.log("Message,selected", item)}
             renderRightActions={() => (
@@ -65,7 +67,7 @@ function MessagesScreen(props) {
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.main,
   },
 });
 
