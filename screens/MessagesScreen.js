@@ -50,6 +50,7 @@ function MessagesScreen({ navigation }) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
+        //when refreshing
         refreshing={refreshing}
         onRefresh={() => {
           setMessages([

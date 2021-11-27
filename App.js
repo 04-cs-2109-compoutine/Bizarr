@@ -18,18 +18,17 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <MessagesScreen />
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //     <Stack.Screen
-    //       options={{ headerShown: false }}
-    //       name="Launch"
-    //       component={LaunchScreen}
-    //     />
-    //     <Stack.Screen name="Login" component={LoginScreen} />
-    //     <Stack.Screen name="Sign up" component={SignUpScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Launch"
+          component={LaunchScreen}
+        />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Sign up" component={SignUpScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
