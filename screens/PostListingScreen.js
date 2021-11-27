@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/styles';
 import SubmitButton from '../components/Button/SubmitButton';
@@ -10,7 +10,6 @@ import routes from '../components/routes';
 
 function PostListingScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -19,8 +18,8 @@ function PostListingScreen() {
 
   return (
     <Screen style={styles.container}>
-      <View style={styles.picker}>
-        <PhotoPicker/>
+      <View style={styles.imgContainer}>
+        <PhotoPicker style={styles.picker}/>
       </View>
       <View style={styles.inputContainer}>
       <TextInput
@@ -29,11 +28,13 @@ function PostListingScreen() {
         style={defaultStyles.text}
         value={title}
         onChangeText={(text) => setTitle(text)}
+        maxLength={255}
       />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Price"
+          keyboardType="numeric"
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
           value={price}
@@ -83,6 +84,8 @@ function PostListingScreen() {
         </Pressable>
       <View style={styles.inputContainer}>
         <TextInput
+          multiline
+          numberOfLines={3}
           placeholder="Description"
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
@@ -99,7 +102,7 @@ function PostListingScreen() {
           title="Post"
           onPress={()=> console.log("post")}/>
       </View>
-    </Screen>
+   </Screen>
   );
 }
 
@@ -107,12 +110,16 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
   },
-  pickerContainer:{
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
+  imgContainer:{
+    flexDirection: "row",
+    width: "100%",
+    padding: 20,
+    marginVertical: 10,
   },
   picker:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     alignItems: "center"
   },
   inputContainer: {
@@ -123,11 +130,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 10,
   },
-  icon: {
-    marginRight: 10,
-  },
   btn: {
     alignItems: "center"
+  },
+  pickerContainer:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   centeredView: {
     flex: 1,
