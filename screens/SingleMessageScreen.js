@@ -1,5 +1,6 @@
 import { auth, db } from "../firebase";
 import React, { useState, useCallback, useLayoutEffect } from "react";
+import { StyleSheet } from "react-native";
 import colors from "../components/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 
@@ -40,6 +41,7 @@ export function SingleMessageScreen() {
   return (
     <GiftedChat
       messages={messages}
+      alwaysShowSend={true}
       showAvatarForEveryMessage={true}
       onSend={(messages) => onSend(messages)}
       user={{
@@ -50,6 +52,12 @@ export function SingleMessageScreen() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  mainMessages: {
+    backgroundColor: colors.main,
+  },
+});
 
 export default SingleMessageScreen;
 // export default class SingleMessageScreen extends React.Component {
