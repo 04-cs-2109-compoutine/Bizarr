@@ -1,13 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
-
 import HomeScreen from "../screens/HomeScreen";
 import MessageNavigator from "./MessageNavigator";
-import PostListingScreen from "../screens/PostListingScreen";
 import PostButton from "./Button/PostButton";
 import ListNavigator from "./ListNavigator";
 import AccountNavigator from "./AccountNavigator";
+import PostNavigator from "./PostNavigator";
+import routes from "./routes";
+import PostListingScreen from "../screens/PostListingScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,12 +41,12 @@ const BottomNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="PostListing"
+      name="Post Listing"
       component={PostListingScreen}
       options={({ navigation }) => ({
         tabBarButton: () => (
           <PostButton
-            onPress={() => console.log("Posted!")}
+            onPress={() => navigation.navigate(routes.POST_LISTING)}
           />
         ),
         tabBarIcon: ({ color, size }) => (

@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
+import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, TouchableOpacity} from 'react-native';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/colors';
 import PhotoPicker from '../components/PhotoPicker';
-
+import SubmitPostButton from '../components/Button/SubmitPostButton';
+import routes from '../components/routes';
 
 function PostListingScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,11 +77,10 @@ function PostListingScreen() {
           </View>
         </Modal>
         <Pressable
-          style={[styles.inputContainer]}
+          style={styles.inputContainer}
           onPress={() => setModalVisible(true)}>
           <Text style={defaultStyles.text}>{selectedValue}</Text>
         </Pressable>
-
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Description"
@@ -90,15 +90,10 @@ function PostListingScreen() {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Location"
-          placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
-          value={location}
-          onChangeText={(text) => setLocation(text)}
-        />
-      </View>
+      <SubmitPostButton 
+        text="Pick up Location"
+        onPress={() => navigate(routes.SEARCH_LOCATION)}
+      />
       <View style={styles.btn}>
         <SubmitButton 
           title="Post"
@@ -125,7 +120,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",
-    padding: 25,
+    padding: 20,
     marginVertical: 10,
   },
   icon: {
