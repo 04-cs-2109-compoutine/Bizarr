@@ -7,22 +7,23 @@ import Screen from "../components/Screen";
 import colors from "../components/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 import SingleMessageScreen from "../screens/SingleMessageScreen";
+import MessageNavigator from "../components/MessageNavigator";
 
 const initialMessages = [
   {
     id: 1,
-    title: "Bubble Tea",
+    title: "Grace",
     description: "There is no such thing as too much Bubble Tea 🧋",
     image: require("../assets/image/logotransparent.png"),
   },
   {
     id: 2,
-    title: "Potatoes",
+    title: "Mason",
     description: "I love potatoes",
     image: require("../assets/image/logotransparent.png"),
   },
 ];
-function MessagesScreen(props) {
+function MessagesScreen({ navigation }) {
   const [messages, setMessages] = useState(initialMessages);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -42,7 +43,7 @@ function MessagesScreen(props) {
             title={item.title}
             subTitle={item.description}
             image={item.image}
-            onPress={() => console.log("Message,selected", item)}
+            onPress={() => navigation.navigate("SingleMessage")}
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
