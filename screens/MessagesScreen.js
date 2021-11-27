@@ -4,6 +4,7 @@ import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 
 import Screen from "../components/Screen";
+import colors from "../components/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 const initialMessages = [
   {
@@ -21,6 +22,7 @@ const initialMessages = [
 ];
 function MessagesScreen(props) {
   const [messages, setMessages] = useState(initialMessages);
+  const [refreshing, setRefreshing] = useState(false);
 
   //delete the message
   const handleDelete = (message) => {
@@ -30,6 +32,7 @@ function MessagesScreen(props) {
   return (
     <Screen>
       <FlatList
+        style={styles.list}
         data={messages}
         keyExtractor={(message) => message.id.toString()}
         renderItem={({ item }) => (
@@ -44,11 +47,26 @@ function MessagesScreen(props) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setMessages([
+            {
+              id: 2,
+              title: "Potatoes",
+              description: "I love potatoes",
+              image: require("../assets/image/logotransparent.png"),
+            },
+          ]);
+        }}
       />
     </Screen>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  list: {
+    backgroundColor: colors.light,
+  },
+});
 
 export default MessagesScreen;
