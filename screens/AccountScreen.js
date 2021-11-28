@@ -16,7 +16,7 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primary,
     },
-    targetScreen: "My listings",
+    targetScreen: "My Listings",
   },
   {
     title: "Account Details",

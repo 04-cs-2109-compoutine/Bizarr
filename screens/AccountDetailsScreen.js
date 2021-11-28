@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { View, StyleSheet, Image, TextInput } from 'react-native';
 import defaultStyles from '../components/styles';
 import Screen from '../components/Screen';
-import Text from '../components/Text'
 
 function AccountDetailsScreen() {
   const [name, setName] = useState();
