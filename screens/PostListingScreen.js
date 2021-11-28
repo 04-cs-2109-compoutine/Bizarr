@@ -1,20 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/colors';
-import PhotoPicker from '../components/PhotoPicker';
+import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
 import SubmitPostButton from '../components/Button/SubmitPostButton';
 import routes from '../components/routes';
+import * as Location from "expo-location";
 
 function PostListingScreen() {
+
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [selectedValue, setCategory] = useState("Category")
+  const [location, setLocation] = useState();
+  const [selectedValue, setCategory] = useState("Category");
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log(location.coords.latitude);
+      console.log(location.coords.longitude)
+    })();
+  }, []);
+
+  let text = 'Waiting..';
+  let lat = "";
+  let log = "";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    lat = JSON.stringify(location.coords.latitude);
+    log = JSON.stringify(location.coords.longitude)
+  }
 
   return (
     <Screen style={styles.container}>
@@ -93,10 +120,9 @@ function PostListingScreen() {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <SubmitPostButton 
-        text="Pick up Location"
-        onPress={() => navigate(routes.SEARCH_LOCATION)}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput placeholder="Pick up Location" style={defaultStyles.text}/>
+      </View>
       <View style={styles.btn}>
         <SubmitButton 
           title="Post"
@@ -108,19 +134,20 @@ function PostListingScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 5,
   },
   imgContainer:{
     flexDirection: "row",
     width: "100%",
-    padding: 20,
-    marginVertical: 10,
+    padding: 5,
+    marginVertical: 5,
+    alignItems: "center",
+    justifyContent: 'center',
   },
   picker:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    alignItems: "center"
   },
   inputContainer: {
     backgroundColor: defaultStyles.colors.light,
@@ -131,6 +158,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   btn: {
+    marginTop:10,
     alignItems: "center"
   },
   pickerContainer:{

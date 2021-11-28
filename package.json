@@ -36,7 +36,8 @@
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
     "react-router-dom": "^6.0.2",
-    "expo-permissions": "~13.0.3"
+    "expo-permissions": "~13.0.3",
+    "expo-location": "~13.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

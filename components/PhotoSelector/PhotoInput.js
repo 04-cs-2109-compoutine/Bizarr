@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-native';
-import colors from './colors';
+import colors from '../colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 

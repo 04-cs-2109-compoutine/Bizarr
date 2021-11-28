@@ -1,6 +1,5 @@
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
-
 import List from "../components/List";
 import colors from "../components/colors";
 import routes from "../components/routes";

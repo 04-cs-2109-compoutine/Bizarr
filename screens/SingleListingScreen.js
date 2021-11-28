@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import colors from "../components/colors";
 import ListItem from "../components/ListItem";
+import LoadingMap from "../components/LocationMap";
 import Text from "../components/Text";
 
 function SingleListingScreen({ route }) {
@@ -12,13 +13,16 @@ function SingleListingScreen({ route }) {
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.price}>${listing.price}</Text>
-        <View style={styles.userContainer}>
+        <View>
           <ListItem
             image={require("../assets/user.png")}
             title="Snow White"
             subTitle="25 Listings"
           />
         </View>
+      </View>
+      <View>
+        <LoadingMap/>
       </View>
     </View>
   );
@@ -41,9 +45,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "500",
-  },
-  userContainer: {
-    marginVertical: 40,
   },
 });
 

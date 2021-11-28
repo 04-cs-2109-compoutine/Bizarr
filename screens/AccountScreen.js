@@ -16,6 +16,7 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primary,
     },
+    targetScreen: "My listings",
   },
   {
     title: "Account Details",
@@ -74,6 +75,9 @@ function AccountScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
+  },
+  logoContainer:{
+    marginTop: 15,
   },
   container: {
     marginVertical: 20,
