@@ -1,110 +1,85 @@
-import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { Marker } from 'google-maps-react';
-import * as React from 'react';
-import { PROVIDER_GOOGLE } from 'react-native-maps';
-// import { useEffect } from 'react-'
-import { StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Dimensions } from 'react-native'
-import { auth } from '../firebase'
-import MapView, { Callout } from 'react-native-maps';
+import React from 'react';
+import { Text, View, Dimensions, StyleSheet } from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import BottomNavigator from '../components/BottomNavigator';
 
-const HomeScreen = () => {
-  
-  const GoogleMapApp = () => {
-    const [region, setRegion] = useState({
-      latitude: 51.5079145,
-      longitude: -0.0899163,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    });
-    const [pin, setPin] = useState({
-      latitude: 37.78825,
-      longitude: -122.4324,
-    })
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 40.73;
+const LONGITUDE = -73.99;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const SPACE = 0.01;
+
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+    };
+  }
+  render() {
     return (
       <View style={styles.container}>
-        <MapView style={styles.map} 
+      <MapView
         provider={PROVIDER_GOOGLE}
-        intialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        onRegionChangeComplete={(region) => setRegion(region)}
+        style={styles.map}
+        initialRegion={this.state.region}
+        onPress={this.onMapPress}
+        loadingEnabled
+        loadingIndicatorColor='#666666'
+        loadingBackgroundColor='#EEEEEE'
+      >
+        <Marker
+          coordinate={{
+            latitude: LATITUDE - SPACE,
+            longitude: LONGITUDE - SPACE,
+          }}
+          centerOffset={{ x: -42, y: -60 }}
+          anchor={{ x: 0.84, y: 1 }}
         >
-        <Marker coordinate={pin} pinColor="green"
-        draggable={true}
-        onDragStart={(e) => {
-          console.log("Drag Start", e.nativeEvent.coordinates)
-        }}
-        onDragEnd={(e) => {
-          setPin({
-            lattitude: e.nativeEvent.coordinate.latitude,
-            longitude: e.nativeEvent.coordinate.longitude
-          })
-        }}
-        > 
-        <Callout>
-          <Text> hello poopy pants </Text>
-        </Callout>
+          <Callout>
+            <View>
+              <Text>Pick up</Text>
+            </View>
+          </Callout>
         </Marker>
       </MapView>
+      <View style={styles.buttonContainer}>
+        <View style={styles.bubble}>
+          <Text>Map with Loading</Text>
+        </View>
       </View>
+      {/* <BottomNavigator/> */}
+    </View>
     );
   }
-
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.navigate("Login")
-      })
-      .catch(error => alert(error.message))
-  }
-
-  return (
-    <View style={styles.container}>
-       {/* <MapContainer /> */}
-      <Text>Hi, welcome!</Text>
-      <GoogleMapApp />
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Set My Current Location</Text>
-      </TouchableOpacity>
-    </View>
-  )
 }
-
-export default HomeScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-   button: {
-    backgroundColor: '#74B49B',
-    width: '50%',
-    padding: 15,
-    borderRadius: 10,
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: 40,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
   },
   map: {
-    width: 400,
+    ...StyleSheet.absoluteFillObject,
     height: 400,
-    borderRadius: 8,
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
-  
-})
+  bubble: {
+    backgroundColor: "#E4EFE7",
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    backgroundColor: 'transparent'
+  },
+});
