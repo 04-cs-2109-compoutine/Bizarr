@@ -50,17 +50,17 @@ const SignUpScreen = () => {
         <View style={styles.inputContainer}>
           <TextInput placeholder="First Name" style={styles.input} />
           <TextInput placeholder="Last Name" style={styles.input} />
-          {/* <TextInput placeholder="Username" style={styles.input} /> */}
+          <TextInput placeholder="Username" style={styles.input} />
           <TextInput
             placeholder="E-mail"
-            // value={email}
-            // onChangeText={(text) => setEmail(text)}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
           <TextInput
             placeholder="Password"
-            // value={password}
-            // onChangeText={(text) => setPassword(text)}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
           />

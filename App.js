@@ -7,15 +7,17 @@ import AuthContext from "./components/context";
 import LocationMap from './components/LocationMap';
 import SingleListingScreen from './screens/SingleListingScreen';
 import AccountDetailsScreen from './screens/AccountDetailsScreen';
+import onPoiClick from './screens/SearchLocationScreen'
 
 export default function App() {
   const [user, setUser] = useState();
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
-        {user ? <BottomNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    // <AuthContext.Provider value={{ user, setUser }}>
+    //   <NavigationContainer theme={navigationTheme}>
+    //     {user ? <BottomNavigator /> : <AuthNavigator />}
+    //   </NavigationContainer>
+    // </AuthContext.Provider>
+    <onPoiClick/>
   );
 }
