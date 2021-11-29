@@ -28,7 +28,7 @@ const BottomNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Message"
+      name="Messages"
       component={MessageNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (

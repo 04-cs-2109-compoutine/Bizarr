@@ -1,11 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView} from "react-native";
+import { View, StyleSheet, Image, TouchableWithoutFeedback } from "react-native";
 import Text from "./Text";
 import colors from "./colors";
 
 function List({ title, subTitle, image, onPress }) {
   return (
-    <SafeAreaView style={styles.detailsContainer}>
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
         <Image style={styles.image} source={image} />
@@ -19,25 +18,18 @@ function List({ title, subTitle, image, onPress }) {
         </View>
       </View>
     </TouchableWithoutFeedback>
-    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 8,
-    flex: 1,
-    padding: 0,
+    borderRadius: 15,
     backgroundColor: colors.white,
-    // marginBottom: 4,
-    // padding: 4,
+    marginBottom: 20,
     overflow: "hidden",
   },
   detailsContainer: {
-    padding: 0,
-    borderRadius: 8,
-    flex: 1,
-    justifyContent: "flex-start"
+    padding: 20,
   },
   image: {
     width: "100%",
@@ -48,8 +40,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   title: {
-    flex: 1,
-    textAlign: "center"
+    marginBottom: 7,
   },
 });
 

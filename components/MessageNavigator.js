@@ -5,11 +5,11 @@ import MessagesScreen from "../screens/MessagesScreen";
 
 const Stack = createNativeStackNavigator();
 
-const MessageNavigator = () => {
+const MessageNavigator = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Messages" component={MessagesScreen} />
-    <Stack.Screen name="SingleMessage" component={SingleMessageScreen} />
-  </Stack.Navigator>;
-};
+    <Stack.Screen options={{ headerShown: false }}  name="Messages" component={MessagesScreen} />
+    <Stack.Screen options={{ headerShown: false }} name="SingleMessage" component={SingleMessageScreen} />
+  </Stack.Navigator>
+);
 
 export default MessageNavigator;
