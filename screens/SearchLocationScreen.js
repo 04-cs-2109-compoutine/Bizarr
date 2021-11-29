@@ -10,7 +10,8 @@ const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class onPoiClick extends React.Component {
+class SearchMap extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -60,7 +61,7 @@ class onPoiClick extends React.Component {
   }
 }
 
-OnPoiClick.propTypes = {
+SearchMap.propTypes = {
   provider: ProviderPropType,
 };
 
@@ -75,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default onPoiClick;
+export default SearchMap;
