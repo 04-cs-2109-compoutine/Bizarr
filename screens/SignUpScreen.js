@@ -32,10 +32,9 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Registered with:", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
-
+      }).catch((error) => alert(error.message));
+    };
+  
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
