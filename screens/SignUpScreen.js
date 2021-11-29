@@ -11,7 +11,7 @@ import {
   View,
   Image,
 } from "react-native";
-import BottomNavigator from "../components/BottomNavigator"
+import BottomNavigator from "../components/BottomNavigator";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -27,25 +27,32 @@ const SignUpScreen = () => {
   // }, []);
 
   const handleSignUp = () => {
-    auth.createUserWithEmailAndPassword(email, password)
+    auth
+      .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Registered with:", user.email);
+<<<<<<< HEAD
       }).catch((error) => alert(error.message));
     };
   
   //sign in with google
   function signInWithGoogle(){
+=======
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  //sign in with google
+  function signInWithGoogle() {
+>>>>>>> main
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image
-        style={styles.logo}
-        source={require("../assets/logotransparent.png")}
-      />
+      <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <TextInput placeholder="First Name" style={styles.input} />
@@ -75,14 +82,15 @@ const SignUpScreen = () => {
       <View>
         <TouchableOpacity
           onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}>
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.LoginLink}>Already have an Account? Login!</Text>
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
