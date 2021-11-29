@@ -1,4 +1,3 @@
-
 const messages = [
   {
     fromUserId: 2,
@@ -213,4 +212,4 @@ const categories = [
   }
 ];
 
-export default {messages, users, categories, listings}
+export {messages, users, categories, listings}

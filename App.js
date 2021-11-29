@@ -1,35 +1,27 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
+import navigationTheme from "./components/NavigationTheme"
+import BottomNavigator from './components/BottomNavigator';
+import AuthNavigator from './components/AuthNavigator';
+import AuthContext from "./components/context";
+import LocationMap from './components/LocationMap';
+import SingleListingScreen from './screens/SingleListingScreen';
+import AccountDetailsScreen from './screens/AccountDetailsScreen';
+import SendMessage from './components/SendMessage'
+import ListingsScreen from './screens/ListingsScreen';
 import LaunchScreen from './screens/LaunchScreen';
-import MyMap from './MyMap.js'
 import SignUpScreen from "./screens/SignUpScreen";
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
-  return (
+  const [user, setUser] = useState();
 
-//     <SignUpScreen />
-    <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Launch" component={LaunchScreen} />
-          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <BottomNavigator /> : <AuthNavigator />}
       </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

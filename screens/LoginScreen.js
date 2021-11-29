@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,40 +9,33 @@ import {
   View,
   Image,
 } from "react-native";
+import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigation = useNavigation();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  const authContext = useContext(AuthContext);
 
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       console.log("Registered with:", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //       if (user) {
+  //         authContext.setUser(user);
+  //       }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
+        console.log(userCredentials)
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
-      })
-      .catch((error) => alert(error.message));
+        authContext.setUser(user);
+      }).catch((error) => alert(error.message));
   };
 
   return (
@@ -54,12 +47,19 @@ const LoginScreen = () => {
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <TextInput
+            autoCapitalize="none"
+            keyboardType="email-address" 
             placeholder="Email"
+            icon="email"
+            textContentType="emailAddress"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
           <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            textContentType="password"
             placeholder="Password"
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -73,12 +73,7 @@ const LoginScreen = () => {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity> */}
+
       </View>
       <Text style={styles.signUpLink}>Don't have an Account? Sign up!</Text>
     </KeyboardAvoidingView>

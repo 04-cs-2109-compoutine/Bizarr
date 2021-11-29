@@ -1,26 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image} from 'react-native';
-import { Button } from 'react-native-elements';
-import RaisedButton from '../nonPages/launchButton'
+import {StyleSheet, Text, View, Image} from 'react-native';
+import {Button} from 'react-native-elements';
+import RaisedButton from '../components/Button/launchButton';
+import Login from './LoginScreen';
+import Screen from '../components/Screen';
+import routes from '../components/routes';
 
-const LaunchScreen = ({ navigation }) =>{
-return(
-    <View style={styles.container}>
-    <Image style={{width: 300, height: 300}} source={require('../src/image/logotransparent.png')} />
-    <Text>
-    </Text>
-    <View>
-    <RaisedButton
-  text="Login"
-  onPress={() =>
-    navigation.navigate('Login')} />
-<RaisedButton
-text="Sign Up"
-/>
-
-    </View>
-    </View>
-)
+const LaunchScreen = ({navigation}) => {
+  return (
+    <Screen>
+      <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require('../assets/image/logotransparent.png')}/>
+        <View style={styles.buttonsContainer}>
+          <RaisedButton text="Login" onPress={() => navigation.navigate("Login")}/>
+          <RaisedButton text="Sign up" onPress={() => navigation.navigate("Sign up")}/>
+        </View>
+      </View>
+    </Screen>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -33,6 +32,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         resizeMode: "stretch"
+    },
+    logo: {
+        width: 300,
+        height: 300
+    },
+    buttonsContainer: {
+        padding: 20,
+        width: "60%"
     },
     text: {
         color: "black",
