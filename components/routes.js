@@ -1,6 +1,7 @@
 export default Object.freeze({
   LOGIN: "Login",
   MESSAGES: "Messages",
+  SINGLE_MESSAGE: "SingleMessage",
   SIGNUP: "Sign up",
   POST_LISTING: "Post Listing",
   SEARCH_LOCATION: "Search Location",

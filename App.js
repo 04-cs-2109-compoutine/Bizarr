@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import navigationTheme from "./components/NavigationTheme";
 import BottomNavigator from "./components/BottomNavigator";
 import AuthNavigator from "./components/AuthNavigator";
@@ -15,6 +14,5 @@ export default function App() {
         {user ? <BottomNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
-    // <onPoiClick/>
   );
 }

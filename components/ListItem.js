@@ -2,18 +2,10 @@ import React from "react";
 import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-
 import Text from "./Text";
 import colors from "./colors";
 
-function ListItem({
-  title,
-  subTitle,
-  image,
-  IconComponent,
-  onPress,
-  renderRightActions,
-}) {
+function ListItem({title, subTitle, image, IconComponent, onPress, renderRightActions}) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
@@ -54,12 +46,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     borderRadius: 35,
   },
   subTitle: {
-    color: colors.medium,
+    color: colors.grey,
   },
   title: {
     fontWeight: "500",

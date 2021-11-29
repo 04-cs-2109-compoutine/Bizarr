@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, Dimensions, StyleSheet, SafeAreaView, Image } from 'react-native';
+import { Text, Dimensions, StyleSheet, SafeAreaView, Image } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import BottomNavigator from '../components/BottomNavigator';
+import Slideshow from "react-native-slideshow";
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -47,13 +47,16 @@ export default class HomeScreen extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      },
+      }
     };
   }
+
   render() {
     return (
       // <View style={styles.container}>
         <SafeAreaView>
+          <Text style={styles.text}>Hi, welcome!
+          </Text>
           {/* <Text>Email: {auth.currentUser?.email}</Text> */}
             <SafeAreaView style={{
               backgroundColor: "#E4EFE7",
@@ -64,12 +67,7 @@ export default class HomeScreen extends React.Component {
               alignItems: 'center',
               position: 'center'
             }}>
-              <Text style={{
-                 color: 'black',
-                 fontWeight: 'bold',
-                 fontSize: 16,
-                 textAlign: 'center'
-              }}>Hi, welcome!</Text>
+              
             </SafeAreaView>
 
         <MapView
@@ -139,8 +137,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  text:{
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 15
+  },
+  img:{
+    width: '100%',
+    height: '30%'
+  },
   map: {
-    height: 700,
+    height: 500,
   },
   bubble: {
     backgroundColor: "#E4EFE7",

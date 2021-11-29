@@ -2,29 +2,11 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
-import BottomNavigator from "../components/BottomNavigator";
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //           <BottomNavigator/>
-  //       }
-  //   });
-  //   return unsubscribe;
-  // }, []);
 
   const handleSignUp = () => {
     auth
