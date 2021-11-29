@@ -6,7 +6,14 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import Text from "./Text";
 import colors from "./colors";
 
-function ListItem({title, subTitle, image, IconComponent, onPress, renderRightActions}) {
+function ListItem({
+  title,
+  subTitle,
+  image,
+  IconComponent,
+  onPress,
+  renderRightActions,
+}) {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     padding: 15,
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
   },
   detailsContainer: {
     flex: 1,
