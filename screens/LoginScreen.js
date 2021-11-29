@@ -18,15 +18,6 @@ const LoginScreen = () => {
 
   const authContext = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //         authContext.setUser(user);
-  //       }
-  //   });
-  //   return unsubscribe;
-  // }, []);
-
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
@@ -40,12 +31,10 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image
-        style={styles.logo}
-        source={require("../assets/logotransparent.png")}
-      />
+      <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
+          <Text style={styles.loginText}>Login</Text>
           <TextInput
             placeholder="Email"
             value={email}
@@ -68,7 +57,12 @@ const LoginScreen = () => {
         </View>
 
       </View>
-      <Text style={styles.signUpLink}>Don't have an Account? Sign up!</Text>
+      <Text
+        style={styles.signUpLink}
+        onPress={() => navigation.navigate("Sign Up")}
+      >
+        Don't have an Account? Sign up!
+      </Text>
     </KeyboardAvoidingView>
   );
 };
@@ -88,12 +82,17 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
-    bottom: 30,
+    bottom: 20,
+  },
+  loginText: {
+    color: "gray",
+    marginBottom: 10,
+    marginLeft: "43%",
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "25%",
+    height: "30%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     width: "60%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
   },
   button: {
     backgroundColor: "#5C8389",
