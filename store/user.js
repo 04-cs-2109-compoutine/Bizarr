@@ -9,8 +9,8 @@ async function readAllUsers(){
     const snapshot = await getPromise;
     console.log(`Found ${snapshot.size}x user`);
     const docs = snapshot.docs;
-    docs.forEach(docSnapshot => {
-      console.log(docSnapshot.id, docSnapshot.data())
+    docs.forEach(user => {
+      console.log(user.id, user.data())
     })
   }catch(err){
     console.error(err)
