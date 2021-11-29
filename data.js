@@ -1,4 +1,3 @@
-
 const messages = [
   {
     fromUserId: 2,
