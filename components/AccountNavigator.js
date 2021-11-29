@@ -6,12 +6,12 @@ import MyListingScreen from "../screens/MyListingScreen"
 
 const Stack = createNativeStackNavigator();
 
-const ListNavigator = () =>{
+const AccountNavigator = () => (
   <Stack.Navigator>
-    <Stack.Screen name="MyAccount" component={AccountScreen} />
-    <Stack.Screen name="MyListing" component={MyListingScreen} />
-    <Stack.Screen name="AccountDetails" component={AccountDetailsScreen} />
+    <Stack.Screen name="My Account" component={AccountScreen} />
+    <Stack.Screen name="My Listings" component={MyListingScreen} />
+    <Stack.Screen name="Account Details" component={AccountDetailsScreen} />
   </Stack.Navigator>
-}
+)
 
-export default ListNavigator;
+export default AccountNavigator;

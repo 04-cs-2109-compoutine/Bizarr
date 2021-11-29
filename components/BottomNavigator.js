@@ -8,7 +8,6 @@ import PostListingScreen from "../screens/PostListingScreen";
 import PostButton from "./Button/PostButton";
 import ListNavigator from "./ListNavigator";
 import AccountNavigator from "./AccountNavigator";
-import routes from "./routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +60,9 @@ const BottomNavigator = () => (
     <Tab.Screen
       name="All Listings"
       component={ListNavigator}
-      options={{ tabBarIcon: ({ color, size }) => (
+      options={{ 
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
           <FontAwesome5
             name="border-all"
             color={color}
@@ -74,6 +75,7 @@ const BottomNavigator = () => (
       name="Account"
       component={AccountNavigator}
       options={{
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons 
             name="account" 

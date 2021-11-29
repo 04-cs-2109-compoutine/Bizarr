@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,30 +9,24 @@ import {
   View,
   Image,
 } from "react-native";
+import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigation = useNavigation();
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
+        console.log(userCredentials)
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
-      })
-      .catch((error) => alert(error.message));
+        authContext.setUser(user);
+      }).catch((error) => alert(error.message));
   };
 
   return (
@@ -61,12 +55,7 @@ const LoginScreen = () => {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity> */}
+
       </View>
       <Text
         style={styles.signUpLink}
