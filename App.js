@@ -20,6 +20,7 @@ export default function App() {
   const [user, setUser] = useState();
 
   return (
+
     <AuthContext.Provider value={{ user, setUser }}>
       <NavigationContainer theme={navigationTheme}>
         {user ? <BottomNavigator /> : <AuthNavigator />}
