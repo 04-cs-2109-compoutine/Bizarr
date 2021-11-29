@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 8,
     flex: 1,
+    padding: 0,
     backgroundColor: colors.white,
     // // marginBottom: 4,
     // // padding: 4,
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 0,
+    borderRadius: 8,
     flex: 1,
     justifyContent: "flex-start"
   },
@@ -53,8 +55,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   title: {
-    marginBottom: 7,
-    flex: 1
+    flex: 1,
+    textAlign: "center"
   },
 });
 

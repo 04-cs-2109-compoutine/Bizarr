@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     // marginHorizontal: 10,
   },
-  // list: {
-  //   // padding: 5,
-  //   alignItems: "center",
-  //   // marginHorizontal: 10
-  // },
+  list: {
+    // padding: 5,
+    alignItems: "center",
+    // marginHorizontal: 10
+  },
   screen: {
     flex: 1,
     // marginHorizontal: 10
