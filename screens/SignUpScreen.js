@@ -29,12 +29,36 @@ const SignUpScreen = () => {
   //   return unsubscribe;
   // }, []);
 
+  // const handleSignUp = () => {
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((userCredentials) => {
+  //       //signed in
+  //       const user = userCredentials.user;
+  //       console.log("Registered with:", user.email);
+  //     })
+  //     .catch((error) => alert(error.message));
+
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
+        //signed in
         const user = userCredentials.user;
-        console.log("Registered with:", user.email);
+        user
+          .updateProfile({
+            displayName: name,
+            photoURL: imageURL
+              ? imageURL
+              : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
+          })
+          .then(function () {
+            //update successful
+          })
+          .catch(function (error) {
+            //an error occurred
+          });
+        //...
       })
       .catch((error) => alert(error.message));
   };
@@ -68,7 +92,7 @@ const SignUpScreen = () => {
             //label="Email"
             leftIcon={{ type: "material", name: "email" }}
             value={email}
-            onChangeText={(text) => setName(email)}
+            onChangeText={(email) => setEmail(email)}
             style={styles.input}
           />
 
@@ -87,7 +111,7 @@ const SignUpScreen = () => {
             //label="Profile Picture"
             leftIcon={{ type: "material", name: "face" }}
             value={imageURL}
-            onChangeText={(text) => setImageUrl(text)}
+            onChangeText={(text) => setImageURL(text)}
             style={styles.input}
           />
 
