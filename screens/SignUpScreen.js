@@ -2,11 +2,29 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
+import BottomNavigator from "../components/BottomNavigator";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //       if (user) {
+  //           <BottomNavigator/>
+  //       }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const handleSignUp = () => {
     auth
@@ -14,9 +32,10 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Registered with:", user.email);
-      }).catch((error) => alert(error.message));
-    };
-  
+      })
+      .catch((error) => alert(error.message));
+  };
+
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -48,7 +67,8 @@ const SignUpScreen = () => {
 
         <TouchableOpacity
           onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}>
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>

@@ -9,7 +9,8 @@ import {
   View,
   Image,
 } from "react-native";
-import { Input } from "react-native-elements";
+import { Input, Button } from "react-native-elements";
+import colors from "../components/colors";
 
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
@@ -63,7 +64,11 @@ const LoginScreen = () => {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={handleLogin} style={styles.button}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Button
+              title="Log in"
+              buttonStyle={{ backgroundColor: colors.main }}
+              style={styles.loginButton}
+            ></Button>
           </TouchableOpacity>
         </View>
       </View>
@@ -113,35 +118,39 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
   },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  button: {
-    backgroundColor: "#5C8389",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
+  // buttonContainer: {
+  //   width: "60%",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   marginTop: 20,
+  // },
+  // button: {
+  //   backgroundColor: "#5C8389",
+  //   width: "100%",
+  //   padding: 15,
+  //   borderRadius: 10,
+  //   alignItems: "center",
+  // },
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
     borderColor: "#0782F9",
     borderWidth: 2,
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
+  loginButton: {
+    width: 200,
+    borderRadius: 10,
   },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontWeight: "700",
-    fontSize: 16,
-  },
+  // buttonText: {
+  //   color: "white",
+  //   fontWeight: "700",
+  //   fontSize: 16,
+  // },
+  // buttonOutlineText: {
+  //   color: "#0782F9",
+  //   fontWeight: "700",
+  //   fontSize: 16,
+  // },
   signUpLink: {
     color: "white",
     top: 70,
