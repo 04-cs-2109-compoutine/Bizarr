@@ -68,7 +68,6 @@ export default class HomeScreen extends React.Component {
       )
       console.log(listings)
       return listings;
-
   }
 
   render() {
@@ -91,62 +90,56 @@ export default class HomeScreen extends React.Component {
 
             </SafeAreaView>
 
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={this.state.region}
-          onPress={this.onMapPress}
-          loadingEnabled
-          loadingIndicatorColor='#666666'
-          loadingBackgroundColor='#EEEEEE'
-        >
-          {/* <Marker
-            coordinate={{
-              latitude: LATITUDE - SPACE,
-              longitude: LONGITUDE - SPACE,
-            }}
-            centerOffset={{ x: -42, y: -60 }}
-            anchor={{ x: 0.84, y: 1 }}
-          >
-            <Callout>
-              <View>
-                <Text>Pick up</Text>
-              </View>
-            </Callout> */}
-          {/* </Marker> */}
-          {this.state.listings.map((listing, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: listing.location.latitude,
-                longitude: listing.location.longitude,
-              }}
-              centerOffset={{ x: -42, y: -60 }}
-              anchor={{ x: 0.84, y: 1 }}
-              title={listing.title}
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              initialRegion={this.state.region}
+              onPress={this.onMapPress}
+              loadingEnabled
+              loadingIndicatorColor='#666666'
+              loadingBackgroundColor='#EEEEEE'
             >
-              <Callout>
-                  <Text>
-                    {listing.title}
-                    {listing.description}
-                    <Image style={{
-                      width: 40,
-                      height: 40
-                      }}
-                      source={listing.images}>
-                    </Image>
-                  </Text>
-              </Callout>
-            </Marker>
-          ))}
-        </MapView>
-        {/* <View style={styles.buttonContainer}>
-          <View style={styles.bubble}>
-            <Text>Map with Loading</Text>
-          </View>
-        </View> */}
+              {/* <Marker
+                coordinate={{
+                  latitude: LATITUDE - SPACE,
+                  longitude: LONGITUDE - SPACE,
+                }}
+                centerOffset={{ x: -42, y: -60 }}
+                anchor={{ x: 0.84, y: 1 }}
+              >
+                <Callout>
+                  <View>
+                    <Text>Pick up</Text>
+                  </View>
+                </Callout> */}
+              {/* </Marker> */}
+              {this.state.listings.map((listing, index) => (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: listing.location.latitude,
+                    longitude: listing.location.longitude,
+                  }}
+                  centerOffset={{ x: -42, y: -60 }}
+                  anchor={{ x: 0.84, y: 1 }}
+                  title={listing.title}
+                >
+                  <Callout>
+                      <Text>
+                        {listing.title}
+                        {listing.description}
+                        <Image style={{
+                          width: 40,
+                          height: 40
+                          }}
+                          source={listing.images}>
+                        </Image>
+                      </Text>
+                  </Callout>
+                </Marker>
+              ))}
+            </MapView>
         {/* <BottomNavigator/> */}
-        {/* </View>  */}
     </SafeAreaView>
     );
   }
