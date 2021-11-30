@@ -11,7 +11,8 @@ import {
   View,
   Image,
 } from "react-native";
-import BottomNavigator from "../components/BottomNavigator";
+import colors from "../components/colors";
+import { Input, Button } from "react-native-elements";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -47,16 +48,17 @@ const SignUpScreen = () => {
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          <TextInput placeholder="First Name" style={styles.input} />
-          <TextInput placeholder="Last Name" style={styles.input} />
-          <TextInput placeholder="Username" style={styles.input} />
-          <TextInput
+          {/* <Input placeholder="First Name" style={styles.input} /> */}
+          <Input placeholder="Full Name" style={styles.input} />
+          {/* <Input placeholder="Last Name" style={styles.input} /> */}
+          {/* <Input placeholder="Username" style={styles.input} /> */}
+          <Input
             placeholder="E-mail"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
-          <TextInput
+          <Input
             placeholder="Password"
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -69,7 +71,11 @@ const SignUpScreen = () => {
           onPress={handleSignUp}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Button
+            title="Register"
+            buttonStyle={{ backgroundColor: colors.main }}
+            style={styles.RegisterButton}
+          ></Button>
         </TouchableOpacity>
       </View>
       <View>
@@ -109,10 +115,9 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
+    width: 15,
+    height: 5,
+    paddingHorizontal: 5,
   },
   buttonContainer: {
     width: "60%",
@@ -121,11 +126,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: "#5C8389",
     width: "60%",
-    padding: 10,
     borderRadius: 10,
-    alignItems: "center",
   },
   buttonOutline: {
     backgroundColor: "#5C8389",
