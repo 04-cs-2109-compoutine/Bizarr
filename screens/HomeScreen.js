@@ -66,7 +66,7 @@ export default class HomeScreen extends React.Component {
           }))
         })
       )
-      console.log(listings)
+      console.log("homescreen", listings)
       return listings;
   }
 
