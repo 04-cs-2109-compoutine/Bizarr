@@ -5,7 +5,7 @@ import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
-import { anyTypeAnnotation } from "@babel/types";
+import routes from "../components/Config/routes";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -17,7 +17,7 @@ function SingleListingScreen({ route, navigation }) {
           <Text style={styles.title}>{listing.title}</Text>
           <Text style={styles.price}>${listing.price}</Text>
         </View>
-          <SubmitButton title="Message" onPress={() => navigation.navigate("SingleMessage")}/>
+          <SubmitButton title="Message" onPress={() => navigation.navigate(routes.SINGLE_MESSAGE)}/>
       </View>
       <View style={styles.sellerContainer}>
         <ListItem
@@ -35,8 +35,6 @@ function SingleListingScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   detailsContainer: {
-    justifyContent: "space-between",
-    flexDirection:"row",
     padding: 15,
   },
   image: {

@@ -51,7 +51,7 @@ function ListingsScreen({ navigation }) {
     },
     {
       id: 8,
-      title: "Couch in great condition",
+      title: "Couch in great condition and you don't want to miss out",
       price: 1000,
       image: require("../assets/couch.jpg"),
     },

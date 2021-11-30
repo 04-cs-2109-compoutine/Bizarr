@@ -18,6 +18,7 @@ const BottomNavigator = () => (
       name="Home"
       component={HomeScreen}
       options={{
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons 
             name="home" 
@@ -30,7 +31,8 @@ const BottomNavigator = () => (
     <Tab.Screen
       name="Messages"
       component={MessageNavigator}
-      options={{
+      options={{ 
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <AntDesign
             name="message1"

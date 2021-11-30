@@ -44,19 +44,19 @@
 //   }
 // }
 
-import firebase from "firebase";
-import { ListItem } from "react-native-elements/dist/list/ListItem";
-import db from "../firebase"
+// import firebase from "firebase";
+// import { ListItem } from "react-native-elements/dist/list/ListItem";
+// import db from "../firebase"
 
-const messages = firebase.database().ref("messages");
+// const messages = firebase.database().ref("messages");
 
-export const send = messages =>{
-  messages.forEach(item => {
-    const message = {
-      text: item.text,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      user: item.user
-    };
-    db.push(message)
-  })
-}
+// export const send = messages =>{
+//   messages.forEach(item => {
+//     const message = {
+//       text: item.text,
+//       timestamp: firebase.database.ServerValue.TIMESTAMP,
+//       user: item.user
+//     };
+//     db.push(message)
+//   })
+// }

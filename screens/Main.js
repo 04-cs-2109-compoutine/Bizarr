@@ -1,14 +1,19 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import navigationTheme from "../components/NavigationTheme";
+import BottomNavigator from "../components/BottomNavigator";
+import AuthNavigator from "../components/AuthNavigator";
+import AuthContext from "../components/context";
 
-function Main(props) {
+function Main() {
+  const [user, setUser] = useState();
+
   return (
-    <View style={styles.container}></View>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <BottomNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {}
-});
-
 export default Main;
