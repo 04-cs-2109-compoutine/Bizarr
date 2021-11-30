@@ -37,8 +37,7 @@ const SPACE = 0.01;
 //     longitude: -73.98
 //   }
 // ];
-const listings = db.collection("listings").get();
-    console.log(listings)
+
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -54,10 +53,26 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    const listings = db
+      .collection("listings")
+      .orderBy("userId")
+      .onSnapshot((snapshot) =>
+        this.setState({
+          listings: snapshot.docs.map((doc) => ({
+            description: doc.data().description,
+            images: doc.data().images,
+            title: doc.data().title,
+            location: doc.data().location,
+          }))
+        })
+      )
+      console.log(listings)
+      return listings;
 
   }
 
   render() {
+    console.log(this.state)
     return (
       // <View style={styles.container}>
         <SafeAreaView>
@@ -99,12 +114,12 @@ export default class HomeScreen extends React.Component {
               </View>
             </Callout> */}
           {/* </Marker> */}
-          {listings.map((listing, index) => (
+          {this.state.listings.map((listing, index) => (
             <Marker
               key={index}
               coordinate={{
-                latitude: listing.latitude,
-                longitude: listing.longitude,
+                latitude: listing.location.latitude,
+                longitude: listing.location.longitude,
               }}
               centerOffset={{ x: -42, y: -60 }}
               anchor={{ x: 0.84, y: 1 }}
@@ -113,12 +128,12 @@ export default class HomeScreen extends React.Component {
               <Callout>
                   <Text>
                     {listing.title}
-                    {listing.price}
+                    {listing.description}
                     <Image style={{
                       width: 40,
                       height: 40
                       }}
-                      source={listing.image}>
+                      source={listing.images}>
                     </Image>
                   </Text>
               </Callout>
