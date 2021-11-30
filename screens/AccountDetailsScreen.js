@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { View, StyleSheet, Image, TextInput } from 'react-native';
-import defaultStyles from '../components/styles';
+import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
 
 function AccountDetailsScreen() {

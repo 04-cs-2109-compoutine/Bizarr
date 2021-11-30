@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import navigationTheme from "./components/NavigationTheme";
-import BottomNavigator from "./components/BottomNavigator";
-import AuthNavigator from "./components/AuthNavigator";
-import AuthContext from "./components/context";
+import React from 'react';
+import { Provider } from 'react-redux';
+import Main from './screens/Main';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 
 export default function App() {
-  const [user, setUser] = useState();
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
-        {user ? <BottomNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Main />
+      </PersistGate>
+    </Provider>
   );
 }

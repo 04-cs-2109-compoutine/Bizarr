@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView} from "react-native";
-import Text from "./Text";
-import colors from "./colors";
+import Text from "./Config/Text";
+import colors from "./Config/colors";
 
-function List({ title, subTitle, image, onPress }) {
+function List({ title, price, image, onPress }) {
   return (
     <SafeAreaView style={styles.detailsContainer}>
     <TouchableWithoutFeedback onPress={onPress}>
@@ -13,8 +13,8 @@ function List({ title, subTitle, image, onPress }) {
           <Text style={styles.title} numberOfLines={1}>
             {title}
           </Text>
-          <Text style={styles.subTitle} numberOfLines={2}>
-            {subTitle}
+          <Text style={styles.price} numberOfLines={2}>
+            {price}
           </Text>
         </View>
       </View>
@@ -25,13 +25,10 @@ function List({ title, subTitle, image, onPress }) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 8,
-    flex: 1,
-    padding: 0,
+    borderRadius: 15,
     backgroundColor: colors.white,
-    // marginBottom: 4,
-    // padding: 4,
     overflow: "hidden",
+    margin: 5
   },
   detailsContainer: {
     padding: 0,
@@ -43,9 +40,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
   },
-  subTitle: {
+  price: {
     color: colors.secondary,
     fontWeight: "bold",
+    textAlign: "center"
   },
   title: {
     flex: 1,
