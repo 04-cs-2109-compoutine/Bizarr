@@ -38,7 +38,6 @@ const LoginScreen = () => {
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          <Text style={styles.loginText}>Login</Text>
           <Input
             autoCapitalize="none"
             keyboardType="email-address"
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    backgroundColor: "white",
+    //backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,

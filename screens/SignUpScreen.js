@@ -73,7 +73,6 @@ const SignUpScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
-        <Text style={styles.signUpText}>Register</Text>
         <View style={styles.inputContainer}>
           {/* <Input placeholder="First Name" style={styles.input} /> */}
           {/* <Input placeholder="Last Name" style={styles.input} /> */}
@@ -178,7 +177,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
   },
   // buttonContainer: {
   //width: "60%",
