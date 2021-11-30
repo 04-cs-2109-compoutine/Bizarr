@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import { signUp } from "../store/user"
+import React, { useEffect, useState, useDispatch } from "react";
 import firebase from "firebase";
 import { auth } from "../firebase";
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
@@ -7,29 +8,36 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const handleSignUp = () => {
+    console.log(auth.currentUser, 'auth');
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        const user = userCredentials.user;
+        const user = userCredentials.user; //not user.userCredentials?
+        console.log(userCredentials.user, 'userCreds');
         console.log("Registered with:", user.email);
       }).catch((error) => alert(error.message));
+      // dispatch(signUp(email, password));
+// useEffect(() => {
+// firebase.auth().currentUser = this.user;
+// })
     };
+    
   
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          <TextInput placeholder="First Name" style={styles.input} />
-          <TextInput placeholder="Last Name" style={styles.input} />
+          {/* <TextInput placeholder="First Name" style={styles.input} />
+          <TextInput placeholder="Last Name" style={styles.input} /> */}
           <TextInput placeholder="Username" style={styles.input} />
           <TextInput
             placeholder="E-mail"
@@ -43,6 +51,18 @@ const SignUpScreen = () => {
             onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
+          />
+             <TextInput
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={(firstName) => setFirstName(firstName)}
+            style={styles.input}
+          />
+            <TextInput
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={(lastName) => setLastName(lastName)}
+            style={styles.input}
           />
         </View>
 
