@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
-import Text from "../components/Text";
+import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import { anyTypeAnnotation } from "@babel/types";
 

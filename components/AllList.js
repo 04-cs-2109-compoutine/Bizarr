@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableWithoutFeedback, SafeAreaView} from "react-native";
-import Text from "./Text";
-import colors from "./colors";
+import Text from "./Config/Text";
+import colors from "./Config/colors";
 
 function List({ title, price, image, onPress }) {
   return (

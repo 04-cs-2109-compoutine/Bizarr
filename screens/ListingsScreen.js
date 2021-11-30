@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet} from "react-native";
 import AllList from "../components/AllList";
-import colors from "../components/colors";
-import routes from "../components/routes";
+import colors from "../components/Config/colors";
+import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 
 function ListingsScreen({ navigation }) {
