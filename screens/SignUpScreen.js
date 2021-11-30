@@ -11,7 +11,7 @@ import {
   View,
   Image,
 } from "react-native";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
 
 const SignUpScreen = () => {

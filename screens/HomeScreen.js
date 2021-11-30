@@ -1,20 +1,16 @@
-<<<<<<< HEAD
 import React from "react";
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 import {
+  View,
   Text,
   Dimensions,
   StyleSheet,
   SafeAreaView,
   Image,
+  ScrollView,
 } from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-=======
-import React from 'react';
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView} from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import { SliderBox } from 'react-native-image-slider-box';
-import { SearchBar } from 'react-native-elements';
->>>>>>> main
+import { SliderBox } from "react-native-image-slider-box";
+import { SearchBar } from "react-native-elements";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -61,17 +57,14 @@ export default class HomeScreen extends React.Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
-<<<<<<< HEAD
-=======
       images: [
-        'https://thecrossingsofdawsonville.com/wp-content/uploads/sites/14/2019/07/Welcome-to-the-team-1200x565.jpg',
-        'https://www.creativefabrica.com/wp-content/uploads/2020/09/23/WELCOME-Graphics-5632158-1.jpg',
-        'https://media.istockphoto.com/photos/on-colourful-speech-bubbles-picture-id180819641?b=1&k=20&m=180819641&s=170667a&w=0&h=CX51cRVofQl95e_cu9Bfy5PLZQ1WdsqmJ-NCFzU96UI=',
-        'https://mobilemonkey.com/wp-content/uploads/2020/12/welcome-greeting-message.png',
-        'https://img.pixers.pics/pho_wat(s3:700/FO/53/86/52/14/700_FO53865214_8d9a5b68feceb7b851e95b5a8f6fd218.jpg,700,525,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,475,jpg)/stickers-welcome-tag-cloud-customer-service-greetings-home-smile-card.jpg.jpg'
+        "https://thecrossingsofdawsonville.com/wp-content/uploads/sites/14/2019/07/Welcome-to-the-team-1200x565.jpg",
+        "https://www.creativefabrica.com/wp-content/uploads/2020/09/23/WELCOME-Graphics-5632158-1.jpg",
+        "https://media.istockphoto.com/photos/on-colourful-speech-bubbles-picture-id180819641?b=1&k=20&m=180819641&s=170667a&w=0&h=CX51cRVofQl95e_cu9Bfy5PLZQ1WdsqmJ-NCFzU96UI=",
+        "https://mobilemonkey.com/wp-content/uploads/2020/12/welcome-greeting-message.png",
+        "https://img.pixers.pics/pho_wat(s3:700/FO/53/86/52/14/700_FO53865214_8d9a5b68feceb7b851e95b5a8f6fd218.jpg,700,525,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,475,jpg)/stickers-welcome-tag-cloud-customer-service-greetings-home-smile-card.jpg.jpg",
       ],
-      search: '',
->>>>>>> main
+      search: "",
     };
   }
 
@@ -83,35 +76,17 @@ export default class HomeScreen extends React.Component {
     const { search } = this.state;
     return (
       // <View style={styles.container}>
-<<<<<<< HEAD
       <SafeAreaView>
-        <Text style={styles.text}>Hi, welcome!</Text>
-        {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-        <SafeAreaView
-          style={{
-            backgroundColor: "#E4EFE7",
-            width: "100%",
-            height: 80,
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            position: "center",
-          }}
-        ></SafeAreaView>
-
-=======
-        <SafeAreaView>
-          <SearchBar
-            placeholder="Type Here..."
-            onChangeText={this.updateSearch}
-            value={search}
-            showCancel
-            lightTheme
-          />
-          <View style={styles.banner}>
-            <SliderBox images={this.state.images} />
-          </View>
->>>>>>> main
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={this.updateSearch}
+          value={search}
+          showCancel
+          lightTheme
+        />
+        <View style={styles.banner}>
+          <SliderBox images={this.state.images} />
+        </View>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
@@ -180,29 +155,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-<<<<<<< HEAD
+  banner: {
+    marginVertical: 10,
+  },
   text: {
     color: "black",
     fontWeight: "bold",
-=======
-  banner:{
-    marginVertical: 10,
-  },
-  text:{
-    color: 'black',
-    fontWeight: 'bold',
->>>>>>> main
     fontSize: 16,
     textAlign: "center",
     margin: 15,
   },
-<<<<<<< HEAD
-  img: {
-    width: "100%",
-    height: "30%",
-  },
-=======
->>>>>>> main
   map: {
     height: 500,
   },

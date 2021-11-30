@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 import { Input, Button } from "react-native-elements";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
