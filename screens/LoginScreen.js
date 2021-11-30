@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,6 +9,8 @@ import {
   View,
   Image,
 } from "react-native";
+import { Input } from "react-native-elements";
+
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
@@ -22,11 +24,12 @@ const LoginScreen = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        console.log(userCredentials)
+        console.log(userCredentials);
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
         authContext.setUser(user);
-      }).catch((error) => alert(error.message));
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -35,21 +38,22 @@ const LoginScreen = () => {
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.loginText}>Login</Text>
-          <TextInput
+          <Input
             autoCapitalize="none"
-            keyboardType="email-address" 
+            keyboardType="email-address"
             placeholder="Email"
-            icon="email"
+            leftIcon={{ type: "material", name: "email" }}
             textContentType="emailAddress"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
-          <TextInput
+          <Input
             autoCapitalize="none"
             autoCorrect={false}
             textContentType="password"
             placeholder="Password"
+            leftIcon={{ type: "material", name: "lock" }}
             value={password}
             onChangeText={(text) => setPassword(text)}
             style={styles.input}
@@ -62,7 +66,6 @@ const LoginScreen = () => {
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
-
       </View>
       <Text
         style={styles.signUpLink}

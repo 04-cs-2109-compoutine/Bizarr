@@ -1,9 +1,14 @@
-import React from 'react';
-import { Text, Dimensions, StyleSheet, SafeAreaView, Image } from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import Slideshow from "react-native-slideshow";
+import React from "react";
+import {
+  Text,
+  Dimensions,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+} from "react-native";
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const LATITUDE = 40.73;
 const LONGITUDE = -73.99;
@@ -18,7 +23,7 @@ const listings = [
     price: 100,
     image: require("../assets/jacket.jpg"),
     latitude: 40.73,
-    longitude: -73.99
+    longitude: -73.99,
   },
   {
     id: 2,
@@ -26,7 +31,7 @@ const listings = [
     price: 1000,
     image: require("../assets/couch.jpg"),
     latitude: 40.73,
-    longitude: -74
+    longitude: -74,
   },
   {
     id: 1,
@@ -34,8 +39,8 @@ const listings = [
     price: 500,
     image: require("../assets/jacket.jpg"),
     latitude: 40.72,
-    longitude: -73.98
-  }
+    longitude: -73.98,
+  },
 ];
 
 export default class HomeScreen extends React.Component {
@@ -47,28 +52,27 @@ export default class HomeScreen extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      }
+      },
     };
   }
 
   render() {
     return (
       // <View style={styles.container}>
-        <SafeAreaView>
-          <Text style={styles.text}>Hi, welcome!
-          </Text>
-          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-            <SafeAreaView style={{
-              backgroundColor: "#E4EFE7",
-              width: '100%',
-              height: 80,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'center'
-            }}>
-              
-            </SafeAreaView>
+      <SafeAreaView>
+        <Text style={styles.text}>Hi, welcome!</Text>
+        {/* <Text>Email: {auth.currentUser?.email}</Text> */}
+        <SafeAreaView
+          style={{
+            backgroundColor: "#E4EFE7",
+            width: "100%",
+            height: 80,
+            borderRadius: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            position: "center",
+          }}
+        ></SafeAreaView>
 
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -76,8 +80,8 @@ export default class HomeScreen extends React.Component {
           initialRegion={this.state.region}
           onPress={this.onMapPress}
           loadingEnabled
-          loadingIndicatorColor='#666666'
-          loadingBackgroundColor='#EEEEEE'
+          loadingIndicatorColor="#666666"
+          loadingBackgroundColor="#EEEEEE"
         >
           {/* <Marker
             coordinate={{
@@ -105,16 +109,17 @@ export default class HomeScreen extends React.Component {
               title={listing.title}
             >
               <Callout>
-                  <Text>
-                    {listing.title}
-                    {listing.price}
-                    <Image style={{
+                <Text>
+                  {listing.title}
+                  {listing.price}
+                  <Image
+                    style={{
                       width: 40,
-                      height: 40
-                      }}
-                      source={listing.image}>
-                    </Image>
-                  </Text>
+                      height: 40,
+                    }}
+                    source={listing.image}
+                  ></Image>
+                </Text>
               </Callout>
             </Marker>
           ))}
@@ -126,7 +131,7 @@ export default class HomeScreen extends React.Component {
         </View> */}
         {/* <BottomNavigator/> */}
         {/* </View>  */}
-    </SafeAreaView>
+      </SafeAreaView>
     );
   }
 }
@@ -134,19 +139,19 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  text:{
-    color: 'black',
-    fontWeight: 'bold',
+  text: {
+    color: "black",
+    fontWeight: "bold",
     fontSize: 16,
-    textAlign: 'center',
-    margin: 15
+    textAlign: "center",
+    margin: 15,
   },
-  img:{
-    width: '100%',
-    height: '30%'
+  img: {
+    width: "100%",
+    height: "30%",
   },
   map: {
     height: 500,
@@ -158,8 +163,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginVertical: 20,
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent",
   },
 });

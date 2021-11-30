@@ -3,6 +3,7 @@ import React, { useState, useCallback, useLayoutEffect } from "react";
 import { StyleSheet } from "react-native";
 import colors from "../components/colors";
 import { GiftedChat } from "react-native-gifted-chat";
+import { Avatar } from "react-native-elements";
 
 export function SingleMessageScreen() {
   const [messages, setMessages] = useState([]);
@@ -18,7 +19,7 @@ export function SingleMessageScreen() {
             _id: doc.data()._id,
             createdAt: doc.data().createdAt.toDate(),
             text: doc.data().text,
-            user: doc.data().use,
+            user: doc.data().user,
           }))
         )
       );
