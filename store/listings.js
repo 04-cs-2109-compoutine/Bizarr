@@ -15,9 +15,11 @@ export const fetchListings = () => {
       const collectionRef = db.collection("listings");
       const getPromise = collectionRef.get();
       const snapshot = await getPromise;
-      const docs = snapshot.docs;
-      console.log(docs)
-      dispatch(_fetchListings(docs))
+      const listings = snapshot.docs.map((doc) => ({
+
+      }));
+      console.log("action creator", listings)
+      dispatch(_fetchListings(listings))
     } catch(e) {
       console.log(e)
     }

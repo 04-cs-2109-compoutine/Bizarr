@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { FlatList, StyleSheet} from "react-native";
 import AllList from "../components/AllList";
 import colors from "../components/Config/colors";
@@ -6,6 +6,7 @@ import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchListings } from '../store/listings'
+import { db } from '../firebase'
 
 function ListingsScreen({ navigation }) {
   // const [listings, setListings] = useState([
@@ -58,13 +59,22 @@ function ListingsScreen({ navigation }) {
   //     image: require("../assets/couch.jpg"),
   //   },
   // ])
+  const [listings, setListings] = useState([]);
+  console.log(listings)
 
-  const listings = useSelector((state) => state.listings)
-  console.log("listing screen", listings)
-  const dispatch = useDispatch();
-
+  async function readAllListing() {
+    try {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      setListings({
+        listings: data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
   useEffect(() => {
-    dispatch(fetchListings())
+    readAllListing();
   }, [])
 
   return (
@@ -77,7 +87,7 @@ function ListingsScreen({ navigation }) {
           <AllList
             title={item.title}
             price={"$" + item.price}
-            image={item.image}
+            image={item.images}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}

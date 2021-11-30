@@ -73,7 +73,6 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     const listings = db
       .collection("listings")
-      .orderBy("userId")
       .onSnapshot((snapshot) =>
         this.setState({
           listings: snapshot.docs.map((doc) => ({
@@ -84,26 +83,17 @@ export default class HomeScreen extends React.Component {
           }))
         })
       )
-      console.log("homescreen", listings)
       return listings;
   }
 
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
+
   render() {
-    console.log(this.state)
+    const search = this.state.search;
     return (
-      // <View style={styles.container}>
         <SafeAreaView>
-          {/* <Text>Email: {auth.currentUser?.email}</Text> */}
-            {/* <SafeAreaView style={{
-              backgroundColor: "#E4EFE7",
-              width: '100%',
-              height: 80,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'center'
-            }}> */}
-              {/* <Text style={styles.text}>Hi, welcome!</Text> */}
               <SearchBar
                 placeholder="Type Here..."
                 onChangeText={this.updateSearch}
@@ -114,16 +104,15 @@ export default class HomeScreen extends React.Component {
               <View style={styles.banner}>
                 <SliderBox images={this.state.images} />
               </View>
-            {/* </SafeAreaView> */}
-            <MapView
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              initialRegion={this.state.region}
-              onPress={this.onMapPress}
-              loadingEnabled
-              loadingIndicatorColor='#666666'
-              loadingBackgroundColor='#EEEEEE'
-            >
+                <MapView
+                  provider={PROVIDER_GOOGLE}
+                  style={styles.map}
+                  initialRegion={this.state.region}
+                  onPress={this.onMapPress}
+                  loadingEnabled
+                  loadingIndicatorColor='#666666'
+                  loadingBackgroundColor='#EEEEEE'
+                >
               {/* <Marker
                 coordinate={{
                   latitude: LATITUDE - SPACE,
@@ -157,7 +146,7 @@ export default class HomeScreen extends React.Component {
                           width: 40,
                           height: 40
                           }}
-                          source={listing.images[0]}>
+                          source={listing.images}>
                         </Image>
                       </Text>
                   </Callout>
