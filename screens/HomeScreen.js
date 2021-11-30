@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Dimensions, StyleSheet, SafeAreaView, Image } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import Slideshow from "react-native-slideshow";
+import { db } from '../firebase'
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -11,37 +11,39 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-const listings = [
-  {
-    id: 1,
-    title: "Red jacket for sale",
-    price: 100,
-    image: require("../assets/jacket.jpg"),
-    latitude: 40.73,
-    longitude: -73.99
-  },
-  {
-    id: 2,
-    title: "Couch in great condition",
-    price: 1000,
-    image: require("../assets/couch.jpg"),
-    latitude: 40.73,
-    longitude: -74
-  },
-  {
-    id: 1,
-    title: "Memory foam mattress - slight wear",
-    price: 500,
-    image: require("../assets/jacket.jpg"),
-    latitude: 40.72,
-    longitude: -73.98
-  }
-];
-
+// const listings = [
+//   {
+//     id: 1,
+//     title: "Red jacket for sale",
+//     price: 100,
+//     image: require("../assets/jacket.jpg"),
+//     latitude: 40.73,
+//     longitude: -73.99
+//   },
+//   {
+//     id: 2,
+//     title: "Couch in great condition",
+//     price: 1000,
+//     image: require("../assets/couch.jpg"),
+//     latitude: 40.73,
+//     longitude: -74
+//   },
+//   {
+//     id: 1,
+//     title: "Memory foam mattress - slight wear",
+//     price: 500,
+//     image: require("../assets/jacket.jpg"),
+//     latitude: 40.72,
+//     longitude: -73.98
+//   }
+// ];
+const listings = db.collection("listings").get();
+    console.log(listings)
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      listings: [],
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -49,6 +51,10 @@ export default class HomeScreen extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       }
     };
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
@@ -67,7 +73,7 @@ export default class HomeScreen extends React.Component {
               alignItems: 'center',
               position: 'center'
             }}>
-              
+
             </SafeAreaView>
 
         <MapView
