@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    height: 200,
+    height: 250,
   },
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',

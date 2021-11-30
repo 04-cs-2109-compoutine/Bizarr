@@ -9,8 +9,14 @@ const Stack = createNativeStackNavigator();
 const AccountNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="My Account" component={AccountScreen} />
-    <Stack.Screen name="My Listings" component={MyListingScreen} />
-    <Stack.Screen name="Account Details" component={AccountDetailsScreen} />
+    <Stack.Screen 
+      name="My Listings" 
+      component={MyListingScreen} 
+      options={{headerTitle: ""}}/>
+    <Stack.Screen 
+      name="Account Details" 
+      component={AccountDetailsScreen} 
+      options={{headerTitle: ""}}/>
   </Stack.Navigator>
 )
 

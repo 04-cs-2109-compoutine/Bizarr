@@ -1,25 +1,30 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
-import Text from "../components/Text";
+import Text from "../components/Config/Text";
+import SubmitButton from "../components/Button/SubmitButton";
+import routes from "../components/Config/routes";
 
-function SingleListingScreen({ route }) {
+function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
   return (
     <View>
       <Image style={styles.image} source={listing.image} />
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{listing.title}</Text>
-        <Text style={styles.price}>${listing.price}</Text>
         <View>
-          <ListItem
-            image={require("../assets/user.png")}
-            title="Snow White"
-            subTitle="25 Listings"
-          />
+          <Text style={styles.title}>{listing.title}</Text>
+          <Text style={styles.price}>${listing.price}</Text>
         </View>
+          <SubmitButton title="Message" onPress={() => navigation.navigate(routes.SINGLE_MESSAGE)}/>
+      </View>
+      <View style={styles.sellerContainer}>
+        <ListItem
+          image={require("../assets/user.png")}
+          title="Snow White"
+          subTitle="25 Listings"
+        />
       </View>
       <View>
         <LoadingMap/>
@@ -30,7 +35,7 @@ function SingleListingScreen({ route }) {
 
 const styles = StyleSheet.create({
   detailsContainer: {
-    padding: 20,
+    padding: 15,
   },
   image: {
     width: "100%",
@@ -46,6 +51,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "500",
   },
+  sellerContainer:{
+    marginBottom: 20
+  }
 });
 
 export default SingleListingScreen;

@@ -4,7 +4,6 @@ import { Button } from "react-native-elements";
 import RaisedButton from "../components/Button/launchButton";
 import Login from "./LoginScreen";
 import Screen from "../components/Screen";
-import routes from "../components/routes";
 
 const LaunchScreen = ({ navigation }) => {
   return (

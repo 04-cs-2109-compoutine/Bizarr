@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
-import defaultStyles from '../styles';
+import defaultStyles from '../Config/styles';
 
 function SubmitPostButton({ onPress, text }) {
   return (

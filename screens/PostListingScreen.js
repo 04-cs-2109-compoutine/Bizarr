@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
 import Screen from '../components/Screen';
-import defaultStyles from '../components/styles';
+import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
-import colors from '../components/colors';
+import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
 import SubmitPostButton from '../components/Button/SubmitPostButton';
-import routes from '../components/routes';
 import * as Location from "expo-location";
 
 function PostListingScreen() {

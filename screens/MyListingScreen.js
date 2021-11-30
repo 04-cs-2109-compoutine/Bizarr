@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, FlatList, ScrollView, View, SafeAreaView} from 'react-native';
 import List from "../components/List";
-import colors from "../components/colors";
-import routes from "../components/routes";
+import colors from "../components/Config/colors";
+import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 
 const listings = [

@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import Icon from "../components/Icon";
 import Screen from "../components/Screen";
 import AuthContext from "../components/context";
-import Text from "../components/Text";
+import Text from "../components/Config/Text";
 
 const menuItems = [
   {
@@ -73,7 +73,7 @@ function AccountScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.main,
   },
   logoContainer:{
     marginTop: 15,
