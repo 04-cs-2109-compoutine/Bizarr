@@ -1,7 +1,7 @@
 import { auth, db } from "../firebase";
 import React, { useState, useCallback, useLayoutEffect } from "react";
 import { StyleSheet } from "react-native";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 
 export function SingleMessageScreen() {

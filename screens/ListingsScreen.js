@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet} from "react-native";
 import AllList from "../components/AllList";
-import colors from "../components/colors";
-import routes from "../components/routes";
+import colors from "../components/Config/colors";
+import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 
 function ListingsScreen({ navigation }) {
@@ -51,7 +51,7 @@ function ListingsScreen({ navigation }) {
     },
     {
       id: 8,
-      title: "Couch in great condition",
+      title: "Couch in great condition and you don't want to miss out",
       price: 1000,
       image: require("../assets/couch.jpg"),
     },
@@ -61,14 +61,12 @@ function ListingsScreen({ navigation }) {
     <Screen style={styles.screen}>
       <FlatList
         numColumns={2}
-        style={styles.container}
         data={listings}
         keyExtractor={(listing, index) => listing.id.toString()} 
         renderItem={({ item }) => (
           <AllList
-            style={styles.item}
             title={item.title}
-            // subTitle={"$" + item.price}
+            price={"$" + item.price}
             image={item.image}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
@@ -79,23 +77,10 @@ function ListingsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 24,
-    margin: 5,
-    marginHorizontal: 10,
+  screen: {
+    padding: 10,
+    backgroundColor: colors.light,
   },
-  item: {
-    marginHorizontal: 10,
-    padding: 30,
-    marginTop: 24,
-    flex: 1,
-    width: "50%",
-    height: 24,
-    padding: 5,
-    alignItems: "center",
-    marginHorizontal: 10
-  }
 });
 
 export default ListingsScreen;
