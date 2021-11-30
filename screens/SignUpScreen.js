@@ -1,9 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
-import { signUp } from "../store/user"
-import React, { useEffect, useState, useDispatch, useLayoutEffect, useContext } from "react";
+import { signUp } from "../store/user";
+import React, {
+  useEffect,
+  useState,
+  useDispatch,
+  useLayoutEffect,
+  useContext,
+} from "react";
 import firebase from "firebase";
 import { auth, db } from "../firebase";
-import { addDoc } from "firebase/firestore"
+import { addDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   KeyboardAvoidingView,
@@ -22,11 +28,10 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
-  const authContext = useContext(AuthContext);
-  const handleSignUp = () => { //auth === firebase.auth
-    
-    auth  
+  const [imageURL, setImageURL] = useState("");
+
+  const handleSignUp = () => {
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         //signed in
@@ -41,40 +46,40 @@ const SignUpScreen = ({ navigation }) => {
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-            console.log('auth', auth)
-            console.log('user', user.uid)
+            console.log("auth", auth);
+            console.log("user", user.uid);
             // console.log('henlo', user)
             // if (!db.collection("users").doc(user)){
-              db.collection("users").doc(user.uid).set({
-                displayName: user.displayName, 
-                email: user.email, 
-                photoURL: user.photoURL, 
-                // providerId: user.providerId
-              })
+            db.collection("users").doc(user.uid).set({
+              displayName: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+              // providerId: user.providerId
+            });
             // // } else
             //   console.log('hello appy', user)
 
-
-    //         const auth = getAuth();
-    //         onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //           db.collections('users').add(user)
-    // // User is signed in, see docs for a list of available properties
-    // // https://firebase.google.com/docs/reference/js/firebase.User
-    //         const uid = user.uid;
-    // // ...
-    authContext.setUser(user); 
-  })
+            //         const auth = getAuth();
+            //         onAuthStateChanged(auth, (user) => {
+            //         if (user) {
+            //           db.collections('users').add(user)
+            // // User is signed in, see docs for a list of available properties
+            // // https://firebase.google.com/docs/reference/js/firebase.User
+            //         const uid = user.uid;
+            // // ...
+            authContext.setUser(user);
+          })
           .catch(function (error) {
             alert(error.message);
           });
-        if (user){
-          navigation.replace('Home')
+        if (user) {
+          navigation.replace("Home");
         } else {
-        navigation.popToTop();
+          navigation.popToTop();
         }
-      // .catch((error) {alert(error.message);
-  })}
+        // .catch((error) {alert(error.message);
+      });
+  };
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -85,12 +90,8 @@ const SignUpScreen = ({ navigation }) => {
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          {/* <Input placeholder="First Name" style={styles.input} /> */}
-          {/* <Input placeholder="Last Name" style={styles.input} /> */}
-          {/* <Input placeholder="Username" style={styles.input} /> */}
           <Input
             placeholder="Full Name"
-            label="Name"
             leftIcon={{ type: "material", name: "badge" }}
             value={name}
             onChangeText={(text) => setName(text)}
@@ -99,7 +100,6 @@ const SignUpScreen = ({ navigation }) => {
 
           <Input
             placeholder="Email"
-            //label="Email"
             leftIcon={{ type: "material", name: "email" }}
             value={email}
             onChangeText={(email) => setEmail(email)}
@@ -108,7 +108,6 @@ const SignUpScreen = ({ navigation }) => {
 
           <Input
             placeholder="Password"
-            //label="Password"
             leftIcon={{ type: "material", name: "lock" }}
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -117,7 +116,6 @@ const SignUpScreen = ({ navigation }) => {
           />
           <Input
             placeholder="Profile Picture"
-            //label="Profile Picture"
             leftIcon={{ type: "material", name: "face" }}
             value={photoURL}
             onChangeText={(text) => setPhotoURL(text)}
@@ -145,10 +143,9 @@ const SignUpScreen = ({ navigation }) => {
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
-      {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
-  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -183,7 +180,6 @@ const styles = StyleSheet.create({
   button: {
     width: "60%",
     borderRadius: 7,
-    //marginBottom: 5,
   },
   buttonOutline: {
     borderColor: "#5C8389",
@@ -201,7 +197,6 @@ const styles = StyleSheet.create({
   signUpText: {
     color: "gray",
     fontWeight: "bold",
-    //fontFamily:
   },
 });
 export default SignUpScreen;

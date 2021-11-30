@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
@@ -6,6 +6,12 @@ import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Screen from "../components/Screen";
 import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
+
+import { auth, db } from "../firebase";
+
+import { AuthContext } from "../components/context";
+
+// ----------------------------- connecting to backend ------------------------------
 
 // useLayoutEffect(() => {
 //   const messageList = db
@@ -41,6 +47,8 @@ import ListItemSeparator from "../components/ListItemSeparator";
 //     listingId,
 //   });
 // }, []);
+
+// ----------------------------- dummy data ------------------------------
 // const initialMessages = [
 //   {
 //     id: 1,
@@ -55,14 +63,39 @@ import ListItemSeparator from "../components/ListItemSeparator";
 //     image: require("../assets/image/logotransparent.png"),
 //   },
 // ];
-function MessagesScreen({ navigation }) {
-  const [messages, setMessages] = useState(initialMessages);
+
+// ----------------------------- Current Component ------------------------------
+function MessagesScreen({ navigation, route }) {
+  const [messages, setMessages] = useState("");
   const [refreshing, setRefreshing] = useState(false);
 
   //delete the message
   const handleDelete = (message) => {
     setMessages(messages.filter((m) => m.id !== message.id));
   };
+
+  useEffect(() => {
+    loadMessages();
+  }, []);
+
+  const loadMessages = async () => {
+    const response = await db.collections("messageList").getMessages();
+    setMessages(response.data);
+  };
+
+  const onSend = useCallback((messages = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages)
+    );
+    const { _id, createdAt, text, fromUserId, toUserId } = messages[0];
+    db.collection("messageList").add({
+      _id,
+      createdAt,
+      text,
+      fromUserId,
+      toUserId,
+    });
+  }, []);
 
   return (
     <Screen>
@@ -74,7 +107,7 @@ function MessagesScreen({ navigation }) {
           <ListItem
             title={item.title}
             subTitle={item.description}
-            image={item.image}
+            imageUrl={item.images[0].url}
             onPress={() => navigation.navigate("SingleMessage")}
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
