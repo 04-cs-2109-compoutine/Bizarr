@@ -75,8 +75,6 @@ export default class HomeScreen extends React.Component {
     return (
       // <View style={styles.container}>
         <SafeAreaView>
-          <Text style={styles.text}>Hi, welcome!
-          </Text>
           {/* <Text>Email: {auth.currentUser?.email}</Text> */}
             <SafeAreaView style={{
               backgroundColor: "#E4EFE7",
@@ -87,9 +85,8 @@ export default class HomeScreen extends React.Component {
               alignItems: 'center',
               position: 'center'
             }}>
-
+              <Text style={styles.text}>Hi, welcome!</Text>
             </SafeAreaView>
-
             <MapView
               provider={PROVIDER_GOOGLE}
               style={styles.map}
@@ -132,7 +129,7 @@ export default class HomeScreen extends React.Component {
                           width: 40,
                           height: 40
                           }}
-                          source={listing.images}>
+                          source={listing.images[0]}>
                         </Image>
                       </Text>
                   </Callout>
