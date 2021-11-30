@@ -17,6 +17,8 @@ import { Input, Button } from "react-native-elements";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -47,24 +49,61 @@ const SignUpScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
+        <Text style={styles.signUpText}>Register</Text>
         <View style={styles.inputContainer}>
           {/* <Input placeholder="First Name" style={styles.input} /> */}
-          <Input placeholder="Full Name" style={styles.input} />
           {/* <Input placeholder="Last Name" style={styles.input} /> */}
           {/* <Input placeholder="Username" style={styles.input} /> */}
           <Input
+            placeholder="Full Name"
+            //label="Name"
+            leftIcon={{ type: "material", name: "badge" }}
+            value={name}
+            onChangeText={(text) => setName(text)}
+            style={styles.input}
+          />
+
+          <Input
+            placeholder="Email"
+            //label="Email"
+            leftIcon={{ type: "material", name: "email" }}
+            value={email}
+            onChangeText={(text) => setName(email)}
+            style={styles.input}
+          />
+
+          <Input
+            placeholder="Password"
+            //label="Password"
+            leftIcon={{ type: "material", name: "lock" }}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry
+            style={styles.input}
+          />
+
+          <Input
+            placeholder="Profile Picture"
+            //label="Profile Picture"
+            leftIcon={{ type: "material", name: "face" }}
+            value={imageURL}
+            onChangeText={(text) => setImageUrl(text)}
+            style={styles.input}
+          />
+
+          {/* <Input
             placeholder="E-mail"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
-          />
-          <Input
+          /> */}
+          {/* <Input
             placeholder="Password"
             value={password}
             onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
-          />
+          /> */}
         </View>
 
         <TouchableOpacity
@@ -86,7 +125,7 @@ const SignUpScreen = () => {
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.LoginLink}>Already have an Account? Login!</Text>
+      {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
 };
@@ -99,47 +138,45 @@ const styles = StyleSheet.create({
     backgroundColor: "#5C8389",
   },
   inputContainer: {
-    width: "80%",
+    width: "75%",
   },
   logo: {
-    width: 200,
-    height: 200,
-    bottom: 20,
+    width: 175,
+    height: 175,
+    bottom: 10,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "40%",
+    height: "auto",
+    padding: 5,
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
     backgroundColor: "white",
-    width: 15,
-    height: 5,
-    paddingHorizontal: 5,
   },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
+  // buttonContainer: {
+  //width: "60%",
+  // justifyContent: "center",
+  //alignItems: "center",
+  //marginTop: 40,
+  // },
   button: {
     width: "60%",
-    borderRadius: 10,
+    borderRadius: 7,
+    //marginBottom: 5,
   },
   buttonOutline: {
-    backgroundColor: "#5C8389",
-    marginTop: 15,
+    //backgroundColor: "#5C8389",
     borderColor: "#5C8389",
     borderWidth: 2,
   },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
+  // buttonText: {
+  //   color: "white",
+  //   fontWeight: "bold",
+  //   fontSize: 12,
+  // },
   buttonOutlineText: {
     color: "white",
     fontWeight: "700",
@@ -148,6 +185,11 @@ const styles = StyleSheet.create({
   LoginLink: {
     color: "white",
     top: 70,
+  },
+  signUpText: {
+    color: "gray",
+    fontWeight: "bold",
+    //fontFamily:
   },
 });
 export default SignUpScreen;
