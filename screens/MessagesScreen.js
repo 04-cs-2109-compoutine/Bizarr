@@ -4,7 +4,7 @@ import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 
 import Screen from "../components/Screen";
-import colors from "../components/colors";
+import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 import SingleMessageScreen from "../screens/SingleMessageScreen";
 import MessageNavigator from "../components/MessageNavigator";
