@@ -61,14 +61,12 @@ function ListingsScreen({ navigation }) {
     <Screen style={styles.screen}>
       <FlatList
         numColumns={2}
-        style={styles.container}
         data={listings}
         keyExtractor={(listing, index) => listing.id.toString()} 
         renderItem={({ item }) => (
           <AllList
-            style={styles.item}
             title={item.title}
-            // subTitle={"$" + item.price}
+            price={"$" + item.price}
             image={item.image}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
@@ -79,23 +77,10 @@ function ListingsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 24,
-    margin: 5,
-    marginHorizontal: 10,
+  screen: {
+    padding: 10,
+    backgroundColor: colors.light,
   },
-  item: {
-    marginHorizontal: 10,
-    padding: 30,
-    marginTop: 24,
-    flex: 1,
-    width: "50%",
-    height: 24,
-    padding: 5,
-    alignItems: "center",
-    marginHorizontal: 10
-  }
 });
 
 export default ListingsScreen;

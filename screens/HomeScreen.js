@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, Dimensions, StyleSheet, SafeAreaView, Image } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import Slideshow from "react-native-slideshow";
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
