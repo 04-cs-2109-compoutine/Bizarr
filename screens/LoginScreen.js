@@ -33,16 +33,16 @@ const LoginScreen = ({ navigation }) => {
       .catch((error) => alert(error.message));
   };
 
-  useEffect(() => { 
-    console.log('hit use Effect')
-    const logOut = auth
-  .onAuthStateChanged(function(user){
-    if (user){
-      navigation.replace('Home')
-    }else {
-      navigation.popToTop();
-    }
-  })})
+  // useEffect(() => { 
+  //   console.log('hit use Effect')
+  //   const logOut = auth
+  // .onAuthStateChanged(function(user){
+  //   if (user){
+  //     navigation.replace('Home')
+  //   }else {
+  //     navigation.popToTop();
+  //   }
+  // })})
   
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">

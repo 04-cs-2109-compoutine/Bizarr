@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { signUp } from "../store/user"
-import React, { useEffect, useState, useDispatch, useLayoutEffect } from "react";
+import React, { useEffect, useState, useDispatch, useLayoutEffect, useContext } from "react";
 import firebase from "firebase";
 import { auth, db } from "../firebase";
 import { addDoc } from "firebase/firestore"
@@ -16,13 +16,16 @@ import {
 } from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
+import AuthContext from "../components/context";
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const authContext = useContext(AuthContext);
   const handleSignUp = () => { //auth === firebase.auth
+    
     auth  
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -38,8 +41,8 @@ const SignUpScreen = ({ navigation }) => {
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-            console.log(auth.uid, 'auth')
-            console.log(user.uid, 'user')
+            console.log('auth', auth)
+            console.log('user', user.uid)
             // console.log('henlo', user)
             // if (!db.collection("users").doc(user)){
               db.collection("users").doc(user.uid).set({
@@ -60,7 +63,8 @@ const SignUpScreen = ({ navigation }) => {
     // // https://firebase.google.com/docs/reference/js/firebase.User
     //         const uid = user.uid;
     // // ...
-          })
+    authContext.setUser(user); 
+  })
           .catch(function (error) {
             alert(error.message);
           });
