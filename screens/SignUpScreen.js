@@ -1,31 +1,76 @@
 import { useNavigation } from "@react-navigation/native";
 import { signUp } from "../store/user"
-import React, { useEffect, useState, useDispatch } from "react";
+import React, { useEffect, useState, useDispatch, useLayoutEffect } from "react";
 import firebase from "firebase";
-import { auth } from "../firebase";
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
+import { auth, db } from "../firebase";
+import { addDoc } from "firebase/firestore"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
+import colors from "../components/Config/colors";
+import { Input, Button } from "react-native-elements";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const handleSignUp = () => {
-    console.log(auth.currentUser, 'auth');
-    auth
+  const [name, setName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const handleSignUp = () => { //auth === firebase.auth
+    auth  
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        const user = userCredentials.user; //not user.userCredentials?
-        console.log(userCredentials.user, 'userCreds');
-        console.log("Registered with:", user.email);
-      }).catch((error) => alert(error.message));
-      // dispatch(signUp(email, password));
-// useEffect(() => {
-// firebase.auth().currentUser = this.user;
-// })
-    };
-    
-  
+        //signed in
+        const user = userCredentials.user;
+
+        user
+          .updateProfile({
+            likedItems: {},
+            displayName: name,
+            photoURL: photoURL
+              ? photoURL
+              : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
+          })
+          .then(function () {
+            console.log(auth.uid, 'auth')
+            console.log(user.uid, 'user')
+            // console.log('henlo', user)
+            // if (!db.collection("users").doc(user)){
+              db.collection("users").doc(user.uid).set({
+                displayName: user.displayName, 
+                email: user.email, 
+                photoURL: user.photoURL, 
+                // providerId: user.providerId
+              })
+            // // } else
+            //   console.log('hello appy', user)
+
+
+    //         const auth = getAuth();
+    //         onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //           db.collections('users').add(user)
+    // // User is signed in, see docs for a list of available properties
+    // // https://firebase.google.com/docs/reference/js/firebase.User
+    //         const uid = user.uid;
+    // // ...
+          })
+          .catch(function (error) {
+            alert(error.message);
+          });
+        if (user){
+          navigation.replace('Home')
+        } else {
+        navigation.popToTop();
+        }
+      // .catch((error) {alert(error.message);
+  })}
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -36,40 +81,56 @@ const SignUpScreen = () => {
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          {/* <TextInput placeholder="First Name" style={styles.input} />
-          <TextInput placeholder="Last Name" style={styles.input} /> */}
-          <TextInput placeholder="Username" style={styles.input} />
-          <TextInput
-            placeholder="E-mail"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+          {/* <Input placeholder="First Name" style={styles.input} /> */}
+          {/* <Input placeholder="Last Name" style={styles.input} /> */}
+          {/* <Input placeholder="Username" style={styles.input} /> */}
+          <Input
+            placeholder="Full Name"
+            label="Name"
+            leftIcon={{ type: "material", name: "badge" }}
+            value={name}
+            onChangeText={(text) => setName(text)}
             style={styles.input}
           />
-          <TextInput
+
+          <Input
+            placeholder="Email"
+            //label="Email"
+            leftIcon={{ type: "material", name: "email" }}
+            value={email}
+            onChangeText={(email) => setEmail(email)}
+            style={styles.input}
+          />
+
+          <Input
             placeholder="Password"
+            //label="Password"
+            leftIcon={{ type: "material", name: "lock" }}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            style={styles.input}
             secureTextEntry
-          />
-             <TextInput
-            placeholder="First Name"
-            value={firstName}
-            onChangeText={(firstName) => setFirstName(firstName)}
             style={styles.input}
           />
-            <TextInput
-            placeholder="Last Name"
-            value={lastName}
-            onChangeText={(lastName) => setLastName(lastName)}
+          <Input
+            placeholder="Profile Picture"
+            //label="Profile Picture"
+            leftIcon={{ type: "material", name: "face" }}
+            value={photoURL}
+            onChangeText={(text) => setPhotoURL(text)}
             style={styles.input}
           />
         </View>
 
         <TouchableOpacity
           onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}>
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Button
+            title="Register"
+            buttonStyle={{ backgroundColor: colors.main }}
+            style={styles.RegisterButton}
+            onPress={handleSignUp}
+          ></Button>
         </TouchableOpacity>
       </View>
       <View>
@@ -80,10 +141,10 @@ const SignUpScreen = () => {
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.LoginLink}>Already have an Account? Login!</Text>
+      {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
-};
+  }
 
 const styles = StyleSheet.create({
   container: {
@@ -93,50 +154,36 @@ const styles = StyleSheet.create({
     backgroundColor: "#5C8389",
   },
   inputContainer: {
-    width: "80%",
+    width: "75%",
   },
   logo: {
-    width: 200,
-    height: 200,
-    bottom: 20,
+    width: 175,
+    height: 175,
+    bottom: 10,
   },
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "40%",
+    height: "auto",
+    padding: 5,
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
   button: {
-    backgroundColor: "#5C8389",
     width: "60%",
-    padding: 10,
-    borderRadius: 10,
-    alignItems: "center",
+    borderRadius: 7,
+    //marginBottom: 5,
   },
   buttonOutline: {
-    backgroundColor: "#5C8389",
-    marginTop: 15,
     borderColor: "#5C8389",
     borderWidth: 2,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
   },
   buttonOutlineText: {
     color: "white",
@@ -146,6 +193,11 @@ const styles = StyleSheet.create({
   LoginLink: {
     color: "white",
     top: 70,
+  },
+  signUpText: {
+    color: "gray",
+    fontWeight: "bold",
+    //fontFamily:
   },
 });
 export default SignUpScreen;
