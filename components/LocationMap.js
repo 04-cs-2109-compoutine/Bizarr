@@ -4,45 +4,32 @@ import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE = 40.73;
-const LONGITUDE = -73.99;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-export default class LoadingMap extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
+function LoadingMap ({latitude, longitude}){
+  return (
+    <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        initialRegion={this.state.region}
-        onPress={this.onMapPress}
         loadingEnabled
+        initialRegion={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+        }}
         loadingIndicatorColor="#666666"
-        loadingBackgroundColor="#eeeeee"
-      >
+        loadingBackgroundColor="#eeeeee">
         <Marker
           coordinate={{
-            latitude: LATITUDE - SPACE,
-            longitude: LONGITUDE - SPACE,
+            latitude: latitude - SPACE,
+            longitude: longitude - SPACE,
           }}
           centerOffset={{ x: -42, y: -60 }}
-          anchor={{ x: 0.84, y: 1 }}
-        >
+          anchor={{ x: 0.84, y: 1 }}>
           <Callout>
             <View>
               <Text>Pick up</Text>
@@ -56,8 +43,7 @@ export default class LoadingMap extends React.Component {
         </View>
       </View>
     </View>
-    );
-  }
+  );
 }
 
 const styles = StyleSheet.create({
@@ -82,3 +68,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
+export default LoadingMap;

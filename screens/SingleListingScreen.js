@@ -9,6 +9,7 @@ import routes from "../components/Config/routes";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
+  console.log(listing.location)
   return (
     <View>
       <Image style={styles.image} source={{uri: listing.images}} />
@@ -27,7 +28,9 @@ function SingleListingScreen({ route, navigation }) {
         />
       </View>
       <View>
-        <LoadingMap/>
+        <LoadingMap 
+          latitude={listing.location.latitude} 
+          longitude={listing.location.longitude}/>
       </View>
     </View>
   );
@@ -35,7 +38,7 @@ function SingleListingScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   detailsContainer: {
-    padding: 15,
+    padding: 10,
   },
   image: {
     width: "100%",

@@ -23,23 +23,23 @@ function ListingsScreen({ navigation }) {
     readAllListing();
   }, [])
 
-    return listings instanceof Object ? (
-      <Screen style={styles.screen}>
-        <FlatList
-          numColumns={2}
-          data={listings["listings"]}
-          keyExtractor={(listing, index) => listing.id.toString()}
-          renderItem={({ item }) => (
-            <AllList
-              title={item.title}
-              price={"$" + item.price}
-              image={item.images}
-              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            />
-          )}
-        />
-      </Screen>
-    ) : <Text>Please wait...</Text>
+  return listings instanceof Object ? (
+    <Screen style={styles.screen}>
+      <FlatList
+        numColumns={2}
+        data={listings["listings"]}
+        keyExtractor={(listing, index) => listing.id.toString()}
+        renderItem={({ item }) => (
+          <AllList
+            title={item.title}
+            price={"$" + item.price}
+            image={item.images}
+            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+          />
+        )}
+      />
+    </Screen>
+  ) : <Text>Please wait...</Text>
 }
 
 const styles = StyleSheet.create({
