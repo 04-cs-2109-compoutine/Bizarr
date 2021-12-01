@@ -8,10 +8,20 @@ import { Avatar } from "react-native-elements";
 export function SingleMessageScreen() {
   const [messages, setMessages] = useState([]);
 
+  const chatsRef = db.collection("chats");
+
+  //adding avatar
+  useLayoutEffect(() => {
+    headerLeft: () => {
+      <View>
+        <Avatar rounded source={{ uri: auth?.currentUser?.photoURL }} />
+      </View>;
+    };
+  });
+
   //connecting to database
   useLayoutEffect(() => {
-    const unsubscribe = db
-      .collection("chat")
+    const unsubscribe = chatsRef
       .orderBy("createdAt", "desc")
       .onSnapshot((snapshot) =>
         setMessages(
@@ -31,7 +41,7 @@ export function SingleMessageScreen() {
       GiftedChat.append(previousMessages, messages)
     );
     const { _id, createdAt, text, user } = messages[0];
-    db.collection("chats").add({
+    chatsRef.add({
       _id,
       createdAt,
       text,

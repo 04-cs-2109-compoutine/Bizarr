@@ -78,17 +78,19 @@ function MessagesScreen({ navigation, route }) {
     loadMessages();
   }, []);
 
+  const messageList = db.collection("messageList");
+  //fetch the messages
   const loadMessages = async () => {
-    const response = await db.collections("messageList").getMessages();
+    const response = await messageList.getMessages();
     setMessages(response.data);
   };
 
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+      FlatList.append(previousMessages, messages)
     );
     const { _id, createdAt, text, fromUserId, toUserId } = messages[0];
-    db.collection("messageList").add({
+    messageList.add({
       _id,
       createdAt,
       text,
@@ -107,7 +109,7 @@ function MessagesScreen({ navigation, route }) {
           <ListItem
             title={item.title}
             subTitle={item.description}
-            imageUrl={item.images[0].url}
+            imageUrl={item.image}
             onPress={() => navigation.navigate("SingleMessage")}
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
@@ -121,7 +123,7 @@ function MessagesScreen({ navigation, route }) {
           setMessages([
             {
               id: 2,
-              title: "Potatoes",
+              title: "The Potato Life",
               description: "I love potatoes",
               image: require("../assets/image/logotransparent.png"),
             },
