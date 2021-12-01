@@ -15,13 +15,13 @@ import colors from "../components/Config/colors";
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
+    console.log('handled loggin')
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -33,6 +33,17 @@ const LoginScreen = () => {
       .catch((error) => alert(error.message));
   };
 
+  // useEffect(() => { 
+  //   console.log('hit use Effect')
+  //   const logOut = auth
+  // .onAuthStateChanged(function(user){
+  //   if (user){
+  //     navigation.replace('Home')
+  //   }else {
+  //     navigation.popToTop();
+  //   }
+  // })})
+  
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />

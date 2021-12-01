@@ -31,6 +31,7 @@ const menuItems = [
 function AccountScreen({ navigation }) {
   const {user, setUser} = useContext(AuthContext)
 
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.logoContainer}>

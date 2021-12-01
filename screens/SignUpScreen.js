@@ -1,7 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import { signUp } from "../store/user"
+import React, { useEffect, useState, useDispatch, useLayoutEffect, useContext } from "react";
 import firebase from "firebase";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { addDoc } from "firebase/firestore"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -13,62 +16,70 @@ import {
 } from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
+import AuthContext from "../components/context";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState("");
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //           <BottomNavigator/>
-  //       }
-  //   });
-  //   return unsubscribe;
-  // }, []);
-
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       //signed in
-  //       const user = userCredentials.user;
-  //       console.log("Registered with:", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
-
-  const handleSignUp = () => {
-    auth
+  const [photoURL, setPhotoURL] = useState("");
+  const authContext = useContext(AuthContext);
+  const handleSignUp = () => { //auth === firebase.auth
+    
+    auth  
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         //signed in
         const user = userCredentials.user;
+
         user
           .updateProfile({
+            likedItems: {},
             displayName: name,
-            photoURL: imageURL
-              ? imageURL
+            photoURL: photoURL
+              ? photoURL
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-            //update successful
-          })
-          .catch(function (error) {
-            //an error occurred
-          });
-        //...
-      })
-      .catch((error) => alert(error.message));
-  };
+            console.log('auth', auth)
+            console.log('user', user.uid)
+            // console.log('henlo', user)
+            // if (!db.collection("users").doc(user)){
+              db.collection("users").doc(user.uid).set({
+                displayName: user.displayName, 
+                email: user.email, 
+                photoURL: user.photoURL, 
+                // providerId: user.providerId
+              })
+            // // } else
+            //   console.log('hello appy', user)
 
+
+    //         const auth = getAuth();
+    //         onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //           db.collections('users').add(user)
+    // // User is signed in, see docs for a list of available properties
+    // // https://firebase.google.com/docs/reference/js/firebase.User
+    //         const uid = user.uid;
+    // // ...
+    authContext.setUser(user); 
+  })
+          .catch(function (error) {
+            alert(error.message);
+          });
+        if (user){
+          navigation.replace('Home')
+        } else {
+        navigation.popToTop();
+        }
+      // .catch((error) {alert(error.message);
+  })}
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
@@ -79,7 +90,7 @@ const SignUpScreen = () => {
           {/* <Input placeholder="Username" style={styles.input} /> */}
           <Input
             placeholder="Full Name"
-            //label="Name"
+            label="Name"
             leftIcon={{ type: "material", name: "badge" }}
             value={name}
             onChangeText={(text) => setName(text)}
@@ -104,29 +115,14 @@ const SignUpScreen = () => {
             secureTextEntry
             style={styles.input}
           />
-
           <Input
             placeholder="Profile Picture"
             //label="Profile Picture"
             leftIcon={{ type: "material", name: "face" }}
-            value={imageURL}
-            onChangeText={(text) => setImageURL(text)}
+            value={photoURL}
+            onChangeText={(text) => setPhotoURL(text)}
             style={styles.input}
           />
-
-          {/* <Input
-            placeholder="E-mail"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-          /> */}
-          {/* <Input
-            placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-            secureTextEntry
-          /> */}
         </View>
 
         <TouchableOpacity
@@ -137,6 +133,7 @@ const SignUpScreen = () => {
             title="Register"
             buttonStyle={{ backgroundColor: colors.main }}
             style={styles.RegisterButton}
+            onPress={handleSignUp}
           ></Button>
         </TouchableOpacity>
       </View>
@@ -151,7 +148,7 @@ const SignUpScreen = () => {
       {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
-};
+  }
 
 const styles = StyleSheet.create({
   container: {
@@ -183,27 +180,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
   },
-  // buttonContainer: {
-  //width: "60%",
-  // justifyContent: "center",
-  //alignItems: "center",
-  //marginTop: 40,
-  // },
   button: {
     width: "60%",
     borderRadius: 7,
     //marginBottom: 5,
   },
   buttonOutline: {
-    //backgroundColor: "#5C8389",
     borderColor: "#5C8389",
     borderWidth: 2,
   },
-  // buttonText: {
-  //   color: "white",
-  //   fontWeight: "bold",
-  //   fontSize: 12,
-  // },
   buttonOutlineText: {
     color: "white",
     fontWeight: "700",
