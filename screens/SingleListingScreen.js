@@ -11,7 +11,7 @@ function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
   return (
     <View>
-      <Image style={styles.image} source={listing.image} />
+      <Image style={styles.image} source={{uri: listing.images}} />
       <View style={styles.detailsContainer}>
         <View>
           <Text style={styles.title}>{listing.title}</Text>
