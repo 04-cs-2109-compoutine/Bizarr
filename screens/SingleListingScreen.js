@@ -67,12 +67,18 @@ function SingleListingScreen({ route, navigation }) {
             title="Message"
             onPress={async () => {
               console.log(auth.currentUser, "auth");
-              const group = await createGroup(
-                [auth.currentUser.uid, listing.uid],
-                auth.currentUser.uid,
-                `${auth.currentUser.uid}-${listing.uid}`,
-                "private"
-              );
+              let group = null;
+              // let group = await findGroup();
+              //check if there is a group that already includes both the users with the same ids
+              //and is type private if(!group)
+              if (!group) {
+                group = await createGroup(
+                  [auth.currentUser.uid, listing.uid],
+                  auth.currentUser.uid,
+                  `${auth.currentUser.uid}-${listing.uid}`,
+                  "private"
+                );
+              }
               navigation.navigate(routes.SINGLE_MESSAGE, {
                 group,
               });

@@ -23,12 +23,15 @@ export function SingleMessageScreen({ route, navigation }) {
       .orderBy("createdAt", "desc")
       .onSnapshot((snapshot) =>
         setMessages(
-          snapshot.docs.map((doc) => ({
-            _id: doc.data()._id,
-            createdAt: doc.data().createdAt.toDate(),
-            text: doc.data().text,
-            user: doc.data().user,
-          }))
+          snapshot.docs
+            .map((doc) => ({
+              _id: doc.data()._id,
+              createdAt: doc.data().createdAt.toDate(),
+              text: doc.data().text,
+              user: doc.data().user,
+              groupId: doc.data().groupId,
+            }))
+            .filter((doc) => doc.groupId === group.id)
         )
       );
     return unsubscribe;
@@ -44,6 +47,7 @@ export function SingleMessageScreen({ route, navigation }) {
       createdAt,
       text,
       user,
+      groupId: group.id,
     });
   }, []);
 
