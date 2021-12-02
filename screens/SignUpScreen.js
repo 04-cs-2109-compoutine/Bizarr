@@ -1,85 +1,59 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import firebase from "firebase";
-import { auth } from "../firebase";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import { auth, db } from "../firebase";
+import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
+import AuthContext from "../components/context";
 
 const SignUpScreen = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState("");
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //           <BottomNavigator/>
-  //       }
-  //   });
-  //   return unsubscribe;
-  // }, []);
-
-  // const handleSignUp = () => {
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       //signed in
-  //       const user = userCredentials.user;
-  //       console.log("Registered with:", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
+  const [photoURL, setPhotoURL] = useState("");
+  const authContext = useContext(AuthContext);
 
   const handleSignUp = () => {
-    auth
+    auth  
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        //signed in
         const user = userCredentials.user;
+        authContext.setUser(user); 
         user
           .updateProfile({
+            likedItems: {},
             displayName: name,
-            photoURL: imageURL
-              ? imageURL
+            photoURL: photoURL
+              ? photoURL
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-            //update successful
+            db.collection("users").doc(user.uid).set({
+              displayName: user.displayName, 
+              email: user.email, 
+              photoURL: user.photoURL, 
+            })
           })
           .catch(function (error) {
-            //an error occurred
+            alert(error.message);
           });
-        //...
-      })
-      .catch((error) => alert(error.message));
-  };
+      })}
 
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
-
+  
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          {/* <Input placeholder="First Name" style={styles.input} /> */}
-          {/* <Input placeholder="Last Name" style={styles.input} /> */}
-          {/* <Input placeholder="Username" style={styles.input} /> */}
+  
           <Input
             placeholder="Full Name"
-            //label="Name"
             leftIcon={{ type: "material", name: "badge" }}
             value={name}
             onChangeText={(text) => setName(text)}
@@ -88,7 +62,6 @@ const SignUpScreen = () => {
 
           <Input
             placeholder="Email"
-            //label="Email"
             leftIcon={{ type: "material", name: "email" }}
             value={email}
             onChangeText={(email) => setEmail(email)}
@@ -97,61 +70,36 @@ const SignUpScreen = () => {
 
           <Input
             placeholder="Password"
-            //label="Password"
             leftIcon={{ type: "material", name: "lock" }}
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry
             style={styles.input}
           />
-
           <Input
             placeholder="Profile Picture"
-            //label="Profile Picture"
             leftIcon={{ type: "material", name: "face" }}
-            value={imageURL}
-            onChangeText={(text) => setImageURL(text)}
+            value={photoURL}
+            onChangeText={(text) => setPhotoURL(text)}
             style={styles.input}
           />
-
-          {/* <Input
-            placeholder="E-mail"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-          /> */}
-          {/* <Input
-            placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-            secureTextEntry
-          /> */}
         </View>
-
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Button
-            title="Register"
-            buttonStyle={{ backgroundColor: colors.main }}
-            style={styles.RegisterButton}
-          ></Button>
-        </TouchableOpacity>
+        <Button
+          title="Register"
+          buttonStyle={{ backgroundColor: colors.main }}
+          onPress={handleSignUp}>
+        </Button>
       </View>
-      <View>
+      <View style={styles.google}>
         <TouchableOpacity
           onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}
-        >
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
-      {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -172,38 +120,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#E4EFE7",
     width: "90%",
     height: "auto",
-    padding: 5,
+    paddingTop: 20,
+    paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    // backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
-  // buttonContainer: {
-  //width: "60%",
-  // justifyContent: "center",
-  //alignItems: "center",
-  //marginTop: 40,
-  // },
   button: {
     width: "60%",
     borderRadius: 7,
-    //marginBottom: 5,
   },
   buttonOutline: {
-    //backgroundColor: "#5C8389",
     borderColor: "#5C8389",
     borderWidth: 2,
   },
-  // buttonText: {
-  //   color: "white",
-  //   fontWeight: "bold",
-  //   fontSize: 12,
-  // },
   buttonOutlineText: {
     color: "white",
     fontWeight: "700",
@@ -216,7 +151,9 @@ const styles = StyleSheet.create({
   signUpText: {
     color: "gray",
     fontWeight: "bold",
-    //fontFamily:
   },
+  google:{
+    padding: 15
+  }
 });
 export default SignUpScreen;

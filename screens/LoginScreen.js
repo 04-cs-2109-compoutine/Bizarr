@@ -1,27 +1,19 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState, useContext } from "react";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import React, { useState, useContext } from "react";
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
 import { Input, Button } from "react-native-elements";
 import colors from "../components/Config/colors";
 
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
+    console.log('handled loggin')
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -32,7 +24,7 @@ const LoginScreen = () => {
       })
       .catch((error) => alert(error.message));
   };
-
+  
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
@@ -61,15 +53,13 @@ const LoginScreen = () => {
           />
         </View>
 
-        <View style={styles.buttonContainer}>
-          {/* <TouchableOpacity onPress={handleLogin} style={styles.button}> */}
+        <View>
           <Button
             onPress={handleLogin}
             title="Log in"
             buttonStyle={{ backgroundColor: colors.main }}
             style={styles.loginButton}
           ></Button>
-          {/* </TouchableOpacity> */}
         </View>
       </View>
       <Text
@@ -112,25 +102,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    //backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
-  // buttonContainer: {
-  //   width: "60%",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   marginTop: 20,
-  // },
-  // button: {
-  //   backgroundColor: "#5C8389",
-  //   width: "100%",
-  //   padding: 15,
-  //   borderRadius: 10,
-  //   alignItems: "center",
-  // },
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 5,
@@ -141,16 +117,6 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 10,
   },
-  // buttonText: {
-  //   color: "white",
-  //   fontWeight: "700",
-  //   fontSize: 16,
-  // },
-  // buttonOutlineText: {
-  //   color: "#0782F9",
-  //   fontWeight: "700",
-  //   fontSize: 16,
-  // },
   signUpLink: {
     color: "white",
     top: 70,
