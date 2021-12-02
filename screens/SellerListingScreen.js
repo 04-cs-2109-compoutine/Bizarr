@@ -4,30 +4,10 @@ import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
-import { db } from "../firebase";
-import AuthContext from "../components/context";
 
-function MyListingScreen({navigation}) {
-
-  const [listings, setListings] = useState([]);
-  const {user, setUser} = useContext(AuthContext);
-  
-  async function getListings() {
-    try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid === user.uid)
-      setListings(userLists);
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
-  useEffect(() => {
-    getListings();
-  }, [])
-
+function SellerListingScreen({navigation, route}) {
+  const listings = route.params
+  console.log(listings)
 
   return (
     <Screen style={styles.screen}>
@@ -54,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyListingScreen;
+export default SellerListingScreen;

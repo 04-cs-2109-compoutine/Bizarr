@@ -1,13 +1,19 @@
 import React, { useState, useContext } from "react";
 import * as firebase from "firebase";
 import { auth, db } from "../firebase";
-import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
 import AuthContext from "../components/context";
 
 const SignUpScreen = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -15,11 +21,11 @@ const SignUpScreen = () => {
   const authContext = useContext(AuthContext);
 
   const handleSignUp = () => {
-    auth  
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        authContext.setUser(user); 
+        authContext.setUser(user);
         user
           .updateProfile({
             likedItems: {},
@@ -30,28 +36,37 @@ const SignUpScreen = () => {
           })
           .then(function () {
             db.collection("users").doc(user.uid).set({
-              displayName: user.displayName, 
-              email: user.email, 
-              photoURL: user.photoURL, 
-            })
+              displayName: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+            });
           })
           .catch(function (error) {
             alert(error.message);
           });
-      })}
+      });
+  };
 
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    return new Promise((resolve, reject) => {
+      auth
+        .signInWithPopup(provider)
+        .then(function (result) {
+          resolve(result.user);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    });
   }
-  
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-  
           <Input
             placeholder="Full Name"
             leftIcon={{ type: "material", name: "badge" }}
@@ -76,30 +91,25 @@ const SignUpScreen = () => {
             secureTextEntry
             style={styles.input}
           />
-          <Input
-            placeholder="Profile Picture"
-            leftIcon={{ type: "material", name: "face" }}
-            value={photoURL}
-            onChangeText={(text) => setPhotoURL(text)}
-            style={styles.input}
-          />
+          
         </View>
         <Button
           title="Register"
           buttonStyle={{ backgroundColor: colors.main }}
-          onPress={handleSignUp}>
-        </Button>
+          onPress={handleSignUp}
+        ></Button>
       </View>
       <View style={styles.google}>
         <TouchableOpacity
           onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}>
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -152,8 +162,8 @@ const styles = StyleSheet.create({
     color: "gray",
     fontWeight: "bold",
   },
-  google:{
-    padding: 15
-  }
+  google: {
+    padding: 15,
+  },
 });
 export default SignUpScreen;
