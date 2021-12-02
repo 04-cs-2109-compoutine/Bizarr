@@ -62,9 +62,11 @@ function SingleListingScreen({ route, navigation }) {
         </View>
         <SubmitButton
           title="Message"
-          onPress={() => {
-            createGroup([auth.uid]);
-            navigation.navigate(routes.SINGLE_MESSAGE);
+          onPress={async () => {
+            const group = await createGroup([auth.uid, listing.uid]);
+            navigation.navigate(routes.SINGLE_MESSAGE, {
+              group,
+            });
           }}
         />
       </View>
