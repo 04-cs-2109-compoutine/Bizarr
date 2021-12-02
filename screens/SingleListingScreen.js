@@ -6,11 +6,10 @@ import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
-import Screen from "../components/Screen";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
-  console.log(listing.location)
+
   return (
     <ScrollView style={styles.screen}>
       <Image style={styles.image} source={{uri: listing.images}} />

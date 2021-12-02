@@ -1,26 +1,45 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect}  from 'react';
 import { View, StyleSheet, Image, TextInput } from 'react-native';
 import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
+import AuthContext from "../components/context";
+import { db } from "../firebase";
 
 function AccountDetailsScreen() {
+  const [userName, setUsername] = useState('');
+  const {user, setUser} = useContext(AuthContext);
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [location, setLocation] = useState();
 
+  const id = user.uid;
+  async function getUser() {
+    try {
+      db.collection("users").doc(id).get().then(
+        snapshot => setUsername(snapshot.data())
+      )
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, [])
+
   return (
     <Screen style={styles.container}>
         <View style={styles.logoContainer}>
           <Image 
-            source={require("../assets/user.png")}
+            source={{uri: userName.photoURL}}
             style={styles.userLogo} 
           />
         </View>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Name"
+            placeholder={userName.displayName}
             placeholderTextColor={defaultStyles.colors.grey}
             style={defaultStyles.text}
             value={name}
@@ -39,7 +58,7 @@ function AccountDetailsScreen() {
         </View>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Email"
+            placeholder={userName.email}
             keyboardType="numeric"
             placeholderTextColor={defaultStyles.colors.grey}
             style={defaultStyles.text}
@@ -49,7 +68,7 @@ function AccountDetailsScreen() {
         </View>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Password"
+            placeholder='Password'
             placeholderTextColor={defaultStyles.colors.grey}
             style={defaultStyles.text}
             value={password}
@@ -85,6 +104,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
     top: 10,
+    margin: 10
   },
   inputContainer: {
     backgroundColor: defaultStyles.colors.light,
