@@ -83,7 +83,16 @@ const SignUpScreen = ({ navigation }) => {
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    return new Promise((resolve, reject) => {
+      auth
+        .signInWithPopup(provider)
+        .then(function (result) {
+          resolve(result.user);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    });
   }
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
