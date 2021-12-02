@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import React from "react";
+import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
@@ -52,12 +52,13 @@ function SingleListingScreen({ route, navigation }) {
     });
   }
   console.log(listing, "listing");
+
   return (
-    <View>
-      <Image style={styles.image} source={listing.image} />
+    <ScrollView style={styles.screen}>
+      <Image style={styles.image} source={{ uri: listing.images }} />
       <View style={styles.detailsContainer}>
-        <View>
-          <Text style={styles.title}>{listing.title}</Text>
+        <Text style={styles.title}>{listing.title}</Text>
+        <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
         </View>
         <SubmitButton
@@ -69,7 +70,12 @@ function SingleListingScreen({ route, navigation }) {
             });
           }}
         />
+        <SubmitButton
+          title="Message"
+          onPress={() => navigation.navigate(routes.SINGLE_MESSAGE)}
+        />
       </View>
+
       <View style={styles.sellerContainer}>
         <ListItem
           image={require("../assets/user.png")}
@@ -78,15 +84,22 @@ function SingleListingScreen({ route, navigation }) {
         />
       </View>
       <View>
-        <LoadingMap />
+        <LoadingMap
+          latitude={listing.location.latitude}
+          longitude={listing.location.longitude}
+        />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    padding: 10,
+    backgroundColor: colors.white,
+  },
   detailsContainer: {
-    padding: 15,
+    padding: 10,
   },
   image: {
     width: "100%",
@@ -103,7 +116,13 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   sellerContainer: {
-    marginBottom: 20,
+    marginBottom: 10,
+  },
+  message: {
+    flex: 2,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
   },
 });
 
