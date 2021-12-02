@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
@@ -11,6 +11,7 @@ import { auth, db } from "../firebase";
 function SingleListingScreen({ route, navigation }) {
   const [groups, setGroups] = useState([]);
 
+  console.log(listing, "listing");
   const listing = route.params;
   async function createGroup(userArray, createdBy, name, type) {
     const group = {
@@ -60,20 +61,17 @@ function SingleListingScreen({ route, navigation }) {
         <Text style={styles.title}>{listing.title}</Text>
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
+
+          <SubmitButton
+            title="Message"
+            onPress={async () => {
+              const group = await createGroup([auth.uid, listing.uid]);
+              navigation.navigate(routes.SINGLE_MESSAGE, {
+                group,
+              });
+            }}
+          />
         </View>
-        <SubmitButton
-          title="Message"
-          onPress={async () => {
-            const group = await createGroup([auth.uid, listing.uid]);
-            navigation.navigate(routes.SINGLE_MESSAGE, {
-              group,
-            });
-          }}
-        />
-        <SubmitButton
-          title="Message"
-          onPress={() => navigation.navigate(routes.SINGLE_MESSAGE)}
-        />
       </View>
 
       <View style={styles.sellerContainer}>
