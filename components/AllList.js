@@ -14,7 +14,7 @@ function List({ title, price, image, onPress }) {
     <SafeAreaView style={styles.detailsContainer}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.card}>
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} source={{uri: image}} />
           <View style={styles.detailsContainer}>
             <Text style={styles.title} numberOfLines={1}>
               {title}

@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect,useContext,useRef} from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import colors from "../components/Config/colors";
 import Icon from "../components/Icon";
 import Screen from "../components/Screen";
-import AuthContext from "../components/context";
 import Text from "../components/Config/Text";
+import { db } from "../firebase";
+import AuthContext from "../components/context";
 
 const menuItems = [
   {
@@ -27,22 +28,33 @@ const menuItems = [
   },
 ];
 
-//we can also use useAuthState
 function AccountScreen({ navigation }) {
-  const {user, setUser} = useContext(AuthContext)
+  const [userName, setUsername] = useState('');
+  const {user, setUser} = useContext(AuthContext);
+  const id = user.uid;
+  
+  async function getUser() {
+    try {
+      await db.collection("users").doc(id).get().then(
+        snapshot => setUsername(snapshot.data())
+      )
+    } catch(e) {
+      console.log(e);
+    }
+  }
 
+  useEffect(() => {
+    getUser();
+  }, [])
 
   return (
     <Screen style={styles.screen}>
       <View style={styles.logoContainer}>
         <Image 
           style={styles.userLogo} 
-          source={require("../assets/user.png")}>
+          source={{uri: userName.photoURL}}>
         </Image>
-        <Text style={styles.tagline}>
-          {user.name}
-          {user.email}
-        </Text>
+        <Text style={styles.tagline}>{userName.displayName}</Text>
       </View>
       <View style={styles.container}>
         <FlatList
@@ -69,7 +81,7 @@ function AccountScreen({ navigation }) {
         onPress={() => setUser(null)}
       />
     </Screen>
-  );
+  ) 
 }
 
 const styles = StyleSheet.create({
@@ -89,12 +101,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
     top: 10,
+    marginBottom: 20
   },
   tagline:{
     fontSize: 20,
-    fontWeight: "400",
-    paddingVertical: 20,
+    fontWeight: "500",
     alignSelf: "center",
+    color: "white",
+    paddingVertical: 5
   }
 });
 
