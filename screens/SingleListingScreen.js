@@ -11,17 +11,16 @@ import { auth, db } from "../firebase";
 function SingleListingScreen({ route, navigation }) {
   const [groups, setGroups] = useState([]);
 
-  console.log(listing, "listing");
   const listing = route.params;
   async function createGroup(userArray, createdBy, name, type) {
     const group = {
-      createdAt: newDate(),
+      createdAt: new Date(),
       createdBy,
       members: userArray,
       name,
       type,
     };
-
+    console.log(group, "group");
     return new Promise((resolve, reject) => {
       db.collection("group")
         .add(group)
@@ -62,10 +61,18 @@ function SingleListingScreen({ route, navigation }) {
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
 
+          {/* userArray, createdBy, name, type */}
+
           <SubmitButton
             title="Message"
             onPress={async () => {
-              const group = await createGroup([auth.uid, listing.uid]);
+              console.log(auth.currentUser, "auth");
+              const group = await createGroup(
+                [auth.currentUser.uid, listing.uid],
+                auth.currentUser.uid,
+                `${auth.currentUser.uid}-${listing.uid}`,
+                "private"
+              );
               navigation.navigate(routes.SINGLE_MESSAGE, {
                 group,
               });
