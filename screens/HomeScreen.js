@@ -15,6 +15,7 @@ import { SearchBar } from "react-native-elements";
 import * as Location from 'expo-location'
 import useLocation from '../components/Config/useLocation'
 
+// setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const LATITUDE = 40.73;
@@ -48,6 +49,7 @@ export default class HomeScreen extends React.Component {
     };
   }
 
+  // function to request permissions to get user's location
    async getLocation() {
     try {
       const {granted} = await Location.requestForegroundPermissionsAsync();
@@ -59,6 +61,7 @@ export default class HomeScreen extends React.Component {
       }
   }
 
+  // when the component mounts, request user location and then retrieve listings from firebase to display as markers on the map view
   componentDidMount() {
     this.getLocation();
     const listings = db
