@@ -62,9 +62,6 @@ const initialMessages = [
     image: require("../assets/image/logotransparent.png"),
   },
 ];
-function MessagesScreen({ navigation }) {
-  const [messages, setMessages] = useState(initialMessages);
-  
 
 // ----------------------------- Current Component ------------------------------
 function MessagesScreen({ navigation, route }) {
