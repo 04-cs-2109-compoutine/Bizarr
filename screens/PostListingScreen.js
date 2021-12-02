@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
+import React, {useEffect, useState, useSelector, useContext} from 'react';
+import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView} from 'react-native';
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
 import * as Location from "expo-location";
+import { db } from '../firebase'
+import AuthContext from "../components/context";
+import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
 function PostListingScreen() {
 
@@ -13,9 +17,12 @@ function PostListingScreen() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState({});
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState(null);
+  const [imageUris, setImageUris] = useState([]);
+  const {user, setUser} = useContext(AuthContext);
+  const [pin, setPin] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -24,10 +31,8 @@ function PostListingScreen() {
         setErrorMsg('Permission to access location was denied');
         return;
       }
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log(location.coords.latitude);
-      console.log(location.coords.longitude)
+      let {coords: {latitude, longitude}} = await Location.getCurrentPositionAsync();
+      setLocation({latitude, longitude});
     })();
   }, []);
 
@@ -37,14 +42,41 @@ function PostListingScreen() {
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    lat = JSON.stringify(location.coords.latitude);
-    log = JSON.stringify(location.coords.longitude)
+    lat = JSON.stringify(location.latitude);
+    log = JSON.stringify(location.longitude)
   }
 
+  const handlePost = () => {
+    db.collection("listings").add({
+      title: title,
+      price: price,
+      category: selectedValue,
+      location: pin,
+      images: imageUris,
+      uid: user.uid
+    })
+  }
+
+  //push a new image uri into the list and show it on screen
+  const handleAdd = uri => {
+    setImageUris([...imageUris, uri])
+  }
+
+  //remove a photo from list
+  const handleRemove = uri => {
+    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
+  }
+  console.log("location",location);
   return (
-    <Screen style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
-        <PhotoPicker style={styles.picker}/>
+      <View>
+      <PhotoInputList
+        imageUris={imageUris}
+        onAdd={uri => handleAdd(uri)}
+        onRemove={uri => handleRemove(uri)}
+      />
+    </View>
       </View>
       <View style={styles.inputContainer}>
       <TextInput
@@ -70,7 +102,7 @@ function PostListingScreen() {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => { 
+          onRequestClose={() => {
             Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
           }}>
@@ -119,20 +151,50 @@ function PostListingScreen() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <TextInput placeholder="Pick up Location" style={defaultStyles.text}/>
+        <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/>
       </View>
+      <MapView style={styles.map}
+                provider={PROVIDER_GOOGLE}
+                intialRegion={{
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }}
+                onRegionChangeComplete={(location) => setLocation(location)}
+              >
+                <Marker coordinate={location} pinColor="green"
+                  draggable={true}
+                  onDragStart={(e) => {
+                    console.log("Drag Start", e.nativeEvent.coordinates)
+                  }}
+                  onDragEnd={(e) => {
+                    setPin({
+                      latitude: e.nativeEvent.coordinate.latitude,
+                      longitude: e.nativeEvent.coordinate.longitude
+                    })
+                  }}
+                >
+                  <Callout>
+                    <Text>Pick-up location</Text>
+                  </Callout>
+                </Marker>
+      </MapView>
       <View style={styles.btn}>
-        <SubmitButton 
+        <SubmitButton
           title="Post"
-          onPress={()=> console.log("post")}/>
+          onPress={handlePost}/>
       </View>
-   </Screen>
+   </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+  },
+  map: {
+    height: 300
   },
   imgContainer:{
     flexDirection: "row",
