@@ -1,9 +1,10 @@
 import React, {useState, useContext, useEffect}  from 'react';
-import { View, StyleSheet, Image, TextInput } from 'react-native';
+import { View, StyleSheet, Image, TextInput, Text } from 'react-native';
 import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
 import AuthContext from "../components/context";
 import { db } from "../firebase";
+import UploadImage from '../components/ImagePicker';
 
 function AccountDetailsScreen() {
   const [userName, setUsername] = useState('');
@@ -31,11 +32,8 @@ function AccountDetailsScreen() {
 
   return (
     <Screen style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image 
-            source={{uri: userName.photoURL}}
-            style={styles.userLogo} 
-          />
+        <View style={styles.uploadImg}>
+          <UploadImage userName={userName}/>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -93,9 +91,12 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 5,
   },
-  logoContainer:{
-    marginTop: 10,
-    marginBottom: 20,
+  uploadImg: {
+    paddingBottom: 20,
+    paddingTop: 5,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   userLogo: {
     width: 100,
