@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useSelector} from 'react';
 import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable} from 'react-native';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/Config/styles';
@@ -7,6 +7,7 @@ import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
 import SubmitPostButton from '../components/Button/SubmitPostButton';
 import * as Location from "expo-location";
+import { db } from '../firebase'
 
 function PostListingScreen() {
 
@@ -17,6 +18,7 @@ function PostListingScreen() {
   const [location, setLocation] = useState();
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState(null);
+  const imageUris = useSelector((state) => state.imageUris)
 
   useEffect(() => {
     (async () => {
@@ -41,6 +43,7 @@ function PostListingScreen() {
     lat = JSON.stringify(location.coords.latitude);
     log = JSON.stringify(location.coords.longitude)
   }
+
 
   return (
     <Screen style={styles.container}>
@@ -71,7 +74,7 @@ function PostListingScreen() {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => { 
+          onRequestClose={() => {
             Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
           }}>
@@ -123,9 +126,15 @@ function PostListingScreen() {
         <TextInput placeholder="Pick up Location" style={defaultStyles.text}/>
       </View>
       <View style={styles.btn}>
-        <SubmitButton 
+        <SubmitButton
           title="Post"
-          onPress={()=> console.log("post")}/>
+          onPress={db.collection("listings").add({
+            title: title,
+            price: price,
+            category: selectedValue,
+            location: location.coords,
+            images: imageUris
+          })}/>
       </View>
    </Screen>
   );

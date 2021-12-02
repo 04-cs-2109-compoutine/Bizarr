@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useSelector } from 'react';
 import {View} from 'react-native'
 import PhotoInputList from './PhotoInputList';
 
-function PhotoPicker() {
-  const [imageUris, setImageUris] = useState([]);
+function PhotoPicker(props) {
+  // const [imageUris, setImageUris] = useState([]);
 
   //push a new image uri into the list and show it on screen
   const handleAdd = uri => {
-    setImageUris([...imageUris, uri])
+    setImageUris([...this.props.imageUris, uri])
   }
 
   //remove a photo from list
@@ -17,7 +17,7 @@ function PhotoPicker() {
 
   return (
     <View>
-      <PhotoInputList 
+      <PhotoInputList
         imageUris={imageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}
