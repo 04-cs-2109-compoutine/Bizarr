@@ -1,57 +1,31 @@
-<<<<<<< HEAD
-import { useNavigation } from "@react-navigation/native";
-import { signUp } from "../store/user";
-import React, {
-  useEffect,
-  useState,
-  useDispatch,
-  useLayoutEffect,
-  useContext,
-} from "react";
+import React, { useState, useContext } from "react";
 import firebase from "firebase";
 import { auth, db } from "../firebase";
-import { addDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Image,
 } from "react-native";
-=======
-import React, { useState, useContext } from "react";
-import firebase from "firebase";
-import { auth, db } from "../firebase";
-import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
->>>>>>> main
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
 import AuthContext from "../components/context";
 
 const SignUpScreen = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-<<<<<<< HEAD
-  const [imageURL, setImageURL] = useState("");
-
-  const handleSignUp = () => {
-    auth
-=======
   const [photoURL, setPhotoURL] = useState("");
   const authContext = useContext(AuthContext);
 
   const handleSignUp = () => {
-    auth  
->>>>>>> main
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        authContext.setUser(user); 
+        authContext.setUser(user);
         user
           .updateProfile({
             likedItems: {},
@@ -61,53 +35,18 @@ const SignUpScreen = () => {
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-<<<<<<< HEAD
-            console.log("auth", auth);
-            console.log("user", user.uid);
-            // console.log('henlo', user)
-            // if (!db.collection("users").doc(user)){
             db.collection("users").doc(user.uid).set({
               displayName: user.displayName,
               email: user.email,
               photoURL: user.photoURL,
-              // providerId: user.providerId
             });
-            // // } else
-            //   console.log('hello appy', user)
-
-            //         const auth = getAuth();
-            //         onAuthStateChanged(auth, (user) => {
-            //         if (user) {
-            //           db.collections('users').add(user)
-            // // User is signed in, see docs for a list of available properties
-            // // https://firebase.google.com/docs/reference/js/firebase.User
-            //         const uid = user.uid;
-            // // ...
-            authContext.setUser(user);
-=======
-            db.collection("users").doc(user.uid).set({
-              displayName: user.displayName, 
-              email: user.email, 
-              photoURL: user.photoURL, 
-            })
->>>>>>> main
           })
           .catch(function (error) {
             alert(error.message);
           });
-<<<<<<< HEAD
-        if (user) {
-          navigation.replace("Home");
-        } else {
-          navigation.popToTop();
-        }
-        // .catch((error) {alert(error.message);
       });
   };
-=======
-      })}
 
->>>>>>> main
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -122,16 +61,12 @@ const SignUpScreen = () => {
         });
     });
   }
-  
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-<<<<<<< HEAD
-=======
-  
->>>>>>> main
           <Input
             placeholder="Full Name"
             leftIcon={{ type: "material", name: "badge" }}
@@ -167,23 +102,20 @@ const SignUpScreen = () => {
         <Button
           title="Register"
           buttonStyle={{ backgroundColor: colors.main }}
-          onPress={handleSignUp}>
-        </Button>
+          onPress={handleSignUp}
+        ></Button>
       </View>
       <View style={styles.google}>
         <TouchableOpacity
           onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}>
+          style={[styles.button, styles.buttonOutline]}
+        >
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> main
 
 const styles = StyleSheet.create({
   container: {
@@ -236,8 +168,8 @@ const styles = StyleSheet.create({
     color: "gray",
     fontWeight: "bold",
   },
-  google:{
-    padding: 15
-  }
+  google: {
+    padding: 15,
+  },
 });
 export default SignUpScreen;
