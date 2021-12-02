@@ -1,15 +1,7 @@
 import React from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import {
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SearchBar } from "react-native-elements";
 

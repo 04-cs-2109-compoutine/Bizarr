@@ -7,5 +7,6 @@ export default Object.freeze({
   SEARCH_LOCATION: "Search Location",
   LISTING_DETAILS: "Listing Details",
   ACCOUNT_DETAILS: "Account Details",
-  MY_LISTINGS: "My Listings"
+  MY_LISTINGS: "My Listings",
+  SELLER_LISTINGS: "Seller Listings"
 });

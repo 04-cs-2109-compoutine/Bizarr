@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
@@ -10,8 +10,42 @@ import { auth, db } from "../firebase";
 
 function SingleListingScreen({ route, navigation }) {
   const [groups, setGroups] = useState([]);
-
   const listing = route.params;
+  const [userName, setUsername] = useState('');
+  const [listings, setListings] = useState([]);
+
+  const id = listing.uid;
+
+  async function getUser() {
+    try {
+      await db.collection("users").doc(id).get().then(
+        snapshot => setUsername(snapshot.data())
+      )
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  async function getListings() {
+    try {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(listing => listing.uid === id)
+      setListings(userLists);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getListings();
+  }, [])
+
+  useEffect(() => {
+    getUser();
+  }, [])
+  
   async function createGroup(userArray, createdBy, name, type) {
     const group = {
       createdAt: new Date(),
@@ -89,9 +123,10 @@ function SingleListingScreen({ route, navigation }) {
 
       <View style={styles.sellerContainer}>
         <ListItem
-          image={require("../assets/user.png")}
-          title="Snow White"
-          subTitle="25 Listings"
+          image={userName.photoURL}
+          title={userName.displayName}
+          subTitle={listings.length.toString()}
+          onPress={() => navigation.navigate(routes.SELLER_LISTINGS,listings)}
         />
       </View>
       <View>
