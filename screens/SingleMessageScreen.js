@@ -5,22 +5,33 @@ import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Avatar } from "react-native-elements";
 
-export function SingleMessageScreen() {
+export function SingleMessageScreen({ route, navigation }) {
   const [messages, setMessages] = useState([]);
+
+  const chatsRef = db.collection("chats");
+  let group = null;
+  if (route && route.params && route.params.group) {
+    group = route.params.group;
+  }
+
+  console.log(group, "group");
+  //adding avatar
 
   //connecting to database
   useLayoutEffect(() => {
-    const unsubscribe = db
-      .collection("chat")
+    const unsubscribe = chatsRef
       .orderBy("createdAt", "desc")
       .onSnapshot((snapshot) =>
         setMessages(
-          snapshot.docs.map((doc) => ({
-            _id: doc.data()._id,
-            createdAt: doc.data().createdAt.toDate(),
-            text: doc.data().text,
-            user: doc.data().user,
-          }))
+          snapshot.docs
+            .map((doc) => ({
+              _id: doc.data()._id,
+              createdAt: doc.data().createdAt.toDate(),
+              text: doc.data().text,
+              user: doc.data().user,
+              groupId: doc.data().groupId,
+            }))
+            .filter((doc) => doc.groupId === group.id)
         )
       );
     return unsubscribe;
@@ -31,11 +42,12 @@ export function SingleMessageScreen() {
       GiftedChat.append(previousMessages, messages)
     );
     const { _id, createdAt, text, user } = messages[0];
-    db.collection("chats").add({
+    chatsRef.add({
       _id,
       createdAt,
       text,
       user,
+      groupId: group.id,
     });
   }, []);
 

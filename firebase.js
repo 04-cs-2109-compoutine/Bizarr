@@ -6,17 +6,17 @@ const firebaseConfig = {
   projectId: "bizarr-11606",
   storageBucket: "bizarr-11606.appspot.com",
   messagingSenderId: "623928421389",
-  appId: "1:623928421389:web:5d9b295d4cf5e47ee87944"
+  appId: "1:623928421389:web:5d9b295d4cf5e47ee87944",
 };
 
 let app;
 if (firebase.apps.length === 0) {
   app = firebase.initializeApp(firebaseConfig);
 } else {
-  app = firebase.app()
+  app = firebase.app();
 }
 
-const auth = firebase.auth()
+const auth = firebase.auth();
 const db = firebase.firestore();
 
 export { auth, db, firebase };
