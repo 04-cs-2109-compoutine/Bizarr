@@ -5,10 +5,15 @@ import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
+import {ref, getDownloadURL, uploadBytes} from "firebase/storage"
+import { storage } from "../firebase"
+import { updateDoc, getDoc, doc, auth } from '@firebase/firestore';
 import * as Location from "expo-location";
+//for uploading an image
+// const storage = firebase.storage();
 
 function PostListingScreen() {
-
+  const [img, setImg] = useState("")
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -30,6 +35,36 @@ function PostListingScreen() {
       console.log(location.coords.longitude)
     })();
   }, []);
+
+  // useEffect(() => {
+  //   getDoc(doc(db, "users", auth.currentUser.uid)).then(docSnap => {
+  //     if (docSnap.exists) {
+  //     setUser(docSnap.data());
+  //     }
+      
+  //     if (img)
+  //     {
+  //     const uploading = async () => {
+  //      const imgRef = ref(storage, `users/{userId}`)
+  //      try{
+  //       const snap = await uploadBytes(imgRef, img)
+  //       const url = await getDownloadURL(ref(storage, snap.ref.fullPath))
+  //       await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+  //       Avatar: url,
+  //       avatarPath: snap.ref.fullPath
+  //       })
+  //       setImg("");
+  //      }
+  //      catch(e){
+  //        console.log(e)
+  //      }
+  //     }
+  //     }
+  //     UploadingImg()
+      
+
+  // }
+  // )}, [img])
 
   let text = 'Waiting..';
   let lat = "";
@@ -129,6 +164,7 @@ function PostListingScreen() {
    </Screen>
   );
 }
+  
 
 const styles = StyleSheet.create({
   container: {

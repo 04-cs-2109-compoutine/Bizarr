@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import firebase from "firebase";
+import * as firebase from "firebase";
 import { auth, db } from "../firebase";
 import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
 import colors from "../components/Config/colors";

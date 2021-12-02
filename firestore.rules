@@ -24,3 +24,4 @@ service cloud.firestore {
 //request.resource.data is for new docs
 //get and list ---> allow read
 //create, delete, update ---> write
+//
