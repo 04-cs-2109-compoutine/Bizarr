@@ -41,10 +41,6 @@ import ListItemSeparator from "../components/ListItemSeparator";
 //     listingId,
 //   });
 // }, []);
-<<<<<<< HEAD
-=======
-
->>>>>>> 944a58a6a162b6b1b7d12cc3b00e1945e6bb7b28
 const initialMessages = [
   {
     id: 1,
