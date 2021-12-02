@@ -76,13 +76,7 @@ const SignUpScreen = () => {
             secureTextEntry
             style={styles.input}
           />
-          <Input
-            placeholder="Profile Picture"
-            leftIcon={{ type: "material", name: "face" }}
-            value={photoURL}
-            onChangeText={(text) => setPhotoURL(text)}
-            style={styles.input}
-          />
+          
         </View>
         <Button
           title="Register"
