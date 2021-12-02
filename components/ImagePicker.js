@@ -3,8 +3,10 @@ import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function UploadImage({userName}) {
-  const [image, setImage] = useState(userName.photoURL);
+export default function UploadImage({URL}) {
+  const [image, setImage] = useState();
+  console.log(URL)
+  console.log(image)
 
   const  checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
@@ -29,15 +31,15 @@ export default function UploadImage({userName}) {
   }
 
   useEffect(() => {
-    checkForCameraRollPermission()
+    setImage(URL)
+    checkForCameraRollPermission();
   }, []);
  
-  console.log(image)
-  return(
-    <View style={imageUploaderStyles.container}>
-      {image && <Image source={{ uri: image }} style={{ width: 150, height: 150 }}/> } 
-      <View style={imageUploaderStyles.uploadBtnContainer}>
-        <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
+  return (
+    <View style={Styles.container}>
+       {image && <Image source={{ uri: image }} style={Styles.img}/>}
+      <View style={Styles.uploadBtnContainer}>
+        <TouchableOpacity onPress={addImage} style={Styles.uploadBtn} >
           <Text>{image ? 'Edit' : 'Upload'} Image</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
@@ -46,7 +48,8 @@ export default function UploadImage({userName}) {
   )
 }
 
-const imageUploaderStyles=StyleSheet.create({
+
+const Styles=StyleSheet.create({
     container:{
         elevation:2,
         height:150,
@@ -55,6 +58,10 @@ const imageUploaderStyles=StyleSheet.create({
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
+    },
+    img:{ 
+      width: 150, 
+      height: 150 
     },
     uploadBtnContainer:{
         opacity:0.7,

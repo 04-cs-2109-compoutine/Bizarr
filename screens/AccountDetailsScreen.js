@@ -33,7 +33,7 @@ function AccountDetailsScreen() {
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage userName={userName}/>
+          <UploadImage URL={userName.photoURL}/>
         </View>
         <View style={styles.inputContainer}>
           <TextInput

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext} from "react";
+import React, { useState, useEffect,useContext,useRef} from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
@@ -35,7 +35,7 @@ function AccountScreen({ navigation }) {
   
   async function getUser() {
     try {
-      db.collection("users").doc(id).get().then(
+      await db.collection("users").doc(id).get().then(
         snapshot => setUsername(snapshot.data())
       )
     } catch(e) {
