@@ -41,20 +41,20 @@ import ListItemSeparator from "../components/ListItemSeparator";
 //     listingId,
 //   });
 // }, []);
-// const initialMessages = [
-//   {
-//     id: 1,
-//     title: "Grace",
-//     description: "There is no such thing as too much Bubble Tea 🧋",
-//     image: require("../assets/image/logotransparent.png"),
-//   },
-//   {
-//     id: 2,
-//     title: "Mason",
-//     description: "I love potatoes",
-//     image: require("../assets/image/logotransparent.png"),
-//   },
-// ];
+const initialMessages = [
+  {
+    id: 1,
+    title: "Grace",
+    description: "There is no such thing as too much Bubble Tea 🧋",
+    image: require("../assets/image/logotransparent.png"),
+  },
+  {
+    id: 2,
+    title: "Mason",
+    description: "I love potatoes",
+    image: require("../assets/image/logotransparent.png"),
+  },
+];
 function MessagesScreen({ navigation }) {
   const [messages, setMessages] = useState(initialMessages);
   const [refreshing, setRefreshing] = useState(false);
