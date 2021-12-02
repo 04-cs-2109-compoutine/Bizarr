@@ -7,18 +7,18 @@ function PhotoPicker(props) {
 
   //push a new image uri into the list and show it on screen
   const handleAdd = uri => {
-    setImageUris([...this.props.imageUris, uri])
+    setImageUris([...props.imageUris, uri])
   }
 
   //remove a photo from list
   const handleRemove = uri => {
-    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
+    setImageUris(props.imageUris.filter(imageUri => imageUri !== uri))
   }
 
   return (
     <View>
       <PhotoInputList
-        imageUris={imageUris}
+        imageUris={props.imageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}
       />

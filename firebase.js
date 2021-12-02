@@ -1,5 +1,13 @@
 import * as firebase from "firebase";
 
+// const FIRESTORE_API_KEY = process.env.FIRESTORE_API_KEY;
+// const FIRESTORE_AUTH_DOMAIN = process.env.FIRESTORE_AUTH_DOMAIN;
+// const FIRESTORE_DATABASE_URL = process.env.FIRESTORE_DATABASE_URL;
+// const FIRESTORE_PROJECT_ID = process.env.FIRESTORE_PROJECT_ID;
+// const FIRESTORE_STORAGE_BUCKET = process.env.FIRESTORE_STORAGE_BUCKET;
+// const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
+// const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
+
 const firebaseConfig = {
   apiKey: "AIzaSyAbids5u5V37mkGJ-cPeoxS2bUjUBnduSg",
   authDomain: "bizarr-11606.firebaseapp.com",

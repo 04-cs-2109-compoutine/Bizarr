@@ -17,7 +17,8 @@ function PostListingScreen() {
   const [location, setLocation] = useState();
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState(null);
-  const imageUris = useSelector((state) => state.imageUris)
+  const [imageUris, setImageUris] = useState([]);
+  // const imageUris = useSelector((state) => state.imageUris)
 
   useEffect(() => {
     (async () => {
