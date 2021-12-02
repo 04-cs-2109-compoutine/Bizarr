@@ -2,7 +2,6 @@
 //   assertFails,
 //   assertSucceeds,
 //   initializeTestEnvironment,
-//   initializeTestApp,
 //   RulesTestEnvironment,
 // } from "@firebase/rules-unit-testing";
 

@@ -2,7 +2,7 @@ rules_version = '2'
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{usersId}{ 
-      allow create: if request.auth.uid == null;
+      allow create: if request.auth.uid == null; //if the user is null ie not logged in let them create an acc
       allow update: if request.auth.uid == userId
     }
     match /chats/{chatsId}{ 
@@ -19,3 +19,8 @@ service cloud.firestore {
     }
   }
 }
+
+//resource.data is for docs that are already in the db
+//request.resource.data is for new docs
+//get and list ---> allow read
+//create, delete, update ---> write
