@@ -21,33 +21,6 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-// const listings = [
-//   {
-//     id: 1,
-//     title: "Red jacket for sale",
-//     price: 100,
-//     image: require("../assets/jacket.jpg"),
-//     latitude: 40.73,
-//     longitude: -73.99
-//   },
-//   {
-//     id: 2,
-//     title: "Couch in great condition",
-//     price: 1000,
-//     image: require("../assets/couch.jpg"),
-//     latitude: 40.73,
-//     longitude: -74
-//   },
-//   {
-//     id: 1,
-//     title: "Memory foam mattress - slight wear",
-//     price: 500,
-//     image: require("../assets/jacket.jpg"),
-//     latitude: 40.72,
-//     longitude: -73.98
-//   }
-// ];
-
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -140,13 +113,13 @@ export default class HomeScreen extends React.Component {
                 >
                   <Callout>
                       <Text>
-                        {listing.title}
-                        {listing.description}
+                        {/* {listing.title} */}
+                        {/* {listing.description} */}
                         <Image style={{
                           width: 40,
                           height: 40
                           }}
-                          source={listing.images}>
+                          source={{uri: listing.images}}>
                         </Image>
                       </Text>
                   </Callout>

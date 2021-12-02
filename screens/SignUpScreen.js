@@ -1,37 +1,25 @@
-import { useNavigation } from "@react-navigation/native";
-import { signUp } from "../store/user"
-import React, { useEffect, useState, useDispatch, useLayoutEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import firebase from "firebase";
 import { auth, db } from "../firebase";
-import { addDoc } from "firebase/firestore"
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
 import AuthContext from "../components/context";
 
-const SignUpScreen = ({ navigation }) => {
+const SignUpScreen = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const authContext = useContext(AuthContext);
-  const handleSignUp = () => { //auth === firebase.auth
-    
+
+  const handleSignUp = () => {
     auth  
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        //signed in
         const user = userCredentials.user;
-
+        authContext.setUser(user); 
         user
           .updateProfile({
             likedItems: {},
@@ -41,56 +29,31 @@ const SignUpScreen = ({ navigation }) => {
               : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
           })
           .then(function () {
-            console.log('auth', auth)
-            console.log('user', user.uid)
-            // console.log('henlo', user)
-            // if (!db.collection("users").doc(user)){
-              db.collection("users").doc(user.uid).set({
-                displayName: user.displayName, 
-                email: user.email, 
-                photoURL: user.photoURL, 
-                // providerId: user.providerId
-              })
-            // // } else
-            //   console.log('hello appy', user)
-
-
-    //         const auth = getAuth();
-    //         onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //           db.collections('users').add(user)
-    // // User is signed in, see docs for a list of available properties
-    // // https://firebase.google.com/docs/reference/js/firebase.User
-    //         const uid = user.uid;
-    // // ...
-    authContext.setUser(user); 
-  })
+            db.collection("users").doc(user.uid).set({
+              displayName: user.displayName, 
+              email: user.email, 
+              photoURL: user.photoURL, 
+            })
+          })
           .catch(function (error) {
             alert(error.message);
           });
-        if (user){
-          navigation.replace('Home')
-        } else {
-        navigation.popToTop();
-        }
-      // .catch((error) {alert(error.message);
-  })}
+      })}
+
   //sign in with google
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
+  
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
-          {/* <Input placeholder="First Name" style={styles.input} /> */}
-          {/* <Input placeholder="Last Name" style={styles.input} /> */}
-          {/* <Input placeholder="Username" style={styles.input} /> */}
+  
           <Input
             placeholder="Full Name"
-            label="Name"
             leftIcon={{ type: "material", name: "badge" }}
             value={name}
             onChangeText={(text) => setName(text)}
@@ -99,7 +62,6 @@ const SignUpScreen = ({ navigation }) => {
 
           <Input
             placeholder="Email"
-            //label="Email"
             leftIcon={{ type: "material", name: "email" }}
             value={email}
             onChangeText={(email) => setEmail(email)}
@@ -108,7 +70,6 @@ const SignUpScreen = ({ navigation }) => {
 
           <Input
             placeholder="Password"
-            //label="Password"
             leftIcon={{ type: "material", name: "lock" }}
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -117,38 +78,28 @@ const SignUpScreen = ({ navigation }) => {
           />
           <Input
             placeholder="Profile Picture"
-            //label="Profile Picture"
             leftIcon={{ type: "material", name: "face" }}
             value={photoURL}
             onChangeText={(text) => setPhotoURL(text)}
             style={styles.input}
           />
         </View>
-
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Button
-            title="Register"
-            buttonStyle={{ backgroundColor: colors.main }}
-            style={styles.RegisterButton}
-            onPress={handleSignUp}
-          ></Button>
-        </TouchableOpacity>
+        <Button
+          title="Register"
+          buttonStyle={{ backgroundColor: colors.main }}
+          onPress={handleSignUp}>
+        </Button>
       </View>
-      <View>
+      <View style={styles.google}>
         <TouchableOpacity
           onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}
-        >
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Google</Text>
         </TouchableOpacity>
       </View>
-      {/* <Text style={styles.LoginLink}>Already have an Account? Login!</Text> */}
     </KeyboardAvoidingView>
   );
-  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -169,12 +120,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#E4EFE7",
     width: "90%",
     height: "auto",
-    padding: 5,
+    paddingTop: 20,
+    paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    // backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -183,7 +134,6 @@ const styles = StyleSheet.create({
   button: {
     width: "60%",
     borderRadius: 7,
-    //marginBottom: 5,
   },
   buttonOutline: {
     borderColor: "#5C8389",
@@ -201,7 +151,9 @@ const styles = StyleSheet.create({
   signUpText: {
     color: "gray",
     fontWeight: "bold",
-    //fontFamily:
   },
+  google:{
+    padding: 15
+  }
 });
 export default SignUpScreen;

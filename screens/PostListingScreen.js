@@ -5,7 +5,6 @@ import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
-import SubmitPostButton from '../components/Button/SubmitPostButton';
 import * as Location from "expo-location";
 
 function PostListingScreen() {
