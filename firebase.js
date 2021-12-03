@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
-import { getStorage } from "firebase/storage";
-import 'firebase/storage'; 
+// import { getStorage } from "firebase/storage";
+// import 'firebase/storage'; 
+// import firebase from 'firebase/app'
 
 
 const firebaseConfig = {

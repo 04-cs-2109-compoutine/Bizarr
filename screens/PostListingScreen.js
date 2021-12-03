@@ -5,15 +5,21 @@ import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
-import {ref, getDownloadURL, uploadBytes} from "firebase/storage"
-import { storage } from "../firebase"
-import { updateDoc, getDoc, doc, auth } from '@firebase/firestore';
+import {getDownloadURL, uploadBytes} from "firebase/storage"
+import { auth, db } from "../firebase"
+import { updateDoc, getDoc, doc} from 'firebase/firestore';
 import * as Location from "expo-location";
+import ImagePicker from 'react-native-image-picker';
+import firebase from '../firebase'
 //for uploading an image
-// const storage = firebase.storage();
+// const storeImage = firebase.storage();
+// import storage from '@react-native-firebase/storage'
+import { getStorage, ref } from "firebase/storage";
+
+// const storage = getStorage();
 
 function PostListingScreen() {
-  const [img, setImg] = useState("")
+  // const [img, setImg] = useState("")
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -36,23 +42,26 @@ function PostListingScreen() {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   getDoc(doc(db, "users", auth.currentUser.uid)).then(docSnap => {
+  // const handleUpload = () => {
+  //   console.log(handle)
+  //   const listingPic = doc(db, 'listings', db.collections('listings').id)
+  //   getDoc(listingPic).then(docSnap => { //link to the listing insteaf of user
   //     if (docSnap.exists) {
-  //     setUser(docSnap.data());
+  //     setListing(docSnap.data());
   //     }
       
-  //     if (img)
-  //     {
+  //     if (img) {
   //     const uploading = async () => {
-  //      const imgRef = ref(storage, `users/{userId}`)
+  //      const imgRef = ref(storage, `listings/{listingsId}`)
   //      try{
   //       const snap = await uploadBytes(imgRef, img)
   //       const url = await getDownloadURL(ref(storage, snap.ref.fullPath))
-  //       await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-  //       Avatar: url,
-  //       avatarPath: snap.ref.fullPath
+  //       const updatePic = doc(db, 'listings', db.collections('listings').id)
+  //       await updateDoc(updatePic, {
+  //       images: url,
+  //       imagesPath: snap.ref.fullPath
   //       })
+    //     setImg(img)
   //       setImg("");
   //      }
   //      catch(e){
@@ -60,12 +69,34 @@ function PostListingScreen() {
   //      }
   //     }
   //     }
+  //
   //     UploadingImg()
       
 
   // }
-  // )}, [img])
+  // )}
 
+  // const grabPhotoFromCameraRoll = () => {
+  //   ImagePicker.openCamera({
+  //     width: 1200,
+  //     height: 780
+  //   }).then((image) => {
+  //     console.log('image picker')
+  //     const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
+  //     setImg(imageUri)
+  //   })
+  // }
+
+// const submitListing = () => {
+//   firebase
+//   .storage()
+//   .ref('/uploadOk.jpeg')
+//   .putFile(
+//     `${firebase.storage.Native.listings/{id}}/ok.jpeg`
+//   )
+//   .then(successCb)
+//   .catch(failureCb);
+// }
   let text = 'Waiting..';
   let lat = "";
   let log = "";
@@ -159,7 +190,7 @@ function PostListingScreen() {
       <View style={styles.btn}>
         <SubmitButton 
           title="Post"
-          onPress={()=> console.log("post")}/>
+          onPress={console.log(auth.currentUser)}/>
       </View>
    </Screen>
   );
