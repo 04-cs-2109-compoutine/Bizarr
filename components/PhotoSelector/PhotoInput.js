@@ -3,6 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+
 
 function PhotoInput({imageUri, onChangeImage}) {
   // [imageUri, setImageUri] = useState("")
@@ -19,13 +21,6 @@ function PhotoInput({imageUri, onChangeImage}) {
     }
   }
   // setSelectedImage({ localUri: pickerResult.uri })
-  let base64Img = `data:image/jpg;base64,${result.base64}`;
-
-  let data = {
-    "file": base64Img,
-    "upload_preset": "uploadPreset",
-  }
-
 
   const handlePress = () => {
     if(!imageUri){
@@ -52,6 +47,23 @@ function PhotoInput({imageUri, onChangeImage}) {
       if (!result.cancelled) {
         onChangeImage(result.uri);
       }
+      let base64Img = `data:image/jpg;base64,${result.base64}`;
+      let data = {
+        "file": base64Img,
+        "upload_preset": "uploadPreset",
+            }
+            fetch(CLOUDINARY_URL, {
+              body: JSON.stringify(data),
+              headers: {
+                'content-type': 'application/json'
+              },
+              method: 'POST',
+            }).then(async r => {
+              let data = await r.json()
+          
+              setImageUris(data.url);
+            }).catch(err => console.log(err))
+
     } catch (error){
       console.log("Error can't load an image", error)
     }

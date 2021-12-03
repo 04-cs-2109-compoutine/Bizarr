@@ -12,7 +12,6 @@ import * as firebase from "firebase";
 // const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
 // const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
 
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAbids5u5V37mkGJ-cPeoxS2bUjUBnduSg",

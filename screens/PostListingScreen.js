@@ -10,10 +10,10 @@ import {getDownloadURL, uploadBytes} from "firebase/storage"
 import { auth, db } from "../firebase"
 import { updateDoc, getDoc, doc} from 'firebase/firestore';
 import * as Location from "expo-location";
-import { db } from '../firebase'
+// import { db } from '../firebase'
 import AuthContext from "../components/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
-import { CLOUDINARY_URL } from "../firebase";
+
 
 
 // const storage = getStorage();
@@ -117,17 +117,7 @@ function PostListingScreen() {
       images: imageUris,
       uid: user.uid
     })
-    fetch(CLOUDINARY_URL, {
-      body: JSON.stringify(data),
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-    }).then(async r => {
-      let data = await r.json()
-  
-      setImageUris(imageUris.uri);
-    }).catch(err => console.log(err))
+   
   };
 
 
