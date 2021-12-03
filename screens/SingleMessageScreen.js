@@ -38,7 +38,6 @@ export function SingleMessageScreen({ route, navigation }) {
       GiftedChat.append(previousMessages, messages)
     );
     const { _id, createdAt, text, user } = messages[0];
-    console.log(group, "group in message screen");
     chatsRef.add({
       _id,
       createdAt,

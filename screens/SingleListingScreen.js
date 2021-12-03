@@ -90,8 +90,6 @@ function SingleListingScreen({ route, navigation }) {
               const filteredGroups = groups.filter((group) =>
                 group.members.includes(userArray[1])
               );
-              console.log(groups, "groups");
-              console.log(filteredGroups, "filteredGroups");
               resolve(filteredGroups[0]);
             } else {
               resolve(null);
@@ -132,11 +130,7 @@ function SingleListingScreen({ route, navigation }) {
           <SubmitButton
             title="Message"
             onPress={async () => {
-              console.log(auth.currentUser, "auth");
-              //let group = null;
               let group = await findGroup([auth.currentUser.uid, listing.uid]);
-              console.log(listing, "listing");
-              console.log(group, "after findgroup");
 
               if (!group) {
                 group = await createGroup(
