@@ -15,7 +15,7 @@ function AccountDetailsScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [location, setLocation] = useState();
-
+  
   const id = user.uid;
   async function getUser() {
     try {
@@ -31,13 +31,14 @@ function AccountDetailsScreen() {
     getUser();
   }, [])
 
-  const handleSave = () => {
-    db.collection("users").doc(id).update({
-      title: title,
-      price: price,
-      category: selectedValue,
-      location: pin,
-      images: imageUris,
+  const handleSave = async () => {
+    const userRef = db.doc("users", id)
+    await updateDoc(userRef, {
+      userName: userName,
+      phone: phone,
+      email: email,
+      password: password,
+      location: location,
     })
   }
 

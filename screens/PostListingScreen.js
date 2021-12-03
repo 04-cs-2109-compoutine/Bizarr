@@ -192,6 +192,7 @@ function PostListingScreen() {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+    marginBottom: 50
   },
   map: {
     height: 300
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginTop:10,
-    alignItems: "center"
+    alignItems: "center",
   },
   pickerContainer:{
     flex: 1,
