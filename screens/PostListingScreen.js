@@ -158,14 +158,16 @@ function PostListingScreen() {
       <MapView style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 intialRegion={{
-                  ...location,
+                  latitude: location.latitude,
+                  longitude: location.longitude,
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
-                // onRegionChangeComplete={(location) => setLocation(location)}
+                onRegionChangeComplete={(location) => setLocation(location)}
               >
                 <Marker coordinate={location}
-                  pinColor={"red"}
+                  pinColor="red"
+                  value={pin}
                   draggable={true}
                   onDragStart={(e) => {
                     console.log("Drag Start", e.nativeEvent.coordinates)
