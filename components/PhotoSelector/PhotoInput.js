@@ -60,8 +60,8 @@ function PhotoInput({imageUri, onChangeImage, setImageUris}) {
               method: 'POST',
             }).then(async r => {
               let data = await r.json()
-              console.log(data)
-              console.log(imageUri)
+              console.log("data", data)
+              console.log("imageUri", imageUri)
               setImageUris(data.secure_url);
             }).catch(err => console.log(err))
 
