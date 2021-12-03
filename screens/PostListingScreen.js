@@ -7,7 +7,7 @@ import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
 import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
 import * as Location from "expo-location";
-import { db } from '../firebase'
+import { db, firebase } from '../firebase'
 import AuthContext from "../components/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
@@ -52,7 +52,7 @@ function PostListingScreen() {
       price: price,
       description: description,
       category: selectedValue,
-      location: pin,
+      location: new firebase.firestore.GeoPoint(pin),
       images: imageUris,
       uid: user.uid
     })
