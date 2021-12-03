@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 
@@ -9,20 +9,17 @@ import ListItemSeparator from "../components/ListItemSeparator";
 
 import { auth, db } from "../firebase";
 
-function MessageScreen({ navigation, route }) {
+function MessageScreen({ navigation }) {
   const [groups, setGroups] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     if (auth.currentUser.uid) {
-      console.log(auth.currentUser.uid, "current user");
       fetchGroupByUserID(auth.currentUser.uid);
     }
   }, []);
 
   function fetchGroupByUserID(uid) {
     return new Promise((resolve, reject) => {
-      console.log(uid, "uid");
       try {
         const groupRef = db.collection("group");
         groupRef
@@ -34,7 +31,6 @@ function MessageScreen({ navigation, route }) {
               data.id = doc.id;
               allGroups.push(data);
             });
-            console.log(allGroups, "groups in all message screen");
             setGroups(allGroups);
             resolve(allGroups);
           });
