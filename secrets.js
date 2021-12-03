@@ -6,3 +6,5 @@ process.env.FIRESTORE_PROJECT_ID = "bizarr-11606";
 process.env.FIRESTORE_STORAGE_BUCKET = "bizarr-11606.appspot.com";
 process.env.FIRESTORE_MESSAGING_SENDER_ID = "623928421389";
 process.env.FIRESTORE_APP_ID = "1:623928421389:web:5d9b295d4cf5e47ee87944";
+
+process.env.GOOGLEMAPS_API_KEY = "AIzaSyDK6vhdXzcy1ZF27VFN3b1pqSQRNPTakYQ";
