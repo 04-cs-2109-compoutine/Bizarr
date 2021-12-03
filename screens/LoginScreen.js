@@ -9,7 +9,7 @@ import { auth } from "../firebase";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
@@ -17,14 +17,14 @@ const LoginScreen = ({ navigation }) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        console.log(userCredentials);
+        // console.log(userCredentials);
         const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
+        // console.log("Logged in with:", user.email);
         authContext.setUser(user);
       })
       .catch((error) => alert(error.message));
   };
-  
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/logoid.png")} />

@@ -12,6 +12,7 @@ import { auth, db } from "../firebase";
 function MessageScreen({ navigation, route }) {
   const [groups, setGroups] = useState([]);
 
+
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
