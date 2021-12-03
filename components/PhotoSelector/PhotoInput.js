@@ -3,8 +3,11 @@ import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+
 
 function PhotoInput({imageUri, onChangeImage}) {
+  // [imageUri, setImageUri] = useState("")
 
   useEffect(() => {
     requestPermission();
@@ -14,8 +17,10 @@ function PhotoInput({imageUri, onChangeImage}) {
     const result = await ImagePicker.requestCameraPermissionsAsync();
     if(!result.granted){
       alert("You need to enable permission to access the library")
+      return
     }
   }
+  // setSelectedImage({ localUri: pickerResult.uri })
 
   const handlePress = () => {
     if(!imageUri){
@@ -36,11 +41,29 @@ function PhotoInput({imageUri, onChangeImage}) {
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
+        base64: true
       });
       console.log(result);
       if (!result.cancelled) {
         onChangeImage(result.uri);
       }
+      let base64Img = `data:image/jpg;base64,${result.base64}`;
+      let data = {
+        "file": base64Img,
+        "upload_preset": "uploadPreset",
+            }
+            fetch(CLOUDINARY_URL, {
+              body: JSON.stringify(data),
+              headers: {
+                'content-type': 'application/json'
+              },
+              method: 'POST',
+            }).then(async r => {
+              let data = await r.json()
+          
+              setImageUris(data.url);
+            }).catch(err => console.log(err))
+
     } catch (error){
       console.log("Error can't load an image", error)
     }
