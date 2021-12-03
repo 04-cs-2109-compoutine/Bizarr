@@ -8,3 +8,10 @@ process.env.FIRESTORE_MESSAGING_SENDER_ID = "623928421389";
 process.env.FIRESTORE_APP_ID = "1:623928421389:web:5d9b295d4cf5e47ee87944";
 
 process.env.GOOGLEMAPS_API_KEY = "AIzaSyDK6vhdXzcy1ZF27VFN3b1pqSQRNPTakYQ";
+
+/*
+use const GOOGLEMAPS_API_KEY = process.env.GOOGLEMAPS_API_KEY after importing to use
+"config": {
+  "googleMapsApiKey": "AIzaSyDK6vhdXzcy1ZF27VFN3b1pqSQRNPTakYQ"
+},
+*/
