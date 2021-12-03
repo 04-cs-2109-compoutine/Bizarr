@@ -55,12 +55,6 @@ function MessageScreen({ navigation }) {
           <ListItem
             title={item.name}
             subtitle={JSON.stringify(item, null, 4)}
-<<<<<<< HEAD
-            // imageUrl={
-            //   "https://lh3.googleusercontent.com/proxy/Y7j6CHreamAbM4a47JR29UEvMeQs0gYPbgpbifv_V5WLCyFyLTLVmQSfAHEHmcfvIWr7ACvgSDXU8zOyIHBTXWWw8Tvlchk"
-            // }
-=======
->>>>>>> main
             onPress={() =>
               navigation.navigate("SingleMessage", { group: item })
             }
