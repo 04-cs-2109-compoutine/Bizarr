@@ -6,15 +6,13 @@ let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 export default function UploadImage({URL}) {
   const [image, setImage] = useState();
-  console.log(URL)
-  console.log(image)
+  // console.log(URL)
+  // console.log(image)
 
   const  checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert("Please grant camera roll permissions inside your system's settings");
-    }else{
-      console.log('Media Permissions are granted')
     }
   }
 
