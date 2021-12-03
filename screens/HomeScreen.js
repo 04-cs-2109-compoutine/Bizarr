@@ -47,7 +47,14 @@ export default class HomeScreen extends React.Component {
       const {granted} = await Location.requestForegroundPermissionsAsync();
       if (!granted) return 'Allow current location to see listings in your area.';
       const { coords: { latitude, longitude }} = await Location.getCurrentPositionAsync();
-      this.setState({...this.state, region: { latitude: latitude, longitude: longitude, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO}})
+      this.setState({...this.state,
+        region: {
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO
+        }
+      })
     } catch(error) {
         console.log(error);
       }
@@ -124,7 +131,6 @@ export default class HomeScreen extends React.Component {
                 </Marker>
               ))}
             </MapView>
-        {/* <BottomNavigator/> */}
     </SafeAreaView>
     );
   }

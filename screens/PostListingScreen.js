@@ -50,6 +50,7 @@ function PostListingScreen() {
     db.collection("listings").add({
       title: title,
       price: price,
+      description: description,
       category: selectedValue,
       location: pin,
       images: imageUris,
@@ -70,23 +71,23 @@ function PostListingScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
-      <View>
-      <PhotoInputList
-        imageUris={imageUris}
-        onAdd={uri => handleAdd(uri)}
-        onRemove={uri => handleRemove(uri)}
-      />
-    </View>
+        <View>
+          <PhotoInputList
+            imageUris={imageUris}
+            onAdd={uri => handleAdd(uri)}
+            onRemove={uri => handleRemove(uri)}
+          />
+        </View>
       </View>
       <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Title"
-        placeholderTextColor={defaultStyles.colors.grey}
-        style={defaultStyles.text}
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        maxLength={255}
-      />
+        <TextInput
+          placeholder="Title"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+          maxLength={255}
+        />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -151,19 +152,20 @@ function PostListingScreen() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/>
+        {/* <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/> */}
+        <Text>Set pick up location</Text>
       </View>
       <MapView style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 intialRegion={{
-                  latitude: location.latitude,
-                  longitude: location.longitude,
+                  ...location,
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
               }}
-                onRegionChangeComplete={(location) => setLocation(location)}
+                // onRegionChangeComplete={(location) => setLocation(location)}
               >
-                <Marker coordinate={location} pinColor="green"
+                <Marker coordinate={location}
+                  pinColor={"red"}
                   draggable={true}
                   onDragStart={(e) => {
                     console.log("Drag Start", e.nativeEvent.coordinates)
