@@ -6,8 +6,8 @@ let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 export default function UploadImage({URL}) {
   const [image, setImage] = useState();
-  console.log(URL)
-  console.log(image)
+  // console.log(URL)
+  // console.log(image)
 
   const  checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
@@ -35,7 +35,7 @@ export default function UploadImage({URL}) {
     setImage(URL)
     checkForCameraRollPermission();
   }, []);
- 
+
   return (
     <View style={Styles.container}>
        {image && <Image source={{ uri: image }} style={Styles.img}/>}
@@ -54,15 +54,15 @@ const Styles=StyleSheet.create({
     container:{
         elevation:2,
         height:150,
-        width:150, 
+        width:150,
         backgroundColor:'#efefef',
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
     },
-    img:{ 
-      width: 150, 
-      height: 150 
+    img:{
+      width: 150,
+      height: 150
     },
     uploadBtnContainer:{
         opacity:0.7,

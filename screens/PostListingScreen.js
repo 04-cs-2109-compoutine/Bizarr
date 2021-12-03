@@ -10,7 +10,7 @@ import {getDownloadURL, uploadBytes} from "firebase/storage"
 import { auth, db } from "../firebase"
 import { updateDoc, getDoc, doc} from 'firebase/firestore';
 import * as Location from "expo-location";
-import { db, firebase } from '../firebase'
+import { firebase } from '../firebase'
 import AuthContext from "../components/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
@@ -109,12 +109,13 @@ function PostListingScreen() {
   }
 
   const handlePost = () => {
+    console.log("handlepost", imageUris)
     db.collection("listings").add({
       title: title,
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(pin),
+      location: pin,
       images: imageUris,
       uid: user.uid
     })
@@ -131,7 +132,7 @@ function PostListingScreen() {
   const handleRemove = uri => {
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
-  console.log("location",location);
+  // console.log("location",location);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
@@ -139,6 +140,7 @@ function PostListingScreen() {
       <PhotoInputList
 
         imageUris={imageUris}
+        setImageUris={setImageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}
       />
