@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AccountScreen from "../screens/AccountScreen";
 import AccountDetailsScreen from "../screens/AccountDetailsScreen";
 import MyListingScreen from "../screens/MyListingScreen";
-import SingleListingScreen from "../screens/SingleListingScreen";
+import UserSingleListingScreen from "../screens/UserSingleListingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +19,8 @@ const AccountNavigator = () => (
       component={AccountDetailsScreen} 
       options={{headerTitle: ""}}/>
       <Stack.Screen 
-      name="Listing Details" 
-      component={SingleListingScreen} 
+      name="User Single Listing Screen" 
+      component={UserSingleListingScreen} 
       options={{headerTitle: ""}}/>
   </Stack.Navigator>
 )

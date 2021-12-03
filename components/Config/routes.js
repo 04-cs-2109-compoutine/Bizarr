@@ -8,5 +8,6 @@ export default Object.freeze({
   LISTING_DETAILS: "Listing Details",
   ACCOUNT_DETAILS: "Account Details",
   MY_LISTINGS: "My Listings",
-  SELLER_LISTINGS: "Seller Listings"
+  SELLER_LISTINGS: "Seller Listings",
+  USER_SINGLE_LISTING: "User Single Listing Screen",
 });
