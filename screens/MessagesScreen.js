@@ -48,6 +48,24 @@ import { AuthContext } from "../components/context";
 //   });
 // }, []);
 
+// async function fetchGroupByUserID(uid){
+//   const vm = this
+//   return new Promise((resolve, reject) => {
+//     const groupRef = db.collection('group')s
+//     groupRef
+//       .where('members', 'array-contains', uid)
+//       .onSnapshot((querySnapshot) => {
+//         const allGroups = []
+//         querySnapshot.forEach((doc) => {
+//           const data = doc.data()
+//           data.id = doc.id
+//           if (data.recentMessage) allGroups.push(data)
+//         })
+//         vm.groups = allGroups
+//       })
+//   })
+// }
+
 const initialMessages = [
   {
     id: 1,
@@ -62,9 +80,6 @@ const initialMessages = [
     image: require("../assets/image/logotransparent.png"),
   },
 ];
-function MessagesScreen({ navigation }) {
-  const [messages, setMessages] = useState(initialMessages);
-  
 
 // ----------------------------- Current Component ------------------------------
 function MessagesScreen({ navigation, route }) {

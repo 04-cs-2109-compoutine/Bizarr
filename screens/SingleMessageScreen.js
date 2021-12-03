@@ -3,7 +3,6 @@ import React, { useState, useCallback, useLayoutEffect } from "react";
 import { StyleSheet } from "react-native";
 import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
-import { Avatar } from "react-native-elements";
 
 export function SingleMessageScreen({ route, navigation }) {
   const [messages, setMessages] = useState([]);
@@ -13,9 +12,6 @@ export function SingleMessageScreen({ route, navigation }) {
   if (route && route.params && route.params.group) {
     group = route.params.group;
   }
-
-  console.log(group, "group");
-  //adding avatar
 
   //connecting to database
   useLayoutEffect(() => {
@@ -41,13 +37,14 @@ export function SingleMessageScreen({ route, navigation }) {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
-    const { _id, createdAt, text, user } = messages[0];
+    const { _id, createdAt, text, user, groupId } = messages[0];
+    console.log(group.id, "group in message screen");
     chatsRef.add({
       _id,
       createdAt,
       text,
       user,
-      groupId: group.id,
+      groupId,
     });
   }, []);
 
