@@ -6,7 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 
-function PhotoInput({imageUri, onChangeImage}) {
+function PhotoInput({setImageUris, imageUri, onChangeImage}) {
   // [imageUri, setImageUri] = useState("")
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function PhotoInput({imageUri, onChangeImage}) {
               method: 'POST',
             }).then(async r => {
               let data = await r.json()
-          
+              console.log(data.url, 'data.url')
               setImageUris(data.url);
             }).catch(err => console.log(err))
 
