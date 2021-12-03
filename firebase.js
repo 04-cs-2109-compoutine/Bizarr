@@ -1,4 +1,8 @@
 import * as firebase from "firebase";
+// import { getStorage } from "firebase/storage";
+// import 'firebase/storage'; 
+// import firebase from 'firebase/app'
+// var cl = new cloudinary.Cloudinary({cloud_name: "bizarr", secure: true});
 
 if (process.env.NODE_ENV !== "production") require("./secrets");
 
@@ -9,6 +13,7 @@ const FIRESTORE_PROJECT_ID = process.env.FIRESTORE_PROJECT_ID;
 const FIRESTORE_STORAGE_BUCKET = process.env.FIRESTORE_STORAGE_BUCKET;
 const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
 const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
+
 
 const firebaseConfig = {
   apiKey: FIRESTORE_API_KEY,
@@ -26,6 +31,7 @@ if (firebase.apps.length === 0) {
 } else {
   app = firebase.app();
 }
+// const storage = firebase.storage().ref();
 
 const auth = firebase.auth();
 const db = firebase.firestore();
