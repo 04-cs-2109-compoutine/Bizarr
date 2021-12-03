@@ -3,7 +3,6 @@ import React, { useState, useCallback, useLayoutEffect } from "react";
 import { StyleSheet } from "react-native";
 import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
-import { Avatar } from "react-native-elements";
 
 export function SingleMessageScreen({ route, navigation }) {
   const [messages, setMessages] = useState([]);
@@ -13,9 +12,6 @@ export function SingleMessageScreen({ route, navigation }) {
   if (route && route.params && route.params.group) {
     group = route.params.group;
   }
-
-  console.log(group, "group");
-  //adding avatar
 
   //connecting to database
   useLayoutEffect(() => {

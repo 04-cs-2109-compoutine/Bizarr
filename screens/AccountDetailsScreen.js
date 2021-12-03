@@ -5,6 +5,7 @@ import Screen from '../components/Screen';
 import AuthContext from "../components/context";
 import { db } from "../firebase";
 import UploadImage from '../components/ImagePicker';
+import SubmitButton from '../components/Button/SubmitButton';
 
 function AccountDetailsScreen() {
   const [userName, setUsername] = useState('');
@@ -29,6 +30,16 @@ function AccountDetailsScreen() {
   useEffect(() => {
     getUser();
   }, [])
+
+  const handleSave = () => {
+    db.collection("users").doc(id).update({
+      title: title,
+      price: price,
+      category: selectedValue,
+      location: pin,
+      images: imageUris,
+    })
+  }
 
   return (
     <Screen style={styles.container}>
@@ -82,7 +93,10 @@ function AccountDetailsScreen() {
             value={location}
             onChangeText={(text) => setLocation(text)}
           />
-          </View>
+        </View>
+        <View style={styles.btn}>
+          <SubmitButton title="Save" onPress={handleSave}/>
+        </View>
     </Screen>
   );
 }
@@ -115,6 +129,10 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 10,
   },
+  btn:{
+    margin: 20,
+    alignItems: 'center'
+  }
 });
 
 export default AccountDetailsScreen;

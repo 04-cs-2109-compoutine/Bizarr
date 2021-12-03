@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
@@ -11,50 +11,55 @@ import { auth, db } from "../firebase";
 function SingleListingScreen({ route, navigation }) {
   const [groups, setGroups] = useState([]);
   const listing = route.params;
-  const [userName, setUsername] = useState('');
+  const [userName, setUsername] = useState("");
   const [listings, setListings] = useState([]);
 
   const id = listing.uid;
 
   async function getUser() {
     try {
-      await db.collection("users").doc(id).get().then(
-        snapshot => setUsername(snapshot.data())
-      )
-    } catch(e) {
+      await db
+        .collection("users")
+        .doc(id)
+        .get()
+        .then((snapshot) => setUsername(snapshot.data()));
+    } catch (e) {
       console.log(e);
     }
   }
 
   async function getListings() {
     try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid === id)
+      const getListingsPromise = db.collection("listings").get();
+      const data = await getListingsPromise;
+      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter((listing) => listing.uid === id);
       setListings(userLists);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
   useEffect(() => {
     getListings();
-  }, [])
+  }, []);
 
   useEffect(() => {
     getUser();
-  }, [])
-  
-  async function createGroup(userArray, createdBy, name, type) {
+  }, []);
+
+  //group functions
+  async function createGroup(userArray, createdBy, name, type, listingId) {
     const group = {
       createdAt: new Date(),
       createdBy,
       members: userArray,
       name,
       type,
+      listingId: parseInt(listingId),
+      //can insert more listing here by creating object
     };
-    console.log(group, "group");
+    // auth.currentUser.uid, listing.uid
     return new Promise((resolve, reject) => {
       db.collection("group")
         .add(group)
@@ -66,6 +71,34 @@ function SingleListingScreen({ route, navigation }) {
         .catch(function (error) {
           reject(error);
         });
+    });
+  }
+  async function findGroup(userArray) {
+    return new Promise((resolve, reject) => {
+      const groupRef = db.collection("group");
+      try {
+        groupRef
+          .where("members", "array-contains", userArray[0])
+          .get()
+          .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+              const groups = querySnapshot.docs.map((doc) => {
+                const group = doc.data();
+                group.id = doc.id;
+                return group;
+              });
+              const filteredGroups = groups.filter((group) =>
+                group.members.includes(userArray[1])
+              );
+              resolve(filteredGroups[0]);
+            } else {
+              resolve(null);
+            }
+          });
+      } catch (error) {
+        console.log(error);
+        resolve(null);
+      }
     });
   }
 
@@ -85,7 +118,6 @@ function SingleListingScreen({ route, navigation }) {
         });
     });
   }
-  console.log(listing, "listing");
 
   return (
     <ScrollView style={styles.screen}>
@@ -95,22 +127,18 @@ function SingleListingScreen({ route, navigation }) {
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
 
-          {/* userArray, createdBy, name, type */}
-
           <SubmitButton
             title="Message"
             onPress={async () => {
-              console.log(auth.currentUser, "auth");
-              let group = null;
-              // let group = await findGroup();
-              //check if there is a group that already includes both the users with the same ids
-              //and is type private if(!group)
+              let group = await findGroup([auth.currentUser.uid, listing.uid]);
+
               if (!group) {
                 group = await createGroup(
                   [auth.currentUser.uid, listing.uid],
                   auth.currentUser.uid,
-                  `${auth.currentUser.uid}-${listing.uid}`,
-                  "private"
+                  `${listing.title} - ${auth.currentUser.displayName}`,
+                  "listing",
+                  listing.id
                 );
               }
               navigation.navigate(routes.SINGLE_MESSAGE, {
@@ -126,7 +154,7 @@ function SingleListingScreen({ route, navigation }) {
           image={userName.photoURL}
           title={userName.displayName}
           subTitle={listings.length.toString()}
-          onPress={() => navigation.navigate(routes.SELLER_LISTINGS,listings)}
+          onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
       <View>
