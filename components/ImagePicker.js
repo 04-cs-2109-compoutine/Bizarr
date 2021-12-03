@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 export default function UploadImage({URL}) {
   const [image, setImage] = useState();

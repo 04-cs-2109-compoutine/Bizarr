@@ -2,8 +2,7 @@ import * as firebase from "firebase";
 // import { getStorage } from "firebase/storage";
 // import 'firebase/storage'; 
 // import firebase from 'firebase/app'
-var firebase = require('firebase/storage');
-
+// var cl = new cloudinary.Cloudinary({cloud_name: "bizarr", secure: true});
 
 // const FIRESTORE_API_KEY = process.env.FIRESTORE_API_KEY;
 // const FIRESTORE_AUTH_DOMAIN = process.env.FIRESTORE_AUTH_DOMAIN;
@@ -12,6 +11,8 @@ var firebase = require('firebase/storage');
 // const FIRESTORE_STORAGE_BUCKET = process.env.FIRESTORE_STORAGE_BUCKET;
 // const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
 // const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
+
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAbids5u5V37mkGJ-cPeoxS2bUjUBnduSg",

@@ -5,7 +5,7 @@ import Screen from '../components/Screen';
 import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
-import PhotoPicker from '../components/PhotoSelector/PhotoPicker';
+import PhotoPicker from '../components/PhotoSelector/PhotoPicker'; //image picker for listings
 import {getDownloadURL, uploadBytes} from "firebase/storage"
 import { auth, db } from "../firebase"
 import { updateDoc, getDoc, doc} from 'firebase/firestore';
@@ -13,6 +13,8 @@ import * as Location from "expo-location";
 import { db } from '../firebase'
 import AuthContext from "../components/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
+import { CLOUDINARY_URL } from "../firebase";
+
 
 // const storage = getStorage();
 
@@ -115,7 +117,19 @@ function PostListingScreen() {
       images: imageUris,
       uid: user.uid
     })
-  }
+    fetch(CLOUDINARY_URL, {
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    }).then(async r => {
+      let data = await r.json()
+  
+      setImageUris(imageUris.uri);
+    }).catch(err => console.log(err))
+  };
+
 
   //push a new image uri into the list and show it on screen
   const handleAdd = uri => {
@@ -132,6 +146,7 @@ function PostListingScreen() {
       <View style={styles.imgContainer}>
       <View>
       <PhotoInputList
+
         imageUris={imageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}
