@@ -4,7 +4,10 @@ import { db } from '../firebase'
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SearchBar } from "react-native-elements";
+import * as Location from 'expo-location'
+import useLocation from '../components/Config/useLocation'
 
+// setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const LATITUDE = 40.73;
@@ -16,6 +19,7 @@ const SPACE = 0.01;
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.getLocation = this.getLocation.bind(this);
     this.state = {
       listings: [],
       region: {
@@ -25,6 +29,8 @@ export default class HomeScreen extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       images: [
+        require("../assets/uglywelcomebanner.png"),
+        require("../assets/banner2.png"),
         "https://thecrossingsofdawsonville.com/wp-content/uploads/sites/14/2019/07/Welcome-to-the-team-1200x565.jpg",
         "https://www.creativefabrica.com/wp-content/uploads/2020/09/23/WELCOME-Graphics-5632158-1.jpg",
         "https://media.istockphoto.com/photos/on-colourful-speech-bubbles-picture-id180819641?b=1&k=20&m=180819641&s=170667a&w=0&h=CX51cRVofQl95e_cu9Bfy5PLZQ1WdsqmJ-NCFzU96UI=",
@@ -35,25 +41,39 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const listings = db
-      .collection("listings")
-      .onSnapshot((snapshot) =>
-        this.setState({
-          listings: snapshot.docs.map((doc) => ({
-            description: doc.data().description,
-            images: doc.data().images,
-            title: doc.data().title,
-            location: doc.data().location,
-          }))
-        })
-      )
-      return listings;
+  // function to request permissions to get user's location
+   async getLocation() {
+    try {
+      const {granted} = await Location.requestForegroundPermissionsAsync();
+      if (!granted) return 'Allow current location to see listings in your area.';
+      const { coords: { latitude, longitude }} = await Location.getCurrentPositionAsync();
+      this.setState({...this.state, region: { latitude: latitude, longitude: longitude, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO}})
+    } catch(error) {
+        console.log(error);
+      }
   }
 
-  updateSearch = (search) => {
+  // when the component mounts, request user location and then retrieve listings from firebase to display as markers on the map view
+  componentDidMount() {
+    this.getLocation();
+    const listings = db
+    .collection("listings")
+    .onSnapshot((snapshot) =>
+      this.setState({...this.state,
+        listings: snapshot.docs.map((doc) => ({
+          description: doc.data().description,
+          images: doc.data().images,
+          title: doc.data().title,
+          location: doc.data().location,
+        }))
+      })
+    )
+    return listings;
+  }
+
+  updateSearch(search) {
     this.setState({ search });
-  };
+  }
 
   render() {
     const search = this.state.search;
@@ -78,20 +98,6 @@ export default class HomeScreen extends React.Component {
                   loadingIndicatorColor='#666666'
                   loadingBackgroundColor='#EEEEEE'
                 >
-              {/* <Marker
-                coordinate={{
-                  latitude: LATITUDE - SPACE,
-                  longitude: LONGITUDE - SPACE,
-                }}
-                centerOffset={{ x: -42, y: -60 }}
-                anchor={{ x: 0.84, y: 1 }}
-              >
-                <Callout>
-                  <View>
-                    <Text>Pick up</Text>
-                  </View>
-                </Callout> */}
-              {/* </Marker> */}
               {this.state.listings.map((listing, index) => (
                 <Marker
                   key={index}

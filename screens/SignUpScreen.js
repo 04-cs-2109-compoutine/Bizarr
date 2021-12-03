@@ -48,18 +48,10 @@ const SignUpScreen = () => {
   };
 
   //sign in with google
-  function signInWithGoogle() {
+  async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return new Promise((resolve, reject) => {
-      auth
-        .signInWithPopup(provider)
-        .then(function (result) {
-          resolve(result.user);
-        })
-        .catch(function (error) {
-          reject(error);
-        });
-    });
+    const { user } = await auth.signInWithPopup(provider);
+    return user;
   }
 
   return (
@@ -91,7 +83,6 @@ const SignUpScreen = () => {
             secureTextEntry
             style={styles.input}
           />
-          
         </View>
         <Button
           title="Register"
