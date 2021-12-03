@@ -101,7 +101,7 @@ export default class HomeScreen extends React.Component {
               {this.state.listings.map((listing, index) => (
                 <Marker
                   key={index}
-                  coordinate={{
+                  coordinate = {{
                     latitude: listing.location.latitude,
                     longitude: listing.location.longitude,
                   }}
@@ -111,8 +111,6 @@ export default class HomeScreen extends React.Component {
                 >
                   <Callout>
                       <Text>
-                        {/* {listing.title} */}
-                        {/* {listing.description} */}
                         <Image style={{
                           width: 40,
                           height: 40
@@ -124,7 +122,6 @@ export default class HomeScreen extends React.Component {
                 </Marker>
               ))}
             </MapView>
-        {/* <BottomNavigator/> */}
     </SafeAreaView>
     );
   }
