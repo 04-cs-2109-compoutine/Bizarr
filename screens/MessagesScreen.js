@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
-
 import Screen from "../components/Screen";
 import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
@@ -56,9 +55,6 @@ function MessageScreen({ navigation }) {
           <ListItem
             title={item.name}
             subtitle={JSON.stringify(item, null, 4)}
-            imageUrl={
-              "https://lh3.googleusercontent.com/proxy/Y7j6CHreamAbM4a47JR29UEvMeQs0gYPbgpbifv_V5WLCyFyLTLVmQSfAHEHmcfvIWr7ACvgSDXU8zOyIHBTXWWw8Tvlchk"
-            }
             onPress={() =>
               navigation.navigate("SingleMessage", { group: item })
             }
