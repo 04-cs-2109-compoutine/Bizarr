@@ -4,6 +4,7 @@ import Main from './screens/Main';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 
+
 export default function App() {
 
   return (
