@@ -10,10 +10,8 @@ const Stack = createNativeStackNavigator();
 const ListNavigator = () => (
   //modal let screen pop from the bottom, screen options make the detail page has no title
   <Stack.Navigator mode="modal" >
-    <Stack.Screen name="Listings" component={ListingsScreen}/>
-    <Stack.Screen name="Listing Details" component={SingleListingScreen} options={{
-      headerTitle: ""
-    }}/>
+    <Stack.Screen name="Listings" options={{ headerShown: false }} component={ListingsScreen}/>
+    <Stack.Screen name="Listing Details" component={SingleListingScreen} options={{headerTitle: ""}}/>
     <Stack.Screen name="SingleMessage" component={SingleMessageScreen} options={{headerTitle: "Chat"}}/>
     <Stack.Screen name="Seller Listings" component={SellerListingScreen} options={{headerTitle: ""}}/>
   </Stack.Navigator>
