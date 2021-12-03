@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
@@ -9,9 +9,6 @@ import ListItemSeparator from "../components/ListItemSeparator";
 
 import { auth, db } from "../firebase";
 
-import { AuthContext } from "../components/context";
-
-// ----------------------------- connecting to backend ------------------------------
 function MessageScreen({ navigation, route }) {
   const [groups, setGroups] = useState([]);
 
@@ -54,18 +51,6 @@ function MessageScreen({ navigation, route }) {
     setGroups(groups.filter((m) => m.id !== message.id));
   };
 
-  // const onSend = useCallback((groups = []) => {
-  //   setGroups((previousGroups) => FlatList.append(previousGroups, groups));
-  //   const { _id, createdAt, text, fromUserId, toUserId } = groups[0];
-  //   messageList.add({
-  //     _id,
-  //     createdAt,
-  //     text,
-  //     fromUserId,
-  //     toUserId,
-  //   });
-  // }, []);
-
   return (
     <Screen>
       <FlatList
@@ -88,18 +73,6 @@ function MessageScreen({ navigation, route }) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
-        // //when refreshing
-        // refreshing={refreshing}
-        // onRefresh={() => {
-        //   setGroups([
-        //     {
-        //       id: 2,
-        //       title: "The Potato Life",
-        //       description: "I love potatoes",
-        //       image: require("../assets/image/logotransparent.png"),
-        //     },
-        //   ]);
-        // }}
       />
     </Screen>
   );
