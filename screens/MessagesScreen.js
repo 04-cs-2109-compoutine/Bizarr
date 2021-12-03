@@ -12,6 +12,12 @@ import { auth, db } from "../firebase";
 function MessageScreen({ navigation }) {
   const [groups, setGroups] = useState([]);
 
+<<<<<<< HEAD
+=======
+
+  const [refreshing, setRefreshing] = useState(false);
+
+>>>>>>> main
   useEffect(() => {
     if (auth.currentUser.uid) {
       fetchGroupByUserID(auth.currentUser.uid);
