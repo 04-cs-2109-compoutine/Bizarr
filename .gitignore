@@ -12,6 +12,7 @@ web-build/
 package-lock.json
 secrets.js
 
+
 # macOS
 .DS_Store
-.env
+secrets.js
