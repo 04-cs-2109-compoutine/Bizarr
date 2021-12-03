@@ -57,6 +57,7 @@ function SingleListingScreen({ route, navigation }) {
       name,
       type,
       listingId: parseInt(listingId),
+      //can insert more listing here by creating object
     };
     // auth.currentUser.uid, listing.uid
     return new Promise((resolve, reject) => {
@@ -81,7 +82,11 @@ function SingleListingScreen({ route, navigation }) {
           .get()
           .then((querySnapshot) => {
             if (!querySnapshot.empty) {
-              const groups = querySnapshot.docs.map((doc) => doc.data());
+              const groups = querySnapshot.docs.map((doc) => {
+                const group = doc.data();
+                group.id = doc.id;
+                return group;
+              });
               const filteredGroups = groups.filter((group) =>
                 group.members.includes(userArray[1])
               );
@@ -130,14 +135,14 @@ function SingleListingScreen({ route, navigation }) {
               console.log(auth.currentUser, "auth");
               //let group = null;
               let group = await findGroup([auth.currentUser.uid, listing.uid]);
+              console.log(listing, "listing");
               console.log(group, "after findgroup");
-              //check if there is a group that already includes both the users with the same ids
-              //and is type listing if(!group)
+
               if (!group) {
                 group = await createGroup(
                   [auth.currentUser.uid, listing.uid],
                   auth.currentUser.uid,
-                  `${auth.currentUser.uid}-${listing.uid}`,
+                  `${listing.title} - ${auth.currentUser.displayName}`,
                   "listing",
                   listing.id
                 );
