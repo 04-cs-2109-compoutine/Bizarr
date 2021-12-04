@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+import AuthContext from "../components/Config/context";
+import { db } from "../firebase";
 
-export default function UploadImage({URL}) {
+export default function UploadImage() {
+  const {user, setUser} = useContext(AuthContext);
+  const [userName, setUsername] = useState('');
   const [image, setImage] = useState();
-  // console.log(URL)
-  // console.log(image)
+  //console.log(URL)
+  // console.log(userName)
 
-  const  checkForCameraRollPermission = async() => {
+  useEffect(() => {
+    db.collection("users").doc(user.uid).onSnapshot(
+      snapshot => setUsername(snapshot.data())
+    );
+    setImage(userName.photoURL);
+    checkForCameraRollPermission();
+  }, [])
+
+  const checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert("Please grant camera roll permissions inside your system's settings");
@@ -28,11 +39,6 @@ export default function UploadImage({URL}) {
       setImage(_image.uri);
     }
   }
-
-  useEffect(() => {
-    setImage(URL)
-    checkForCameraRollPermission();
-  }, []);
  
   return (
     <View style={Styles.container}>
@@ -46,7 +52,6 @@ export default function UploadImage({URL}) {
     </View>
   )
 }
-
 
 const Styles=StyleSheet.create({
     container:{

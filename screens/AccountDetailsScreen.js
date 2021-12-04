@@ -1,25 +1,24 @@
 import React, {useState, useContext, useEffect}  from 'react';
-import { View, StyleSheet, Image, TextInput, Text } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
-import AuthContext from "../components/context";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import UploadImage from '../components/ImagePicker';
 import SubmitButton from '../components/Button/SubmitButton';
 
 function AccountDetailsScreen() {
   const [userName, setUsername] = useState('');
-  const {user, setUser} = useContext(AuthContext);
+  
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
   const [location, setLocation] = useState();
   
   const id = user.uid;
   async function getUser() {
     try {
-      db.collection("users").doc(id).get().then(
+        db.collection("users").doc(id).get().then(
         snapshot => setUsername(snapshot.data())
       )
     } catch(e) {
@@ -31,21 +30,30 @@ function AccountDetailsScreen() {
     getUser();
   }, [])
 
-  const handleSave = async () => {
-    const userRef = db.doc("users", id)
-    await updateDoc(userRef, {
-      userName: userName,
-      phone: phone,
-      email: email,
-      password: password,
-      location: location,
+  const handleSave = () => {
+    auth.signInWithEmailAndPassword(user.email, '1234567')
+    .then((userCredential) => {
+        const user = userCredential.user;
+        user.updateEmail(email)
+        user.updatePassword(password)
     })
+    .then(() => {
+      db.collection("user").doc(user.uid).update({
+        displayName: name,
+        phone: phone,
+        location: location,
+        email: email,
+      })
+    })
+    .catch(function (error) {
+      alert(error.message);
+    });
   }
 
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage URL={userName.photoURL}/>
+          <UploadImage/>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -69,7 +77,6 @@ function AccountDetailsScreen() {
         <View style={styles.inputContainer}>
           <TextInput
             placeholder={userName.email}
-            keyboardType="numeric"
             placeholderTextColor={defaultStyles.colors.grey}
             style={defaultStyles.text}
             value={email}
@@ -83,7 +90,7 @@ function AccountDetailsScreen() {
             style={defaultStyles.text}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            secureTextEntry
+            //secureTextEntry
           />
         </View>
         <View style={styles.inputContainer}>

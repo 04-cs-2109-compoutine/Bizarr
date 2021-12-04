@@ -28,8 +28,6 @@ export default class HomeScreen extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       images: [
-        // require("../assets/uglywelcomebanner.png"),
-        // require("../assets/banner2.png"),
         "https://thecrossingsofdawsonville.com/wp-content/uploads/sites/14/2019/07/Welcome-to-the-team-1200x565.jpg",
         "https://www.creativefabrica.com/wp-content/uploads/2020/09/23/WELCOME-Graphics-5632158-1.jpg",
         "https://media.istockphoto.com/photos/on-colourful-speech-bubbles-picture-id180819641?b=1&k=20&m=180819641&s=170667a&w=0&h=CX51cRVofQl95e_cu9Bfy5PLZQ1WdsqmJ-NCFzU96UI=",
@@ -51,8 +49,7 @@ export default class HomeScreen extends React.Component {
         console.log(error);
       }
   }
-
-  // when the component mounts, request user location and then retrieve listings from firebase to display as markers on the map view
+  
   componentDidMount() {
     this.getLocation();
     const listings = db

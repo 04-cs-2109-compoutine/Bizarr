@@ -1,22 +1,14 @@
 import React, {useEffect, useState, useSelector, useContext} from 'react';
 import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView} from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import Screen from '../components/Screen';
 import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
 import colors from '../components/Config/colors';
-import PhotoPicker from '../components/PhotoSelector/PhotoPicker'; //image picker for listings
-import {getDownloadURL, uploadBytes} from "firebase/storage"
 import { auth, db } from "../firebase"
-import { updateDoc, getDoc, doc} from 'firebase/firestore';
 import * as Location from "expo-location";
-// import { db } from '../firebase'
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
-
-
-// const storage = getStorage();
 
 function PostListingScreen() {
   // const [img, setImg] = useState("")
@@ -43,61 +35,6 @@ function PostListingScreen() {
     })();
   }, []);
 
-  // const handleUpload = () => {
-  //   console.log(handle)
-  //   const listingPic = doc(db, 'listings', db.collections('listings').id)
-  //   getDoc(listingPic).then(docSnap => { //link to the listing insteaf of user
-  //     if (docSnap.exists) {
-  //     setListing(docSnap.data());
-  //     }
-      
-  //     if (img) {
-  //     const uploading = async () => {
-  //      const imgRef = ref(storage, `listings/{listingsId}`)
-  //      try{
-  //       const snap = await uploadBytes(imgRef, img)
-  //       const url = await getDownloadURL(ref(storage, snap.ref.fullPath))
-  //       const updatePic = doc(db, 'listings', db.collections('listings').id)
-  //       await updateDoc(updatePic, {
-  //       images: url,
-  //       imagesPath: snap.ref.fullPath
-  //       })
-    //     setImg(img)
-  //       setImg("");
-  //      }
-  //      catch(e){
-  //        console.log(e)
-  //      }
-  //     }
-  //     }
-  //
-  //     UploadingImg()
-      
-
-  // }
-  // )}
-
-  // const grabPhotoFromCameraRoll = () => {
-  //   ImagePicker.openCamera({
-  //     width: 1200,
-  //     height: 780
-  //   }).then((image) => {
-  //     console.log('image picker')
-  //     const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
-  //     setImg(imageUri)
-  //   })
-  // }
-
-// const submitListing = () => {
-//   firebase
-//   .storage()
-//   .ref('/uploadOk.jpeg')
-//   .putFile(
-//     `${firebase.storage.Native.listings/{id}}/ok.jpeg`
-//   )
-//   .then(successCb)
-//   .catch(failureCb);
-// }
   let text = 'Waiting..';
   let lat = "";
   let log = "";
@@ -120,7 +57,6 @@ function PostListingScreen() {
    
   };
 
-
   //push a new image uri into the list and show it on screen
   const handleAdd = uri => {
     setImageUris([...imageUris, uri])
@@ -130,13 +66,13 @@ function PostListingScreen() {
   const handleRemove = uri => {
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
+
   console.log("location",location);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
       <View>
       <PhotoInputList
-
         imageUris={imageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}

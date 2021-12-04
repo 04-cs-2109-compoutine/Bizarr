@@ -3,11 +3,11 @@ import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import colors from "../components/Config/colors";
-import Icon from "../components/Icon";
+import Icon from "../components/Config/Icon";
 import Screen from "../components/Screen";
 import Text from "../components/Config/Text";
 import { db } from "../firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 
 const menuItems = [
   {
