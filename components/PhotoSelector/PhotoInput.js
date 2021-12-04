@@ -4,8 +4,6 @@ import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-
-
 function PhotoInput({imageUri, onChangeImage}) {
   // const [localUri, setSelectedImage] = useState();
 
@@ -39,8 +37,6 @@ function PhotoInput({imageUri, onChangeImage}) {
     if (pickerResult.cancelled === true) {
       return;
     }
-
-    // onChangeImage(pickerResult.uri);
 
     let base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
 

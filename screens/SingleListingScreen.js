@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
+import { SliderBox } from "react-native-image-slider-box";
 import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
@@ -121,7 +122,8 @@ function SingleListingScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.screen}>
-      <Image style={styles.image} source={{ uri: listing.images }} />
+      {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
+      <SliderBox images={listing.images}/>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <View style={styles.message}>
@@ -153,7 +155,7 @@ function SingleListingScreen({ route, navigation }) {
         <ListItem
           image={userName.photoURL}
           title={userName.displayName}
-          // subTitle={listings.length.toString()}
+          subTitle={listings.length.toString()}
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>

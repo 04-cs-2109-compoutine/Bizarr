@@ -78,7 +78,7 @@ function PostListingScreen() {
   const handleRemove = uri => {
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
-  console.log("imageUris", imageUris);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
