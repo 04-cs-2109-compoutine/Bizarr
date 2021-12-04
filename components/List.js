@@ -5,7 +5,7 @@ import Text from "./Config/Text";
 import colors from "./Config/colors";
 
 function List({ title, subTitle, imageUris, onPress }) {
-  console.log(imageUris)
+
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>

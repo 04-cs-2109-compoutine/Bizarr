@@ -13,8 +13,6 @@ function ListingsScreen({ navigation }) {
   const [search, setSearch] = useState();
   const {user, setUser} = useContext(AuthContext);
 
-  console.log(listings)
-
   async function readAllListing() {
     try {
       const getListingsPromise = db.collection("listings").get()
