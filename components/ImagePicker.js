@@ -1,29 +1,20 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useEffect} from 'react';
 import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import AuthContext from "../components/Config/context";
-import { db } from "../firebase";
 
-export default function UploadImage() {
-  const {user, setUser} = useContext(AuthContext);
-  const [userName, setUsername] = useState('');
-  const [image, setImage] = useState();
-
-  useEffect(() => {
-    db.collection("users").doc(user.uid).onSnapshot(
-      snapshot => setUsername(snapshot.data())
-    );
-    setImage(userName.photoURL);
-    checkForCameraRollPermission();
-  }, [])
-
+export default function UploadImage({image, setImage}) {
+  
   const checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert("Please grant camera roll permissions inside your system's settings");
     }
   }
+
+  useEffect(() => {
+    checkForCameraRollPermission();
+  }, [])
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -37,11 +28,6 @@ export default function UploadImage() {
       setImage(_image.uri);
     }
   }
-
-  useEffect(() => {
-    setImage(URL)
-    checkForCameraRollPermission();
-  }, []);
 
   return (
     <View style={Styles.container}>

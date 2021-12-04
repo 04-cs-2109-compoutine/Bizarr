@@ -5,15 +5,18 @@ import Screen from '../components/Screen';
 import { db, auth } from "../firebase";
 import UploadImage from '../components/ImagePicker';
 import SubmitButton from '../components/Button/SubmitButton';
+import AuthContext from "../components/Config/context";
 
 function AccountDetailsScreen() {
+
   const [userName, setUsername] = useState('');
-  
+  const {user, setUser} = useContext(AuthContext);
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState();
+  const [image, setImage] = useState();
   
   const id = user.uid;
   async function getUser() {
@@ -28,6 +31,7 @@ function AccountDetailsScreen() {
 
   useEffect(() => {
     getUser();
+    setImage(userName.photoURL)
   }, [])
 
   const handleSave = () => {
@@ -38,7 +42,7 @@ function AccountDetailsScreen() {
         user.updatePassword(password)
     })
     .then(() => {
-      db.collection("user").doc(user.uid).update({
+      db.collection("users").doc(user.uid).update({
         displayName: name,
         phone: phone,
         location: location,
@@ -53,7 +57,7 @@ function AccountDetailsScreen() {
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage/>
+          <UploadImage image={image}/>
         </View>
         <View style={styles.inputContainer}>
           <TextInput

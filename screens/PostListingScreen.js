@@ -8,18 +8,12 @@ import { auth, db } from "../firebase"
 import * as Location from "expo-location";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
-
 import firebase from 'firebase';
-import AuthContext from "../components/context";
-import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-// const storage = getStorage();
-
 function PostListingScreen() {
-  // const [img, setImg] = useState("")
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -79,15 +73,15 @@ function PostListingScreen() {
 
   return (
     <ScrollView style={styles.container}>
+
       <View style={styles.imgContainer}>
-      <View>
-      <PhotoInputList
-        imageUris={imageUris}
-        onAdd={uri => handleAdd(uri)}
-        onRemove={uri => handleRemove(uri)}
-      />
-    </View>
+        <PhotoInputList
+          imageUris={imageUris}
+          onAdd={uri => handleAdd(uri)}
+          onRemove={uri => handleRemove(uri)}
+        />
       </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Title"
@@ -98,6 +92,7 @@ function PostListingScreen() {
           maxLength={255}
         />
       </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Price"
@@ -108,47 +103,50 @@ function PostListingScreen() {
           onChangeText={(text) => setPrice(text)}
         />
       </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  mode={"dialog"}
-                  selectedValue={selectedValue}
-                  style={{ height: 200, width: 200 }}
-                  onValueChange={(itemValue) => setCategory(itemValue)}>
-                  <Picker.Item label="Car" value="Car" />
-                  <Picker.Item label="Camera" value="Camera" />
-                  <Picker.Item label="Furniture" value="Furniture" />
-                  <Picker.Item label="Game" value="Game" />
-                  <Picker.Item label="Sports" value="Sports"/>
-                  <Picker.Item label="Clothing" value="Clothing"/>
-                  <Picker.Item label="Movies & Music" value="Movie&music"/>
-                  <Picker.Item label="Books" value="Books"/>
-                  <Picker.Item label="Electronics" value="Electronics"/>
-                  <Picker.Item label="Others" value="Others"/>
-                </Picker>
-              </View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={defaultStyles.text}>Ok</Text>
-              </Pressable>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.pickerContainer}>
+              <Picker
+                mode={"dialog"}
+                selectedValue={selectedValue}
+                style={{ height: 200, width: 200 }}
+                onValueChange={(itemValue) => setCategory(itemValue)}>
+                <Picker.Item label="Car" value="Car" />
+                <Picker.Item label="Camera" value="Camera" />
+                <Picker.Item label="Furniture" value="Furniture" />
+                <Picker.Item label="Game" value="Game" />
+                <Picker.Item label="Sports" value="Sports"/>
+                <Picker.Item label="Clothing" value="Clothing"/>
+                <Picker.Item label="Movies & Music" value="Movie&music"/>
+                <Picker.Item label="Books" value="Books"/>
+                <Picker.Item label="Electronics" value="Electronics"/>
+                <Picker.Item label="Others" value="Others"/>
+              </Picker>
             </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={defaultStyles.text}>Ok</Text>
+            </Pressable>
           </View>
-        </Modal>
-        <Pressable
-          style={styles.inputContainer}
-          onPress={() => setModalVisible(true)}>
-          <Text style={defaultStyles.text}>{selectedValue}</Text>
-        </Pressable>
+        </View>
+      </Modal>
+
+      <Pressable
+        style={styles.inputContainer}
+        onPress={() => setModalVisible(true)}>
+        <Text style={defaultStyles.text}>{selectedValue}</Text>
+      </Pressable>
+
       <View style={styles.inputContainer}>
         <TextInput
           multiline
@@ -160,39 +158,38 @@ function PostListingScreen() {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
+
       <View style={styles.inputContainer}>
         {/* <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/> */}
         <Text>Set pick up location</Text>
       </View>
-      <MapView style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                region={{
-                  latitude: location.latitude,
-                  longitude: location.longitude,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0922 * ASPECT_RATIO,
-              }}
-                onRegionChangeComplete={(location) => setLocation(location)}
-              >
-                <Marker coordinate={location}
-                  pinColor="red"
-                  value={pin}
-                  draggable={true}
-                  onDragStart={(e) => {
-                    console.log("Drag Start", e.nativeEvent.coordinates)
-                  }}
-                  onDragEnd={(e) => {
-                    setPin({
-                      latitude: e.nativeEvent.coordinate.latitude,
-                      longitude: e.nativeEvent.coordinate.longitude
-                    })
-                  }}
-                >
-                  <Callout>
-                    <Text>Pick-up location</Text>
-                  </Callout>
-                </Marker>
-      </MapView>
+        <MapView style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          region={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0922 * ASPECT_RATIO,
+          }}
+          onRegionChangeComplete={(location) => setLocation(location)}>
+          <Marker coordinate={location}
+            pinColor="red"
+            value={pin}
+            draggable={true}
+            onDragStart={(e) => {
+              console.log("Drag Start", e.nativeEvent.coordinates)
+            }}
+            onDragEnd={(e) => {
+              setPin({
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude
+              })
+            }}>
+          <Callout>
+            <Text>Pick-up location</Text>
+          </Callout>
+          </Marker>
+        </MapView>
       <View style={styles.btn}>
         <SubmitButton
           title="Post"
@@ -201,7 +198,6 @@ function PostListingScreen() {
    </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
