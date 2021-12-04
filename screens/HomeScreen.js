@@ -22,10 +22,10 @@ export default class HomeScreen extends React.Component {
     this.state = {
       listings: [],
       region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
+        // latitude: LATITUDE,
+        // longitude: LONGITUDE,
+        // latitudeDelta: LATITUDE_DELTA,
+        // longitudeDelta: LONGITUDE_DELTA,
       },
       images: [
         "https://res.cloudinary.com/bizarr/image/upload/v1638639248/uglywelcomebanner_y3hw3z.png",
@@ -98,7 +98,7 @@ export default class HomeScreen extends React.Component {
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={styles.map}
-                  initialRegion={this.state.region}
+                  region={this.state.region}
                   onPress={this.onMapPress}
                   loadingEnabled
                   loadingIndicatorColor='#666666'
@@ -121,7 +121,7 @@ export default class HomeScreen extends React.Component {
                           width: 40,
                           height: 40
                           }}
-                          source={{uri: listing.images}}>
+                          source={{uri: listing.images[0]}}>
                         </Image>
                       </Text>
                   </Callout>

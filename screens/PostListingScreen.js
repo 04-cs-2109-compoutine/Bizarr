@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useSelector, useContext} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView} from 'react-native';
+import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import Screen from '../components/Screen';
 import defaultStyles from '../components/Config/styles';
@@ -10,11 +10,12 @@ import {getDownloadURL, uploadBytes} from "firebase/storage"
 import { auth, db } from "../firebase"
 import { updateDoc, getDoc, doc} from 'firebase/firestore';
 import * as Location from "expo-location";
-import { firebase } from '../firebase'
+import firebase from 'firebase';
 import AuthContext from "../components/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
-
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
 
 // const storage = getStorage();
 
@@ -43,61 +44,6 @@ function PostListingScreen() {
     })();
   }, []);
 
-  // const handleUpload = () => {
-  //   console.log(handle)
-  //   const listingPic = doc(db, 'listings', db.collections('listings').id)
-  //   getDoc(listingPic).then(docSnap => { //link to the listing insteaf of user
-  //     if (docSnap.exists) {
-  //     setListing(docSnap.data());
-  //     }
-
-  //     if (img) {
-  //     const uploading = async () => {
-  //      const imgRef = ref(storage, `listings/{listingsId}`)
-  //      try{
-  //       const snap = await uploadBytes(imgRef, img)
-  //       const url = await getDownloadURL(ref(storage, snap.ref.fullPath))
-  //       const updatePic = doc(db, 'listings', db.collections('listings').id)
-  //       await updateDoc(updatePic, {
-  //       images: url,
-  //       imagesPath: snap.ref.fullPath
-  //       })
-    //     setImg(img)
-  //       setImg("");
-  //      }
-  //      catch(e){
-  //        console.log(e)
-  //      }
-  //     }
-  //     }
-  //
-  //     UploadingImg()
-
-
-  // }
-  // )}
-
-  // const grabPhotoFromCameraRoll = () => {
-  //   ImagePicker.openCamera({
-  //     width: 1200,
-  //     height: 780
-  //   }).then((image) => {
-  //     console.log('image picker')
-  //     const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
-  //     setImg(imageUri)
-  //   })
-  // }
-
-// const submitListing = () => {
-//   firebase
-//   .storage()
-//   .ref('/uploadOk.jpeg')
-//   .putFile(
-//     `${firebase.storage.Native.listings/{id}}/ok.jpeg`
-//   )
-//   .then(successCb)
-//   .catch(failureCb);
-// }
   let text = 'Waiting..';
   let lat = "";
   let log = "";
@@ -115,7 +61,7 @@ function PostListingScreen() {
       price: price,
       description: description,
       category: selectedValue,
-      location: pin,
+      location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid
     })
@@ -132,7 +78,7 @@ function PostListingScreen() {
   const handleRemove = uri => {
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
-  // console.log("location",location);
+  console.log("imageUris", imageUris);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
@@ -140,7 +86,6 @@ function PostListingScreen() {
       <PhotoInputList
 
         imageUris={imageUris}
-        setImageUris={setImageUris}
         onAdd={uri => handleAdd(uri)}
         onRemove={uri => handleRemove(uri)}
       />
@@ -224,11 +169,11 @@ function PostListingScreen() {
       </View>
       <MapView style={styles.map}
                 provider={PROVIDER_GOOGLE}
-                intialRegion={{
+                region={{
                   latitude: location.latitude,
                   longitude: location.longitude,
                   latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
+                  longitudeDelta: 0.0922 * ASPECT_RATIO,
               }}
                 onRegionChangeComplete={(location) => setLocation(location)}
               >
