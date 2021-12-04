@@ -17,6 +17,7 @@ function AccountDetailsScreen() {
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState();
   const [image, setImage] = useState();
+  console.log(userName)
   
   const id = user.uid;
   async function getUser() {
