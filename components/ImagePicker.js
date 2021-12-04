@@ -33,7 +33,7 @@ export default function UploadImage({URL}) {
     setImage(URL)
     checkForCameraRollPermission();
   }, []);
- 
+
   return (
     <View style={Styles.container}>
        {image && <Image source={{ uri: image }} style={Styles.img}/>}
@@ -52,15 +52,15 @@ const Styles=StyleSheet.create({
     container:{
         elevation:2,
         height:150,
-        width:150, 
+        width:150,
         backgroundColor:'#efefef',
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
     },
-    img:{ 
-      width: 150, 
-      height: 150 
+    img:{
+      width: 150,
+      height: 150
     },
     uploadBtnContainer:{
         opacity:0.7,
