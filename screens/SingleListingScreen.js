@@ -153,7 +153,7 @@ function SingleListingScreen({ route, navigation }) {
         <ListItem
           image={userName.photoURL}
           title={userName.displayName}
-          subTitle={listings.length.toString()}
+          // subTitle={listings.length.toString()}
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>

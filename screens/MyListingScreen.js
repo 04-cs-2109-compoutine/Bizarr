@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { StyleSheet, FlatList, Text} from 'react-native';
+import { SliderBox } from "react-native-image-slider-box";
 import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
@@ -11,7 +12,7 @@ function MyListingScreen({navigation}) {
 
   const [listings, setListings] = useState([]);
   const {user, setUser} = useContext(AuthContext);
-  
+
   async function getListings() {
     try {
       const getListingsPromise = db.collection("listings").get()
@@ -38,7 +39,7 @@ function MyListingScreen({navigation}) {
           <List
             title={item.title}
             subTitle={"$" + item.price}
-            image={item.images}
+            imageUris={item.images}
             onPress={() => navigation.navigate(routes.USER_SINGLE_LISTING, item)}
           />
         )}

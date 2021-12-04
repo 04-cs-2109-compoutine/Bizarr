@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-native';
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
+function PhotoInput({imageUri, onChangeImage}) {
 
-function PhotoInput({ imageUri, onChangeImage}) {
+  let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
   const handlePress = () => {
     if(!imageUri){
@@ -54,7 +54,7 @@ function PhotoInput({ imageUri, onChangeImage}) {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={styles.container}>
-        {!imageUri && (<MaterialCommunityIcons 
+        {!imageUri && (<MaterialCommunityIcons
           color={colors.primary}
           name="camera"
           size={40}

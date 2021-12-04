@@ -9,8 +9,6 @@ export default function UploadImage() {
   const {user, setUser} = useContext(AuthContext);
   const [userName, setUsername] = useState('');
   const [image, setImage] = useState();
-  //console.log(URL)
-  // console.log(userName)
 
   useEffect(() => {
     db.collection("users").doc(user.uid).onSnapshot(
@@ -39,7 +37,12 @@ export default function UploadImage() {
       setImage(_image.uri);
     }
   }
- 
+
+  useEffect(() => {
+    setImage(URL)
+    checkForCameraRollPermission();
+  }, []);
+
   return (
     <View style={Styles.container}>
        {image && <Image source={{ uri: image }} style={Styles.img}/>}
@@ -57,15 +60,15 @@ const Styles=StyleSheet.create({
     container:{
         elevation:2,
         height:150,
-        width:150, 
+        width:150,
         backgroundColor:'#efefef',
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
     },
-    img:{ 
-      width: 150, 
-      height: 150 
+    img:{
+      width: 150,
+      height: 150
     },
     uploadBtnContainer:{
         opacity:0.7,

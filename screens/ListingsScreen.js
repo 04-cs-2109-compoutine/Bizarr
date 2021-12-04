@@ -9,8 +9,8 @@ import { SearchBar } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 
 function ListingsScreen({ navigation }) {
-  const [listings, setListings] = useState();
-  const [search, setSerach] = useState();
+  const [listings, setListings] = useState([]);
+  const [search, setSearch] = useState();
   const {user, setUser} = useContext(AuthContext);
 
   console.log(listings)
@@ -31,7 +31,7 @@ function ListingsScreen({ navigation }) {
   }, [])
 
   const updateSearch = (search)=>{
-    setSerach({ search });
+    setSearch({ search });
   }
 
   return listings instanceof Object ? (
@@ -51,7 +51,7 @@ function ListingsScreen({ navigation }) {
           <AllList
             title={item.title}
             price={"$" + item.price}
-            image={item.images}
+            imageUris={item.images}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}

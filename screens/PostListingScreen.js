@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useSelector, useContext} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView} from 'react-native';
+import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import defaultStyles from '../components/Config/styles';
 import SubmitButton from '../components/Button/SubmitButton';
@@ -9,6 +9,14 @@ import * as Location from "expo-location";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 
+import firebase from 'firebase';
+import AuthContext from "../components/context";
+import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
+
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
+
+// const storage = getStorage();
 
 function PostListingScreen() {
   // const [img, setImg] = useState("")
@@ -46,15 +54,17 @@ function PostListingScreen() {
   }
 
   const handlePost = () => {
+    console.log("handlepost", imageUris)
     db.collection("listings").add({
       title: title,
       price: price,
+      description: description,
       category: selectedValue,
-      location: pin,
+      location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid
     })
-   
+
   };
 
   //push a new image uri into the list and show it on screen
@@ -67,7 +77,6 @@ function PostListingScreen() {
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
 
-  console.log("location",location);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgContainer}>
@@ -80,14 +89,14 @@ function PostListingScreen() {
     </View>
       </View>
       <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Title"
-        placeholderTextColor={defaultStyles.colors.grey}
-        style={defaultStyles.text}
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        maxLength={255}
-      />
+        <TextInput
+          placeholder="Title"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+          maxLength={255}
+        />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -152,19 +161,22 @@ function PostListingScreen() {
         />
       </View>
       <View style={styles.inputContainer}>
-        <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/>
+        {/* <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/> */}
+        <Text>Set pick up location</Text>
       </View>
       <MapView style={styles.map}
                 provider={PROVIDER_GOOGLE}
-                intialRegion={{
+                region={{
                   latitude: location.latitude,
                   longitude: location.longitude,
                   latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
+                  longitudeDelta: 0.0922 * ASPECT_RATIO,
               }}
                 onRegionChangeComplete={(location) => setLocation(location)}
               >
-                <Marker coordinate={location} pinColor="green"
+                <Marker coordinate={location}
+                  pinColor="red"
+                  value={pin}
                   draggable={true}
                   onDragStart={(e) => {
                     console.log("Drag Start", e.nativeEvent.coordinates)
@@ -189,7 +201,7 @@ function PostListingScreen() {
    </ScrollView>
   );
 }
-  
+
 
 const styles = StyleSheet.create({
   container: {
