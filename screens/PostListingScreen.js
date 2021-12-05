@@ -61,7 +61,7 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid
-    }, (progress) => setProgress(progress))
+    })
   };
 
   //push a new image uri into the list and show it on screen
@@ -79,7 +79,6 @@ function PostListingScreen() {
 
       <PostedScreen
         onDone={() => setPostVisible(false)}
-        progress={progress}
         visible={PostVisible}
       />
 

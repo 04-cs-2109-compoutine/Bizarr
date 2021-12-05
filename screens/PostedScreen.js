@@ -4,25 +4,18 @@ import * as Progress from "react-native-progress";
 import LottieView from "lottie-react-native";
 import colors from "../components/Config/colors";
 
-function PostedScreen({ onDone, progress = 0, visible = false }) {
+function PostedScreen({ onDone, visible = false }) {
   return (
     <Modal visible={visible}>
       <View style={styles.container}>
-        {progress < 1 ? (
-          <Progress.Bar
-            color={colors.primary}
-            progress={progress}
-            width={200}
-          />
-        ) : (
           <LottieView
             autoPlay
             loop={false}
             onAnimationFinish={onDone}
             source={require("../assets/animations/done.json")}
             style={styles.animation}
+            duration='1000'
           />
-        )}
       </View>
     </Modal>
   );
@@ -31,6 +24,7 @@ function PostedScreen({ onDone, progress = 0, visible = false }) {
 const styles = StyleSheet.create({
   animation: {
     width: 150,
+    color: colors.primary
   },
   container: {
     alignItems: "center",
