@@ -1,16 +1,21 @@
-import React, {useEffect, useState, useSelector, useContext} from 'react';
-import { View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
-import defaultStyles from '../components/Config/styles';
-import SubmitButton from '../components/Button/SubmitButton';
-import colors from '../components/Config/colors';
-import { auth, db } from "../firebase"
+import React, { useEffect, useState, useSelector, useContext } from "react";
+import {View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from "react-native";
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
+import Screen from "../components/Screen";
+import defaultStyles from "../components/Config/styles";
+import SubmitButton from "../components/Button/SubmitButton";
+import colors from "../components/Config/colors";
+import PhotoPicker from "../components/PhotoSelector/PhotoPicker"; //image picker for listings
+import { getDownloadURL, uploadBytes } from "firebase/storage";
+import { auth, db } from "../firebase";
+import { updateDoc, getDoc, doc } from "firebase/firestore";
 import * as Location from "expo-location";
-import AuthContext from "../components/Config/context";
-import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
-import firebase from 'firebase';
+import firebase from "firebase";
+import AuthContext from "../components/context";
+import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from './PostedScreen';
 
+import GoogleAutoComplete from "../components/GoogleAutoComplete";
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
@@ -23,7 +28,7 @@ function PostListingScreen() {
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState(null);
   const [imageUris, setImageUris] = useState([]);
-  const {user, setUser} = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [pin, setPin] = useState({});
   const [PostVisible, setPostVisible] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -31,23 +36,25 @@ function PostListingScreen() {
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
         return;
       }
-      let {coords: {latitude, longitude}} = await Location.getCurrentPositionAsync();
-      setLocation({latitude, longitude});
+      let {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync();
+      setLocation({ latitude, longitude });
     })();
   }, []);
 
-  let text = 'Waiting..';
+  let text = "Waiting..";
   let lat = "";
   let log = "";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     lat = JSON.stringify(location.latitude);
-    log = JSON.stringify(location.longitude)
+    log = JSON.stringify(location.longitude);
   }
 
   const handlePost = async () => {
@@ -65,14 +72,14 @@ function PostListingScreen() {
   };
 
   //push a new image uri into the list and show it on screen
-  const handleAdd = uri => {
-    setImageUris([...imageUris, uri])
-  }
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
 
   //remove a photo from list
-  const handleRemove = uri => {
-    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
-  }
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -111,7 +118,6 @@ function PostListingScreen() {
           onChangeText={(text) => setPrice(text)}
         />
       </View>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -119,7 +125,8 @@ function PostListingScreen() {
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
-        }}>
+        }}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.pickerContainer}>
@@ -132,12 +139,12 @@ function PostListingScreen() {
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
                 <Picker.Item label="Game" value="Game" />
-                <Picker.Item label="Sports" value="Sports"/>
-                <Picker.Item label="Clothing" value="Clothing"/>
-                <Picker.Item label="Movies & Music" value="Movie&music"/>
-                <Picker.Item label="Books" value="Books"/>
-                <Picker.Item label="Electronics" value="Electronics"/>
-                <Picker.Item label="Others" value="Others"/>
+                <Picker.Item label="Sports" value="Sports" />
+                <Picker.Item label="Clothing" value="Clothing" />
+                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Books" value="Books" />
+                <Picker.Item label="Electronics" value="Electronics" />
+                <Picker.Item label="Others" value="Others" />
               </Picker>
             </View>
             <Pressable
@@ -148,13 +155,12 @@ function PostListingScreen() {
           </View>
         </View>
       </Modal>
-
       <Pressable
         style={styles.inputContainer}
-        onPress={() => setModalVisible(true)}>
+        onPress={() => setModalVisible(true)}
+      >
         <Text style={defaultStyles.text}>{selectedValue}</Text>
       </Pressable>
-
       <View style={styles.inputContainer}>
         <TextInput
           multiline
@@ -166,67 +172,34 @@ function PostListingScreen() {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-
-      <View style={styles.inputContainer}>
-        {/* <TextInput value={pin} placeholder="Pick up Location" style={defaultStyles.text}/> */}
-        <Text>Set pick up location</Text>
-      </View>
-        <MapView style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          region={{
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0922 * ASPECT_RATIO,
-          }}
-          onRegionChangeComplete={(location) => setLocation(location)}>
-          <Marker coordinate={location}
-            pinColor="red"
-            value={pin}
-            draggable={true}
-            onDragStart={(e) => {
-              console.log("Drag Start", e.nativeEvent.coordinates)
-            }}
-            onDragEnd={(e) => {
-              setPin({
-                latitude: e.nativeEvent.coordinate.latitude,
-                longitude: e.nativeEvent.coordinate.longitude
-              })
-            }}>
-          <Callout>
-            <Text>Pick-up location</Text>
-          </Callout>
-          </Marker>
-        </MapView>
+      <GoogleAutoComplete />
       <View style={styles.btn}>
-        <SubmitButton
-          title="Post"
-          onPress={handlePost}/>
+        <SubmitButton title="Post" onPress={handlePost} />
       </View>
-   </ScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    marginBottom: 50
+    marginBottom: 50,
   },
   map: {
-    height: 300
+    height: 300,
   },
-  imgContainer:{
+  imgContainer: {
     flexDirection: "row",
     width: "100%",
     padding: 5,
     marginVertical: 5,
     alignItems: "center",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
-  picker:{
+  picker: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputContainer: {
     backgroundColor: defaultStyles.colors.light,
@@ -237,57 +210,37 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   btn: {
-    marginTop:10,
+    marginTop: 10,
     alignItems: "center",
   },
-  pickerContainer:{
+  pickerContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
-  modalView: {
-    width: "60%",
-    height: "50%",
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 25,
+  button: {
+    backgroundColor: colors.primary,
+    borderRadius: 25,
+    justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-    },
-    button: {
-      backgroundColor: colors.primary,
-      borderRadius: 25,
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 10,
-      width: "50%",
-      marginVertical: 10,
-    },
-    buttonClose: {
-      backgroundColor: colors.main,
-    },
-    textStyle: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center"
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: "center"
-    }
+    padding: 10,
+    width: "50%",
+    marginVertical: 10,
+  },
+  buttonClose: {
+    backgroundColor: colors.main,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default PostListingScreen;
