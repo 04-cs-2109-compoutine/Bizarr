@@ -9,8 +9,8 @@ import firebase from "firebase";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from './PostedScreen';
-
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
