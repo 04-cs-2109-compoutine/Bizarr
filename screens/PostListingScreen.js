@@ -9,6 +9,7 @@ import {
   Text,
   Pressable,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 import Screen from "../components/Screen";
@@ -20,11 +21,13 @@ import { getDownloadURL, uploadBytes } from "firebase/storage";
 import { auth, db } from "../firebase";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
 import * as Location from "expo-location";
-// import { db } from '../firebase'
+import firebase from "firebase";
 import AuthContext from "../components/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
 
 // const storage = getStorage();
 
@@ -55,60 +58,6 @@ function PostListingScreen() {
     })();
   }, []);
 
-  // const handleUpload = () => {
-  //   console.log(handle)
-  //   const listingPic = doc(db, 'listings', db.collections('listings').id)
-  //   getDoc(listingPic).then(docSnap => { //link to the listing insteaf of user
-  //     if (docSnap.exists) {
-  //     setListing(docSnap.data());
-  //     }
-
-  //     if (img) {
-  //     const uploading = async () => {
-  //      const imgRef = ref(storage, `listings/{listingsId}`)
-  //      try{
-  //       const snap = await uploadBytes(imgRef, img)
-  //       const url = await getDownloadURL(ref(storage, snap.ref.fullPath))
-  //       const updatePic = doc(db, 'listings', db.collections('listings').id)
-  //       await updateDoc(updatePic, {
-  //       images: url,
-  //       imagesPath: snap.ref.fullPath
-  //       })
-  //     setImg(img)
-  //       setImg("");
-  //      }
-  //      catch(e){
-  //        console.log(e)
-  //      }
-  //     }
-  //     }
-  //
-  //     UploadingImg()
-
-  // }
-  // )}
-
-  // const grabPhotoFromCameraRoll = () => {
-  //   ImagePicker.openCamera({
-  //     width: 1200,
-  //     height: 780
-  //   }).then((image) => {
-  //     console.log('image picker')
-  //     const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
-  //     setImg(imageUri)
-  //   })
-  // }
-
-  // const submitListing = () => {
-  //   firebase
-  //   .storage()
-  //   .ref('/uploadOk.jpeg')
-  //   .putFile(
-  //     `${firebase.storage.Native.listings/{id}}/ok.jpeg`
-  //   )
-  //   .then(successCb)
-  //   .catch(failureCb);
-  // }
   let text = "Waiting..";
   let lat = "";
   let log = "";
@@ -120,11 +69,13 @@ function PostListingScreen() {
   }
 
   const handlePost = () => {
+    console.log("handlepost", imageUris);
     db.collection("listings").add({
       title: title,
       price: price,
+      description: description,
       category: selectedValue,
-      location: pin,
+      location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid,
     });
@@ -139,131 +90,95 @@ function PostListingScreen() {
   const handleRemove = (uri) => {
     setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
   };
-  //console.log("location", location);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.imgContainer}>
-          <View>
-            <PhotoInputList
-              imageUris={imageUris}
-              onAdd={(uri) => handleAdd(uri)}
-              onRemove={(uri) => handleRemove(uri)}
-            />
-          </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Title"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={defaultStyles.text}
-            value={title}
-            onChangeText={(text) => setTitle(text)}
-            maxLength={255}
+    <ScrollView style={styles.container}>
+      <View style={styles.imgContainer}>
+        <View>
+          <PhotoInputList
+            imageUris={imageUris}
+            onAdd={(uri) => handleAdd(uri)}
+            onRemove={(uri) => handleRemove(uri)}
           />
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Price"
-            keyboardType="numeric"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={defaultStyles.text}
-            value={price}
-            onChangeText={(text) => setPrice(text)}
-          />
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  mode={"dialog"}
-                  selectedValue={selectedValue}
-                  style={{ height: 200, width: 200 }}
-                  onValueChange={(itemValue) => setCategory(itemValue)}
-                >
-                  <Picker.Item label="Car" value="Car" />
-                  <Picker.Item label="Camera" value="Camera" />
-                  <Picker.Item label="Furniture" value="Furniture" />
-                  <Picker.Item label="Game" value="Game" />
-                  <Picker.Item label="Sports" value="Sports" />
-                  <Picker.Item label="Clothing" value="Clothing" />
-                  <Picker.Item label="Movies & Music" value="Movie&music" />
-                  <Picker.Item label="Books" value="Books" />
-                  <Picker.Item label="Electronics" value="Electronics" />
-                  <Picker.Item label="Others" value="Others" />
-                </Picker>
-              </View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={defaultStyles.text}>Ok</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        <Pressable
-          style={styles.inputContainer}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={defaultStyles.text}>{selectedValue}</Text>
-        </Pressable>
-        <View style={styles.inputContainer}>
-          <TextInput
-            multiline
-            numberOfLines={3}
-            placeholder="Description"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={defaultStyles.text}
-            value={description}
-            onChangeText={(text) => setDescription(text)}
-          />
-        </View>
-        <GoogleAutoComplete />
-        {/* <View style={styles.inputContainer}>
-        <TextInput
-          value={pin}
-          placeholder="Pick up Location"
-          style={defaultStyles.text}
-        />
-      </View> */}
-        {/* <MapView style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                intialRegion={{
-                  latitude: location.latitude,
-                  longitude: location.longitude,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-              }}
-                onRegionChangeComplete={(location) => setLocation(location)}
-              >
-                <Marker coordinate={location} pinColor="green"
-                  draggable={true}
-                  onDragStart={(e) => {
-                    console.log("Drag Start", e.nativeEvent.coordinates)
-                  }}
-                  onDragEnd={(e) => {
-                    setPin({
-                      latitude: e.nativeEvent.coordinate.latitude,
-                      longitude: e.nativeEvent.coordinate.longitude
-                    })
-                  }}
-                >
-                  <Callout>
-                    <Text>Pick-up location</Text>
-                  </Callout>
-                </Marker>
-      </MapView> */}
       </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Title"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+          maxLength={255}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Price"
+          keyboardType="numeric"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+        />
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.pickerContainer}>
+              <Picker
+                mode={"dialog"}
+                selectedValue={selectedValue}
+                style={{ height: 200, width: 200 }}
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
+                <Picker.Item label="Car" value="Car" />
+                <Picker.Item label="Camera" value="Camera" />
+                <Picker.Item label="Furniture" value="Furniture" />
+                <Picker.Item label="Game" value="Game" />
+                <Picker.Item label="Sports" value="Sports" />
+                <Picker.Item label="Clothing" value="Clothing" />
+                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Books" value="Books" />
+                <Picker.Item label="Electronics" value="Electronics" />
+                <Picker.Item label="Others" value="Others" />
+              </Picker>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={defaultStyles.text}>Ok</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+        style={styles.inputContainer}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={defaultStyles.text}>{selectedValue}</Text>
+      </Pressable>
+      <View style={styles.inputContainer}>
+        <TextInput
+          multiline
+          numberOfLines={3}
+          placeholder="Description"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={description}
+          onChangeText={(text) => setDescription(text)}
+        />
+      </View>
+      <GoogleAutoComplete />
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
       </View>

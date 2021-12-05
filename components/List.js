@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, StyleSheet, Image, TouchableWithoutFeedback } from "react-native";
+import { SliderBox } from "react-native-image-slider-box";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function List({ title, subTitle, image, onPress }) {
+function List({ title, subTitle, imageUris, onPress }) {
+
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
-        <Image style={styles.image} source={{uri:image}} />
+        <SliderBox images={imageUris}/>
         <View style={styles.detailsContainer}>
           <Text style={styles.title} numberOfLines={1}>
             {title}
