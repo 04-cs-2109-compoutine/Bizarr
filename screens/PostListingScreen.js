@@ -1,17 +1,12 @@
-import React, { useEffect, useState, useSelector, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Screen from "../components/Screen";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
-import PhotoPicker from "../components/PhotoSelector/PhotoPicker"; //image picker for listings
-import { getDownloadURL, uploadBytes } from "firebase/storage";
-import { auth, db } from "../firebase";
-import { updateDoc, getDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 import * as Location from "expo-location";
 import firebase from "firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from './PostedScreen';
 
@@ -29,9 +24,7 @@ function PostListingScreen() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
-  const [pin, setPin] = useState({});
   const [PostVisible, setPostVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     (async () => {

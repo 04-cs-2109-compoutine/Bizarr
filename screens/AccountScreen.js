@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext,useRef} from "react";
+import React, { useState, useEffect,useContext} from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
@@ -29,9 +29,10 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
-  const [userName, setUsername] = useState('');
+  const [userName, setUsername] = useState({});
   const {user, setUser} = useContext(AuthContext);
   const id = user.uid;
+  console.log(userName)
   
   async function getUser() {
     try {
