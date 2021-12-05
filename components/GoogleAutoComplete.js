@@ -16,66 +16,33 @@ const App = () => {
   const [pin, setPin] = useState({});
 
   return (
-    // <View style={styles.container}>
-    //   <GooglePlacesAutocomplete
-    //     placeholder="Search"
-    //     query={{
-    //       key: GOOGLE_PLACES_API_KEY,
-    //       language: "en", // language of the results
-    //     }}
-    //     onPress={(data, details = null) => console.log(data)}
-    //     onFail={(error) => console.error(error)}
-    //     requestUrl={{
-    //       url:
-    //         "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
-    //       useOnPlatform: "web",
-    //     }} // this in only required for use on the web. See https://git.io/JflFv more for details.
-    //   />
-    <MapView
-      style={styles.map}
-      provider={PROVIDER_GOOGLE}
-      intialRegion={{
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-      loadingEnabled
-      loadingIndicatorColor="#666666"
-      loadingBackgroundColor="#EEEEEE"
-      // onRegionChangeComplete={(location) => setLocation(location)}
-    >
-      <Marker
-        coordinate={location}
-        pinColor="green"
-        draggable={true}
-        onDragStart={(e) => {
-          console.log("Drag Start", e.nativeEvent.coordinates);
+    <View style={styles.container}>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        query={{
+          key: GOOGLE_PLACES_API_KEY,
+          language: "en", // language of the results
         }}
-        onDragEnd={(e) => {
-          setPin({
-            latitude: e.nativeEvent.coordinate.latitude,
-            longitude: e.nativeEvent.coordinate.longitude,
-          });
+        onPress={(data, details = null) => console.log(data)}
+        onFail={(error) => console.error(error)}
+        requestUrl={{
+          url:
+            "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
+          useOnPlatform: "web",
+        }} // this in only required for use on the web. See https://git.io/JflFv more for details.
+      />
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={{ flex: 1 }}
+        region={{
+          latitude: 40.768452,
+          longitude: -73.832764,
+          latitudeDelta: 0.056,
+          longitudeDelta: 0.006866,
         }}
-      >
-        <Callout>
-          <Text>
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-              }}
-              source={{
-                uri:
-                  "https://static.wikia.nocookie.net/bean-canon/images/b/b2/F93cb3f43339837a65a7a7829cf8e0a4.jpg/revision/latest/scale-to-width-down/250?cb=20190420041811",
-              }}
-            ></Image>
-          </Text>
-        </Callout>
-      </Marker>
-    </MapView>
-    //</View>
+        showsUserLocation
+      />
+    </View>
   );
 };
 
