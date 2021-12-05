@@ -56,7 +56,7 @@ const SignUpScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image style={styles.logo} source={require("../assets/logoid.png")} />
+      <Image style={styles.logo} source={require("../assets/bizarrm.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Input
