@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { View, StyleSheet, Modal, Pressable, Text } from "react-native";
-import Constants from "expo-constants";
+import { View, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+
+import colors from "../components/Config/colors";
 
 if (process.env.NODE_ENV !== "production") require("../secrets");
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
@@ -21,14 +22,13 @@ const App = () => {
     <View style={styles.modalView}>
       <View
         style={{
-          backgroundColor: "#E4EFE7",
           paddingHorizontal: 18,
           paddingVertical: 12,
           borderRadius: 20,
         }}
       >
         <GooglePlacesAutocomplete
-          placeholder="Search"
+          placeholder="Meet up Location"
           query={{
             key: GOOGLE_PLACES_API_KEY,
             language: "en", // language of the results
@@ -89,13 +89,13 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // padding: 10,
-    alignItems: "center",
-    // paddingTop: Constants.statusBarHeight + 10,
-    backgroundColor: "#ffffff",
-  },
+  // container: {
+  //   flex: 1,
+  //   // padding: 10,
+  //   alignItems: "center",
+  //   // paddingTop: Constants.statusBarHeight + 10,
+  //   backgroundColor: colors.light,
+  // },
   centeredView: {
     flex: 1,
     // justifyContent: "center",
@@ -108,17 +108,17 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
+  // button: {
+  //   borderRadius: 20,
+  //   padding: 10,
+  //   elevation: 10,
+  // },
+  // buttonOpen: {
+  //   backgroundColor: "#F194FF",
+  // },
+  // buttonClose: {
+  //   backgroundColor: "#2196F3",
+  // },
   textStyle: {
     color: "white",
     fontWeight: "bold",

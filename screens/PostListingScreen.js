@@ -315,22 +315,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
-  modalView: {
-    width: "60%",
-    height: "50%",
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 25,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
+  // modalView: {
+  //   width: "60%",
+  //   height: "50%",
+  //   backgroundColor: "white",
+  //   borderRadius: 20,
+  //   padding: 25,
+  //   alignItems: "center",
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 2,
+  //   },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 4,
+  //   elevation: 5,
+  // },
   button: {
     backgroundColor: colors.primary,
     borderRadius: 25,
@@ -348,10 +348,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
+  // modalText: {
+  //   marginBottom: 15,
+  //   textAlign: "center",
+  // },
 });
 
 export default PostListingScreen;
