@@ -50,7 +50,9 @@
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "expo-app-loading": "~1.2.1",
+    "expo-asset": "~8.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

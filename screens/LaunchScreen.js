@@ -6,7 +6,6 @@ import Login from "./LoginScreen";
 import Screen from "../components/Screen";
 import React, { useState, useEffect } from 'react';
 const mapGif = require('../assets/image/transpmap2.gif')
-import FastImage from 'react-native-fast-image'
 
 
 const LaunchScreen = ({ navigation }) => {
