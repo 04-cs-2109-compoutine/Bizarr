@@ -11,17 +11,19 @@ export default function RaisedButton({ text, onPress }){
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.2)',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        backgroundColor: 'white',
+        backgroundColor: "#A7D7C5",
+        height: 35,
+        marginHorizontal: 20,
+        borderRadius: 55,
+        alignItems: 'center',
+        // marginVertical: 5,
+        marginTop: 35,
+        justifyContent: 'center'
     },
     buttonText: {
-        color: 'black',
+        color: "#5C8D89",
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 20,
         textAlign: 'center'
     }
 })

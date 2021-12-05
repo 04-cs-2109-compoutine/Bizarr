@@ -11,7 +11,7 @@ import { Asset } from 'expo-asset'
 export default function App() {
 const [launchLoaded, setLaunchLoaded] = useState(false)
 const  _cacheResourcesAsync = async () => {
-  const images = [require('./assets/image/transpmap2.gif'), require('./assets/bizarrm.png')];
+  const images = [require('./assets/image/transpmap2.gif'), require('./assets/B.png')];
 
   const cacheImages = images.map(image => {
     return Asset.fromModule(image).downloadAsync();
