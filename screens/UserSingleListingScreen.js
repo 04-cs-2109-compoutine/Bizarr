@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
+import { SliderBox } from "react-native-image-slider-box";
 
 function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -50,9 +51,11 @@ function UserSingleListingScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.screen}>
-      <Image style={styles.image} source={{ uri: listing.images }} />
+      {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
+      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary}/>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
+        <Text style={styles.description}>{listing.description}</Text>
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
           <SubmitButton
@@ -101,6 +104,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "500",
+  },
+  description:{
+    marginTop: 10
   },
   sellerContainer: {
     marginBottom: 10,
