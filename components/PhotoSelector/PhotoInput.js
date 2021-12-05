@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-native';
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 function PhotoInput({imageUri, onChangeImage}) {
+  // const [localUri, setSelectedImage] = useState();
 
   let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+
 
   const handlePress = () => {
     if(!imageUri){
@@ -25,20 +27,24 @@ function PhotoInput({imageUri, onChangeImage}) {
       alert('Permission to access camera roll is required!');
       return;
     }
+
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
       base64: true
     });
+
     if (pickerResult.cancelled === true) {
       return;
     }
 
     let base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
+
     let data = {
       "file": base64Img,
-      "upload_preset": "insert your upload preset here,within quotations",
+      "upload_preset": "uploadPreset",
     }
+
     fetch(CLOUDINARY_URL, {
       body: JSON.stringify(data),
       headers: {
@@ -47,9 +53,10 @@ function PhotoInput({imageUri, onChangeImage}) {
       method: 'POST',
     }).then(async r => {
       let data = await r.json()
+
       onChangeImage(data.url);
     }).catch(err => console.log(err))
-  };
+  }
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
