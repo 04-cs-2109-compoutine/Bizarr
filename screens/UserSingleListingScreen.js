@@ -52,7 +52,7 @@ function UserSingleListingScreen({ route, navigation }) {
   return (
     <ScrollView style={styles.screen}>
       {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
-      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary}/>
+      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
@@ -87,12 +87,13 @@ const styles = StyleSheet.create({
   screen: {
     padding: 10,
     backgroundColor: colors.white,
+    marginBottom: 10,
   },
   detailsContainer: {
     padding: 10,
   },
   image: {
-    width: "100%",
+    width: "95%",
     height: 300,
   },
   price: {

@@ -9,6 +9,7 @@ import * as Location from "expo-location";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from '../components/PhotoSelector/PhotoInputList';
 import firebase from 'firebase';
+import PostedScreen from './PostedScreen';
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -24,6 +25,8 @@ function PostListingScreen() {
   const [imageUris, setImageUris] = useState([]);
   const {user, setUser} = useContext(AuthContext);
   const [pin, setPin] = useState({});
+  const [PostVisible, setPostVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -47,9 +50,10 @@ function PostListingScreen() {
     log = JSON.stringify(location.longitude)
   }
 
-  const handlePost = () => {
-    console.log("handlepost", imageUris)
-    db.collection("listings").add({
+  const handlePost = async () => {
+    console.log("handlepost", imageUris);
+    setPostVisible(true);
+    await db.collection("listings").add({
       title: title,
       price: price,
       description: description,
@@ -57,8 +61,7 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid
-    })
-
+    }, (progress) => setProgress(progress))
   };
 
   //push a new image uri into the list and show it on screen
@@ -73,6 +76,12 @@ function PostListingScreen() {
 
   return (
     <ScrollView style={styles.container}>
+
+      <PostedScreen
+        onDone={() => setPostVisible(false)}
+        progress={progress}
+        visible={PostVisible}
+      />
 
       <View style={styles.imgContainer}>
         <PhotoInputList
