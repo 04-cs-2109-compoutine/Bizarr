@@ -13,7 +13,6 @@ function ListingsScreen({ navigation }) {
   const [filteredLists, setFilteredLists] = useState([])
   const [search, setSearch] = useState();
   const {user, setUser} = useContext(AuthContext);
-  console.log(listings)
 
   async function readAllListing() {
     try {
@@ -22,6 +21,7 @@ function ListingsScreen({ navigation }) {
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid)
       setListings(userLists)
+      setFilteredLists(userLists)
     } catch(e) {
       console.log(e);
     }
@@ -47,7 +47,7 @@ function ListingsScreen({ navigation }) {
     }
   }
 
-  return listings instanceof Object ? (
+  return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
         placeholder="Type Here..."
@@ -58,6 +58,7 @@ function ListingsScreen({ navigation }) {
       />
       <FlatList
         numColumns={2}
+        columnWrapperStyle={{justifyContent: 'space-between'}}
         data={filteredLists}
         keyExtractor={(listing, index) => listing.id.toString()}
         renderItem={({ item }) => (
