@@ -10,12 +10,11 @@ function Main() {
   const [user, setUser] = useState();
 
   return (
-    <GoogleAutoComplete />
-    // <AuthContext.Provider value={{ user, setUser }}>
-    //   <NavigationContainer theme={navigationTheme}>
-    //     {user ? <BottomNavigator /> : <AuthNavigator />}
-    //   </NavigationContainer>
-    // </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer theme={navigationTheme}>
+        {user ? <BottomNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 export default Main;

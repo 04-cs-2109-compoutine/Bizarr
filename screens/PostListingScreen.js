@@ -141,10 +141,7 @@ function PostListingScreen() {
   };
   //console.log("location", location);
   return (
-    <ScrollView
-      keyboardShouldPersistTaps={"handled"}
-      nestedScrollEnabled={true}
-    >
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.imgContainer}>
           <View>
@@ -176,7 +173,6 @@ function PostListingScreen() {
           />
         </View>
         <Modal
-          listMode="SCROLLVIEW"
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -232,6 +228,7 @@ function PostListingScreen() {
             onChangeText={(text) => setDescription(text)}
           />
         </View>
+        <GoogleAutoComplete />
         {/* <View style={styles.inputContainer}>
         <TextInput
           value={pin}
@@ -239,7 +236,6 @@ function PostListingScreen() {
           style={defaultStyles.text}
         />
       </View> */}
-        <GoogleAutoComplete />
         {/* <MapView style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 intialRegion={{
@@ -267,9 +263,9 @@ function PostListingScreen() {
                   </Callout>
                 </Marker>
       </MapView> */}
-        <View style={styles.btn}>
-          <SubmitButton title="Post" onPress={handlePost} />
-        </View>
+      </View>
+      <View style={styles.btn}>
+        <SubmitButton title="Post" onPress={handlePost} />
       </View>
     </ScrollView>
   );
