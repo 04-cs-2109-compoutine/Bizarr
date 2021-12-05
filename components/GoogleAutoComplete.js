@@ -20,12 +20,29 @@ const App = () => {
     <View style={styles.modalView}>
       <View
         style={{
-          paddingHorizontal: 18,
           paddingVertical: 12,
           borderRadius: 20,
         }}
       >
         <GooglePlacesAutocomplete
+          styles={{
+            textInputContainer: {
+              // backgroundColor: "black",
+              borderRadius: 10,
+              height: 50,
+              alignItems: "flex-start",
+              marginBottom: 10,
+              marginTop: 0,
+            },
+            textInput: {
+              borderRadius: 15,
+              height: 54,
+              color: "grey",
+              backgroundColor: colors.light,
+              padding: 5,
+              margin: 0,
+            },
+          }}
           placeholder="Meet up Location"
           query={{
             key: GOOGLE_PLACES_API_KEY,
