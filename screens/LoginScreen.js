@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
-import { Input, Button } from "react-native-elements";
+import { Input, Button, Icon } from "react-native-elements";
 import colors from "../components/Config/colors";
 
 import AuthContext from "../components/context";
@@ -26,15 +26,15 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="padding" >
       <Image style={styles.logo} source={require("../assets/logoid.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Input
             autoCapitalize="none"
+            leftIcon={{ type: "material", name: "email" }}
             keyboardType="email-address"
             placeholder="Email"
-            leftIcon={{ type: "material", name: "email" }}
             textContentType="emailAddress"
             value={email}
             onChangeText={(text) => setEmail(text)}
@@ -45,14 +45,14 @@ const LoginScreen = ({ navigation }) => {
             autoCorrect={false}
             textContentType="password"
             placeholder="Password"
-            leftIcon={{ type: "material", name: "lock" }}
             value={password}
+            leftIcon={{ type: "material", name: "lock" }}
             onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry
           />
+          </View>
         </View>
-
         <View>
           <Button
             onPress={handleLogin}
@@ -61,7 +61,6 @@ const LoginScreen = ({ navigation }) => {
             style={styles.loginButton}
           ></Button>
         </View>
-      </View>
       <Text
         style={styles.signUpLink}
         onPress={() => navigation.navigate("Sign Up")}
@@ -82,12 +81,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#5C8389",
   },
   inputContainer: {
-    width: "80%",
+    width: "75%",
   },
   logo: {
-    width: 200,
-    height: 200,
-    bottom: 20,
+    width: 175,
+    height: 175,
+    bottom: 10,
   },
   loginText: {
     color: "gray",
@@ -97,9 +96,12 @@ const styles = StyleSheet.create({
   loginContainer: {
     backgroundColor: "#E4EFE7",
     width: "90%",
-    height: "30%",
+    height: "auto",
+    paddingTop: 20,
+    paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 7,
   },
   input: {
     paddingHorizontal: 15,
@@ -108,14 +110,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#0782F9",
+    // backgroundColor: "white",
+    // marginTop: 5,
+    borderColor: "#5C8389",
     borderWidth: 2,
   },
   loginButton: {
-    width: 200,
-    borderRadius: 10,
+    width: "100%",
+    borderRadius: 7,
+    paddingTop: -75
   },
   signUpLink: {
     color: "white",

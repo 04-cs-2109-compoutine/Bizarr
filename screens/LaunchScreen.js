@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Animated } from "react-native";
 import { Button } from "react-native-elements";
 import RaisedButton from "../components/Button/launchButton";
 import Login from "./LoginScreen";

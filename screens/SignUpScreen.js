@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 7,
   },
   input: {
     paddingHorizontal: 15,
