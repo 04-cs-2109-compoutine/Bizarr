@@ -10,8 +10,10 @@ import AuthContext from "../components/Config/context";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
+  const [filteredLists, setFilteredLists] = useState([])
   const [search, setSearch] = useState();
   const {user, setUser} = useContext(AuthContext);
+  console.log(listings)
 
   async function readAllListing() {
     try {
@@ -24,26 +26,39 @@ function ListingsScreen({ navigation }) {
       console.log(e);
     }
   }
+
   useEffect(() => {
     readAllListing();
   }, [])
 
-  const updateSearch = (search)=>{
-    setSearch({ search });
+  const searchFilterFunction = (text)=>{
+    if (text) {
+      const newData = listings.filter(
+        function (item) {
+          const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+      });
+      setFilteredLists(newData);
+      setSearch(text);
+    } else {
+      setFilteredLists(listings);
+      setSearch(text);
+    }
   }
 
   return listings instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
         placeholder="Type Here..."
-        onChangeText={updateSearch}
+        onChangeText={(text) => searchFilterFunction(text)}
         value={search}
         showCancel
         lightTheme
       />
       <FlatList
         numColumns={2}
-        data={listings}
+        data={filteredLists}
         keyExtractor={(listing, index) => listing.id.toString()}
         renderItem={({ item }) => (
           <AllList
