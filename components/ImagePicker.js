@@ -1,45 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Image, View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
-export default function UploadImage({URL}) {
-  const [image, setImage] = useState();
-  // console.log(URL)
-  // console.log(image)
+export default function UploadImage({photoURL, setPhotoURL}) {
 
-  const  checkForCameraRollPermission = async() => {
-    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      alert("Please grant camera roll permissions inside your system's settings");
+  let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+
+  const handlePress = () => {
+    if(photoURL){
+      pickImage()
+    } else {
+      Alert.alert('Delete', 'Are you sure you want to delete this photo?', [
+        { text: "Yes", onPress: () => setPhotoURL(null)},
+        { text: 'No'}
+      ])
     }
   }
 
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  const pickImage = async() => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("'Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4,3],
-      quality: 1,
+      aspect: [4, 3],
+      base64: true
     });
-    console.log(JSON.stringify(_image));
-    if (!_image.cancelled) {
-      setImage(_image.uri);
+
+    if (pickerResult.cancelled === true) {
+      return;
     }
+
+    let base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
+
+    let data = {
+      "file": base64Img,
+      "upload_preset": "uploadPreset",
+    }
+
+    fetch(CLOUDINARY_URL, {
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    }).then(async r => {
+      let data = await r.json()
+
+      setPhotoURL(data.url);
+    }).catch(err => console.log(err))
   }
 
-  useEffect(() => {
-    setImage(URL)
-    checkForCameraRollPermission();
-  }, []);
+  // const addImage = async () => {
+  //   let _image = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing: true,
+  //     aspect: [4,3],
+  //     quality: 1,
+  //   });
+  //   console.log(JSON.stringify(_image));
+  //   if (!_image.cancelled) {
+  //     setImage(_image.uri);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   setImage(URL)
+  //   checkForCameraRollPermission();
+  // }, []);
 
   return (
     <View style={Styles.container}>
-       {image && <Image source={{ uri: image }} style={Styles.img}/>}
+       <Image source={{ uri: photoURL }} style={Styles.img}/>
       <View style={Styles.uploadBtnContainer}>
-        <TouchableOpacity onPress={addImage} style={Styles.uploadBtn} >
-          <Text>{image ? 'Edit' : 'Upload'} Image</Text>
+        <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn} >
+          <Text>{photoURL ? 'Edit' : 'Upload'} Image</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>

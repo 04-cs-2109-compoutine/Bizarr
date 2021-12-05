@@ -15,7 +15,8 @@ function AccountDetailsScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [location, setLocation] = useState();
-  
+  const [photoURL, setPhotoURL] = useState();
+
   const id = user.uid;
   async function getUser() {
     try {
@@ -32,20 +33,32 @@ function AccountDetailsScreen() {
   }, [])
 
   const handleSave = async () => {
-    const userRef = db.doc("users", id)
-    await updateDoc(userRef, {
-      userName: userName,
+    // const userRef = db.doc("users", id)
+    // await updateDoc(userRef, {
+    //   userName: userName,
+    //   phone: phone,
+    //   email: email,
+    //   password: password,
+    //   location: location,
+    // })
+    const userRef = db.collection("users").doc(id)
+    await userRef.set({
+      displayName: name,
       phone: phone,
       email: email,
       password: password,
       location: location,
+      photoURL: photoURL
     })
   }
 
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage URL={userName.photoURL}/>
+          <UploadImage
+            photoURL={userName.photoURL}
+            setPhotoURL={setPhotoURL}
+          />
         </View>
         <View style={styles.inputContainer}>
           <TextInput

@@ -32,7 +32,7 @@ function AccountScreen({ navigation }) {
   const [userName, setUsername] = useState('');
   const {user, setUser} = useContext(AuthContext);
   const id = user.uid;
-  
+
   async function getUser() {
     try {
       await db.collection("users").doc(id).get().then(
@@ -50,8 +50,8 @@ function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.logoContainer}>
-        <Image 
-          style={styles.userLogo} 
+        <Image
+          style={styles.userLogo}
           source={{uri: userName.photoURL}}>
         </Image>
         <Text style={styles.tagline}>{userName.displayName}</Text>
@@ -81,7 +81,7 @@ function AccountScreen({ navigation }) {
         onPress={() => setUser(null)}
       />
     </Screen>
-  ) 
+  )
 }
 
 const styles = StyleSheet.create({
