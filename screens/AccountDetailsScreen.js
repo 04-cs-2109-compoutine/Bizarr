@@ -31,41 +31,41 @@ function AccountDetailsScreen() {
 
   useEffect(() => {
     getUser();
-    setImage(userName.photoURL);
+    setPhotoURL(userName.photoURL);
   }, []);
 
-  const handleSave = () => {
-    auth
-      .signInWithEmailAndPassword(user.email, "1234567")
-      .then((userCredential) => {
-        const user = userCredential.user;
-        user.updateEmail(email);
-        user.updatePassword(password);
-      })
-      .then(() => {
-        db.collection("users").doc(user.uid).update({
-          displayName: name,
-          phone: phone,
-          location: location,
-          photoURL: photoURL
-        });
-      });
-  };
-
-  //   const handleSave = async () => {
-  //     const userRef = db.collection("users").doc(id)
-  //     await userRef.set({
-  //       displayName: name,
-  //       phone: phone,
-  //       email: email,
-  //       password: password,
-  //       location: location,
-  //       photoURL: photoURL
+  // const handleSave = () => {
+  //   auth
+  //     .signInWithEmailAndPassword(user.email, "1234567")
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       user.updateEmail(email);
+  //       user.updatePassword(password);
   //     })
-  //     .catch(function (error) {
-  //       alert(error.message);
+  //     .then(() => {
+  //       db.collection("users").doc(user.uid).update({
+  //         displayName: name,
+  //         phone: phone,
+  //         location: location,
+  //         photoURL: photoURL
+  //       });
   //     });
-  //   }
+  // };
+
+    const handleSave = async () => {
+      const userRef = db.collection("users").doc(id)
+      await userRef.set({
+        displayName: name,
+        phone: phone,
+        email: email,
+        password: password,
+        location: location,
+        photoURL: photoURL
+      })
+      .catch(function (error) {
+        alert(error.message);
+      });
+    }
 
   return (
     <Screen style={styles.container}>
@@ -107,7 +107,7 @@ function AccountDetailsScreen() {
           style={defaultStyles.text}
           value={password}
           onChangeText={(text) => setPassword(text)}
-          //secureTextEntry
+          secureTextEntry
         />
       </View>
       <View style={styles.inputContainer}>
