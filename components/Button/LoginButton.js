@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
-export default function RaisedButton({ text, onPress }){
+export default function LoginButton({ text, onPress }){
     return(
         <TouchableOpacity style={styles.button} onPress={onPress}>
             <Text style={styles.buttonText}>{ text }</Text>
@@ -11,8 +11,9 @@ export default function RaisedButton({ text, onPress }){
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: "#A7D7C5",
-        height: 45,
+        backgroundColor: "#F4F9F4",
+        height: 35,
+        width: 100,
         marginHorizontal: 20,
         borderRadius: 55,
         alignItems: 'center',

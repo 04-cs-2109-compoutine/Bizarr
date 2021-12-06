@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
 import { Input, Button, Icon } from "react-native-elements";
 import colors from "../components/Config/colors";
-
+import LoginButton from "../components/Button/LoginButton"
 import AuthContext from "../components/context";
 import { auth } from "../firebase";
 
@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding" >
-      <Image style={styles.logo} source={require("../assets/bizarrm.png")} />
+      <Image style={styles.logo} source={require("../assets/B.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Input
@@ -54,12 +54,16 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View>
-          <Button
+          {/* <Button
             onPress={handleLogin}
             title="Log in"
-            buttonStyle={{ backgroundColor: colors.main }}
+            buttonStyle={{ backgroundColor: "#E4EFE7"}}
             style={styles.loginButton}
-          ></Button>
+          ></Button> */}
+          <LoginButton
+            text="Login"
+            onPress={handleLogin}
+          />
         </View>
       <Text
         style={styles.signUpLink}
@@ -84,24 +88,24 @@ const styles = StyleSheet.create({
     width: "75%",
   },
   logo: {
-    width: 175,
-    height: 175,
+    width: 250,
+    height: 250,
     bottom: 10,
   },
   loginText: {
-    color: "gray",
+    color: "#74b49b",
     marginBottom: 10,
     marginLeft: "43%",
   },
   loginContainer: {
-    backgroundColor: "#E4EFE7",
+    backgroundColor: "#F4F9F4",
     width: "90%",
     height: "auto",
     paddingTop: 20,
     paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 7,
+    borderRadius: 35,
   },
   input: {
     paddingHorizontal: 15,
@@ -117,8 +121,10 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: "100%",
-    borderRadius: 7,
-    paddingTop: -75
+    backgroundColor: "#E4EFE7",
+    borderRadius: 35,
+    paddingTop: -75,
+    marginTop: 35,
   },
   signUpLink: {
     color: "white",

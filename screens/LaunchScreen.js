@@ -35,19 +35,9 @@ const LaunchScreen = ({ navigation }) => {
           style={{flex: 1,
             height: 300, width: 300, position: 'absolute', top: -450,
             right: 60,
-            elevation: 10,}}
+          }}
         />
         </View>
-        {/* <FastImage
-    style={styles.image}
-    source={{
-      uri: mapGif,
-      headers: { Authorization: 'token' },
-      priority: FastImage.priority.normal,
-      cache: FastImage.cacheControl.immutable,
-    }}
-    resizeMode={FastImage.resizeMode.contain}
-/> */}
         <View style={{height: height / 4, backgroundColor: "#F4F9F4",  borderTopLeftRadius: 65,  borderTopRightRadius: 65}}>
           <View>
           <RaisedButton
@@ -57,7 +47,7 @@ const LaunchScreen = ({ navigation }) => {
           </View>
           <View>
           <Text style={styles.text} onPress={() => navigation.navigate("Login")}>
-          {"login"}
+          {"Login"}
           </Text>
           </View>
         </View>

@@ -12,6 +12,7 @@ import {
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
 import AuthContext from "../components/context";
+import LoginButton from "../components/Button/LoginButton";
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ const SignUpScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image style={styles.logo} source={require("../assets/bizarrm.png")} />
+      <Image style={styles.logo} source={require("../assets/B.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
           <Input
@@ -84,11 +85,15 @@ const SignUpScreen = () => {
             style={styles.input}
           />
         </View>
-        <Button
+        {/* <Button
           title="Register"
           buttonStyle={{ backgroundColor: colors.main }}
           onPress={handleSignUp}
-        ></Button>
+        ></Button> */}
+        <LoginButton
+          text="Register"
+          onPress={handleSignUp}
+        />
       </View>
       <View style={styles.google}>
         <TouchableOpacity
@@ -113,19 +118,19 @@ const styles = StyleSheet.create({
     width: "75%",
   },
   logo: {
-    width: 175,
-    height: 175,
+    width: 250,
+    height: 250,
     bottom: 10,
   },
   loginContainer: {
-    backgroundColor: "#E4EFE7",
+    backgroundColor: "#F4F9F4",
     width: "90%",
     height: "auto",
     paddingTop: 20,
     paddingBottom: 20,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 7,
+    borderRadius: 35,
   },
   input: {
     paddingHorizontal: 15,
