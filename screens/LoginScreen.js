@@ -11,7 +11,7 @@ import {
 import { Input, Button, Icon } from "react-native-elements";
 import colors from "../components/Config/colors";
 import LoginButton from "../components/Button/LoginButton";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 
 import { auth } from "../firebase";
 
