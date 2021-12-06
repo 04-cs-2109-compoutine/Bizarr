@@ -98,8 +98,13 @@ export default class HomeScreen extends React.Component {
               />
               <ScrollView>
               <Text style={styles.text}> 
-            Shop nearby
+            shop nearby
           </Text>
+          <Searchbar
+                onChangeText={this.updateSearch}
+                value={search}
+                // style={{ marginBottom: 50, paddingBottom: 50}}
+              />
               <View>
                 <View style={styles.mapContainer}>
                 <MapView
@@ -145,16 +150,12 @@ export default class HomeScreen extends React.Component {
                 showCancel
                 containerStyle={{backgroundColor: 'white', borderWidth: 1, borderColor: colors.light, borderRadius: 35, marginTop: 40,}}
               /> */}
-              <Searchbar
-                onChangeText={this.updateSearch}
-                value={search}
-              />
                </View>
             </View>
-            <View style={styles.banner}>
-                <SliderBox images={this.state.images} sliderBoxHeight={100} autoplay
+            {/* <View style={styles.banner}>
+                <SliderBox images={this.state.images} sliderBoxHeight={200}
   circleLoop/>
-              </View>
+              </View> */}
               </ScrollView>
     </View>
     );
@@ -178,14 +179,14 @@ const styles = StyleSheet.create({
     // alignItems: "center",
   },
   mapContainer:{
-    marginLeft: 10, marginBottom: 10, width: '95%', height: 425, borderRadius: 10, borderColor: "#74b49b", borderWidth: .5, overflow: 'hidden', 
+    marginLeft: 10, marginBottom: 10, marginTop: 40, width: '95%', height: 425, borderRadius: 10, borderWidth: .5, overflow: 'hidden', 
   },
   banner: {
-  marginTop: 20,
+  paddingTop: 20,
+  paddingBottom: 20,
   },
   text: {
     color: "black",
-    fontWeight: "bold",
     fontSize: 18,
     marginLeft: 35,
     paddingBottom: 15,
