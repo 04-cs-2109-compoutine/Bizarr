@@ -1,26 +1,27 @@
 import React, {useState, useContext, useEffect}  from 'react';
-import { View, StyleSheet, Image, TextInput, Text } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
-import AuthContext from "../components/context";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import UploadImage from '../components/ImagePicker';
 import SubmitButton from '../components/Button/SubmitButton';
+import AuthContext from "../components/Config/context";
 
 function AccountDetailsScreen() {
+
   const [userName, setUsername] = useState('');
   const {user, setUser} = useContext(AuthContext);
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
   const [location, setLocation] = useState();
   const [photoURL, setPhotoURL] = useState();
 
   const id = user.uid;
   async function getUser() {
     try {
-      db.collection("users").doc(id).get().then(
+        db.collection("users").doc(id).get().then(
         snapshot => setUsername(snapshot.data())
       )
     } catch(e) {
@@ -30,6 +31,7 @@ function AccountDetailsScreen() {
 
   useEffect(() => {
     getUser();
+    setImage(userName.photoURL)
   }, [])
 
   const handleSave = async () => {
@@ -42,6 +44,9 @@ function AccountDetailsScreen() {
       location: location,
       photoURL: photoURL
     })
+    .catch(function (error) {
+      alert(error.message);
+    });
   }
 
   return (
@@ -74,7 +79,6 @@ function AccountDetailsScreen() {
         <View style={styles.inputContainer}>
           <TextInput
             placeholder={userName.email}
-            keyboardType="numeric"
             placeholderTextColor={defaultStyles.colors.grey}
             style={defaultStyles.text}
             value={email}
@@ -88,7 +92,7 @@ function AccountDetailsScreen() {
             style={defaultStyles.text}
             value={password}
             onChangeText={(text) => setPassword(text)}
-            secureTextEntry
+            //secureTextEntry
           />
         </View>
         <View style={styles.inputContainer}>

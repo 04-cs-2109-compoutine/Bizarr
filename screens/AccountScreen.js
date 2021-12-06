@@ -1,13 +1,13 @@
-import React, { useState, useEffect,useContext,useRef} from "react";
+import React, { useState, useEffect,useContext} from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import colors from "../components/Config/colors";
-import Icon from "../components/Icon";
+import Icon from "../components/Config/Icon";
 import Screen from "../components/Screen";
 import Text from "../components/Config/Text";
 import { db } from "../firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 
 const menuItems = [
   {
@@ -29,10 +29,9 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
-  const [userName, setUsername] = useState('');
+  const [userName, setUsername] = useState({});
   const {user, setUser} = useContext(AuthContext);
   const id = user.uid;
-
   async function getUser() {
     try {
       await db.collection("users").doc(id).get().then(

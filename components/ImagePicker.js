@@ -68,7 +68,6 @@ export default function UploadImage({photoURL, setPhotoURL}) {
   )
 }
 
-
 const Styles=StyleSheet.create({
     container:{
         elevation:2,

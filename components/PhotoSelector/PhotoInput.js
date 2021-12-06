@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-native';
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
