@@ -4,11 +4,11 @@
     "slug": "Bizarr",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/bizarrm.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#5C8D89"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

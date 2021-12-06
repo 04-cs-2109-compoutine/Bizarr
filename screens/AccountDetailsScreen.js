@@ -16,9 +16,8 @@ function AccountDetailsScreen() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState();
-  const [image, setImage] = useState();
-  console.log(userName)
-  
+  const [photoURL, setPhotoURL] = useState();
+
   const id = user.uid;
   async function getUser() {
     try {
@@ -34,7 +33,7 @@ function AccountDetailsScreen() {
     getUser();
     setImage(userName.photoURL)
   }, [])
-
+  
   const handleSave = () => {
     auth.signInWithEmailAndPassword(user.email, '1234567')
     .then((userCredential) => {
@@ -49,16 +48,31 @@ function AccountDetailsScreen() {
         location: location,
         email: email,
       })
-    })
-    .catch(function (error) {
-      alert(error.message);
-    });
-  }
+    }
+  )}
+
+//   const handleSave = async () => {
+//     const userRef = db.collection("users").doc(id)
+//     await userRef.set({
+//       displayName: name,
+//       phone: phone,
+//       email: email,
+//       password: password,
+//       location: location,
+//       photoURL: photoURL
+//     })
+//     .catch(function (error) {
+//       alert(error.message);
+//     });
+//   }
 
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage image={image} onChangeImage={handleSave}/>
+          <UploadImage
+            photoURL={userName.photoURL}
+            setPhotoURL={setPhotoURL}
+          />
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -113,6 +127,7 @@ function AccountDetailsScreen() {
     </Screen>
   );
 }
+    
 
 const styles = StyleSheet.create({
   container: {

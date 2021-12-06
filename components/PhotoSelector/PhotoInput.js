@@ -54,7 +54,6 @@ function PhotoInput({imageUri, onChangeImage}) {
       let data = await r.json()
       onChangeImage(data.url);
     }).catch(err => console.log(err))
-  }
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
