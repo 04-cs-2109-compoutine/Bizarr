@@ -51,6 +51,7 @@ function UserSingleListingScreen({ route, navigation }) {
 
   const handleChange = (() => {
     listing.sold = !listing.sold;
+    //update listing info here
     setSold(!sold);
   })
 
