@@ -60,8 +60,14 @@ function PostListingScreen() {
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
-      uid: user.uid
+      uid: user.uid,
+      sold: false
     })
+    setImageUris([]);
+    setTitle('');
+    setPrice(null);
+    setDescription(null);
+    setCategory("Category");
   };
 
   //push a new image uri into the list and show it on screen
@@ -217,6 +223,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+   modalView: {
+    width: "60%",
+    height: "50%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 25,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   button: {
     backgroundColor: colors.primary,
     borderRadius: 25,
@@ -232,6 +254,10 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
     textAlign: "center",
   },
 });

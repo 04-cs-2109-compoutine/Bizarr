@@ -58,7 +58,7 @@ function AccountDetailsScreen() {
   return (
     <Screen style={styles.container}>
         <View style={styles.uploadImg}>
-          <UploadImage image={image}/>
+          <UploadImage image={image} onChangeImage={handleSave}/>
         </View>
         <View style={styles.inputContainer}>
           <TextInput

@@ -5,7 +5,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 function PhotoInput({imageUri, onChangeImage}) {
-  // const [localUri, setSelectedImage] = useState();
 
   let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
@@ -53,7 +52,6 @@ function PhotoInput({imageUri, onChangeImage}) {
       method: 'POST',
     }).then(async r => {
       let data = await r.json()
-
       onChangeImage(data.url);
     }).catch(err => console.log(err))
   }
