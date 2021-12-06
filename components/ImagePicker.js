@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
 export default function UploadImage({photoURL, setPhotoURL}) {
 
@@ -55,24 +54,6 @@ export default function UploadImage({photoURL, setPhotoURL}) {
       setPhotoURL(data.url);
     }).catch(err => console.log(err))
   }
-
-  // const addImage = async () => {
-  //   let _image = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     allowsEditing: true,
-  //     aspect: [4,3],
-  //     quality: 1,
-  //   });
-  //   console.log(JSON.stringify(_image));
-  //   if (!_image.cancelled) {
-  //     setImage(_image.uri);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   setImage(URL)
-  //   checkForCameraRollPermission();
-  // }, []);
 
   return (
     <View style={Styles.container}>

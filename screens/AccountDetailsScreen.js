@@ -33,14 +33,6 @@ function AccountDetailsScreen() {
   }, [])
 
   const handleSave = async () => {
-    // const userRef = db.doc("users", id)
-    // await updateDoc(userRef, {
-    //   userName: userName,
-    //   phone: phone,
-    //   email: email,
-    //   password: password,
-    //   location: location,
-    // })
     const userRef = db.collection("users").doc(id)
     await userRef.set({
       displayName: name,
