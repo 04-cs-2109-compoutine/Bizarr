@@ -33,21 +33,36 @@ function AccountDetailsScreen() {
     getUser();
     setImage(userName.photoURL)
   }, [])
-
-  const handleSave = async () => {
-    const userRef = db.collection("users").doc(id)
-    await userRef.set({
-      displayName: name,
-      phone: phone,
-      email: email,
-      password: password,
-      location: location,
-      photoURL: photoURL
+  
+    const handleSave = () => {
+    auth.signInWithEmailAndPassword(user.email, '1234567')
+    .then((userCredential) => {
+        const user = userCredential.user;
+        user.updateEmail(email)
+        user.updatePassword(password)
     })
-    .catch(function (error) {
-      alert(error.message);
-    });
-  }
+    .then(() => {
+      db.collection("users").doc(user.uid).update({
+        displayName: name,
+        phone: phone,
+        location: location,
+        email: email,
+      })
+
+//   const handleSave = async () => {
+//     const userRef = db.collection("users").doc(id)
+//     await userRef.set({
+//       displayName: name,
+//       phone: phone,
+//       email: email,
+//       password: password,
+//       location: location,
+//       photoURL: photoURL
+//     })
+//     .catch(function (error) {
+//       alert(error.message);
+//     });
+//   }
 
   return (
     <Screen style={styles.container}>
