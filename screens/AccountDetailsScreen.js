@@ -47,7 +47,7 @@ function AccountDetailsScreen() {
           displayName: name,
           phone: phone,
           location: location,
-          email: email,
+          photoURL: photoURL
         });
       });
   };
