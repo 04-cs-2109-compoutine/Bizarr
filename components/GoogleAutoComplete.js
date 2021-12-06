@@ -3,7 +3,11 @@ import Axios from "axios";
 import { View, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+<<<<<<< HEAD
 import colors from "../components/Config/colors";
+=======
+import colors from "./Config/colors";
+>>>>>>> main
 
 if (process.env.NODE_ENV !== "production") require("../secrets");
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
@@ -46,7 +50,7 @@ const App = () => {
           placeholder="Meet up Location"
           query={{
             key: GOOGLE_PLACES_API_KEY,
-            language: "en", // language of the results
+            language: "en", 
           }}
           onPress={async (data, details = null) => {
             const { data: res } = await Axios.get(

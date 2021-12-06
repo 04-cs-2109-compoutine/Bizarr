@@ -10,7 +10,7 @@ const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class SearchMap extends React.Component {
+class SearchLocation extends React.Component {
 
   constructor(props) {
     super(props);
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    height: 300,
   },
 });
 
-export default SearchMap;
+export default SearchLocation;
