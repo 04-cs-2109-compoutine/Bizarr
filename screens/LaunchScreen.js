@@ -10,10 +10,10 @@ const {width, height} = Dimensions.get('window')
 
 
 const LaunchScreen = ({ navigation }) => {
-  [isReady, setIsReady] = useState(false)
-  useEffect( () => {
-    console.log(isReady);
-}, [isReady]);
+//   [isReady, setIsReady] = useState(false)
+//   useEffect( () => {
+//     console.log(isReady);
+// }, [isReady]);
 
   return (
       <View style={styles.container}>
