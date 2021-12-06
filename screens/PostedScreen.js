@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, Modal } from "react-native";
 // import * as Progress from "react-native-progress";
 import LottieView from "lottie-react-native";
-import colors from "../components/Config/colors";
 
 function PostedScreen({ onDone, visible = false }) {
   return (
@@ -24,7 +23,6 @@ function PostedScreen({ onDone, visible = false }) {
 const styles = StyleSheet.create({
   animation: {
     width: 150,
-    color: colors.primary,
   },
   container: {
     alignItems: "center",

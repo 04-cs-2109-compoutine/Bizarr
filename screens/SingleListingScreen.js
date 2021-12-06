@@ -56,7 +56,7 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: parseInt(listingId),
+      listingId: listingId,       //didn't parse it to int since easy to fetch data back
       //can insert more listing here by creating object
     };
     // auth.currentUser.uid, listing.uid
@@ -119,11 +119,17 @@ function SingleListingScreen({ route, navigation }) {
     });
   }
 
+  console.log(listing)
   return (
     <ScrollView style={styles.screen}>
       <SliderBox images={listing.images} style={styles.image} />
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{listing.title}</Text>
+        <Text style={styles.title}>
+          {listing.title}
+        </Text>
+        <Text style={styles.description}>
+          {listing.description}
+        </Text>
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
           <SubmitButton
@@ -137,7 +143,7 @@ function SingleListingScreen({ route, navigation }) {
                   auth.currentUser.uid,
                   `${listing.title} - ${auth.currentUser.displayName}`,
                   "listing",
-                  listing.id
+                  listing.uid   //listingId?
                 );
               }
               navigation.navigate(routes.SINGLE_MESSAGE, {
@@ -187,6 +193,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "500",
+  },
+  description:{
+    marginTop: 10
   },
   sellerContainer: {
     marginBottom: 10,

@@ -13,7 +13,7 @@ function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;
   const [userName, setUsername] = useState("");
   const [listings, setListings] = useState([]);
-  const [sold, setSold] = useState(false)
+  const [sold, setSold] = useState(false);
 
   const id = listing.uid;
 
@@ -49,10 +49,18 @@ function UserSingleListingScreen({ route, navigation }) {
     getUser();
   }, []);
 
+  const handleChange = (() => {
+    listing.sold = !listing.sold;
+    //update listing info here
+    setSold(!sold);
+  })
+
+  console.log(listing);
+  
   return (
     <ScrollView style={styles.screen}>
       {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
-      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary} />
+      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary}/>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
@@ -60,7 +68,7 @@ function UserSingleListingScreen({ route, navigation }) {
           <Text style={styles.price}>${listing.price}</Text>
           <SubmitButton
             title={sold ? "Sold" : "Available"}
-            onPress={() => setSold(!sold)}
+            onPress={() => handleChange()}
           />
         </View>
       </View>

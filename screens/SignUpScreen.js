@@ -32,7 +32,7 @@ const SignUpScreen = () => {
             displayName: name,
             photoURL: photoURL
               ? photoURL
-              : "https://www.seekpng.com/png/detail/170-1706339_simple-compass-png-map-rose.png",
+              : "https://mpng.subpng.com/20180404/sqe/kisspng-computer-icons-user-profile-clip-art-big-5ac5283827d286.2570974715228703281631.jpg",
           })
           .then(function () {
             db.collection("users").doc(user.uid).set({
@@ -41,8 +41,7 @@ const SignUpScreen = () => {
               photoURL: user.photoURL,
               likedItems: [],
               phone: "000-000-0000",
-              location: "",
-              history: [],
+              location: '',
             });
           })
           .catch(function (error) {
