@@ -1,11 +1,12 @@
 import React from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView} from "react-native";
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SearchBar } from "react-native-elements";
+import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
-
+import colors from "../components/Config/colors"
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -84,17 +85,23 @@ export default class HomeScreen extends React.Component {
   render() {
     const search = this.state.search;
     return (
-        <SafeAreaView>
-              <SearchBar
-                placeholder="Type Here..."
-                onChangeText={this.updateSearch}
-                value={search}
-                showCancel
-                lightTheme
+        <View>
+
+            <Image 
+              style={{
+                height: 150,
+                width: 150,
+                marginTop: 0,
+                marginLeft: 130
+              }}
+              source={require("../assets/B.png")}
               />
-              <View style={styles.banner}>
-                <SliderBox images={this.state.images} />
-              </View>
+              <ScrollView>
+              <Text style={styles.text}> 
+            Shop nearby
+          </Text>
+              <View>
+                <View style={styles.mapContainer}>
                 <MapView
                   provider={PROVIDER_GOOGLE}
                   style={styles.map}
@@ -128,29 +135,90 @@ export default class HomeScreen extends React.Component {
                 </Marker>
               ))}
             </MapView>
-    </SafeAreaView>
+            </View>
+            <View style={styles.header}>
+              {/* <SearchBar
+                // style={styles.header}
+                placeholder="Type Here..."
+                onChangeText={this.updateSearch}
+                value={search}
+                showCancel
+                containerStyle={{backgroundColor: 'white', borderWidth: 1, borderColor: colors.light, borderRadius: 35, marginTop: 40,}}
+              /> */}
+              <Searchbar
+                onChangeText={this.updateSearch}
+                value={search}
+              />
+               </View>
+            </View>
+            <View style={styles.banner}>
+                <SliderBox images={this.state.images} sliderBoxHeight={100} autoplay
+  circleLoop/>
+              </View>
+              </ScrollView>
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  header:{
+    // flex: 1,
+    // marginTop: StatusBar.currentHeight,
+    // backgroundColor: "#F4F9F4",
+    // borderBottomLeftRadius: 65,  
+    // borderBottomRightRadius: 65,
+    // marginTop: 0,
+    // width: width,
+    // height: height / 3,
+  },
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+  },
+  mapContainer:{
+    marginLeft: 10, marginBottom: 10, width: '95%', height: 425, borderRadius: 10, borderColor: "#74b49b", borderWidth: .5, overflow: 'hidden', 
   },
   banner: {
-    marginVertical: 10,
+  marginTop: 20,
   },
   text: {
     color: "black",
     fontWeight: "bold",
-    fontSize: 16,
-    textAlign: "center",
-    margin: 15,
+    fontSize: 18,
+    marginLeft: 35,
+    paddingBottom: 15,
   },
+  // headerText: {
+  //   // flex: 1,
+  //   // color: "black",
+  //   // fontWeight: "bold",
+  //   // fontSize: 36,
+  //   // marginTop: 75,
+  //   // flex: .5,
+  //   flexDirection: 'row',
+  //   // // paddingBottom: 30,
+  //   // marginLeft: 0,
+  //   // marginBottom: 0,
+  //   borderBottomLeftRadius: 35,
+  //   borderBottomRightRadius: 35,
+  //   height: 75,
+  //   width: 75
+  // },
   map: {
+    // paddingTop: 30,
+    // paddingBottom: 30,
+    borderWidth: 1,
+    // flex: 1,
     height: 500,
+    width: 500,
+    // borderRadius: 10,
+    // borderTopLeftRadius: 15,
+    // borderTopRightRadius: 15,
+     marginBottom: 15,
+    //  overflow: 'hidden'
+    // height: height / 2,
   },
   bubble: {
     backgroundColor: "#E4EFE7",
