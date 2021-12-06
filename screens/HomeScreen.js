@@ -96,6 +96,14 @@ export default class HomeScreen extends React.Component {
               }}
               source={require("../assets/B.png")}
               />
+                          <Image 
+              style={{
+                // marginTop: 100,
+                marginLeft: 350,
+                flex: 1,
+              }}
+              source={require("../assets/baseline_filter_list_black_24dp.png")}
+              />
               <ScrollView>
               <Text style={styles.text}> 
             shop nearby

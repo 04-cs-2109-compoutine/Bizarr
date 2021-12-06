@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   textInput:{
     // flex: 1,
-    backgroundColor: "red",
+    // backgroundColor: "red",
     // justifyContent: 'center',
     // alignItems: 'center',
     // width: 300,
@@ -67,8 +67,8 @@ container:{
   backgroundColor: "#f4f9f4",
   borderRadius: 7,
   borderWidth: 1,
-  borderColor: "#5C8D89",
-  borderStyle: "solid",
+  // borderColor: "#5C8D89",
+  // borderStyle: "solid",
   paddingBottom: 5
 },
 searchInput:{
