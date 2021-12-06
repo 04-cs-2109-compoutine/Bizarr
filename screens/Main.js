@@ -3,11 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "../components/Config/NavigationTheme";
 import BottomNavigator from "../components/BottomNavigator";
 import AuthNavigator from "../components/AuthNavigator";
-<<<<<<< HEAD
-import AuthContext from "../components/context";
-=======
 import AuthContext from "../components/Config/context";
->>>>>>> main
 
 function Main() {
   const [user, setUser] = useState();
