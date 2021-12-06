@@ -6,10 +6,11 @@ import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { db } from '../firebase';
 import { SearchBar } from "react-native-elements";
-import AuthContext from "../components/Config/context";;
+import AuthContext from "../components/Config/context";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
+  const [filteredLists, setFilteredLists] = useState([])
   const [search, setSearch] = useState();
   const {user, setUser} = useContext(AuthContext);
 
@@ -20,30 +21,45 @@ function ListingsScreen({ navigation }) {
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid)
       setListings(userLists)
+      setFilteredLists(userLists)
     } catch(e) {
       console.log(e);
     }
   }
+
   useEffect(() => {
     readAllListing();
   }, [])
 
-  const updateSearch = (search)=>{
-    setSearch({ search });
+  const searchFilterFunction = (text)=>{
+    if (text) {
+      const newData = listings.filter(
+        function (item) {
+          const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+      });
+      setFilteredLists(newData);
+      setSearch(text);
+    } else {
+      setFilteredLists(listings);
+      setSearch(text);
+    }
   }
 
-  return listings instanceof Object ? (
+  return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
         placeholder="Type Here..."
-        onChangeText={updateSearch}
+        onChangeText={(text) => searchFilterFunction(text)}
         value={search}
         showCancel
         lightTheme
       />
       <FlatList
         numColumns={2}
-        data={listings}
+        columnWrapperStyle={{justifyContent: 'space-between'}}
+        data={filteredLists}
         keyExtractor={(listing, index) => listing.id.toString()}
         renderItem={({ item }) => (
           <AllList

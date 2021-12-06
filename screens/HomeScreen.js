@@ -23,10 +23,10 @@ export default class HomeScreen extends React.Component {
     this.state = {
       listings: [],
       region: {
-        // latitude: LATITUDE,
-        // longitude: LONGITUDE,
-        // latitudeDelta: LATITUDE_DELTA,
-        // longitudeDelta: LONGITUDE_DELTA,
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       },
       images: [
         "https://res.cloudinary.com/bizarr/image/upload/v1638639248/uglywelcomebanner_y3hw3z.png",
@@ -59,8 +59,7 @@ export default class HomeScreen extends React.Component {
         console.log(error);
       }
   }
-
-  // when the component mounts, request user location and then retrieve listings from firebase to display as markers on the map view
+  
   componentDidMount() {
     this.getLocation();
     const listings = db

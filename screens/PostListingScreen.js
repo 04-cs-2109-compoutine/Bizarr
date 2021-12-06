@@ -1,5 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import {View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Picker,
+  Alert,
+  Modal,
+  Text,
+  Pressable,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
@@ -8,7 +19,7 @@ import * as Location from "expo-location";
 import firebase from "firebase";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
-import PostedScreen from './PostedScreen';
+import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
 
 const { width, height } = Dimensions.get("window");
@@ -76,7 +87,6 @@ function PostListingScreen() {
 
   return (
     <ScrollView style={styles.container}>
-
       <PostedScreen
         onDone={() => setPostVisible(false)}
         visible={PostVisible}
@@ -85,8 +95,8 @@ function PostListingScreen() {
       <View style={styles.imgContainer}>
         <PhotoInputList
           imageUris={imageUris}
-          onAdd={uri => handleAdd(uri)}
-          onRemove={uri => handleRemove(uri)}
+          onAdd={(uri) => handleAdd(uri)}
+          onRemove={(uri) => handleRemove(uri)}
         />
       </View>
 
@@ -222,7 +232,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
-    modalView: {
+  modalView: {
     width: "60%",
     height: "50%",
     backgroundColor: "white",
@@ -234,6 +244,10 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   button: {
     backgroundColor: colors.primary,
     borderRadius: 25,
@@ -251,10 +265,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-    modalText: {
+  modalText: {
     marginBottom: 15,
     textAlign: "center",
   },
-}});
+});
 
 export default PostListingScreen;

@@ -29,7 +29,6 @@ const SignUpScreen = () => {
         authContext.setUser(user);
         user
           .updateProfile({
-            likedItems: {},
             displayName: name,
             photoURL: photoURL
               ? photoURL
@@ -40,6 +39,10 @@ const SignUpScreen = () => {
               displayName: user.displayName,
               email: user.email,
               photoURL: user.photoURL,
+              likedItems: [],
+              phone: "000-000-0000",
+              location: "",
+              history: [],
             });
           })
           .catch(function (error) {
@@ -90,10 +93,7 @@ const SignUpScreen = () => {
           buttonStyle={{ backgroundColor: colors.main }}
           onPress={handleSignUp}
         ></Button> */}
-        <LoginButton
-          text="Register"
-          onPress={handleSignUp}
-        />
+        <LoginButton text="Register" onPress={handleSignUp} />
       </View>
       <View style={styles.google}>
         <TouchableOpacity

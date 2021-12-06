@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-} from "react-native";
+import {View, StyleSheet, TouchableWithoutFeedback, SafeAreaView} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
@@ -15,7 +9,7 @@ function List({ title, price, imageUris, onPress }) {
     <SafeAreaView style={styles.detailsContainer}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.card}>
-          <SliderBox images={imageUris}/>
+          <SliderBox images={imageUris} style={styles.image}/>
           <View style={styles.detailsContainer}>
             <Text style={styles.title} numberOfLines={1}>
               {title}
@@ -35,17 +29,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.white,
     overflow: "hidden",
-    margin: 5
+    margin: 5,
   },
   detailsContainer: {
     padding: 0,
     borderRadius: 8,
-    flex: 1,
-    justifyContent: "flex-start",
+    flex: 2,
   },
   image: {
-    width: "100%",
+    width: "45%",
     height: 200,
+    alignItems: 'center'
   },
   price: {
     color: colors.secondary,
