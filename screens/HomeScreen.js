@@ -59,8 +59,7 @@ export default class HomeScreen extends React.Component {
         console.log(error);
       }
   }
-
-  // when the component mounts, request user location and then retrieve listings from firebase to display as markers on the map view
+  
   componentDidMount() {
     this.getLocation();
     const listings = db

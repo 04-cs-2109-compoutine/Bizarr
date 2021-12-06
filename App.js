@@ -3,9 +3,10 @@ import { Provider } from 'react-redux';
 import Main from './screens/Main';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
+
 import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset'
-
+import OfflineMode from './components/OfflineMode';
 
 
 export default function App() {
@@ -20,10 +21,15 @@ const  _cacheResourcesAsync = async () => {
 }
   return (
     launchLoaded === true ? (
+
+    <>
+    <OfflineMode />
+
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Main />
       </PersistGate>
+
     </Provider>) : (
       <AppLoading
       startAsync={_cacheResourcesAsync}
@@ -31,5 +37,6 @@ const  _cacheResourcesAsync = async () => {
       onError={console.warn}
     />
     )
+
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, Alert, Image } from 'react-native';
 import colors from '../Config/colors';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -57,44 +57,6 @@ function PhotoInput({imageUri, onChangeImage}) {
       onChangeImage(data.url);
     }).catch(err => console.log(err))
   }
-
-
-  // const pickImage = async () => {
-  //   try{
-  //     let result = await ImagePicker.launchImageLibraryAsync({
-  //       //can select video as well, not just image
-  //       mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //       allowsEditing: true,
-  //       aspect: [4, 3],
-  //       quality: 1,
-  //       base64: true
-  //     });
-  //     console.log("result", result);
-  //     if (!result.cancelled) {
-  //       onChangeImage(result.url);
-  //     }
-  //     let base64Img = `data:image/jpg;base64,${result.base64}`;
-  //     let data = {
-  //       "file": base64Img,
-  //       "upload_preset": "uploadPreset",
-  //           }
-  //           fetch(CLOUDINARY_URL, {
-  //             body: JSON.stringify(data),
-  //             headers: {
-  //               'content-type': 'application/json'
-  //             },
-  //             method: 'POST',
-  //           }).then(async r => {
-  //             let data = await r.json()
-  //             console.log("data", data)
-  //             console.log("imageUri", imageUri)
-  //             setImageUris(data.secure_url);
-  //           }).catch(err => console.log(err))
-
-  //   } catch (error){
-  //     console.log("Error can't load an image", error)
-  //   }
-  // };
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>

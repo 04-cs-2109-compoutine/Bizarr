@@ -17,8 +17,9 @@ function SellerListingScreen({navigation, route}) {
         renderItem={({ item }) => (
           <List
             title={item.title}
-            subTitle={"$" + item.price}
-            image={item.images}
+            price={"$" + item.price}
+            description={item.description}
+            imageUris={item.images}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
