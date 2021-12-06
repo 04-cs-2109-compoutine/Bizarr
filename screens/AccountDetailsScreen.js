@@ -47,7 +47,7 @@ function AccountDetailsScreen() {
           displayName: name,
           phone: phone,
           location: location,
-          email: email,
+          photoURL: photoURL
         });
       });
   };
@@ -125,6 +125,7 @@ function AccountDetailsScreen() {
     </Screen>
   );
 }
+    
 
 const styles = StyleSheet.create({
   container: {

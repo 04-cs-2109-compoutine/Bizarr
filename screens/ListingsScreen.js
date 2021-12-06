@@ -66,6 +66,7 @@ function ListingsScreen({ navigation }) {
             title={item.title}
             price={"$" + item.price}
             imageUris={item.images}
+            description={item.description}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}

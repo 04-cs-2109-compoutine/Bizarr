@@ -26,6 +26,22 @@ const menuItems = [
     },
     targetScreen: "Account Details",
   },
+  {
+    title: "Sold History",
+    icon: {
+      name: "tag-heart",
+      backgroundColor: "#CAB8FF",
+    },
+    targetScreen: "Sold Listing Screen",
+  },
+  {
+    title: "Saved",
+    icon: {
+      name: "heart-outline",
+      backgroundColor: "#FFADAD"
+    },
+    targetScreen: "Saved Items",
+  },
 ];
 
 function AccountScreen({ navigation }) {

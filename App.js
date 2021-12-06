@@ -13,12 +13,12 @@ export default function App() {
       require("./assets/image/transpmap2.gif"),
       require("./assets/B.png"),
     ];
-
     const cacheImages = images.map((image) => {
       return Asset.fromModule(image).downloadAsync();
     });
     return Promise.all(cacheImages);
   };
+  
   return launchLoaded === true ? (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

@@ -53,14 +53,11 @@ function PhotoInput({ imageUri, onChangeImage }) {
       headers: {
         "content-type": "application/json",
       },
-      method: "POST",
-    })
-      .then(async (r) => {
-        let data = await r.json();
-
-        onChangeImage(data.url);
-      })
-      .catch((err) => console.log(err));
+      method: 'POST',
+    }).then(async r => {
+      let data = await r.json()
+      onChangeImage(data.url);
+    }).catch(err => console.log(err))
 
     return (
       <TouchableWithoutFeedback onPress={handlePress}>
