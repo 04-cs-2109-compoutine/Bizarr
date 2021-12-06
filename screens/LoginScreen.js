@@ -1,5 +1,13 @@
 import React, { useState, useContext } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import { Input, Button } from "react-native-elements";
 import colors from "../components/Config/colors";
 
@@ -13,7 +21,7 @@ const LoginScreen = ({ navigation }) => {
   const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
-    console.log('handled loggin')
+    console.log("handled loggin");
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
@@ -62,12 +70,6 @@ const LoginScreen = ({ navigation }) => {
           ></Button>
         </View>
       </View>
-      <Text
-        style={styles.signUpLink}
-        onPress={() => navigation.navigate("Sign Up")}
-      >
-        Don't have an Account? Sign up!
-      </Text>
     </KeyboardAvoidingView>
   );
 };
@@ -116,9 +118,5 @@ const styles = StyleSheet.create({
   loginButton: {
     width: 200,
     borderRadius: 10,
-  },
-  signUpLink: {
-    color: "white",
-    top: 70,
   },
 });
