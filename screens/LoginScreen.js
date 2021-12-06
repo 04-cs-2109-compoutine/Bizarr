@@ -1,11 +1,17 @@
 import React, { useState, useContext } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image} from "react-native";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import { Input, Button, Icon } from "react-native-elements";
 import colors from "../components/Config/colors";
-import LoginButton from "../components/Button/LoginButton"
-import AuthContext from "../components/context";
-
-
+import LoginButton from "../components/Button/LoginButton";
+import AuthContext from "../components/Config/context";
 
 import { auth } from "../firebase";
 
@@ -26,7 +32,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding" >
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/B.png")} />
       <View style={styles.loginContainer}>
         <View style={styles.inputContainer}>
@@ -51,26 +57,23 @@ const LoginScreen = ({ navigation }) => {
             style={styles.input}
             secureTextEntry
           />
-          </View>
         </View>
-        <View>
-          {/* <Button
+      </View>
+      <View>
+        {/* <Button
             onPress={handleLogin}
             title="Log in"
             buttonStyle={{ backgroundColor: "#E4EFE7"}}
             style={styles.loginButton}
           ></Button> */}
-          <LoginButton
-            text="Login"
-            onPress={handleLogin}
-          />
-        </View>
-      <Text
+        <LoginButton text="Login" onPress={handleLogin} />
+      </View>
+      {/* <Text
         style={styles.signUpLink}
         onPress={() => navigation.navigate("Sign Up")}
       >
         Don't have an Account? Sign up!
-      </Text>
+      </Text> */}
     </KeyboardAvoidingView>
   );
 };
@@ -125,9 +128,5 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     paddingTop: -75,
     marginTop: 35,
-  },
-  signUpLink: {
-    color: "white",
-    top: 70,
   },
 });

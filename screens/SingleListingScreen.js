@@ -10,7 +10,6 @@ import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
 
 function SingleListingScreen({ route, navigation }) {
-  
   const listing = route.params;
   const [userName, setUsername] = useState("");
   const [listings, setListings] = useState([]);
@@ -122,15 +121,11 @@ function SingleListingScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.screen}>
-      <SliderBox images={listing.images} style={styles.image}/>
+      <SliderBox images={listing.images} style={styles.image} />
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>
-          {listing.title}
-        </Text>
+        <Text style={styles.title}>{listing.title}</Text>
         <View style={styles.message}>
-          <Text style={styles.price}>
-            ${listing.price}
-          </Text>
+          <Text style={styles.price}>${listing.price}</Text>
           <SubmitButton
             title="Message"
             onPress={async () => {
