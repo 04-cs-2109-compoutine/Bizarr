@@ -56,6 +56,7 @@ function MessageScreen({ navigation }) {
           <ListItem
             title={item.name}
             subtitle={JSON.stringify(item, null, 4)}
+            image={item.image}
             onPress={() =>
               navigation.navigate("SingleMessage", { group: item })
             }

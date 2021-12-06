@@ -123,7 +123,7 @@ function SingleListingScreen({ route, navigation }) {
   return (
     <ScrollView style={styles.screen}>
       {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
-      <SliderBox images={listing.images}/>
+      <SliderBox images={listing.images} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <View style={styles.message}>
