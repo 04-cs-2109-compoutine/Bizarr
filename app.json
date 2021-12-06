@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/bizarrm.png",
     "splash": {
-      "image": "./assets/splash.jpg",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#5C8D89"
     },
