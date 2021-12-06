@@ -8,7 +8,7 @@ import colors from "./Config/colors";
 if (process.env.NODE_ENV !== "production") require("../secrets");
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
-//auto complete with geo coding info
+//auto complete with geocoding info
 const App = () => {
   const [location, setLocation] = useState({
     latitude: 40.752714,
@@ -28,7 +28,6 @@ const App = () => {
         <GooglePlacesAutocomplete
           styles={{
             textInputContainer: {
-              // backgroundColor: "black",
               borderRadius: 10,
               height: 50,
               alignItems: "flex-start",
@@ -47,7 +46,7 @@ const App = () => {
           placeholder="Meet up Location"
           query={{
             key: GOOGLE_PLACES_API_KEY,
-            language: "en", 
+            language: "en",
           }}
           onPress={async (data, details = null) => {
             const { data: res } = await Axios.get(

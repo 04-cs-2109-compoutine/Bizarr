@@ -11,9 +11,8 @@ import {
 } from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
-
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -93,10 +92,7 @@ const SignUpScreen = () => {
           buttonStyle={{ backgroundColor: colors.main }}
           onPress={handleSignUp}
         ></Button> */}
-        <LoginButton
-          text="Register"
-          onPress={handleSignUp}
-        />
+        <LoginButton text="Register" onPress={handleSignUp} />
       </View>
       <View style={styles.google}>
         <TouchableOpacity
