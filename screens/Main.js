@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "../components/NavigationTheme";
 import BottomNavigator from "../components/BottomNavigator";
 import AuthNavigator from "../components/AuthNavigator";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
 
 function Main() {

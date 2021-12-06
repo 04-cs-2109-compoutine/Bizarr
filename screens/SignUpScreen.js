@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import colors from "../components/Config/colors";
 import { Input, Button } from "react-native-elements";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
 
 const SignUpScreen = () => {

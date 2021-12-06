@@ -2,7 +2,7 @@ import React, {useState, useContext, useEffect}  from 'react';
 import { View, StyleSheet, Image, TextInput, Text } from 'react-native';
 import defaultStyles from '../components/Config/styles';
 import Screen from '../components/Screen';
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import { db } from "../firebase";
 import UploadImage from '../components/ImagePicker';
 import SubmitButton from '../components/Button/SubmitButton';

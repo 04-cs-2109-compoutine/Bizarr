@@ -6,7 +6,7 @@ import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { db } from "../firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";;
 
 function MyListingScreen({navigation}) {
 

@@ -7,7 +7,7 @@ import Icon from "../components/Icon";
 import Screen from "../components/Screen";
 import Text from "../components/Config/Text";
 import { db } from "../firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";;
 
 const menuItems = [
   {

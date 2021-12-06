@@ -1,38 +1,20 @@
-import React, { useEffect, useState, useSelector, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Picker,
-  Alert,
-  Modal,
-  Text,
-  Pressable,
-  ScrollView,
-  Dimensions,
-} from "react-native";
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
-import Screen from "../components/Screen";
+import React, { useEffect, useState, useContext } from "react";
+import {View, StyleSheet, TextInput, Picker, Alert, Modal, Text, Pressable, ScrollView, Dimensions} from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
-import PhotoPicker from "../components/PhotoSelector/PhotoPicker"; //image picker for listings
-import { getDownloadURL, uploadBytes } from "firebase/storage";
-import { auth, db } from "../firebase";
-import { updateDoc, getDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 import * as Location from "expo-location";
 import firebase from "firebase";
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
-
+import PostedScreen from './PostedScreen';
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-// const storage = getStorage();
-
 function PostListingScreen() {
-  // const [img, setImg] = useState("")
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -42,7 +24,7 @@ function PostListingScreen() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
-  const [pin, setPin] = useState({});
+  const [PostVisible, setPostVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -68,17 +50,18 @@ function PostListingScreen() {
     log = JSON.stringify(location.longitude);
   }
 
-  const handlePost = () => {
+  const handlePost = async () => {
     console.log("handlepost", imageUris);
-    db.collection("listings").add({
+    setPostVisible(true);
+    await db.collection("listings").add({
       title: title,
       price: price,
       description: description,
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
-      uid: user.uid,
-    });
+      uid: user.uid
+    })
   };
 
   //push a new image uri into the list and show it on screen
@@ -93,15 +76,20 @@ function PostListingScreen() {
 
   return (
     <ScrollView style={styles.container}>
+
+      <PostedScreen
+        onDone={() => setPostVisible(false)}
+        visible={PostVisible}
+      />
+
       <View style={styles.imgContainer}>
-        <View>
-          <PhotoInputList
-            imageUris={imageUris}
-            onAdd={(uri) => handleAdd(uri)}
-            onRemove={(uri) => handleRemove(uri)}
-          />
-        </View>
+        <PhotoInputList
+          imageUris={imageUris}
+          onAdd={uri => handleAdd(uri)}
+          onRemove={uri => handleRemove(uri)}
+        />
       </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Title"
@@ -112,6 +100,7 @@ function PostListingScreen() {
           maxLength={255}
         />
       </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Price"
@@ -138,8 +127,7 @@ function PostListingScreen() {
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
+                onValueChange={(itemValue) => setCategory(itemValue)}>
                 <Picker.Item label="Car" value="Car" />
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
@@ -154,8 +142,7 @@ function PostListingScreen() {
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
           </View>
@@ -219,6 +206,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
   },
+  inputContainer:{
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   pickerContainer: {
     flex: 1,
     alignItems: "center",
@@ -230,22 +222,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
-  // modalView: {
-  //   width: "60%",
-  //   height: "50%",
-  //   backgroundColor: "white",
-  //   borderRadius: 20,
-  //   padding: 25,
-  //   alignItems: "center",
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 4,
-  //   elevation: 5,
-  // },
+    modalView: {
+    width: "60%",
+    height: "50%",
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 25,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   button: {
     backgroundColor: colors.primary,
     borderRadius: 25,
@@ -263,10 +251,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  // modalText: {
-  //   marginBottom: 15,
-  //   textAlign: "center",
-  // },
-});
+    modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+}});
 
 export default PostListingScreen;
