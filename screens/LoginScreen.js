@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import { Input, Button } from "react-native-elements";
 import colors from "../components/Config/colors";
 
-import AuthContext from "../components/context";
+import AuthContext from "../components/Config/context";
 import { auth } from "../firebase";
 
 const LoginScreen = ({ navigation }) => {
@@ -13,13 +13,10 @@ const LoginScreen = ({ navigation }) => {
   const authContext = useContext(AuthContext);
 
   const handleLogin = () => {
-    console.log('handled loggin')
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
-        // console.log(userCredentials);
         const user = userCredentials.user;
-        // console.log("Logged in with:", user.email);
         authContext.setUser(user);
       })
       .catch((error) => alert(error.message));

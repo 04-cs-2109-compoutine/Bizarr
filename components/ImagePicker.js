@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { Image, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
 
-export default function UploadImage({URL}) {
-  const [image, setImage] = useState();
-  // console.log(URL)
-  // console.log(image)
-
-  const  checkForCameraRollPermission = async() => {
+export default function UploadImage({image, setImage}) {
+  
+  const checkForCameraRollPermission = async() => {
     const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert("Please grant camera roll permissions inside your system's settings");
     }
   }
+
+  useEffect(() => {
+    checkForCameraRollPermission();
+  }, [])
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -29,11 +29,6 @@ export default function UploadImage({URL}) {
     }
   }
 
-  useEffect(() => {
-    setImage(URL)
-    checkForCameraRollPermission();
-  }, []);
-
   return (
     <View style={Styles.container}>
        {image && <Image source={{ uri: image }} style={Styles.img}/>}
@@ -46,7 +41,6 @@ export default function UploadImage({URL}) {
     </View>
   )
 }
-
 
 const Styles=StyleSheet.create({
     container:{

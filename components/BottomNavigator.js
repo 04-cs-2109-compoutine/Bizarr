@@ -6,7 +6,6 @@ import MessageNavigator from "./MessageNavigator";
 import PostButton from "./Button/PostButton";
 import ListNavigator from "./ListNavigator";
 import AccountNavigator from "./AccountNavigator";
-import PostNavigator from "./PostNavigator";
 import routes from "./Config/routes";
 import PostListingScreen from "../screens/PostListingScreen";
 
