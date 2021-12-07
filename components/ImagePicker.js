@@ -57,7 +57,7 @@ export default function UploadImage({photoURL, setPhotoURL}) {
 
   return (
     <View style={Styles.container}>
-       <Image source={{ uri: photoURL }} style={Styles.img}/>
+      <Image source={{ uri: photoURL }} style={Styles.img}/>
       <View style={Styles.uploadBtnContainer}>
         <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn} >
           <Text>{photoURL ? 'Edit' : 'Upload'} Image</Text>

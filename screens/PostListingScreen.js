@@ -61,6 +61,7 @@ function PostListingScreen({navigation}) {
     log = JSON.stringify(location.longitude);
   }
 
+
   const handlePost = async () => {
     setPostVisible(true);
     await db.collection("listings").add({

@@ -11,12 +11,12 @@ function AccountDetailsScreen() {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
   // const user = auth.currentUser;
-  const [name, setName] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [currPassword, setCurrPassword] = useState("");
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState("");
   const [photoURL, setPhotoURL] = useState(user.photoURL);
 
   const id = user.uid;
@@ -36,39 +36,52 @@ function AccountDetailsScreen() {
     setPhotoURL(userName.photoURL);
   }, []);
 
-  // const handleSave = () => {
-  //   auth
-  //     .signInWithEmailAndPassword(user.email, "1234567")
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       user.updateEmail(email);
-  //       user.updatePassword(password);
-  //     })
-  //     .then(() => {
-  //       db.collection("users").doc(user.uid).update({
-  //         displayName: name,
-  //         phone: phone,
-  //         location: location,
-  //         photoURL: photoURL
-  //       });
-  //     });
-  // };
+  // helper function to check if fields have been left empty (they are required)
+  const checkTextInput = () => {
+    if (!name.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    if (!email.trim()) {
+      alert('Please enter your email');
+      return;
+    }
+    if (!phone.trim()) {
+      alert('Please enter your phone number');
+      return;
+    }
+    if (!location.trim()) {
+      alert('Please enter your location');
+      return;
+    }
+    if (!currPassword.trim()) {
+      alert('Please enter your current password');
+      return;
+    }
+    if (!newPassword.trim()) {
+      alert('Please enter your new password');
+      return;
+    }
+  };
 
-    const handleSave = async () => {
-      auth
-        .signInWithEmailAndPassword(user.email, currPassword)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            user.updateEmail(email);
-            user.updatePassword(newPassword);
-          })
-      const userRef = db.collection("users").doc(id)
-      await userRef.set({
-        displayName: name,
-        phone: phone,
-        location: location,
-        photoURL: photoURL
-      })
+  // the save button will sign the user in again with the entered current password and then update the collection with the new info
+  const handleSave = async () => {
+    checkTextInput();
+    auth
+      .signInWithEmailAndPassword(user.email, currPassword)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          user.updateEmail(email);
+          user.updatePassword(newPassword);
+        })
+    const userRef = db.collection("users").doc(id)
+    await userRef.set({
+      displayName: name,
+      phone: phone,
+      email: email,
+      location: location,
+      photoURL: photoURL
+    })
       .catch(function (error) {
         alert(error.message);
       });
@@ -77,7 +90,7 @@ function AccountDetailsScreen() {
   return (
     <ScrollView>
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} />
+        <UploadImage photoURL={user.photoURL} setPhotoURL={setPhotoURL} />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
