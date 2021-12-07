@@ -68,6 +68,9 @@ function PostListingScreen() {
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
+      uid: user.uid,
+      sold: false
+    });
     };
     for (const key in post) {
       if (typeof post[key] === "string") {

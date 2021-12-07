@@ -12,17 +12,18 @@ function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
-  const { user, setUser } = useContext(AuthContext);
+  //const [liked, setLiked] = useState(false);
+  const {user, setUser} = useContext(AuthContext);
 
   async function readAllListing() {
     try {
-      const getListingsPromise = db.collection("listings").get();
-      const data = await getListingsPromise;
-      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter((listing) => listing.uid !== user.uid);
-      setListings(userLists);
-      setFilteredLists(userLists);
-    } catch (e) {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
+      setListings(userLists)
+      setFilteredLists(userLists)
+    } catch(e) {
       console.log(e);
     }
   }
@@ -48,6 +49,12 @@ function ListingsScreen({ navigation }) {
     }
   };
 
+  // const handleLiked = () => {
+  //   setLiked(!liked);
+  //   console.log(liked)
+  // }
+  // console.log(liked)
+
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
@@ -68,7 +75,18 @@ function ListingsScreen({ navigation }) {
             price={"$" + item.price}
             imageUris={item.images}
             description={item.description}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            onLikePost={(_id) =>
+              setListings(() => {
+              return listings.map((list) => {
+                console.log(list)
+                if (list.id === _id) {
+                  return { ...list, isLiked: !list.isLiked };
+                }
+                return list;
+              });
+            })
+          }
           />
         )}
       />

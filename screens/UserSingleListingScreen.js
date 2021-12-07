@@ -13,7 +13,7 @@ function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;
   const [userName, setUsername] = useState("");
   const [listings, setListings] = useState([]);
-  const [sold, setSold] = useState(false);
+  const [sold, setSold] = useState(listing.sold);
 
   const id = listing.uid;
 
@@ -34,7 +34,7 @@ function UserSingleListingScreen({ route, navigation }) {
       const getListingsPromise = db.collection("listings").get();
       const data = await getListingsPromise;
       let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter((listing) => listing.uid === id);
+      let userLists = allListings.filter((listing) => listing.uid === id && listing.sold === false);
       setListings(userLists);
     } catch (e) {
       console.log(e);
@@ -49,13 +49,21 @@ function UserSingleListingScreen({ route, navigation }) {
     getUser();
   }, []);
 
-  const handleChange = () => {
-    listing.sold = !listing.sold;
-    //update listing info here
-    setSold(!sold);
-  };
+  async function handleChange() {
+    try{
+      setSold(!sold);
+      // console.log(listing)
+      await db.collection("listings").doc(listing.id).update({sold: !sold});
+      // const userRef = doc(firestore, 'listings', listing.id);
+      // await updateDoc(userRef, { 
+      //   sold: !sold
+      // }) 
+    }catch(e){
+      console.log(e)
+    }
+  }
 
-  // console.log(listing);
+  console.log(listing)
 
   return (
     <ScrollView style={styles.screen}>
