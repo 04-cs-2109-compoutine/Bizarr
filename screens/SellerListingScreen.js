@@ -1,13 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, FlatList, Text} from 'react-native';
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, FlatList, Text } from "react-native";
 import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 
-function SellerListingScreen({navigation, route}) {
-  const listings = route.params
-  console.log(listings)
+function SellerListingScreen({ navigation, route }) {
+  const listings = route.params;
 
   return (
     <Screen style={styles.screen}>
@@ -25,7 +24,7 @@ function SellerListingScreen({navigation, route}) {
         )}
       />
     </Screen>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
