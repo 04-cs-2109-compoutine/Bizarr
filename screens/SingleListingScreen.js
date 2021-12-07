@@ -59,6 +59,7 @@ function SingleListingScreen({ route, navigation }) {
       type,
       listingId: listingId, //didn't parse it to int since easy to fetch data back
       //can insert more listing here by creating object
+      //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
     };
     // auth.currentUser.uid, listing.uid
 
