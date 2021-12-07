@@ -170,7 +170,7 @@ function SingleListingScreen({ route, navigation }) {
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
-      <View>
+      <View style={styles.map}>
         <LoadingMap
           latitude={listing.location.latitude}
           longitude={listing.location.longitude}
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "95%",
-    height: 300,
+    height: 250,
   },
   price: {
     color: colors.secondary,
@@ -214,6 +214,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "baseline",
   },
+  map:{
+    marginBottom: 10,
+    paddingBottom: 100
+  }
 });
 
 export default SingleListingScreen;
