@@ -95,7 +95,6 @@ function PostListingScreen() {
         images: imageUris,
         uid: user.uid,
         sold: false,
-        sellerName: user.displayName,
       });
       setPostVisible("Failed:", true);
     } catch (error) {
