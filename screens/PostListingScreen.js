@@ -25,7 +25,7 @@ import GoogleAutoComplete from "../components/GoogleAutoComplete";
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen() {
+function PostListingScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -62,7 +62,6 @@ function PostListingScreen() {
   }
 
   const handlePost = async () => {
-    console.log("handlepost", imageUris);
     setPostVisible(true);
     await db.collection("listings").add({
       title: title,
@@ -73,6 +72,7 @@ function PostListingScreen() {
       images: imageUris,
       uid: user.uid,
     });
+    await navigation.navigate("My Listings");
   };
 
   //push a new image uri into the list and show it on screen
@@ -88,8 +88,11 @@ function PostListingScreen() {
   return (
     <ScrollView style={styles.container}>
       <PostedScreen
-        onDone={() => setPostVisible(false)}
+        onDone={() => {
+          setPostVisible(false);
+        }}
         visible={PostVisible}
+        navigation
       />
 
       <View style={styles.imgContainer}>
