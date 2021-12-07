@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Image, View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState, useEffect } from "react";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
-export default function UploadImage({photoURL, setPhotoURL}) {
-
-  let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/bizarr/upload'
+export default function UploadImage({ photoURL, setPhotoURL }) {
+  if (process.env.NODE_ENV !== "production") require("../secrets");
+  let CLOUDINARY_URL = process.env.CLOUDINARY_URL;
 
   const handlePress = () => {
-    if(photoURL){
-      pickImage()
+    if (photoURL) {
+      pickImage();
     } else {
-      Alert.alert('Delete', 'Are you sure you want to delete this photo?', [
-        { text: "Yes", onPress: () => setPhotoURL(null)},
-        { text: 'No'}
-      ])
+      Alert.alert("Delete", "Are you sure you want to delete this photo?", [
+        { text: "Yes", onPress: () => setPhotoURL(null) },
+        { text: "No" },
+      ]);
     }
-  }
+  };
 
-  const pickImage = async() => {
+  const pickImage = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
       alert("'Permission to access camera roll is required!");
@@ -28,7 +35,7 @@ export default function UploadImage({photoURL, setPhotoURL}) {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
-      base64: true
+      base64: true,
     });
 
     if (pickerResult.cancelled === true) {
@@ -38,62 +45,64 @@ export default function UploadImage({photoURL, setPhotoURL}) {
     let base64Img = `data:image/jpg;base64,${pickerResult.base64}`;
 
     let data = {
-      "file": base64Img,
-      "upload_preset": "uploadPreset",
-    }
+      file: base64Img,
+      upload_preset: "uploadPreset",
+    };
 
     fetch(CLOUDINARY_URL, {
       body: JSON.stringify(data),
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      method: 'POST',
-    }).then(async r => {
-      let data = await r.json()
+      method: "POST",
+    })
+      .then(async (r) => {
+        let data = await r.json();
 
-      setPhotoURL(data.url);
-    }).catch(err => console.log(err))
-  }
+        setPhotoURL(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <View style={Styles.container}>
-       <Image source={{ uri: photoURL }} style={Styles.img}/>
+      <Image source={{ uri: photoURL }} style={Styles.img} />
       <View style={Styles.uploadBtnContainer}>
-        <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn} >
-          <Text>{photoURL ? 'Edit' : 'Upload'} Image</Text>
+        <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn}>
+          <Text>{photoURL ? "Edit" : "Upload"} Image</Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }
 
-const Styles=StyleSheet.create({
-    container:{
-        elevation:2,
-        height:150,
-        width:150,
-        backgroundColor:'#efefef',
-        position:'relative',
-        borderRadius:999,
-        overflow:'hidden',
-    },
-    img:{
-      width: 150,
-      height: 150
-    },
-    uploadBtnContainer:{
-        opacity:0.7,
-        position:'absolute',
-        right:0,
-        bottom:0,
-        backgroundColor:'lightgrey',
-        width:'100%',
-        height:'30%',
-    },
-    uploadBtn:{
-        display:'flex',
-        alignItems:"center",
-        justifyContent:'center'
-    }
-})
+const Styles = StyleSheet.create({
+  container: {
+    elevation: 2,
+    height: 150,
+    width: 150,
+    backgroundColor: "#efefef",
+    position: "relative",
+    borderRadius: 999,
+    overflow: "hidden",
+  },
+  img: {
+    width: 150,
+    height: 150,
+  },
+  uploadBtnContainer: {
+    opacity: 0.7,
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    backgroundColor: "lightgrey",
+    width: "100%",
+    height: "30%",
+  },
+  uploadBtn: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

@@ -40,13 +40,14 @@ function SingleListingScreen({ route, navigation }) {
     }
   }
 
-  useEffect(() => {
-    getListings();
-  }, []);
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  async function getPhoto() {
+    try {
+      const profilePhoto = db.collection("users").get();
+      const photo = await profilePhoto;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -56,10 +57,12 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: listingId,       //didn't parse it to int since easy to fetch data back
+      listingId: parseInt(listingId), //didn't parse it to int since easy to fetch data back
       //can insert more listing here by creating object
+      //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
     };
     // auth.currentUser.uid, listing.uid
+
     return new Promise((resolve, reject) => {
       db.collection("group")
         .add(group)
@@ -95,8 +98,8 @@ function SingleListingScreen({ route, navigation }) {
               resolve(null);
             }
           });
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        console.log(e);
         resolve(null);
       }
     });
@@ -118,18 +121,13 @@ function SingleListingScreen({ route, navigation }) {
         });
     });
   }
-
-  console.log(listing)
+  console.log("auth", auth);
   return (
     <ScrollView style={styles.screen}>
       <SliderBox images={listing.images} style={styles.image} />
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>
-          {listing.title}
-        </Text>
-        <Text style={styles.description}>
-          {listing.description}
-        </Text>
+        <Text style={styles.title}>{listing.title}</Text>
+        <Text style={styles.description}>{listing.description}</Text>
         <View style={styles.message}>
           <Text style={styles.price}>${listing.price}</Text>
           <SubmitButton
@@ -141,11 +139,12 @@ function SingleListingScreen({ route, navigation }) {
                 group = await createGroup(
                   [auth.currentUser.uid, listing.uid],
                   auth.currentUser.uid,
-                  `${listing.title} - ${auth.currentUser.displayName}`,
+                  `${auth.currentUser.displayName}`,
                   "listing",
-                  listing.uid   //listingId?
+                  listing.uid //listingId?
                 );
               }
+
               navigation.navigate(routes.SINGLE_MESSAGE, {
                 group,
               });
@@ -194,8 +193,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "500",
   },
-  description:{
-    marginTop: 10
+  description: {
+    marginTop: 10,
   },
   sellerContainer: {
     marginBottom: 10,

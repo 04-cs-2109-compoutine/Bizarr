@@ -49,18 +49,22 @@ function UserSingleListingScreen({ route, navigation }) {
     getUser();
   }, []);
 
-  const handleChange = (() => {
+  const handleChange = () => {
     listing.sold = !listing.sold;
     //update listing info here
     setSold(!sold);
-  })
+  };
 
-  console.log(listing);
-  
+  // console.log(listing);
+
   return (
     <ScrollView style={styles.screen}>
       {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
-      <SliderBox images={listing.images} style={styles.image} dotColor={colors.primary}/>
+      <SliderBox
+        images={listing.images}
+        style={styles.image}
+        dotColor={colors.primary}
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
@@ -114,8 +118,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "500",
   },
-  description:{
-    marginTop: 10
+  description: {
+    marginTop: 10,
   },
   sellerContainer: {
     marginBottom: 10,
