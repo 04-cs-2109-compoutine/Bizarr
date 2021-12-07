@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, ScrollView } from "react-native";
 import defaultStyles from "../components/Config/styles";
 import Screen from "../components/Screen";
 import { db, auth } from "../firebase";
@@ -10,12 +10,14 @@ import AuthContext from "../components/Config/context";
 function AccountDetailsScreen() {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
-  const [name, setName] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState("");
-  const [location, setLocation] = useState();
-  const [photoURL, setPhotoURL] = useState();
+  // const user = auth.currentUser;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [currPassword, setCurrPassword] = useState("");
+  const [location, setLocation] = useState("");
+  const [photoURL, setPhotoURL] = useState(user.photoURL);
 
   const id = user.uid;
   async function getUser() {
@@ -34,43 +36,61 @@ function AccountDetailsScreen() {
     setPhotoURL(userName.photoURL);
   }, []);
 
-  // const handleSave = () => {
-  //   auth
-  //     .signInWithEmailAndPassword(user.email, "1234567")
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       user.updateEmail(email);
-  //       user.updatePassword(password);
-  //     })
-  //     .then(() => {
-  //       db.collection("users").doc(user.uid).update({
-  //         displayName: name,
-  //         phone: phone,
-  //         location: location,
-  //         photoURL: photoURL
-  //       });
-  //     });
-  // };
+  // helper function to check if fields have been left empty (they are required)
+  const checkTextInput = () => {
+    if (!name.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    if (!email.trim()) {
+      alert('Please enter your email');
+      return;
+    }
+    if (!phone.trim()) {
+      alert('Please enter your phone number');
+      return;
+    }
+    if (!location.trim()) {
+      alert('Please enter your location');
+      return;
+    }
+    if (!currPassword.trim()) {
+      alert('Please enter your current password');
+      return;
+    }
+    if (!newPassword.trim()) {
+      alert('Please enter your new password');
+      return;
+    }
+  };
 
-    const handleSave = async () => {
-      const userRef = db.collection("users").doc(id)
-      await userRef.set({
-        displayName: name,
-        phone: phone,
-        email: email,
-        password: password,
-        location: location,
-        photoURL: photoURL
-      })
+  // the save button will sign the user in again with the entered current password and then update the collection with the new info
+  const handleSave = async () => {
+    checkTextInput();
+    auth
+      .signInWithEmailAndPassword(user.email, currPassword)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          user.updateEmail(email);
+          user.updatePassword(newPassword);
+        })
+    const userRef = db.collection("users").doc(id)
+    await userRef.set({
+      displayName: name,
+      phone: phone,
+      email: email,
+      location: location,
+      photoURL: photoURL
+    })
       .catch(function (error) {
         alert(error.message);
       });
     }
 
   return (
-    <Screen style={styles.container}>
+    <ScrollView>
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} />
+        <UploadImage photoURL={user.photoURL} setPhotoURL={setPhotoURL} />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -102,11 +122,21 @@ function AccountDetailsScreen() {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Password"
+          placeholder="Current Password"
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={currPassword}
+          onChangeText={(text) => setCurrPassword(text)}
+          secureTextEntry
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="New Password"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={newPassword}
+          onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
         />
       </View>
@@ -122,10 +152,10 @@ function AccountDetailsScreen() {
       <View style={styles.btn}>
         <SubmitButton title="Save" onPress={handleSave} />
       </View>
-    </Screen>
+    </ScrollView>
   );
 }
-    
+
 
 const styles = StyleSheet.create({
   container: {

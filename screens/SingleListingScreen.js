@@ -39,6 +39,14 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
+  
+   useEffect(()=>{
+    getListings();
+  })
+
+  useEffect(()=>{
+    getUser();
+  })
 
   useEffect(()=>{
     getListings();
