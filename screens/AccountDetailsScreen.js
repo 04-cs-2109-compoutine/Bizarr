@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, ScrollView } from "react-native";
 import defaultStyles from "../components/Config/styles";
 import Screen from "../components/Screen";
 import { db, auth } from "../firebase";
@@ -10,12 +10,14 @@ import AuthContext from "../components/Config/context";
 function AccountDetailsScreen() {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
+  // const user = auth.currentUser;
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [currPassword, setCurrPassword] = useState("");
   const [location, setLocation] = useState();
-  const [photoURL, setPhotoURL] = useState();
+  const [photoURL, setPhotoURL] = useState(user.photoURL);
 
   const id = user.uid;
   async function getUser() {
@@ -53,12 +55,17 @@ function AccountDetailsScreen() {
   // };
 
     const handleSave = async () => {
+      auth
+        .signInWithEmailAndPassword(user.email, currPassword)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            user.updateEmail(email);
+            user.updatePassword(newPassword);
+          })
       const userRef = db.collection("users").doc(id)
       await userRef.set({
         displayName: name,
         phone: phone,
-        email: email,
-        password: password,
         location: location,
         photoURL: photoURL
       })
@@ -68,7 +75,7 @@ function AccountDetailsScreen() {
     }
 
   return (
-    <Screen style={styles.container}>
+    <ScrollView>
       <View style={styles.uploadImg}>
         <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} />
       </View>
@@ -102,11 +109,21 @@ function AccountDetailsScreen() {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Password"
+          placeholder="Current Password"
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
+          value={currPassword}
+          onChangeText={(text) => setCurrPassword(text)}
+          secureTextEntry
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="New Password"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={newPassword}
+          onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
         />
       </View>
@@ -122,10 +139,10 @@ function AccountDetailsScreen() {
       <View style={styles.btn}>
         <SubmitButton title="Save" onPress={handleSave} />
       </View>
-    </Screen>
+    </ScrollView>
   );
 }
-    
+
 
 const styles = StyleSheet.create({
   container: {
