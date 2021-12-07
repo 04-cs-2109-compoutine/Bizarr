@@ -120,6 +120,7 @@ function SingleListingScreen({ route, navigation }) {
   }
 
   console.log(listing)
+  
   return (
     <ScrollView style={styles.screen}>
       <SliderBox images={listing.images} style={styles.image} />
@@ -136,7 +137,6 @@ function SingleListingScreen({ route, navigation }) {
             title="Message"
             onPress={async () => {
               let group = await findGroup([auth.currentUser.uid, listing.uid]);
-
               if (!group) {
                 group = await createGroup(
                   [auth.currentUser.uid, listing.uid],

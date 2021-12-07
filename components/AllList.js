@@ -1,23 +1,56 @@
-import React from "react";
-import {View, StyleSheet, TouchableWithoutFeedback, SafeAreaView} from "react-native";
+import React, {useEffect, useRef} from 'react';
+import {View, StyleSheet, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
+import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function List({ title, price, imageUris, onPress }) {
+function List({ title, price, imageUris, onPress, onLikePost = () => {}, _id, isLiked = false }) {
+
+  const animation = useRef(null);
+  const isFirstRun = useRef(true);
+
+  useEffect(()=>{
+    if(isFirstRun.current){
+      if(isLiked){
+        animation.current.play(66, 66)
+      } else {
+        animation.current.play(19, 19)
+      }
+      isFirstRun.current = false;
+    }else if(isLiked){
+      animation.current.play(19, 50)
+    } else {
+      animation.current.play(0, 19);
+    }
+  }, [isLiked])
+
   return (
     <SafeAreaView style={styles.detailsContainer}>
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.card}>
           <SliderBox images={imageUris} style={styles.image}/>
-          <View style={styles.detailsContainer}>
+  
+            <View style={styles.likeContainer}>
+              <TouchableOpacity
+                onPress={() => { onLikePost(_id) }} >
+                <LottieView
+                  ref={animation}
+                  style={styles.heartLottie}
+                  source={require("../assets/animations/like.json")}
+                  autoPlay={false}
+                  loop={false}/>
+              </TouchableOpacity>
+            
             <Text style={styles.title} numberOfLines={1}>
               {title}
             </Text>
-            <Text style={styles.price} numberOfLines={2}>
-              {price}
-            </Text>
           </View>
+
+          <Text style={styles.price} numberOfLines={2}>
+            {price}
+          </Text>
+            
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -47,9 +80,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   title: {
-    flex: 1,
+    flex: 2,
     textAlign: "center",
+    marginLeft: -10
   },
+  heartLottie: {
+    flex: 1,
+    width: 50,
+    height: 50,
+    marginLeft: -2
+  },
+  likeContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent:'flex-start',
+    alignItems: 'center',
+    width: "80%",
+  }
 });
 
 export default List;
