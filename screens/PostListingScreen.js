@@ -175,8 +175,7 @@ function PostListingScreen() {
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
+                onValueChange={(itemValue) => setCategory(itemValue)}>
                 <Picker.Item label="Car" value="Car" />
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
@@ -191,8 +190,7 @@ function PostListingScreen() {
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
           </View>
@@ -262,6 +260,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
+  },
+  inputContainer:{
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   pickerContainer: {
     flex: 1,
