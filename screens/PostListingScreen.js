@@ -32,7 +32,7 @@ function PostListingScreen() {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState({});
   const [selectedValue, setCategory] = useState("Category");
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
@@ -60,19 +60,55 @@ function PostListingScreen() {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
-
-  const handlePost = async () => {
-    console.log("handlepost", imageUris);
-    setPostVisible(true);
-    await db.collection("listings").add({
+  const validatePost = () => {
+    const post = {
       title: title,
       price: price,
       description: description,
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
-      uid: user.uid,
-    });
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = post[key].trim();
+      }
+      if (
+        (typeof post[key] === "object" && !Object.keys(post[key])) ||
+        !post[key]
+      ) {
+        throw new Error(`Failed: ${key} is required`);
+      }
+    }
+    if (errorMsg) throw new Error("Validation failed");
+  };
+
+  const handlePost = async () => {
+    try {
+      validatePost();
+      await db.collection("listings").add({
+        title: title,
+        price: price,
+        description: description,
+        category: selectedValue,
+        location: new firebase.firestore.GeoPoint(40.75, -73.996),
+        images: imageUris,
+        uid: user.uid,
+        sold: false,
+        sellerName: user.displayName,
+      });
+      setPostVisible("Failed:", true);
+    } catch (error) {
+      setErrorMsg(error.message);
+      if (errorMsg) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            setErrorMsg("");
+            resolve();
+          }, 2000);
+        });
+      }
+    }
   };
 
   //push a new image uri into the list and show it on screen
@@ -180,6 +216,7 @@ function PostListingScreen() {
       <GoogleAutoComplete />
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
+        <Text style={styles.errorMsg}>{errorMsg}</Text>
       </View>
     </ScrollView>
   );
@@ -192,6 +229,10 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 300,
+  },
+  errorMsg: {
+    color: "red",
+    fontWeight: "800",
   },
   imgContainer: {
     flexDirection: "row",
@@ -217,6 +258,8 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 10,
     alignItems: "center",
+    marginBottom: 20,
+    paddingBottom: 20,
   },
   pickerContainer: {
     flex: 1,
