@@ -25,7 +25,7 @@ import GoogleAutoComplete from "../components/GoogleAutoComplete";
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen() {
+function PostListingScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -60,6 +60,7 @@ function PostListingScreen() {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
+  
   const validatePost = () => {
     const post = {
       title: title,
@@ -99,6 +100,7 @@ function PostListingScreen() {
         sold: false,
       });
       setPostVisible("Failed:", true);
+      navigation.navigate("My Listings");
     } catch (error) {
       setErrorMsg(error.message);
       if (errorMsg) {
@@ -125,8 +127,11 @@ function PostListingScreen() {
   return (
     <ScrollView style={styles.container}>
       <PostedScreen
-        onDone={() => setPostVisible(false)}
+        onDone={() => {
+          setPostVisible(false);
+        }}
         visible={PostVisible}
+        navigation
       />
 
       <View style={styles.imgContainer}>
