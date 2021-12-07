@@ -11,7 +11,7 @@ import { auth, db } from "../firebase";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
-  const [userName, setUsername] = useState("");
+  const [userName, setUsername] = useState({});
   const [listings, setListings] = useState([]);
   const [groups, setGroups] = useState([]);
   const id = listing.uid;
@@ -39,6 +39,14 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
+
+  useEffect(()=>{
+    getListings();
+  })
+
+  useEffect(()=>{
+    getUser();
+  })
 
   async function getPhoto() {
     try {
@@ -122,8 +130,8 @@ function SingleListingScreen({ route, navigation }) {
     });
   }
 
-  console.log(listing)
-  console.log("auth", auth);
+  // console.log(listing)
+  // console.log("auth", auth);
   
   return (
     <ScrollView style={styles.screen}>

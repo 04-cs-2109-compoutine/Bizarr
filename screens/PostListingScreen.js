@@ -70,7 +70,6 @@ function PostListingScreen() {
       images: imageUris,
       uid: user.uid,
       sold: false
-    });
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
