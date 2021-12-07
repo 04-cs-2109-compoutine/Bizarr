@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function List({ title, price, imageUris, onRowPress, isLiked=false, onLikePost = () => {}, _id }) {
+function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost = () => {}, _id }) {
 
   const animation = useRef(null);
   const isFirstRun = useRef(true);
@@ -55,7 +55,6 @@ function List({ title, price, imageUris, onRowPress, isLiked=false, onLikePost =
         </View>
       </TouchableWithoutFeedback>
         
-     
     </SafeAreaView>
   );
 }

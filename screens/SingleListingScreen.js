@@ -42,28 +42,11 @@ function SingleListingScreen({ route, navigation }) {
   
    useEffect(()=>{
     getListings();
-  })
+  }, [])
 
   useEffect(()=>{
     getUser();
-  })
-
-  useEffect(()=>{
-    getListings();
-  })
-
-  useEffect(()=>{
-    getUser();
-  })
-
-  async function getPhoto() {
-    try {
-      const profilePhoto = db.collection("users").get();
-      const photo = await profilePhoto;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  }, [])
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -73,11 +56,8 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: parseInt(listingId), //didn't parse it to int since easy to fetch data back
-      //can insert more listing here by creating object
-      //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
+      listingId: parseInt(listingId),
     };
-    // auth.currentUser.uid, listing.uid
 
     return new Promise((resolve, reject) => {
       db.collection("group")
@@ -137,9 +117,6 @@ function SingleListingScreen({ route, navigation }) {
         });
     });
   }
-
-  // console.log(listing)
-  // console.log("auth", auth);
   
   return (
     <ScrollView style={styles.screen}>

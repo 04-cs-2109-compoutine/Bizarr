@@ -4,7 +4,6 @@ import { db } from '../firebase'
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { SearchBar } from "react-native-elements";
-import HorizontalList from "./HorizontalList"
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
 import colors from "../components/Config/colors"
@@ -137,10 +136,8 @@ export default class HomeScreen extends React.Component {
                 >
                   <Callout>
                       <Text>
-                        <Image style={{
-                          width: 40,
-                          height: 40
-                          }}
+                        <Image 
+                          style={{width: 40, height: 40 }}
                           source={{uri: listing.images[0]}}>
                         </Image>
                       </Text>
@@ -165,7 +162,7 @@ export default class HomeScreen extends React.Component {
   circleLoop/>
               </View> */}
               <View>
-              <HorizontalList />
+              {/* <HorizontalList /> */}
               </View>
               </ScrollView>
 

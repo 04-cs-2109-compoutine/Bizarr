@@ -21,6 +21,7 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+import routes from "../components/Config/routes";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -264,11 +265,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
-  },
-  inputContainer:{
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   pickerContainer: {
     flex: 1,
