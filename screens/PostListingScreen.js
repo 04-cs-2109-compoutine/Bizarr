@@ -69,7 +69,11 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid,
+<<<<<<< HEAD
       sold: false,
+=======
+      sold: false
+>>>>>>> main
     };
   };
   for (const key in post) {
@@ -146,6 +150,7 @@ return (
       />
     </View>
 
+<<<<<<< HEAD
     <View style={styles.inputContainer}>
       <TextInput
         placeholder="Price"
@@ -185,6 +190,52 @@ return (
               <Picker.Item label="Electronics" value="Electronics" />
               <Picker.Item label="Others" value="Others" />
             </Picker>
+=======
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Price"
+          keyboardType="numeric"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+        />
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.pickerContainer}>
+              <Picker
+                mode={"dialog"}
+                selectedValue={selectedValue}
+                style={{ height: 200, width: 200 }}
+                onValueChange={(itemValue) => setCategory(itemValue)}>
+                <Picker.Item label="Car" value="Car" />
+                <Picker.Item label="Camera" value="Camera" />
+                <Picker.Item label="Furniture" value="Furniture" />
+                <Picker.Item label="Game" value="Game" />
+                <Picker.Item label="Sports" value="Sports" />
+                <Picker.Item label="Clothing" value="Clothing" />
+                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Books" value="Books" />
+                <Picker.Item label="Electronics" value="Electronics" />
+                <Picker.Item label="Others" value="Others" />
+              </Picker>
+            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={defaultStyles.text}>Ok</Text>
+            </Pressable>
+>>>>>>> main
           </View>
           <Pressable
             style={[styles.button, styles.buttonClose]}
@@ -258,6 +309,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
+  },
+  inputContainer:{
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   pickerContainer: {
     flex: 1,
