@@ -105,6 +105,9 @@ export default class HomeScreen extends React.Component {
               source={require("../assets/baseline_filter_list_black_24dp.png")}
               />
               <ScrollView>
+              <View>
+              <HorizontalList />
+              </View>
               <Text style={styles.text}> 
             shop nearby
           </Text>
@@ -164,9 +167,7 @@ export default class HomeScreen extends React.Component {
                 <SliderBox images={this.state.images} sliderBoxHeight={200}
   circleLoop/>
               </View> */}
-              <View>
-              <HorizontalList />
-              </View>
+
               </ScrollView>
 
 
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 18,
-    marginLeft: 35,
+    marginLeft: 15,
     paddingBottom: 15,
   },
   // headerText: {
