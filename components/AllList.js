@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function List({ title, price, imageUris, onPress, onLikePost = () => {}, _id, isLiked = false }) {
+function List({ title, price, imageUris, onPress, isLiked, onPressLiked }) {
 
   const animation = useRef(null);
   const isFirstRun = useRef(true);
@@ -33,7 +33,7 @@ function List({ title, price, imageUris, onPress, onLikePost = () => {}, _id, is
   
             <View style={styles.likeContainer}>
               <TouchableOpacity
-                onPress={() => { onLikePost(_id) }} >
+                onPressLiked={() => onPressLiked} >
                 <LottieView
                   ref={animation}
                   style={styles.heartLottie}
@@ -78,6 +78,8 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontWeight: "bold",
     textAlign: "center",
+    marginTop: -10,
+    marginBottom: 5
   },
   title: {
     flex: 2,
@@ -94,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // justifyContent:'flex-start',
     alignItems: 'center',
     width: "80%",
   }

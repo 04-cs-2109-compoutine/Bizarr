@@ -13,6 +13,7 @@ function ListingsScreen({ navigation }) {
   const [filteredLists, setFilteredLists] = useState([])
   const [search, setSearch] = useState();
   const [liked, setLiked] = useState();
+  const [isLiked, setisLiked] = useState(false)
   const {user, setUser} = useContext(AuthContext);
 
   async function readAllListing() {
@@ -69,15 +70,8 @@ function ListingsScreen({ navigation }) {
             imageUris={item.images}
             description={item.description}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            onLikeList={(_id) => 
-              setLiked=(()=>{
-                return filteredLists.map((list)=>{
-                  if(list.id === id){
-                    return {...list, isLiked: !list.isLiked}
-                  }
-                  return list;
-                })
-              })}
+            isLiked={isLiked}
+            onPressLiked={() => setisLiked(!isLiked)}
           />
         )}
       />
