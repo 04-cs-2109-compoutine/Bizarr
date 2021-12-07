@@ -20,7 +20,7 @@ function SoldListingScreen({navigation}) {
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       // console.log(allListings)
-      let soldLists = allListings.filter(listing => listing.uid === user.uid && listing.sold === false);
+      let soldLists = allListings.filter(listing => listing.uid === user.uid && listing.sold === true);
       setListings(soldLists);
     } catch(e) {
       console.log(e);
