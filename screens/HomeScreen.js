@@ -164,7 +164,7 @@ export default class HomeScreen extends React.Component {
                 <SliderBox images={this.state.images} sliderBoxHeight={200}
   circleLoop/>
               </View> */}
-                            <View>
+              <View>
               <HorizontalList />
               </View>
 

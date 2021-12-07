@@ -53,7 +53,7 @@ return(
 
 const SECTIONS = [
   {
-title: "your items",
+title: "new listings",
 horizontal: true,
 data: [
 {
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   itemPhoto: {
-    width: 175,
-    height: 175,
+    width: 160,
+    height: 160,
   },
   itemText: {
     color: 'rgba(255, 255, 255, 0.5)',
