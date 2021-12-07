@@ -181,7 +181,7 @@ function PostListingScreen({navigation}) {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete />
+      <GoogleAutoComplete location={location}/>
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
       </View>

@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== "production") require("../secrets");
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
 //auto complete with geocoding info
-const App = () => {
+const App = ({location}) => {
   const [location, setLocation] = useState({
     latitude: 40.752714,
     longitude: -73.97722689999999,
