@@ -12,8 +12,7 @@ function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const [filteredLists, setFilteredLists] = useState([])
   const [search, setSearch] = useState();
-  const [liked, setLiked] = useState();
-  const [isLiked, setisLiked] = useState(false)
+  // const [liked, setLiked] = useState(false);
   const {user, setUser} = useContext(AuthContext);
 
   async function readAllListing() {
@@ -49,6 +48,12 @@ function ListingsScreen({ navigation }) {
     }
   }
 
+  // const handleLiked = () => {
+  //   setLiked(!liked);
+  //   console.log(liked)
+  // }
+  // console.log(liked)
+
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
@@ -69,9 +74,18 @@ function ListingsScreen({ navigation }) {
             price={"$" + item.price}
             imageUris={item.images}
             description={item.description}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            isLiked={isLiked}
-            onPressLiked={() => setisLiked(!isLiked)}
+            onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            onLikePost={(_id) =>
+              setListings(() => {
+              return listings.map((list) => {
+                console.log(list)
+                if (list.id === _id) {
+                  return { ...list, isLiked: !list.isLiked };
+                }
+                return list;
+              });
+            })
+          }
           />
         )}
       />

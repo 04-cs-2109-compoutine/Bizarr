@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function List({ title, price, imageUris, onPress, isLiked, onPressLiked }) {
+function List({ title, price, imageUris, onRowPress, isLiked=false, onLikePost = () => {}, _id }) {
 
   const animation = useRef(null);
   const isFirstRun = useRef(true);
@@ -27,13 +27,14 @@ function List({ title, price, imageUris, onPress, isLiked, onPressLiked }) {
 
   return (
     <SafeAreaView style={styles.detailsContainer}>
-      <TouchableWithoutFeedback onPress={onPress}>
+     <TouchableWithoutFeedback onPress={onRowPress}>
         <View style={styles.card}>
           <SliderBox images={imageUris} style={styles.image}/>
   
             <View style={styles.likeContainer}>
-              <TouchableOpacity
-                onPressLiked={() => onPressLiked} >
+              <TouchableOpacity onPress={() => {
+                onLikePost(_id);
+              }} >
                 <LottieView
                   ref={animation}
                   style={styles.heartLottie}
@@ -46,13 +47,15 @@ function List({ title, price, imageUris, onPress, isLiked, onPressLiked }) {
               {title}
             </Text>
           </View>
-
+          
           <Text style={styles.price} numberOfLines={2}>
             {price}
           </Text>
-            
+
         </View>
       </TouchableWithoutFeedback>
+        
+     
     </SafeAreaView>
   );
 }
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 2,
     textAlign: "center",
-    marginLeft: -10
+    marginLeft: -5
   },
   heartLottie: {
     flex: 1,
