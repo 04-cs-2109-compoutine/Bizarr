@@ -72,6 +72,7 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid,
+      sold: false
     });
   };
 

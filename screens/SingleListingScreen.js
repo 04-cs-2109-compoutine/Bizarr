@@ -146,7 +146,7 @@ function SingleListingScreen({ route, navigation }) {
                   listing.uid   //listingId?
                 );
               }
-              navigation.navigate(routes.SINGLE_MESSAGE, {
+              navigation.navigate(routes.CHAT, {
                 group,
               });
             }}
