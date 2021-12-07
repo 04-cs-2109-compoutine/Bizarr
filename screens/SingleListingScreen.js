@@ -57,7 +57,7 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: listingId, //didn't parse it to int since easy to fetch data back
+      listingId: parseInt(listingId), //didn't parse it to int since easy to fetch data back
       //can insert more listing here by creating object
       //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
     };
