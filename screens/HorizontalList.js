@@ -25,11 +25,21 @@ return(
   stickySectionHeadersEnabled={false}
   sections={SECTIONS}
   renderSectionHeader={({section}) => (
+    <>
     <Text style={styles.sectionHeader}>{section.title}</Text>
+    <FlatList 
+    data={section.data}
+    horizontal
+    renderItem={({item }) => {return <ListItem item={item} />
+  }}
+    />
+    </>
   )}
-  renderItem={({item, section}) => {return <ListItem item={item} />}}
-  
-  />
+  renderItem={({item, section}) => {
+  return null 
+  return <ListItem item={item} />
+}}
+/>
 </SafeAreaView>
   </View>
 )
