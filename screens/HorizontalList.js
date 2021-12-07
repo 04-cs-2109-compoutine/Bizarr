@@ -22,27 +22,26 @@ return(
 <StatusBar style="light" />
 <SafeAreaView style={{ flex: 1 }}>
   <SectionList 
-  contentContainerStyle={{ paddingHorizontal: 10}}
+  contentContainerStyle={{ paddingHorizontal: 10 }}
   stickySectionHeadersEnabled={false}
   sections={SECTIONS}
-  renderSectionHeader={({section}) => (
+  renderSectionHeader={({ section }) => (
     <>
     <Text style={styles.sectionHeader}>{section.title}</Text>
-    {section.horizontal && (
-    <FlatList 
-    data={section.data}
-    horizontal
-    renderItem={({item }) => {return <ListItem item={item} />
-  }}
+    {section.horizontal ? (
+    <FlatList
+                horizontal
+                data={section.data}
+                renderItem={({ item }) => <ListItem item={item} />}
+                showsHorizontalScrollIndicator={false}
     />
-    )}
+    ) : null }
     </>
   )}
   renderItem={({item, section}) => {
   if (section.horizontal === true){
     return null
   }
-  return null 
   return <ListItem item={item} />
 }}
 />
@@ -78,23 +77,24 @@ uri: "https://npr.brightspotcdn.com/dims4/default/ef28cfd/2147483647/strip/true/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
   },
   sectionHeader: {
     fontWeight: '800',
-    fontSize: 14,
+    fontSize: 16,
     color: 'black',
     marginTop: 20,
-    marginLeft: 35,
+    marginLeft: 30,
     marginBottom: 5,
   },
   item: {
     margin: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    backgroundColor: 'green',
   },
   itemPhoto: {
-    width: 150,
-    height: 150,
+    width: 175,
+    height: 175,
   },
   itemText: {
     color: 'rgba(255, 255, 255, 0.5)',

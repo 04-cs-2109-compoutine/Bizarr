@@ -164,8 +164,12 @@ export default class HomeScreen extends React.Component {
                 <SliderBox images={this.state.images} sliderBoxHeight={200}
   circleLoop/>
               </View> */}
+                            <View>
               <HorizontalList />
+              </View>
+
               </ScrollView>
+
     </View>
     );
   }
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "black",
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 35,
     paddingBottom: 15,
   },
