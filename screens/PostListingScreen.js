@@ -69,128 +69,85 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid,
-<<<<<<< HEAD
       sold: false,
-=======
-      sold: false
->>>>>>> main
     };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = post[key].trim();
+      }
+      if (
+        (typeof post[key] === "object" && !Object.keys(post[key])) ||
+        !post[key]
+      ) {
+        throw new Error(`Failed: ${key} is required`);
+      }
+    }
+    if (errorMsg) throw new Error("Validation failed");
   };
-  for (const key in post) {
-    if (typeof post[key] === "string") {
-      post[key] = post[key].trim();
-    }
-    if (
-      (typeof post[key] === "object" && !Object.keys(post[key])) ||
-      !post[key]
-    ) {
-      throw new Error(`Failed: ${key} is required`);
-    }
-  }
-  if (errorMsg) throw new Error("Validation failed");
-}
 
-const handlePost = async () => {
-  try {
-    validatePost();
-    await db.collection("listings").add({
-      title: title,
-      price: price,
-      description: description,
-      category: selectedValue,
-      location: new firebase.firestore.GeoPoint(40.75, -73.996),
-      images: imageUris,
-      uid: user.uid,
-      sold: false,
-    });
-    setPostVisible("Failed:", true);
-  } catch (error) {
-    setErrorMsg(error.message);
-    if (errorMsg) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          setErrorMsg("");
-          resolve();
-        }, 2000);
+  const handlePost = async () => {
+    try {
+      validatePost();
+      await db.collection("listings").add({
+        title: title,
+        price: price,
+        description: description,
+        category: selectedValue,
+        location: new firebase.firestore.GeoPoint(40.75, -73.996),
+        images: imageUris,
+        uid: user.uid,
+        sold: false,
       });
+      setPostVisible("Failed:", true);
+    } catch (error) {
+      setErrorMsg(error.message);
+      if (errorMsg) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            setErrorMsg("");
+            resolve();
+          }, 2000);
+        });
+      }
     }
-  }
-};
+  };
 
-//push a new image uri into the list and show it on screen
-const handleAdd = (uri) => {
-  setImageUris([...imageUris, uri]);
-};
+  //push a new image uri into the list and show it on screen
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
 
-//remove a photo from list
-const handleRemove = (uri) => {
-  setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-};
+  //remove a photo from list
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
 
-return (
-  <ScrollView style={styles.container}>
-    <PostedScreen onDone={() => setPostVisible(false)} visible={PostVisible} />
-
-    <View style={styles.imgContainer}>
-      <PhotoInputList
-        imageUris={imageUris}
-        onAdd={(uri) => handleAdd(uri)}
-        onRemove={(uri) => handleRemove(uri)}
+  return (
+    <ScrollView style={styles.container}>
+      <PostedScreen
+        onDone={() => setPostVisible(false)}
+        visible={PostVisible}
       />
-    </View>
 
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Title"
-        placeholderTextColor={defaultStyles.colors.grey}
-        style={defaultStyles.text}
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        maxLength={255}
-      />
-    </View>
+      <View style={styles.imgContainer}>
+        <PhotoInputList
+          imageUris={imageUris}
+          onAdd={(uri) => handleAdd(uri)}
+          onRemove={(uri) => handleRemove(uri)}
+        />
+      </View>
 
-<<<<<<< HEAD
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Price"
-        keyboardType="numeric"
-        placeholderTextColor={defaultStyles.colors.grey}
-        style={defaultStyles.text}
-        value={price}
-        onChangeText={(text) => setPrice(text)}
-      />
-    </View>
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
-        setModalVisible(!modalVisible);
-      }}
-    >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <View style={styles.pickerContainer}>
-            <Picker
-              mode={"dialog"}
-              selectedValue={selectedValue}
-              style={{ height: 200, width: 200 }}
-              onValueChange={(itemValue) => setCategory(itemValue)}
-            >
-              <Picker.Item label="Car" value="Car" />
-              <Picker.Item label="Camera" value="Camera" />
-              <Picker.Item label="Furniture" value="Furniture" />
-              <Picker.Item label="Game" value="Game" />
-              <Picker.Item label="Sports" value="Sports" />
-              <Picker.Item label="Clothing" value="Clothing" />
-              <Picker.Item label="Movies & Music" value="Movie&music" />
-              <Picker.Item label="Books" value="Books" />
-              <Picker.Item label="Electronics" value="Electronics" />
-              <Picker.Item label="Others" value="Others" />
-            </Picker>
-=======
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Title"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+          maxLength={255}
+        />
+      </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Price"
@@ -217,7 +174,8 @@ return (
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}>
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
                 <Picker.Item label="Car" value="Car" />
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
@@ -232,44 +190,38 @@ return (
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setModalVisible(!modalVisible)}
+            >
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
->>>>>>> main
           </View>
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Text style={defaultStyles.text}>Ok</Text>
-          </Pressable>
         </View>
+      </Modal>
+      <Pressable
+        style={styles.inputContainer}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={defaultStyles.text}>{selectedValue}</Text>
+      </Pressable>
+      <View style={styles.inputContainer}>
+        <TextInput
+          multiline
+          numberOfLines={3}
+          placeholder="Description"
+          placeholderTextColor={defaultStyles.colors.grey}
+          style={defaultStyles.text}
+          value={description}
+          onChangeText={(text) => setDescription(text)}
+        />
       </View>
-    </Modal>
-    <Pressable
-      style={styles.inputContainer}
-      onPress={() => setModalVisible(true)}
-    >
-      <Text style={defaultStyles.text}>{selectedValue}</Text>
-    </Pressable>
-    <View style={styles.inputContainer}>
-      <TextInput
-        multiline
-        numberOfLines={3}
-        placeholder="Description"
-        placeholderTextColor={defaultStyles.colors.grey}
-        style={defaultStyles.text}
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-      />
-    </View>
-    <GoogleAutoComplete />
-    <View style={styles.btn}>
-      <SubmitButton title="Post" onPress={handlePost} />
-      <Text style={styles.errorMsg}>{errorMsg}</Text>
-    </View>
-  </ScrollView>
-);
+      <GoogleAutoComplete />
+      <View style={styles.btn}>
+        <SubmitButton title="Post" onPress={handlePost} />
+        <Text style={styles.errorMsg}>{errorMsg}</Text>
+      </View>
+    </ScrollView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -309,11 +261,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
-  },
-  inputContainer:{
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   pickerContainer: {
     flex: 1,
