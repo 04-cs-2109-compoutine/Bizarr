@@ -82,9 +82,11 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
+
       date: firebase.firestore.Timestamp.now().toDate().toString(),
       // uid: user.uid,
       // sold: false
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -193,7 +195,8 @@ function PostListingScreen({navigation}) {
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}>
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
                 <Picker.Item label="Car" value="Car" />
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
@@ -208,7 +211,8 @@ function PostListingScreen({navigation}) {
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setModalVisible(!modalVisible)}
+            >
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
           </View>
