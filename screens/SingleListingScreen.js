@@ -40,17 +40,13 @@ function SingleListingScreen({ route, navigation }) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getListings();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     getUser();
   }, []);
-
-
-
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -204,10 +200,8 @@ const styles = StyleSheet.create({
     marginLeft: 70,
     marginBottom: 300,
     flexDirection: "row",
+    paddingTop: 260,
   },
-  map: {
-    paddingTop: 275,
-  },
-})
+});
 
 export default SingleListingScreen;
