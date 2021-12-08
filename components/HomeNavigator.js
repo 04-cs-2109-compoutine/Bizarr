@@ -9,12 +9,13 @@ import Sports from './CategoryScreen/Sports';
 import Entertainment from './CategoryScreen/Entertainment';
 import Others from './CategoryScreen/Others';
 import Books from './CategoryScreen/Books';
+import SingleListingScreen from "../screens/SingleListingScreen";
 
 const Stack = createNativeStackNavigator();
 
 const HomeNavigator =  () => (
   <Stack.Navigator >
-    <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen}/>
+    <Stack.Screen options={{ headerShown: false }} name="HomePage" component={HomeScreen}/>
     <Stack.Screen options={{headerTitle: ""}} name="Furniture" component={Funiture}/>
     <Stack.Screen options={{headerTitle: ""}} name="Car" component={Cars}/>
     <Stack.Screen options={{headerTitle: ""}} name="Electronics" component={Electronics}/>
@@ -23,6 +24,7 @@ const HomeNavigator =  () => (
     <Stack.Screen options={{headerTitle: ""}} name="Sports" component={Sports}/>
     <Stack.Screen options={{headerTitle: ""}} name="Entertainment" component={Entertainment}/>
     <Stack.Screen options={{headerTitle: ""}} name="Others" component={Others}/>
+    <Stack.Screen name="HomeSingleListing" component={SingleListingScreen} options={{headerTitle: ""}}/>
   </Stack.Navigator>
 )
 

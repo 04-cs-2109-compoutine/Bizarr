@@ -73,7 +73,6 @@ function UserSingleListingScreen({ route, navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
       <SliderBox
         images={listing.images}
         style={styles.image}

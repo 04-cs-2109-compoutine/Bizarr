@@ -112,7 +112,7 @@ function PostListingScreen({navigation}) {
         category: selectedValue,
         location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
         images: imageUris,
-        date: firebase.firestore.Timestamp.now(),
+        cratedAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });
