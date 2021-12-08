@@ -5,7 +5,6 @@ import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, St
 import Swiper from 'react-native-swiper';
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
-import colors from "../components/Config/colors";
 import HorizontalListing from '../components/HorizontalListing';
 import AuthContext from "../components/Config/context";
 import {useTheme} from '@react-navigation/native';
@@ -13,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import routes from '../components/Config/routes';
+import LottieView from "lottie-react-native";
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -186,51 +186,67 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Movies & Music</Text>
         </TouchableOpacity>
       </View>
-
+      <View style={styles.santaContainer}>
         <Text style={styles.sectionHeader}> 
-          Shop nearby
+          Find your items
         </Text>
+        <LottieView
+            autoPlay
+            loop
+            source={require("../assets/animations/santa-pop-up.json")}
+            style={styles.animation}
+          />
+      </View>
         
-        <Searchbar
-          onChangeText={updateSearch}
-          value={search}
-        />
+        <View style={styles.searchBar}>
+          <Searchbar
+            onChangeText={updateSearch}
+            value={search}
+          />
+        </View>
+
         <View>
-          <Text style={styles.sectionHeader}>Find your items</Text> 
-            <MapView
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              region={region}
-              loadingEnabled
-              loadingIndicatorColor='#666666'
-              loadingBackgroundColor='#EEEEEE'
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={region}
+            loadingEnabled
+            loadingIndicatorColor='#666666'
+            loadingBackgroundColor='#EEEEEE'
+          >
+          {listings.map((listing, index) => (
+            <Marker
+              key={index}
+              coordinate = {{
+                latitude: listing.location.latitude,
+                longitude: listing.location.longitude,
+              }}
+              centerOffset={{ x: -42, y: -60 }}
+              anchor={{ x: 0.84, y: 1 }}
+              title={listing.title}
             >
-            {listings.map((listing, index) => (
-              <Marker
-                key={index}
-                coordinate = {{
-                  latitude: listing.location.latitude,
-                  longitude: listing.location.longitude,
-                }}
-                centerOffset={{ x: -42, y: -60 }}
-                anchor={{ x: 0.84, y: 1 }}
-                title={listing.title}
-              >
-                <Callout>
-                  <Text>
-                    <Image 
-                      style={{width: 40, height: 40 }}
-                      source={{uri: listing.images[0]}}>
-                    </Image>
-                  </Text>
-                </Callout>
-              </Marker>
-            ))}
-            </MapView>
-            
-          </View>
-        <View onStartShouldSetResponderCapture={false}>
-          <Text style={styles.sectionHeader}>Made for you</Text>
+              <Callout>
+                <Text>
+                  <Image 
+                    style={{width: 40, height: 40 }}
+                    source={{uri: listing.images[0]}}>
+                  </Image>
+                </Text>
+              </Callout>
+            </Marker>
+          ))}
+          </MapView>
+        </View>
+        <View style={styles.LoadContainer}>
+          <LottieView
+            autoPlay
+            loop
+            source={require("../assets/animations/loading-button.json")}
+            style={styles.dotanimation}
+          />
+          <Text style={styles.text}>Made for you</Text>
+        </View>
+        <View style={styles.listingContainer}>
           <HorizontalListing listings={listings}/>
         </View>
       </ScrollView>
@@ -275,9 +291,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   map: {
-    borderWidth: 1,
+    // borderWidth: 0,
     height: 300,
     marginBottom: 10,
+    borderColor: '#79B4B7'
   },
   buttonContainer: {
     flexDirection: "row",
@@ -289,7 +306,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
     marginBottom: 5,
-    color: "#515E63"
+    color: "#515E63",
+    alignSelf:'baseline'
   },
   categoryContainer: {
     flexDirection: 'row',
@@ -319,6 +337,37 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: '#5c8d89',
   },
+  searchBar:{
+    marginBottom: 10
+  },
+  animation: {
+    width: 70,
+    alignSelf:'baseline',
+  },
+  santaContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  listingContainer:{
+    marginTop: 5
+  },
+  LoadContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  text:{
+    fontWeight: '700',
+    fontSize: 18,
+    marginTop: 50,
+    marginBottom: 5,
+    color: "#515E63",
+  },
+  dotanimation:{
+    paddingBottom: 10
+  }
 });
 
 export default HomeScreen;

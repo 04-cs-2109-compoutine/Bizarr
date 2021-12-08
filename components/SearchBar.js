@@ -22,16 +22,18 @@ const styles = StyleSheet.create({
   textInput:{
     width: '100%',
     height: "100%",
-    fontSize: 20,
-    marginLeft: 5
+    fontSize: 18,
+    marginLeft: 5,
+    alignItems: 'center'
   },
   container:{
     width: '100%',
     height: 40,
-    backgroundColor: colors.light,
+    backgroundColor: '#FEFBF3',
     borderRadius: 7,
-    borderWidth: 1,
-    paddingBottom: 5
+    borderWidth: 2,
+    paddingBottom: 5,
+    borderColor: '#79B4B7'
   },
 })
 
