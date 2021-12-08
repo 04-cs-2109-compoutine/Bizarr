@@ -10,6 +10,8 @@ import {
   Pressable,
   ScrollView,
   Dimensions,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
@@ -141,100 +143,104 @@ function PostListingScreen({navigation}) {
 
   return (
     <ScrollView style={styles.container}>
-      <PostedScreen
-        onDone={() => {
-          setPostVisible(false);
-        }}
-        visible={PostVisible}
-      />
-      <View style={styles.imgContainer}>
-        <PhotoInputList
-          imageUris={imageUris}
-          onAdd={(uri) => handleAdd(uri)}
-          onRemove={(uri) => handleRemove(uri)}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View>
+        <PostedScreen
+          onDone={() => {
+            setPostVisible(false);
+          }}
+          visible={PostVisible}
         />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Title"
-          placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-          maxLength={255}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Price"
-          keyboardType="numeric"
-          placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
-          value={price}
-          onChangeText={(text) => setPrice(text)}
-        />
-      </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.pickerContainer}>
-              <Picker
-                mode={"dialog"}
-                selectedValue={selectedValue}
-                style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
-                <Picker.Item label="Car" value="Car" />
-                <Picker.Item label="Furniture" value="Furniture" />
-                <Picker.Item label="Sports" value="Sports" />
-                <Picker.Item label="Clothing" value="Clothing" />
-                <Picker.Item label="Entertainment" value="Entertainment" />
-                <Picker.Item label="Books" value="Books" />
-                <Picker.Item label="Electronics" value="Electronics" />
-                <Picker.Item label="Others" value="Others" />
-              </Picker>
-            </View>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={defaultStyles.text}>Ok</Text>
-            </Pressable>
-          </View>
+        <View style={styles.imgContainer}>
+          <PhotoInputList
+            imageUris={imageUris}
+            onAdd={(uri) => handleAdd(uri)}
+            onRemove={(uri) => handleRemove(uri)}
+          />
         </View>
-      </Modal>
-      <Pressable
-        style={styles.inputContainer}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={defaultStyles.text}>{selectedValue}</Text>
-      </Pressable>
-      <View style={styles.inputContainer}>
-        <TextInput
-          multiline
-          numberOfLines={3}
-          placeholder="Description"
-          placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
-          value={description}
-          onChangeText={(text) => setDescription(text)}
-        />
-      </View>
-      <GoogleAutoComplete location={location} setLocation={setLocation}/>
-      <View style={styles.btn}>
-        <SubmitButton title="Post" onPress={handlePost} />
-        <Text style={styles.errorMsg}>{errorMsg}</Text>
-      </View>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Title"
+            placeholderTextColor={defaultStyles.colors.grey}
+            style={[defaultStyles.text, {flex: 1}]}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+            maxLength={255}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Price"
+            keyboardType="numeric"
+            placeholderTextColor={defaultStyles.colors.grey}
+            style={[defaultStyles.text, {flex: 1}]}
+            value={price}
+            onChangeText={(text) => setPrice(text)}
+          />
+        </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={styles.pickerContainer}>
+                <Picker
+                  mode={"dialog"}
+                  selectedValue={selectedValue}
+                  style={{ height: 200, width: 200 }}
+                  onValueChange={(itemValue) => setCategory(itemValue)}
+                >
+                  <Picker.Item label="Car" value="Car" />
+                  <Picker.Item label="Furniture" value="Furniture" />
+                  <Picker.Item label="Sports" value="Sports" />
+                  <Picker.Item label="Clothing" value="Clothing" />
+                  <Picker.Item label="Entertainment" value="Entertainment" />
+                  <Picker.Item label="Books" value="Books" />
+                  <Picker.Item label="Electronics" value="Electronics" />
+                  <Picker.Item label="Others" value="Others" />
+                </Picker>
+              </View>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={defaultStyles.text}>Ok</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable
+          style={styles.inputContainer}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={defaultStyles.text}>{selectedValue}</Text>
+        </Pressable>
+        <View style={styles.inputContainer}>
+          <TextInput
+            multiline
+            numberOfLines={3}
+            placeholder="Description"
+            placeholderTextColor={defaultStyles.colors.grey}
+            style={[defaultStyles.text, {flex: 1}]}
+            value={description}
+            onChangeText={(text) => setDescription(text)}
+          />
+        </View>
+        <GoogleAutoComplete location={location} setLocation={setLocation} />
+        <View style={styles.btn}>
+          <SubmitButton title="Post" onPress={handlePost} />
+          <Text style={styles.errorMsg}>{errorMsg}</Text>
+        </View>
+        </View>
+      </TouchableWithoutFeedback>
     </ScrollView>
   );
 }
@@ -265,15 +271,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputContainer: {
-    backgroundColor: defaultStyles.colors.light,
-    borderRadius: 25,
+    backgroundColor: '#FEFBF3',
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#79B4B7',
     flexDirection: "row",
+    flex: 1,
     width: "100%",
-    padding: 20,
+    padding: 10,
     marginVertical: 10,
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    elevation: 2,
+    alignItems: "center"
   },
   btn: {
     marginTop: 10,
