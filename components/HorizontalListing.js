@@ -31,12 +31,13 @@ const HorizontalListing = () => {
 return(
   <View style={styles.container}>
     <ScrollView
-    horizontal 
+    // horizontal 
     ref = {scrollView}
     onContentSizeChange={() => scrollView.current.scrollToEnd()}
     >
     <FlatList
                 data={listings}
+                horizontal={true}
                 keyExtractor={(item, index) => item.id.toString() }
                 renderItem={
                   ({ item }) => 
