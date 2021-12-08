@@ -74,11 +74,11 @@ const HomeScreen = ({navigation}) => {
     getLocation();
   }, [])
 
+ 
   return (
 
     <SafeAreaView style={styles.container}>
       <Image 
-
         style={styles.header}
         source={require("../assets/B.png")}
       />
