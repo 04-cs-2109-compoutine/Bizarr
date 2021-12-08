@@ -39,13 +39,17 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
+
   useEffect(()=>{
     getListings();
   }, [])
 
-  useEffect(()=>{
+
+  useEffect(() => {
     getUser();
-  }, [])
+  }, []);
+
+
 
 
   //group functions
@@ -117,34 +121,14 @@ function SingleListingScreen({ route, navigation }) {
         });
     });
   }
-  
+
   return (
     <ScrollView style={styles.screen}>
       <SliderBox images={listing.images} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
-        <View style={styles.message}>
-          <Text style={styles.price}>${listing.price}</Text>
-          <SubmitButton
-            title="Message"
-            onPress={async () => {
-              let group = await findGroup([auth.currentUser.uid, listing.uid]);
-              if (!group) {
-                group = await createGroup(
-                  [auth.currentUser.uid, listing.uid],
-                  auth.currentUser.uid,
-                  `${auth.currentUser.displayName}`,
-                  "listing",
-                  listing.uid //listingId?
-                );
-              }
-              navigation.navigate(routes.CHAT, {
-                group,
-              });
-            }}
-          />
-        </View>
+        <Text style={styles.price}>${listing.price}</Text>
       </View>
 
       <View style={styles.sellerContainer}>
@@ -161,6 +145,26 @@ function SingleListingScreen({ route, navigation }) {
           longitude={listing.location.longitude}
         />
       </View>
+      <View style={styles.submitButton}>
+        <SubmitButton
+          title="Message"
+          onPress={async () => {
+            let group = await findGroup([auth.currentUser.uid, listing.uid]);
+            if (!group) {
+              group = await createGroup(
+                [auth.currentUser.uid, listing.uid],
+                auth.currentUser.uid,
+                `${auth.currentUser.displayName}`,
+                "listing",
+                listing.uid
+              );
+            }
+            navigation.navigate(routes.CHAT, {
+              group,
+            });
+          }}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -175,29 +179,34 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "95%",
-    height: 250,
+    height: 350,
+
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 25,
     marginVertical: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "500",
   },
   description: {
     marginTop: 10,
+    fontSize: 15.5,
   },
   sellerContainer: {
     marginBottom: 10,
   },
-  message: {
-    flex: 2,
+  map: {
+    marginBottom: 260,
+  },
+  submitButton: {
+    width: 650,
+    marginLeft: 70,
+    marginBottom: 50,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
   },
   map:{
     marginBottom: 10,

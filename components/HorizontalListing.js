@@ -1,17 +1,22 @@
 import React, {useState, useRef, useContext, useEffect}from 'react';
-import { StyleSheet, Text ,View, SectionList, SafeAreaView, Image, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, Text ,View, SectionList, SafeAreaView, Image, Dimensions} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import AllHorizontal from './AllHorizontal';
+import { FlatList, ScrollView as GestureHandlerScrollView,} from 'react-native-gesture-handler'
+
+const { width, height } = Dimensions.get("window");
 
 const HorizontalListing = ({listings}) => {
+  const [enableScrollViewScroll, setEnableScrollViewScroll] = useState(true)
+  const scrollRef = useRef();
 
 return(
-  <View style={styles.container}>
-    <ScrollView
-    horizontal 
+    <GestureHandlerScrollView horizontal scrollEnabled contentContainerStyle={styles.contentContainer}
     >
     <FlatList
+    // horizontal={true}
       data={listings}
-      horizontal={true}
+      numColumns={2}
       keyExtractor={(item, index) => item.id.toString() }
       renderItem={({ item }) => (
         <AllHorizontal
@@ -21,35 +26,21 @@ return(
         />
       )}
     />
-    </ScrollView>
-  </View>
+    </GestureHandlerScrollView>
+
 )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'red',
-  },
-  sectionHeader: {
-    fontWeight: '800',
-    fontSize: 16,
-    color: 'black',
-    marginTop: 20,
-    marginLeft: 30,
-    marginBottom: 5,
-  },
-  item: {
-    margin: 10,
-    paddingRight: 10,
-    backgroundColor: 'green',
-  },
-  itemPhoto: {
-    width: 160,
-    height: 160,
-  },
-  itemText: {
-    color: 'rgba(255, 255, 255, 0.5)',
-    marginTop: 5,
+
+  contentContainer: {
+    // backgroundColor: 'red',
+    width: 500,
+    height: height / 4,
+    marginLeft: 20,
+    flexDirection: "row",
+    // flexWrap: "wrap",
+    flex: 1
   },
 });
 

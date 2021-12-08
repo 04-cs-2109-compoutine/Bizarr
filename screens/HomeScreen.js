@@ -1,8 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
+
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
 import Swiper from 'react-native-swiper';
+
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
 import HorizontalListing from '../components/HorizontalListing';
@@ -60,7 +62,9 @@ const HomeScreen = ({navigation}) => {
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      setListings(userLists)
+      let datedList = userLists.filter(listing => listing.date !== null)
+      setListings(datedList)
+      // console.log(userLists);
     } catch(e) {
       console.log(e);
     }
@@ -78,12 +82,16 @@ const HomeScreen = ({navigation}) => {
     setSearch({ search });
   }
 
+ 
   return (
+
     <SafeAreaView style={styles.container}>
+
       <Image 
         style={styles.header}
         source={require("../assets/B.png")}
       />
+
       <ScrollView>
         <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
           <View style={styles.sliderContainer}>
@@ -213,6 +221,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.santaContainer}>
         <Text style={styles.sectionHeader}> 
           Find your items
+
         </Text>
         <LottieView
             autoPlay
@@ -261,6 +270,7 @@ const HomeScreen = ({navigation}) => {
           ))}
           </MapView>
         </View>
+
         <LottieView
             autoPlay
             loop
@@ -275,10 +285,12 @@ const HomeScreen = ({navigation}) => {
         </View>
       </ScrollView>
     </SafeAreaView>
+
     );
 }
 
 const styles = StyleSheet.create({
+
   container:{
     flex: 1,
     margin: '2%',
@@ -296,6 +308,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'transparent',
     borderRadius: 8,
+
   },
   header:{
     marginTop: 10,
