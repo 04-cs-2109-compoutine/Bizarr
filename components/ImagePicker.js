@@ -11,8 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 export default function UploadImage({ photoURL, setPhotoURL, userName }) {
-  if (process.env.NODE_ENV !== "production") require("../secrets");
-  let CLOUDINARY_URL = process.env.CLOUDINARY_URL;
+  let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/bizarr/upload"
 
   const handlePress = () => {
       pickImage();
@@ -60,10 +59,10 @@ export default function UploadImage({ photoURL, setPhotoURL, userName }) {
 
   return (
     <View style={Styles.container}>
-      <Image source={{ uri: userName.photoURL }} style={Styles.img}/>
+      <Image source={{ uri: photoURL }} key={photoURL} style={Styles.img} />
       <View style={Styles.uploadBtnContainer}>
         <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn}>
-          <Text>{photoURL ? "Edit" : "Upload"} Image</Text>
+          <Text>{photoURL ? "Edit" : "Upload"} </Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>
