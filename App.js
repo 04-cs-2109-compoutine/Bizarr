@@ -18,7 +18,7 @@ export default function App() {
     });
     return Promise.all(cacheImages);
   };
-  
+
   return launchLoaded === true ? (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

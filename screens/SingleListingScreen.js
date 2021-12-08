@@ -39,23 +39,14 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
-  
-   useEffect(()=>{
+
+  useEffect(() => {
     getListings();
-  })
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
-  })
-
-  async function getPhoto() {
-    try {
-      const profilePhoto = db.collection("users").get();
-      const photo = await profilePhoto;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  }, []);
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -65,11 +56,9 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: parseInt(listingId), //didn't parse it to int since easy to fetch data back
-      //can insert more listing here by creating object
+      listingId: parseInt(listingId),
       //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
     };
-    // auth.currentUser.uid, listing.uid
 
     return new Promise((resolve, reject) => {
       db.collection("group")
@@ -130,36 +119,13 @@ function SingleListingScreen({ route, navigation }) {
     });
   }
 
-  console.log(listing)
-  console.log("auth", auth);
-  
   return (
     <ScrollView style={styles.screen}>
       <SliderBox images={listing.images} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
-        <View style={styles.message}>
-          <Text style={styles.price}>${listing.price}</Text>
-          <SubmitButton
-            title="Message"
-            onPress={async () => {
-              let group = await findGroup([auth.currentUser.uid, listing.uid]);
-              if (!group) {
-                group = await createGroup(
-                  [auth.currentUser.uid, listing.uid],
-                  auth.currentUser.uid,
-                  `${auth.currentUser.displayName}`,
-                  "listing",
-                  listing.uid //listingId?
-                );
-              }
-              navigation.navigate(routes.CHAT, {
-                group,
-              });
-            }}
-          />
-        </View>
+        <Text style={styles.price}>${listing.price}</Text>
       </View>
 
       <View style={styles.sellerContainer}>
@@ -170,10 +136,30 @@ function SingleListingScreen({ route, navigation }) {
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
-      <View>
+      <View style={styles.map}>
         <LoadingMap
           latitude={listing.location.latitude}
           longitude={listing.location.longitude}
+        />
+      </View>
+      <View style={styles.submitButton}>
+        <SubmitButton
+          title="Message"
+          onPress={async () => {
+            let group = await findGroup([auth.currentUser.uid, listing.uid]);
+            if (!group) {
+              group = await createGroup(
+                [auth.currentUser.uid, listing.uid],
+                auth.currentUser.uid,
+                `${auth.currentUser.displayName}`,
+                "listing",
+                listing.uid
+              );
+            }
+            navigation.navigate(routes.CHAT, {
+              group,
+            });
+          }}
         />
       </View>
     </ScrollView>
@@ -190,29 +176,33 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "95%",
-    height: 300,
+    height: 350,
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 25,
     marginVertical: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "500",
   },
   description: {
     marginTop: 10,
+    fontSize: 15.5,
   },
   sellerContainer: {
     marginBottom: 10,
   },
-  message: {
-    flex: 2,
+  map: {
+    marginBottom: 260,
+  },
+  submitButton: {
+    width: 650,
+    marginLeft: 70,
+    marginBottom: 50,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "baseline",
   },
 });
 

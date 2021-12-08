@@ -2,10 +2,10 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import SearchLocationScreen from '../screens/SearchLocationScreen';
 import PostListingScreen from "../screens/PostListingScreen";
-import MyListingScreen from "../screens/MyListingScreen"
+import MyListingScreen from "../screens/MyListingScreen";
 import PostedScreen from "../screens/PostedScreen";
 
-const Stack = createNativeStackNavigator();
+//const Stack = createNativeStackNavigator();
 
 function PostNavigator() {
   return (
