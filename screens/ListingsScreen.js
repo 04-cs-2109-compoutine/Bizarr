@@ -13,17 +13,19 @@ function ListingsScreen({ navigation }) {
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
   //const [liked, setLiked] = useState(false);
-  const {user, setUser} = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   async function readAllListing() {
     try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      setListings(userLists)
-      setFilteredLists(userLists)
-    } catch(e) {
+      const getListingsPromise = db.collection("listings").get();
+      const data = await getListingsPromise;
+      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(
+        (listing) => listing.uid !== user.uid && listing.sold === false
+      );
+      setListings(userLists);
+      setFilteredLists(userLists);
+    } catch (e) {
       console.log(e);
     }
   }
@@ -78,15 +80,15 @@ function ListingsScreen({ navigation }) {
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             onLikePost={(_id) =>
               setListings(() => {
-              return listings.map((list) => {
-                console.log(list)
-                if (list.id === _id) {
-                  return { ...list, isLiked: !list.isLiked };
-                }
-                return list;
-              });
-            })
-          }
+                return listings.map((list) => {
+                  console.log(list);
+                  if (list.id === _id) {
+                    return { ...list, isLiked: !list.isLiked };
+                  }
+                  return list;
+                });
+              })
+            }
           />
         )}
       />

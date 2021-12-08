@@ -181,15 +181,16 @@ const styles = StyleSheet.create({
   price: {
     color: colors.secondary,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 25,
     marginVertical: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "500",
   },
   description: {
     marginTop: 10,
+    fontSize: 15.5,
   },
   sellerContainer: {
     marginBottom: 10,
