@@ -1,13 +1,13 @@
-import { db } from '../firebase'
+import { db } from "../firebase";
 
-const FETCH_LISTINGS = 'FETCH_LISTINGS'
+const FETCH_LISTINGS = "FETCH_LISTINGS";
 
 const _fetchListings = (listings) => {
   return {
     type: FETCH_LISTINGS,
-    listings
-  }
-}
+    listings,
+  };
+};
 
 export const fetchListings = () => {
   return async (dispatch) => {
@@ -15,16 +15,14 @@ export const fetchListings = () => {
       const collectionRef = db.collection("listings");
       const getPromise = collectionRef.get();
       const snapshot = await getPromise;
-      const listings = snapshot.docs.map((doc) => ({
-
-      }));
-      console.log("action creator", listings)
-      dispatch(_fetchListings(listings))
-    } catch(e) {
-      console.log(e)
+      const listings = snapshot.docs.map((doc) => ({}));
+      // console.log("action creator", listings)
+      dispatch(_fetchListings(listings));
+    } catch (e) {
+      console.log(e);
     }
-  }
-}
+  };
+};
 
 export default function listings(state = [], action) {
   switch (action.type) {

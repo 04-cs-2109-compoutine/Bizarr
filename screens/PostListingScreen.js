@@ -36,7 +36,7 @@ function PostListingScreen({navigation}) {
     description: "Grand central station, East 42nd Street, New York, NY, USA",
   });
   const [selectedValue, setCategory] = useState("Category");
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
@@ -51,19 +51,57 @@ function PostListingScreen({navigation}) {
     log = JSON.stringify(location.longitude);
   }
 
-
-  const handlePost = async () => {
-    setPostVisible(true);
-    await db.collection("listings").add({
+  const validatePost = () => {
+    const post = {
       title: title,
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
+      location: location,
       images: imageUris,
       uid: user.uid,
-    });
-    navigation.navigate("Account");
+      sold: false
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = post[key].trim();
+      }
+      if (
+        (typeof post[key] === "object" && !Object.keys(post[key])) ||
+        !post[key]
+      ) {
+        throw new Error(`Failed: ${key} is required`);
+      }
+    }
+    if (errorMsg) throw new Error("Validation failed");
+  };
+
+  const handlePost = async () => {
+    try {
+      validatePost();
+      await db.collection("listings").add({
+        title: title,
+        price: price,
+        description: description,
+        category: selectedValue,
+        location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
+        images: imageUris,
+        uid: user.uid,
+        sold: false,
+      });
+      setPostVisible("Failed:", true);
+      navigation.navigate("Account");
+    } catch (error) {
+      setErrorMsg(error.message);
+      if (errorMsg) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            setErrorMsg("");
+            resolve();
+          }, 2000);
+        });
+      }
+    }
   };
 
   //push a new image uri into the list and show it on screen
@@ -131,8 +169,7 @@ function PostListingScreen({navigation}) {
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}
-              >
+                onValueChange={(itemValue) => setCategory(itemValue)}>
                 <Picker.Item label="Car" value="Car" />
                 <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
@@ -147,8 +184,7 @@ function PostListingScreen({navigation}) {
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
           </View>
@@ -174,6 +210,7 @@ function PostListingScreen({navigation}) {
       <GoogleAutoComplete location={location} setLocation={setLocation}/>
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
+        <Text style={styles.errorMsg}>{errorMsg}</Text>
       </View>
     </ScrollView>
   );
@@ -186,6 +223,10 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 300,
+  },
+  errorMsg: {
+    color: "red",
+    fontWeight: "800",
   },
   imgContainer: {
     flexDirection: "row",
@@ -211,6 +252,13 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 10,
     alignItems: "center",
+    marginBottom: 20,
+    paddingBottom: 20,
+  },
+  inputContainer:{
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   pickerContainer: {
     flex: 1,
