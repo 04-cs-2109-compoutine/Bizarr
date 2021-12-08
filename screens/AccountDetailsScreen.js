@@ -105,7 +105,7 @@ function AccountDetailsScreen({navigation}) {
         <TextInput
           placeholder={userName.displayName}
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={name}
           onChangeText={(text) => setName(text)}
         />
@@ -115,7 +115,7 @@ function AccountDetailsScreen({navigation}) {
           placeholder="Phone"
           keyboardType="numeric"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={phone}
           onChangeText={(text) => setPhone(text)}
         />
@@ -124,7 +124,7 @@ function AccountDetailsScreen({navigation}) {
         <TextInput
           placeholder={user.email}
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
@@ -133,7 +133,7 @@ function AccountDetailsScreen({navigation}) {
         <TextInput
           placeholder="Current Password"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={currPassword}
           onChangeText={(text) => setCurrPassword(text)}
           secureTextEntry
@@ -143,7 +143,7 @@ function AccountDetailsScreen({navigation}) {
         <TextInput
           placeholder="New Password"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={newPassword}
           onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
@@ -153,7 +153,7 @@ function AccountDetailsScreen({navigation}) {
         <TextInput
           placeholder="Location"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={location}
           onChangeText={(text) => setLocation(text)}
         />
@@ -187,12 +187,16 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   inputContainer: {
-    backgroundColor: defaultStyles.colors.light,
-    borderRadius: 25,
-    flexDirection: "row",
     width: "100%",
     padding: 15,
     marginVertical: 10,
+    backgroundColor: '#FEFBF3',
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#79B4B7',
+    flexDirection: "row",
+    elevation: 2,
+    alignItems: "center"
   },
   btn: {
     margin: 10,
