@@ -4,6 +4,7 @@ import { View, StyleSheet, Modal, Animated, Easing } from "react-native";
 import LottieView from "lottie-react-native";
 
 function PostedScreen({ onDone, visible = false, navigation }) {
+
   return (
     <Modal visible={visible}>
       <View style={styles.container}>

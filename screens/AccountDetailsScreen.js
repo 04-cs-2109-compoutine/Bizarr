@@ -66,7 +66,7 @@ function AccountDetailsScreen() {
 
   // the save button will sign the user in again with the entered current password and then update the collection with the new info
   const handleSave = async () => {
-    checkTextInput();
+    // checkTextInput();
     auth
       .signInWithEmailAndPassword(user.email, currPassword)
         .then((userCredential) => {
@@ -182,11 +182,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",
-    padding: 20,
+    padding: 15,
     marginVertical: 10,
   },
   btn: {
-    margin: 20,
+    margin: 10,
     alignItems: "center",
   },
 });

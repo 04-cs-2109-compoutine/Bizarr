@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -25,6 +27,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+
+    "description": "A marketplace to find everything you would ever need for a reasonable price.",
+    "githubUrl": "https://github.com/04-cs-2109-compoutine/Bizarr"
   }
 }

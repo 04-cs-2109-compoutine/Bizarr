@@ -1,44 +1,41 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FlatList, StyleSheet, Text } from "react-native";
-import AllList from "../components/AllList";
-import colors from "../components/Config/colors";
-import routes from "../components/Config/routes";
-import Screen from "../components/Screen";
-import { db } from "../firebase";
+import AllList from "../AllList";
+import colors from "../Config/colors";
+import routes from "../Config/routes";
+import Screen from "../Screen";
+import { db } from "../../firebase";
 import { SearchBar } from "react-native-elements";
-import AuthContext from "../components/Config/context";
+import AuthContext from "../Config/context";
 
-function ListingsScreen({ navigation }) {
+function Books({ navigation }) {
   const [listings, setListings] = useState([]);
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
-  //const [liked, setLiked] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
 
-  async function readAllListing() {
+  async function getFurniture() {
     try {
-      const getListingsPromise = db.collection("listings").get();
-      const data = await getListingsPromise;
-      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(
-        (listing) => listing.uid !== user.uid && listing.sold === false
-      );
-      setListings(userLists);
-      setFilteredLists(userLists);
-    } catch (e) {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false && listing.category === 'Books')
+      setListings(userLists)
+      setFilteredLists(userLists)
+    } catch(e) {
       console.log(e);
     }
   }
 
   useEffect(() => {
-    readAllListing();
+    getFurniture();
   }, []);
 
   const searchFilterFunction = (text) => {
     if (text) {
       const newData = listings.filter(function (item) {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.description
+          ? item.description.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -73,7 +70,6 @@ function ListingsScreen({ navigation }) {
             description={item.description}
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             onLikePost={(_id) =>
-
               setFilteredLists(() => {
               return filteredLists.map((list) => {
                 if (list.id === _id) {
@@ -83,7 +79,6 @@ function ListingsScreen({ navigation }) {
               });
             })
           }
-
           />
         )}
       />
@@ -100,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingsScreen;
+export default Books;

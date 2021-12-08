@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import HomeScreen from "../screens/HomeScreen";
+import HomeNavigator from './HomeNavigator'
 import MessageNavigator from "./MessageNavigator";
 import PostButton from "./Button/PostButton";
 import ListNavigator from "./ListNavigator";
@@ -14,8 +14,8 @@ const Tab = createBottomTabNavigator();
 const BottomNavigator = () => (
   <Tab.Navigator>
     <Tab.Screen
-      name="Home"
-      component={HomeScreen}
+      name="HomePage"
+      component={HomeNavigator}
       options={{
         headerShown: false,
         tabBarIcon: ({ color, size }) => (

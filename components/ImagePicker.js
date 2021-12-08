@@ -53,7 +53,6 @@ export default function UploadImage({ photoURL, setPhotoURL, userName }) {
     })
       .then(async (r) => {
         let data = await r.json();
-
         setPhotoURL(data.url);
       })
       .catch((err) => console.log(err));
@@ -75,16 +74,16 @@ export default function UploadImage({ photoURL, setPhotoURL, userName }) {
 const Styles = StyleSheet.create({
   container: {
     elevation: 2,
-    height: 150,
-    width: 150,
+    height: 110,
+    width: 110,
     backgroundColor: "#efefef",
     position: "relative",
     borderRadius: 999,
     overflow: "hidden",
   },
   img: {
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
   },
   uploadBtnContainer: {
     opacity: 0.7,

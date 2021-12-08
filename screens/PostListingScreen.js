@@ -15,7 +15,6 @@ import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
 import { db } from "../firebase";
-import * as Location from "expo-location";
 import firebase from "firebase";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
@@ -59,6 +58,8 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -81,8 +82,8 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      // uid: user.uid,
-      // sold: false
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -109,6 +110,7 @@ function PostListingScreen({navigation}) {
         category: selectedValue,
         location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
         images: imageUris,
+        date: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });
@@ -190,14 +192,13 @@ function PostListingScreen({navigation}) {
                 mode={"dialog"}
                 selectedValue={selectedValue}
                 style={{ height: 200, width: 200 }}
-                onValueChange={(itemValue) => setCategory(itemValue)}>
+                onValueChange={(itemValue) => setCategory(itemValue)}
+              >
                 <Picker.Item label="Car" value="Car" />
-                <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
-                <Picker.Item label="Game" value="Game" />
                 <Picker.Item label="Sports" value="Sports" />
                 <Picker.Item label="Clothing" value="Clothing" />
-                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Entertainment" value="Entertainment" />
                 <Picker.Item label="Books" value="Books" />
                 <Picker.Item label="Electronics" value="Electronics" />
                 <Picker.Item label="Others" value="Others" />
@@ -205,7 +206,8 @@ function PostListingScreen({navigation}) {
             </View>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setModalVisible(!modalVisible)}
+            >
               <Text style={defaultStyles.text}>Ok</Text>
             </Pressable>
           </View>
