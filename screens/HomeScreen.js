@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
-import { SearchBar } from "react-native-elements";
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
 import colors from "../components/Config/colors";
 import defaultStyles from '../components/Config/styles';
 import HorizontalListing from '../components/HorizontalListing';
+import AuthContext from "../components/Config/context";
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -19,29 +19,24 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-export default class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getLocation = this.getLocation.bind(this);
-    this.state = {
-      listings: [],
-      region: {
+const HomeScreen = () => {
+  const [listings, setListings] = useState([])
+
+  const [region, setRegion] = useState({
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      },
-      search: "",
-    };
-  }
-
-  // function to request permissions to get user's location
-   async getLocation() {
+      })
+  const [search, setSearch] = useState("");
+  const {user, setUser} = useContext(AuthContext);
+   
+  const getLocation = async () => {
     try {
       const {granted} = await Location.requestForegroundPermissionsAsync();
       if (!granted) return 'Allow current location to see listings in your area.';
       const { coords: { latitude, longitude }} = await Location.getCurrentPositionAsync();
-      this.setState({...this.state,
+      setRegion({...region,
         region: {
           latitude: latitude,
           longitude: longitude,
@@ -50,90 +45,96 @@ export default class HomeScreen extends React.Component {
         }
       })
     } catch(error) {
-        console.log(error);
-      }
+      console.log(error);
+    }
   }
   
-  componentDidMount() {
-    this.getLocation();
-    const listings = db
-    .collection("listings")
-    .onSnapshot((snapshot) =>
-      this.setState({...this.state,
-        listings: snapshot.docs.map((doc) => ({
-          description: doc.data().description,
-          images: doc.data().images,
-          title: doc.data().title,
-          location: doc.data().location,
-        }))
-      })
-    )
-    return listings;
+  async function readAllListing() {
+    try {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
+      setListings(userLists)
+    } catch(e) {
+      console.log(e);
+    }
   }
 
-  updateSearch(search) {
-    this.setState({ search });
+  useEffect(() => {
+    readAllListing();
+  }, []);
+
+  useEffect(()=>{
+    getLocation();
+  }, [])
+
+  const updateSearch = (search)=>{
+    setSearch({ search });
   }
 
-  render() {
-    const search = this.state.search;
-    return (
-      <SafeAreaView>
-        <Image 
-          style={styles.header}
-          source={require("../assets/B.png")}
+  return (
+    <ScrollView style={styles.container}>
+      <Image 
+        style={styles.header}
+        source={require("../assets/B.png")}
+      />
+        <View>
+        <Text style={styles.text}> 
+          Shop nearby
+        </Text>
+        
+        <Searchbar
+          onChangeText={updateSearch}
+          value={search}
         />
-        <ScrollView>
-          <Text style={styles.text}> 
-            Shop nearby
-          </Text>
-          <HorizontalListing />
-          <Searchbar
-            onChangeText={this.updateSearch}
-            value={search}
-          />
-          <View>
-            <View style={styles.mapContainer}>
-              <MapView
-                provider={PROVIDER_GOOGLE}
-                style={styles.map}
-                region={this.state.region}
-                onPress={this.onMapPress}
-                loadingEnabled
-                loadingIndicatorColor='#666666'
-                loadingBackgroundColor='#EEEEEE'
+        <View>
+          <View style={styles.mapContainer}>
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              region={region}
+              loadingEnabled
+              loadingIndicatorColor='#666666'
+              loadingBackgroundColor='#EEEEEE'
+            >
+            {listings.map((listing, index) => (
+              <Marker
+                key={index}
+                coordinate = {{
+                  latitude: listing.location.latitude,
+                  longitude: listing.location.longitude,
+                }}
+                centerOffset={{ x: -42, y: -60 }}
+                anchor={{ x: 0.84, y: 1 }}
+                title={listing.title}
               >
-              {this.state.listings.map((listing, index) => (
-                <Marker
-                  key={index}
-                  coordinate = {{
-                    latitude: listing.location.latitude,
-                    longitude: listing.location.longitude,
-                  }}
-                  centerOffset={{ x: -42, y: -60 }}
-                  anchor={{ x: 0.84, y: 1 }}
-                  title={listing.title}
-                >
-                  <Callout>
-                    <Text>
-                      <Image 
-                        style={{width: 40, height: 40 }}
-                        source={{uri: listing.images[0]}}>
-                      </Image>
-                    </Text>
-                  </Callout>
-                </Marker>
-              ))}
-              </MapView>
-            </View>
+                <Callout>
+                  <Text>
+                    <Image 
+                      style={{width: 40, height: 40 }}
+                      source={{uri: listing.images[0]}}>
+                    </Image>
+                  </Text>
+                </Callout>
+              </Marker>
+            ))}
+            </MapView>
+            
           </View>
-      </ScrollView>
-    </SafeAreaView>
+        </View>
+        <View onStartShouldSetResponderCapture={false}>
+          <HorizontalListing listings={listings}/>
+        </View>
+      </View>
+    </ScrollView>
     );
-  }
 }
 
 const styles = StyleSheet.create({
+  container:{
+   
+  },
   header:{
     marginTop: 10,
     height: 70,
@@ -172,3 +173,5 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
 });
+
+export default HomeScreen;
