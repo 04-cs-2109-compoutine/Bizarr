@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   userLogo: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     alignSelf: "center",
     padding: 10,
     borderRadius: 50,

@@ -10,18 +10,6 @@ const HorizontalListing = ({listings}) => {
   const [enableScrollViewScroll, setEnableScrollViewScroll] = useState(true)
   const scrollRef = useRef();
 
-  // const onPressTouch = () => {
-  //   scrollRef.current?.scrollTo({
-  //     y: 0,
-  //     animated: true,
-  //   });
-  // }
-
-  // useEffect(() =>{
-  //  return scrollRef.current.scrollTo({x: 0, y: 0, animated: true})
-
-  // })
-
 return(
     <GestureHandlerScrollView horizontal scrollEnabled contentContainerStyle={styles.contentContainer}
     >
@@ -44,6 +32,7 @@ return(
 }
 
 const styles = StyleSheet.create({
+
   contentContainer: {
     // backgroundColor: 'red',
     width: 500,
