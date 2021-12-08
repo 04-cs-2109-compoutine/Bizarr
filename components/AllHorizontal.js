@@ -1,31 +1,19 @@
-import React, { useEffect, useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  Dimensions,
-} from "react-native";
+
+import React from 'react';
+import {View, StyleSheet, TouchableWithoutFeedback, Dimensions} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
-import LottieView from "lottie-react-native";
-import colors from "./Config/colors";
 
 const { width, height } = Dimensions.get("window");
 
-const AllHorizontal = ({ title, imageUris, price }) => {
+const AllHorizontal = ({imageUris}) => {
+
   return (
     <View style={styles.detailsContainer}>
       <TouchableWithoutFeedback>
         <View style={styles.card}>
-          <SliderBox images={imageUris} style={styles.image} />
-          {/* <Text style={styles.title} numberOfLines={1}>
-              {title}
-            </Text>
-            <Text style={styles.price} numberOfLines={1}>
-              {price}
-            </Text> */}
+
+          <SliderBox images={imageUris} style={styles.image}/>
+
         </View>
       </TouchableWithoutFeedback>
     </View>
@@ -44,25 +32,17 @@ const styles = StyleSheet.create({
   detailsContainer: {
     padding: 0,
     borderRadius: 8,
-    borderWidth: 1,
+
+    borderWidth: 2,
+    margin: 3,
+    borderColor: '#79B4B7'
+
   },
   image: {
     width: "100%",
     height: 200,
-    // alignItems: 'center',
-    resizeMode: "contain",
-  },
-  price: {
-    color: colors.secondary,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: -10,
-    marginBottom: 5,
-  },
-  title: {
-    flex: 2,
-    textAlign: "center",
-    marginLeft: -5,
+
+    resizeMode: "contain"
   },
 });
 

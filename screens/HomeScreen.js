@@ -277,16 +277,13 @@ const HomeScreen = ({navigation}) => {
             source={require("../assets/animations/loading-button.json")}
             style={styles.dotanimation}
           />
-       
         <Text style={styles.text}>Made for you</Text>
-       
         <View style={styles.listingContainer}>
           <HorizontalListing listings={listings}/>
         </View>
       </ScrollView>
     </SafeAreaView>
-
-    );
+  );
 }
 
 const styles = StyleSheet.create({
@@ -328,7 +325,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   map: {
-    // borderWidth: 0,
     height: 300,
     marginBottom: 10,
     borderColor: '#79B4B7'
