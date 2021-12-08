@@ -1,14 +1,18 @@
 import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from "react-native";
-import { SliderBox } from "react-native-image-slider-box";
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
+import Swiper from 'react-native-swiper';
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
 import colors from "../components/Config/colors";
-import defaultStyles from '../components/Config/styles';
 import HorizontalListing from '../components/HorizontalListing';
 import AuthContext from "../components/Config/context";
+import {useTheme} from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -19,9 +23,10 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-const HomeScreen = () => {
-  const [listings, setListings] = useState([])
 
+const HomeScreen = () => {
+  const theme = useTheme();
+  const [listings, setListings] = useState([])
   const [region, setRegion] = useState({
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -74,13 +79,111 @@ const HomeScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image 
         style={styles.header}
         source={require("../assets/B.png")}
       />
-        <View>
-        <Text style={styles.text}> 
+      <ScrollView>
+        <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
+          <View style={styles.sliderContainer}>
+            <Swiper
+              autoplay
+              horizontal={false}
+              height={200}
+              activeDotColor= "#74b49b">
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner2.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner3.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner4.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner5.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner6.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+            </Swiper>
+          </View>
+
+          <View style={styles.categoryContainer}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Furniture'})
+          }>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons name="floor-lamp" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Furniture</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() =>
+            navigation.navigate('CardListScreen', {title: 'Fastfood Center'})
+          }>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons
+              name="car"
+              size={35}
+              color="#74b49b"
+            />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Cars</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Electronics</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.categoryContainer, {marginTop: 10}]}>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="shirt" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Clothing</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Sports</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Movies & Music</Text>
+        </TouchableOpacity>
+      </View>
+
+        <Text style={styles.sectionHeader}> 
           Shop nearby
         </Text>
         
@@ -89,7 +192,7 @@ const HomeScreen = () => {
           value={search}
         />
         <View>
-          <View style={styles.mapContainer}>
+          <Text style={styles.sectionHeader}>Find your items</Text> 
             <MapView
               provider={PROVIDER_GOOGLE}
               style={styles.map}
@@ -122,18 +225,33 @@ const HomeScreen = () => {
             </MapView>
             
           </View>
-        </View>
         <View onStartShouldSetResponderCapture={false}>
+          <Text style={styles.sectionHeader}>Made for you</Text>
           <HorizontalListing listings={listings}/>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
   container:{
-   
+    flex: 1,
+    margin: '2%',
+  },
+  sliderContainer: {
+    height: 200,
+    width: '100%',
+    marginTop: 10,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 8,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    borderRadius: 8,
   },
   header:{
     marginTop: 10,
@@ -142,35 +260,60 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: '25%',
   },
-  mapContainer:{
-    marginLeft: 10, marginBottom: 10, marginTop: 40, width: '95%', height: 425, borderRadius: 10, borderWidth: .5, overflow: 'hidden', 
+  sliderImage: {
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 8,
   },
   banner: {
     paddingTop: 20,
     paddingBottom: 20,
   },
-  text: {
-    color: "black",
-    fontSize: 20,
-    margin: 10,
-    fontWeight: '500'
-  },
   map: {
     borderWidth: 1,
-    height: 500,
-    width: 500,
+    height: 300,
     marginBottom: 10,
-  },
-  bubble: {
-    backgroundColor: "#E4EFE7",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
   },
   buttonContainer: {
     flexDirection: "row",
     marginVertical: 20,
     backgroundColor: "transparent",
+  },
+  sectionHeader: {
+    fontWeight: '800',
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 5,
+    color: colors.grey
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 25,
+    marginBottom: 10,
+  },
+  categoryBtn: {
+    flex: 1,
+    width: '30%',
+    marginHorizontal: 0,
+    alignSelf: 'center',
+  },
+  categoryIcon: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: 70,
+    height: 70,
+    backgroundColor: '#fdeae7' /* '#5c8d89' */,
+    borderRadius: 50,
+  },
+  categoryBtnTxt: {
+    alignSelf: 'center',
+    marginTop: 5,
+    color: '#5c8d89',
   },
 });
 

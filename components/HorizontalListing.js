@@ -4,12 +4,10 @@ import AllHorizontal from './AllHorizontal';
 
 const HorizontalListing = ({listings}) => {
 
-
 return(
   <View style={styles.container}>
     <ScrollView
     horizontal 
-
     >
     <FlatList
       data={listings}
