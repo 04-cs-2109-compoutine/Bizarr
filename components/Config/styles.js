@@ -7,5 +7,6 @@ export default {
     color: colors.dark,
     fontSize: 16,
     fontFamily: Platform.OS === "android" ? "Roboto" : "GillSans",
+    alignItems: "center"
   },
 };
