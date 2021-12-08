@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, Image, KeyboardAvoidingView} from 'react-native';
 // import {} from 'react-native-vector-icons'
 
-const Searchbar = ({ value, onChangeText, style }) => {
+const Searchbar = ({ value, onChangeText }) => {
 
   const [query, setQuery] = useState(value);
   // const [error, setError] = useState()
@@ -13,18 +13,12 @@ const Searchbar = ({ value, onChangeText, style }) => {
       <View style={styles.container}>
         <View style={styles.searchContainer}>
           <View style={styles.vwSearch}>
-        {/* <Image source={require('../assets/baseline_search_black_24dp.png')}
-        resizeMode='center'
-        style={styles.icSearch}
-        /> */}
-             <TextInput style={styles.textInput} onChangeText={(text) => {setQuery(text)}}
-        />
+            <TextInput style={styles.textInput} onChangeText={(text) => {setQuery(text)}}
+            />
+          </View>
         </View>
-   
-        {/* <View style={styles.vwClear}></View> */}
-        </View>
-      </View >
-      </KeyboardAvoidingView>
+      </View>
+    </KeyboardAvoidingView>
   )
 }
 
