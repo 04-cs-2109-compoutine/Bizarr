@@ -9,7 +9,12 @@ function List({ title, price, imageUris, onPress, description }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
-        <SliderBox images={imageUris} style={styles.image} dotColor={colors.primary} />
+        <SliderBox 
+          images={imageUris} 
+          style={styles.image} 
+          dotColor={colors.primary} 
+          onCurrentImagePressed={onPress}
+        />
         <View style={styles.detailsContainer}>
           <Text style={styles.title} numberOfLines={1}>
             {title}

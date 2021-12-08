@@ -11,9 +11,7 @@ const AllHorizontal = ({imageUris}) => {
     <View style={styles.detailsContainer}>
       <TouchableWithoutFeedback>
         <View style={styles.card}>
-
           <SliderBox images={imageUris} style={styles.image}/>
-
         </View>
       </TouchableWithoutFeedback>
     </View>
@@ -22,26 +20,23 @@ const AllHorizontal = ({imageUris}) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 15,
+    // borderRadius: 0,
     overflow: "hidden",
-    margin: 5,
+    // margin: 5,
     height: 180,
-    width: 180,
+    width: 190,
     flex: 1,
   },
   detailsContainer: {
     padding: 0,
-    borderRadius: 8,
-
+    // borderRadius: 2,
     borderWidth: 2,
-    margin: 3,
+    margin: 5,
     borderColor: '#79B4B7'
-
   },
   image: {
-    width: "100%",
-    height: 200,
-
+    width: "50%",
+    height: 180,
     resizeMode: "contain"
   },
 });

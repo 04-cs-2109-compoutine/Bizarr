@@ -27,10 +27,13 @@ function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost
 
   return (
     <SafeAreaView style={styles.detailsContainer}>
-     <TouchableWithoutFeedback onPress={onRowPress}>
+     <TouchableOpacity onPress={onRowPress}>
         <View style={styles.card}>
-          <SliderBox images={imageUris} style={styles.image}/>
-  
+          <SliderBox 
+            images={imageUris} 
+            style={styles.image}
+            onCurrentImagePressed={onRowPress}
+          />
             <View style={styles.likeContainer}>
               <TouchableOpacity onPress={() => {
                 onLikePost(_id);
@@ -53,7 +56,7 @@ function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost
           </Text>
 
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
         
     </SafeAreaView>
   );
