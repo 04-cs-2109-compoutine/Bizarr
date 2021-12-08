@@ -39,15 +39,14 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
+  useEffect(()=>{
+    getListings();
+  }, [])
 
-  async function getPhoto() {
-    try {
-      const profilePhoto = db.collection("users").get();
-      const photo = await profilePhoto;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  useEffect(()=>{
+    getUser();
+  }, [])
+
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
