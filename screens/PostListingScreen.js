@@ -21,6 +21,7 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+// import routes from "../components/Config/routes";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -29,27 +30,18 @@ function PostListingScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
+  const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({
+    latitude: 40.752714,
+    longitude: -73.97722689999999,
+    description: "Grand central station, East 42nd Street, New York, NY, USA",
+  });
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
-      setLocation({ latitude, longitude });
-    })();
-  }, []);
 
   let text = "Waiting..";
   let lat = "";
@@ -60,6 +52,7 @@ function PostListingScreen() {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
+  
   const validatePost = () => {
     const post = {
       title: title,
@@ -68,8 +61,9 @@ function PostListingScreen() {
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
       uid: user.uid,
-      sold: false
+      sold: false,
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -95,10 +89,12 @@ function PostListingScreen() {
         category: selectedValue,
         location: new firebase.firestore.GeoPoint(40.75, -73.996),
         images: imageUris,
+        date: firebase.firestore.Timestamp.now().toDate().toString(),
         uid: user.uid,
         sold: false,
       });
       setPostVisible("Failed:", true);
+      // navigation.navigate("My Listings");
     } catch (error) {
       setErrorMsg(error.message);
       if (errorMsg) {
@@ -125,7 +121,9 @@ function PostListingScreen() {
   return (
     <ScrollView style={styles.container}>
       <PostedScreen
-        onDone={() => setPostVisible(false)}
+        onDone={() => {
+          setPostVisible(false);
+        }}
         visible={PostVisible}
       />
 
@@ -212,7 +210,7 @@ function PostListingScreen() {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete />
+      <GoogleAutoComplete location={location} setLocation={setLocation}/>
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
         <Text style={styles.errorMsg}>{errorMsg}</Text>
@@ -259,11 +257,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
-  },
-  inputContainer:{
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   pickerContainer: {
     flex: 1,

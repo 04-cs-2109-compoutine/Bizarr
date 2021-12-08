@@ -21,6 +21,8 @@
     "cloudinary-core": "^2.12.0",
     "create-react-native-app": "^3.6.0",
     "expo": "~43.0.2",
+    "expo-app-loading": "~1.2.1",
+    "expo-asset": "~8.4.3",
     "expo-facebook": "~12.0.3",
     "expo-image-picker": "~11.0.3",
     "expo-location": "~13.0.4",
@@ -52,12 +54,11 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
+    "recyclerlistview": "^3.0.5",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0",
-    "expo-app-loading": "~1.2.1",
-    "expo-asset": "~8.4.3"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -11,7 +11,7 @@ import { auth, db } from "../firebase";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
-  const [userName, setUsername] = useState("");
+  const [userName, setUsername] = useState({});
   const [listings, setListings] = useState([]);
   const [groups, setGroups] = useState([]);
   const id = listing.uid;
@@ -56,11 +56,8 @@ function SingleListingScreen({ route, navigation }) {
       members: userArray,
       name,
       type,
-      listingId: parseInt(listingId), //didn't parse it to int since easy to fetch data back
-      //can insert more listing here by creating object
-      //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
+      listingId: parseInt(listingId),
     };
-    // auth.currentUser.uid, listing.uid
 
     return new Promise((resolve, reject) => {
       db.collection("group")
@@ -120,9 +117,6 @@ function SingleListingScreen({ route, navigation }) {
         });
     });
   }
-
-  console.log(listing)
-  console.log("auth", auth);
   
   return (
     <ScrollView style={styles.screen}>
@@ -161,7 +155,7 @@ function SingleListingScreen({ route, navigation }) {
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
-      <View>
+      <View style={styles.map}>
         <LoadingMap
           latitude={listing.location.latitude}
           longitude={listing.location.longitude}
@@ -181,7 +175,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "95%",
-    height: 300,
+    height: 250,
   },
   price: {
     color: colors.secondary,
@@ -205,6 +199,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "baseline",
   },
+  map:{
+    marginBottom: 10,
+    paddingBottom: 100
+  }
 });
 
 export default SingleListingScreen;

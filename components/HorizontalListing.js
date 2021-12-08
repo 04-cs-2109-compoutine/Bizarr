@@ -1,64 +1,63 @@
 import React, {useState, useRef, useContext, useEffect}from 'react';
-import AuthContext from './Config/context';
-import { StyleSheet, Text ,View, SectionList, SafeAreaView, Image, FlatList, ScrollView } from 'react-native'
+import { StyleSheet, Text ,View, SectionList, SafeAreaView, Image,} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import AllHorizontal from './AllHorizontal';
-import { db } from "../firebase"
+import { FlatList, ScrollView as GestureHandlerScrollView,} from 'react-native-gesture-handler'
 
-const HorizontalListing = () => {
-  const scrollView = useRef()
-  const [listings, setListings] = useState([]);
-  const [filteredLists, setFilteredLists] = useState([]);
-  const [search, setSearch] = useState();
-  //const [liked, setLiked] = useState(false);
-  const {user, setUser} = useContext(AuthContext);
-  async function readAllListing() {
-    try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      setListings(userLists)
-      setFilteredLists(userLists)
-    } catch(e) {
-      console.log(e);
-    }
-  }
 
-  useEffect(() => {
-    readAllListing();
-  }, []);
+const HorizontalListing = ({listings}) => {
+  const [enableScrollViewScroll, setEnableScrollViewScroll] = useState(true)
+  const scrollRef = useRef();
+
+  // const onPressTouch = () => {
+  //   scrollRef.current?.scrollTo({
+  //     y: 0,
+  //     animated: true,
+  //   });
+  // }
+
+  // useEffect(() =>{
+  //  return scrollRef.current.scrollTo({x: 0, y: 0, animated: true})
+
+  // })
 
 return(
-  <View style={styles.container}>
-    <ScrollView
-    // horizontal 
-    ref = {scrollView}
-    onContentSizeChange={() => scrollView.current.scrollToEnd()}
+    <GestureHandlerScrollView horizontal scrollEnabled
+
+
+    // onContentSizeChange={() => scrollRef.current.scrollToEnd()}
+    >
+      {/* <TouchableOpacity onPress={onPressTouch}> */}
+    <View style={styles.container}
+    // onStartShouldSetResponderCapture={() => {
+    //   setEnableScrollViewScroll(false);
+    //   if (enableScrollViewScroll === false) {
+    //     setEnableScrollViewScroll(true);
+    //   }
+    // }}
     >
     <FlatList
-                data={listings}
-                horizontal={true}
-                keyExtractor={(item, index) => item.id.toString() }
-                renderItem={
-                  ({ item }) => 
-                  (
-                  <AllHorizontal
-                  title={item.title}
-                  price={"$" + item.price}
-                  imageUris={item.images}
-
-                  />
-                )}
+    //  horizontal={true}
+      data={listings}
+      // stickyHeaderIndices={[0]}
+      keyExtractor={(item, index) => item.id.toString() }
+      renderItem={({ item }) => (
+        <AllHorizontal
+          title={item.title}
+          price={"$" + item.price}
+          imageUris={item.images}
+        />
+      )}
     />
-    </ScrollView>
-  </View>
-)
+      </View>
+      {/* </TouchableOpacity> */}
+    </GestureHandlerScrollView>
 
+)
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'red',
   },
   sectionHeader: {
@@ -75,8 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   itemPhoto: {
-    width: 160,
-    height: 160,
+    width: 70,
+    height: 70,
   },
   itemText: {
     color: 'rgba(255, 255, 255, 0.5)',
