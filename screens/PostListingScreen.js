@@ -41,20 +41,6 @@ function PostListingScreen({navigation}) {
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
-  //     let {
-  //       coords: { latitude, longitude },
-  //     } = await Location.getCurrentPositionAsync();
-  //     setLocation({ latitude, longitude });
-  //   })();
-  // }, []);
-
   let text = "Waiting..";
   let lat = "";
   let log = "";
