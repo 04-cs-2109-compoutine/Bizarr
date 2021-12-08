@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import firebase from "firebase";
 
 import ListItem from "../components/ListItem";
@@ -113,7 +113,7 @@ function MessageScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: colors.main,
+    backgroundColor: colors.light,
   },
 });
 

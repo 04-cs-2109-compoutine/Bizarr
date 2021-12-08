@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
 
   submitButton: {
     width: 650,
-    marginLeft: 70,
+    marginLeft: "20%",
     marginBottom: 300,
     flexDirection: "row",
     paddingTop: 260,
