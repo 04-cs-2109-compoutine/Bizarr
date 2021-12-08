@@ -125,27 +125,7 @@ function SingleListingScreen({ route, navigation }) {
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.description}>{listing.description}</Text>
-        {/* <View style={styles.message}> */}
         <Text style={styles.price}>${listing.price}</Text>
-        {/* <SubmitButton
-            title="Message"
-            onPress={async () => {
-              let group = await findGroup([auth.currentUser.uid, listing.uid]);
-              if (!group) {
-                group = await createGroup(
-                  [auth.currentUser.uid, listing.uid],
-                  auth.currentUser.uid,
-                  `${auth.currentUser.displayName}`,
-                  "listing",
-                  listing.uid //listingId?
-                );
-              }
-              navigation.navigate(routes.CHAT, {
-                group,
-              });
-            }}
-          /> */}
-        {/* </View> */}
       </View>
 
       <View style={styles.sellerContainer}>
@@ -173,7 +153,7 @@ function SingleListingScreen({ route, navigation }) {
                 auth.currentUser.uid,
                 `${auth.currentUser.displayName}`,
                 "listing",
-                listing.uid //listingId?
+                listing.uid
               );
             }
             navigation.navigate(routes.CHAT, {
