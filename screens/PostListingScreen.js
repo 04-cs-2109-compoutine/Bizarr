@@ -51,6 +51,28 @@ function PostListingScreen({navigation}) {
     log = JSON.stringify(location.longitude);
   }
 
+  const clearInputs = () => {
+    const post = {
+      title: title,
+      price: price,
+      description: description,
+      category: selectedValue,
+      location: location,
+      images: imageUris,
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = "";
+      }
+      if (typeof post[key] === "object") {
+        post[key] = {};
+      }
+      if (typeof post[key] === "array") {
+        post[key] = [];
+      }
+    }
+  }
+
   const validatePost = () => {
     const post = {
       title: title,
@@ -59,8 +81,8 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      uid: user.uid,
-      sold: false
+      // uid: user.uid,
+      // sold: false
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -79,6 +101,7 @@ function PostListingScreen({navigation}) {
   const handlePost = async () => {
     try {
       validatePost();
+      setPostVisible(true);
       await db.collection("listings").add({
         title: title,
         price: price,
@@ -89,7 +112,7 @@ function PostListingScreen({navigation}) {
         uid: user.uid,
         sold: false,
       });
-      setPostVisible("Failed:", true);
+      clearInputs();
       navigation.navigate("Account");
     } catch (error) {
       setErrorMsg(error.message);
@@ -121,9 +144,7 @@ function PostListingScreen({navigation}) {
           setPostVisible(false);
         }}
         visible={PostVisible}
-        navigation={navigation}
       />
-
       <View style={styles.imgContainer}>
         <PhotoInputList
           imageUris={imageUris}
@@ -248,17 +269,15 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     marginVertical: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   btn: {
     marginTop: 10,
     alignItems: "center",
     marginBottom: 20,
     paddingBottom: 20,
-  },
-  inputContainer:{
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
   pickerContainer: {
     flex: 1,

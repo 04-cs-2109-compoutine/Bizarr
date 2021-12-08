@@ -33,7 +33,7 @@ function AccountDetailsScreen() {
 
   useEffect(() => {
     getUser();
-    setPhotoURL(userName.photoURL);
+    setPhotoURL(photoURL);
   }, []);
 
   // helper function to check if fields have been left empty (they are required)
@@ -90,7 +90,7 @@ function AccountDetailsScreen() {
   return (
     <ScrollView>
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={user.photoURL} setPhotoURL={setPhotoURL} />
+        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -113,7 +113,7 @@ function AccountDetailsScreen() {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder={userName.email}
+          placeholder={user.email}
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
           value={email}
