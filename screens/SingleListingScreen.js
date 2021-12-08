@@ -11,7 +11,7 @@ import { auth, db } from "../firebase";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
-  const [userName, setUsername] = useState("");
+  const [userName, setUsername] = useState({});
   const [listings, setListings] = useState([]);
   const [groups, setGroups] = useState([]);
   const id = listing.uid;
@@ -40,13 +40,17 @@ function SingleListingScreen({ route, navigation }) {
     }
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     getListings();
-  }, []);
+  }, [])
+
 
   useEffect(() => {
     getUser();
   }, []);
+
+
+
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -57,7 +61,6 @@ function SingleListingScreen({ route, navigation }) {
       name,
       type,
       listingId: parseInt(listingId),
-      //need to parse it to enforce strict typing to avoid bugs in the future. (ex = string being converted to a weird number)
     };
 
     return new Promise((resolve, reject) => {
@@ -177,6 +180,7 @@ const styles = StyleSheet.create({
   image: {
     width: "95%",
     height: 350,
+
   },
   price: {
     color: colors.secondary,
@@ -204,6 +208,10 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     flexDirection: "row",
   },
+  map:{
+    marginBottom: 10,
+    paddingBottom: 100
+  }
 });
 
 export default SingleListingScreen;

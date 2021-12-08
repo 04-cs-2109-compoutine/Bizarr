@@ -15,7 +15,6 @@ import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
 import { db } from "../firebase";
-import * as Location from "expo-location";
 import firebase from "firebase";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
@@ -30,26 +29,16 @@ function PostListingScreen({ navigation }) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({
+    latitude: 40.752714,
+    longitude: -73.97722689999999,
+    description: "Grand central station, East 42nd Street, New York, NY, USA",
+  });
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
-      setLocation({ latitude, longitude });
-    })();
-  }, []);
 
   let text = "Waiting..";
   let lat = "";
@@ -61,13 +50,36 @@ function PostListingScreen({ navigation }) {
     log = JSON.stringify(location.longitude);
   }
 
+  const clearInputs = () => {
+    const post = {
+      title: title,
+      price: price,
+      description: description,
+      category: selectedValue,
+      location: location,
+      images: imageUris,
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = "";
+      }
+      if (typeof post[key] === "object") {
+        post[key] = {};
+      }
+      if (typeof post[key] === "array") {
+        post[key] = [];
+      }
+    }
+  };
+
   const validatePost = () => {
     const post = {
       title: title,
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(40.75, -73.996),
+      location: location,
       images: imageUris,
     };
     for (const key in post) {
@@ -87,18 +99,23 @@ function PostListingScreen({ navigation }) {
   const handlePost = async () => {
     try {
       validatePost();
+      setPostVisible(true);
       await db.collection("listings").add({
         title: title,
         price: price,
         description: description,
         category: selectedValue,
-        location: new firebase.firestore.GeoPoint(40.75, -73.996),
+        location: new firebase.firestore.GeoPoint(
+          location.latitude,
+          location.longitude
+        ),
         images: imageUris,
+        date: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });
-      setPostVisible("Failed:", true);
-      navigation.navigate("My Listings");
+      clearInputs();
+      navigation.navigate("Account");
     } catch (error) {
       setErrorMsg(error.message);
       if (errorMsg) {
@@ -129,9 +146,7 @@ function PostListingScreen({ navigation }) {
           setPostVisible(false);
         }}
         visible={PostVisible}
-        navigation
       />
-
       <View style={styles.imgContainer}>
         <PhotoInputList
           imageUris={imageUris}
@@ -180,12 +195,10 @@ function PostListingScreen({ navigation }) {
                 onValueChange={(itemValue) => setCategory(itemValue)}
               >
                 <Picker.Item label="Car" value="Car" />
-                <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
-                <Picker.Item label="Game" value="Game" />
                 <Picker.Item label="Sports" value="Sports" />
                 <Picker.Item label="Clothing" value="Clothing" />
-                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Entertainment" value="Entertainment" />
                 <Picker.Item label="Books" value="Books" />
                 <Picker.Item label="Electronics" value="Electronics" />
                 <Picker.Item label="Others" value="Others" />
@@ -217,7 +230,7 @@ function PostListingScreen({ navigation }) {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete />
+      <GoogleAutoComplete location={location} setLocation={setLocation} />
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
         <Text style={styles.errorMsg}>{errorMsg}</Text>
@@ -258,6 +271,9 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     marginVertical: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   btn: {
     marginTop: 10,

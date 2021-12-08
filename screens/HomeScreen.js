@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar} from "react-native";
-import { SliderBox } from "react-native-image-slider-box";
-import { SearchBar } from "react-native-elements";
-import HorizontalList from "./HorizontalList"
+
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
+import Swiper from 'react-native-swiper';
+
 import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
-import colors from "../components/Config/colors"
+import HorizontalListing from '../components/HorizontalListing';
+import AuthContext from "../components/Config/context";
+import {useTheme} from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import routes from '../components/Config/routes';
+import LottieView from "lottie-react-native";
+
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -17,38 +25,25 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-export default class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getLocation = this.getLocation.bind(this);
-    this.state = {
-      listings: [],
-      region: {
+
+const HomeScreen = ({navigation}) => {
+  const theme = useTheme();
+  const [listings, setListings] = useState([])
+  const [region, setRegion] = useState({
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
-      },
-      images: [
-        "https://res.cloudinary.com/bizarr/image/upload/v1638639248/uglywelcomebanner_y3hw3z.png",
-        "https://res.cloudinary.com/bizarr/image/upload/v1638639249/banner2_evzipt.png",
-        "https://thecrossingsofdawsonville.com/wp-content/uploads/sites/14/2019/07/Welcome-to-the-team-1200x565.jpg",
-        "https://www.creativefabrica.com/wp-content/uploads/2020/09/23/WELCOME-Graphics-5632158-1.jpg",
-        "https://media.istockphoto.com/photos/on-colourful-speech-bubbles-picture-id180819641?b=1&k=20&m=180819641&s=170667a&w=0&h=CX51cRVofQl95e_cu9Bfy5PLZQ1WdsqmJ-NCFzU96UI=",
-        "https://mobilemonkey.com/wp-content/uploads/2020/12/welcome-greeting-message.png",
-        "https://img.pixers.pics/pho_wat(s3:700/FO/53/86/52/14/700_FO53865214_8d9a5b68feceb7b851e95b5a8f6fd218.jpg,700,525,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,475,jpg)/stickers-welcome-tag-cloud-customer-service-greetings-home-smile-card.jpg.jpg",
-      ],
-      search: "",
-    };
-  }
-
-  // function to request permissions to get user's location
-   async getLocation() {
+      })
+  const [search, setSearch] = useState("");
+  const {user, setUser} = useContext(AuthContext);
+   
+  const getLocation = async () => {
     try {
       const {granted} = await Location.requestForegroundPermissionsAsync();
       if (!granted) return 'Allow current location to see listings in your area.';
       const { coords: { latitude, longitude }} = await Location.getCurrentPositionAsync();
-      this.setState({...this.state,
+      setRegion({...region,
         region: {
           latitude: latitude,
           longitude: longitude,
@@ -57,192 +52,362 @@ export default class HomeScreen extends React.Component {
         }
       })
     } catch(error) {
-        console.log(error);
-      }
+      console.log(error);
+    }
   }
   
-  componentDidMount() {
-    this.getLocation();
-    const listings = db
-    .collection("listings")
-    .onSnapshot((snapshot) =>
-      this.setState({...this.state,
-        listings: snapshot.docs.map((doc) => ({
-          description: doc.data().description,
-          images: doc.data().images,
-          title: doc.data().title,
-          location: doc.data().location,
-        }))
-      })
-    )
-    return listings;
+  async function readAllListing() {
+    try {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
+      let datedList = userLists.filter(listing => listing.date !== null)
+      setListings(datedList)
+      // console.log(userLists);
+    } catch(e) {
+      console.log(e);
+    }
   }
 
-  updateSearch(search) {
-    this.setState({ search });
+  useEffect(() => {
+    readAllListing();
+  }, []);
+
+  useEffect(()=>{
+    getLocation();
+  }, [])
+
+  const updateSearch = (search)=>{
+    setSearch({ search });
   }
 
-  render() {
-    const search = this.state.search;
-    return (
-        <View>
+ 
+  return (
 
-            <Image 
-              style={{
-                height: 150,
-                width: 150,
-                marginTop: 0,
-                marginLeft: 130
-              }}
-              source={require("../assets/B.png")}
-              />
-                          <Image 
-              style={{
-                // marginTop: 100,
-                marginLeft: 350,
-                flex: 1,
-              }}
-              source={require("../assets/baseline_filter_list_black_24dp.png")}
-              />
-              <ScrollView>
-              <Text style={styles.text}> 
-            shop nearby
-          </Text>
-          <Searchbar
-                onChangeText={this.updateSearch}
-                value={search}
-                // style={{ marginBottom: 50, paddingBottom: 50}}
-              />
-              <View>
-                <View style={styles.mapContainer}>
-                <MapView
-                  provider={PROVIDER_GOOGLE}
-                  style={styles.map}
-                  region={this.state.region}
-                  onPress={this.onMapPress}
-                  loadingEnabled
-                  loadingIndicatorColor='#666666'
-                  loadingBackgroundColor='#EEEEEE'
-                >
-              {this.state.listings.map((listing, index) => (
-                <Marker
-                  key={index}
-                  coordinate = {{
-                    latitude: listing.location.latitude,
-                    longitude: listing.location.longitude,
-                  }}
-                  centerOffset={{ x: -42, y: -60 }}
-                  anchor={{ x: 0.84, y: 1 }}
-                  title={listing.title}
-                >
-                  <Callout>
-                      <Text>
-                        <Image style={{
-                          width: 40,
-                          height: 40
-                          }}
-                          source={{uri: listing.images[0]}}>
-                        </Image>
-                      </Text>
-                  </Callout>
-                </Marker>
-              ))}
-            </MapView>
-            </View>
-            <View style={styles.header}>
-              {/* <SearchBar
-                // style={styles.header}
-                placeholder="Type Here..."
-                onChangeText={this.updateSearch}
-                value={search}
-                showCancel
-                containerStyle={{backgroundColor: 'white', borderWidth: 1, borderColor: colors.light, borderRadius: 35, marginTop: 40,}}
-              /> */}
-               </View>
-            </View>
-            {/* <View style={styles.banner}>
-                <SliderBox images={this.state.images} sliderBoxHeight={200}
-  circleLoop/>
-              </View> */}
-              <View>
-              <HorizontalList />
+    <SafeAreaView style={styles.container}>
+
+      <Image 
+        style={styles.header}
+        source={require("../assets/B.png")}
+      />
+
+      <ScrollView>
+        <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
+          <View style={styles.sliderContainer}>
+            <Swiper
+              autoplay
+              horizontal={false}
+              height={200}
+              activeDotColor= "#74b49b">
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner2.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
               </View>
-              </ScrollView>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner3.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner4.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner5.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+              <View style={styles.slide}>
+                <Image
+                  source={require('../assets/banner6.jpg')}
+                  resizeMode="cover"
+                  style={styles.sliderImage}
+                />
+              </View>
+            </Swiper>
+          </View>
 
+      <View style={styles.categoryContainer}>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() => navigation.navigate(routes.FURNITURE)}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons name="floor-lamp" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Furniture</Text>
+        </TouchableOpacity>
 
-    </View>
+        <TouchableOpacity
+          style={styles.categoryBtn}
+          onPress={() => navigation.navigate(routes.CAR)}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons
+              name="car"
+              size={35}
+              color="#74b49b"
+            />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Cars</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ELECTRONICS)}>
+          <View style={styles.categoryIcon}>
+            <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Electronics</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.BOOKS)}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="book-outline" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Books</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[styles.categoryContainer, {marginTop: 10}]}>
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.CLOTHING)}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="shirt" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Clothing</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.SPORTS)}>
+          <View style={styles.categoryIcon}>
+            <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Sports</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ENTERTAINMENT)}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Entertainment</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.OTHERS)}>
+          <View style={styles.categoryIcon}>
+            <MaterialIcons name="expand-more" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Others</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.santaContainer}>
+        <Text style={styles.sectionHeader}> 
+          Find your items
+
+        </Text>
+        <LottieView
+            autoPlay
+            loop
+            source={require("../assets/animations/santa-pop-up.json")}
+            style={styles.animation}
+          />
+      </View>
+        
+        <View style={styles.searchBar}>
+          <Searchbar
+            onChangeText={updateSearch}
+            value={search}
+          />
+        </View>
+
+        <View>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={region}
+            loadingEnabled
+            loadingIndicatorColor='#666666'
+            loadingBackgroundColor='#EEEEEE'
+          >
+          {listings.map((listing, index) => (
+            <Marker
+              key={index}
+              coordinate = {{
+                latitude: listing.location.latitude,
+                longitude: listing.location.longitude,
+              }}
+              centerOffset={{ x: -42, y: -60 }}
+              anchor={{ x: 0.84, y: 1 }}
+              title={listing.title}
+            >
+              <Callout>
+                <Text>
+                  <Image 
+                    style={{width: 40, height: 40 }}
+                    source={{uri: listing.images[0]}}>
+                  </Image>
+                </Text>
+              </Callout>
+            </Marker>
+          ))}
+          </MapView>
+        </View>
+
+        <LottieView
+            autoPlay
+            loop
+            source={require("../assets/animations/loading-button.json")}
+            style={styles.dotanimation}
+          />
+       
+        <Text style={styles.text}>Made for you</Text>
+       
+        <View style={styles.listingContainer}>
+          <HorizontalListing listings={listings}/>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+
     );
-  }
 }
 
 const styles = StyleSheet.create({
+
+  container:{
+    flex: 1,
+    margin: '2%',
+  },
+  sliderContainer: {
+    height: 200,
+    width: '100%',
+    marginTop: 10,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 8,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    borderRadius: 8,
+
+  },
   header:{
-    // flex: 1,
-    // marginTop: StatusBar.currentHeight,
-    // backgroundColor: "#F4F9F4",
-    // borderBottomLeftRadius: 65,  
-    // borderBottomRightRadius: 65,
-    // marginTop: 0,
-    // width: width,
-    // height: height / 3,
+    marginTop: 10,
+    height: 70,
+    width: "50%",
+    alignItems: 'center',
+    marginLeft: '25%',
   },
-  container: {
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-  },
-  mapContainer:{
-    marginLeft: 10, marginBottom: 10, marginTop: 40, width: '95%', height: 425, borderRadius: 10, borderWidth: .5, overflow: 'hidden', 
+  sliderImage: {
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 8,
   },
   banner: {
-  paddingTop: 20,
-  paddingBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
-  text: {
-    color: "black",
-    fontSize: 18,
-    marginLeft: 35,
-    paddingBottom: 15,
-  },
-  // headerText: {
-  //   // flex: 1,
-  //   // color: "black",
-  //   // fontWeight: "bold",
-  //   // fontSize: 36,
-  //   // marginTop: 75,
-  //   // flex: .5,
-  //   flexDirection: 'row',
-  //   // // paddingBottom: 30,
-  //   // marginLeft: 0,
-  //   // marginBottom: 0,
-  //   borderBottomLeftRadius: 35,
-  //   borderBottomRightRadius: 35,
-  //   height: 75,
-  //   width: 75
-  // },
   map: {
-    // paddingTop: 30,
-    // paddingBottom: 30,
-    borderWidth: 1,
-    // flex: 1,
-    height: 500,
-    width: 500,
-    // borderRadius: 10,
-    // borderTopLeftRadius: 15,
-    // borderTopRightRadius: 15,
-     marginBottom: 15,
-    //  overflow: 'hidden'
-    // height: height / 2,
-  },
-  bubble: {
-    backgroundColor: "#E4EFE7",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
+    // borderWidth: 0,
+    height: 300,
+    marginBottom: 10,
+    borderColor: '#79B4B7'
   },
   buttonContainer: {
     flexDirection: "row",
     marginVertical: 20,
     backgroundColor: "transparent",
   },
+  sectionHeader: {
+    fontWeight: '700',
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 5,
+    color: "#515E63",
+    alignSelf:'flex-start'
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 25,
+    marginBottom: 10,
+  },
+  categoryBtn: {
+    flex: 1,
+    width: '30%',
+    marginHorizontal: 0,
+    alignSelf: 'center',
+  },
+  categoryIcon: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: 60,
+    height: 60,
+    backgroundColor: '#FBF6F0' /* '#5c8d89' */,
+    borderRadius: 50,
+  },
+  categoryBtnTxt: {
+    alignSelf: 'center',
+    marginTop: 5,
+    color: '#5c8d89',
+    fontSize: 12
+  },
+  searchBar:{
+    marginBottom: 10
+  },
+  animation: {
+    width: 60,
+    alignSelf:'baseline',
+    marginLeft: 60
+  },
+  santaContainer:{
+    flex: 1,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
+  listingContainer:{
+    marginTop: 5
+  },
+  LoadContainer:{
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  text:{
+    fontWeight: '700',
+    fontSize: 18,
+    marginTop: 50,
+    marginBottom: 5,
+    color: "#515E63",
+  },
+  dotanimation:{
+    width: 80,
+    marginLeft: '28%'
+  }
 });
+
+export default HomeScreen;
