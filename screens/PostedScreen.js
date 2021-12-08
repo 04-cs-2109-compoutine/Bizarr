@@ -4,17 +4,6 @@ import { View, StyleSheet, Modal, Animated, Easing } from "react-native";
 import LottieView from "lottie-react-native";
 
 function PostedScreen({ onDone, visible = false, navigation }) {
-  const [progress] = useState(new Animated.Value(0))
-  
-    useEffect(() => {
-      Animated.timing(progress, {
-        toValue: 1,
-        duration: 3000,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }).start()
-      onDone();
-    }, [])
 
   return (
     <Modal visible={visible}>
@@ -22,8 +11,7 @@ function PostedScreen({ onDone, visible = false, navigation }) {
         <LottieView
           autoPlay
           loop={false}
-          progress={progress}
-          // onAnimationFinish={onDone}
+          onAnimationFinish={onDone}
           source={require("../assets/animations/done.json")}
           style={styles.animation}
         />

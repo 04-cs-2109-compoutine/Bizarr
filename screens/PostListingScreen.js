@@ -59,6 +59,7 @@ function PostListingScreen({navigation}) {
       location: location,
       images: imageUris,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -81,8 +82,8 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      uid: user.uid,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
