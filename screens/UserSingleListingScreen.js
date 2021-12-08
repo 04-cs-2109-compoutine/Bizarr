@@ -54,17 +54,25 @@ function UserSingleListingScreen({ route, navigation }) {
       setSold(!sold);
       // console.log(listing)
       await db.collection("listings").doc(listing.id).update({sold: !sold});
-      // const userRef = doc(firestore, 'listings', listing.id);
-      // await updateDoc(userRef, { 
-      //   sold: !sold
-      // }) 
     }catch(e){
       console.log(e)
     }
   }
 
+  const handleDelete = async() => {
+    try {
+      await db.collection('listings')
+        .doc(listing.id)
+        .delete();
+      setListings(listings.filter((listing) => listing.id !== id));
+      navigation.navigate(routes.MY_ACCOUNT)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
-    <ScrollView style={styles.screen}>
+    <ScrollView style={styles.container}>
       {/* <Image style={styles.image} source={{ uri: listing.images }} /> */}
       <SliderBox
         images={listing.images}
@@ -91,10 +99,16 @@ function UserSingleListingScreen({ route, navigation }) {
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
-      <View>
+      <View >
         <LoadingMap
           latitude={listing.location.latitude}
           longitude={listing.location.longitude}
+        />
+      </View>
+      <View style={styles.delete}>
+        <SubmitButton
+          title={"Delete"}
+          onPress={() => handleDelete()}
         />
       </View>
     </ScrollView>
@@ -102,7 +116,8 @@ function UserSingleListingScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
+    flex: 1,
     padding: 10,
     backgroundColor: colors.white,
     marginBottom: 10,
@@ -136,6 +151,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "baseline",
   },
+  delete:{
+    marginTop: 280,
+    paddingBottom: 40,
+    alignItems: 'center'
+  }
 });
 
 export default UserSingleListingScreen;

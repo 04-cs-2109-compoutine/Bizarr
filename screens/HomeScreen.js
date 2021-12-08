@@ -130,7 +130,7 @@ const HomeScreen = ({navigation}) => {
             </Swiper>
           </View>
 
-          <View style={styles.categoryContainer}>
+      <View style={styles.categoryContainer}>
         <TouchableOpacity
           style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
@@ -139,6 +139,7 @@ const HomeScreen = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Furniture</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
@@ -151,6 +152,7 @@ const HomeScreen = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Cars</Text>
         </TouchableOpacity>
+
         <TouchableOpacity 
           style={styles.categoryBtn} 
           onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
@@ -159,7 +161,17 @@ const HomeScreen = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Electronics</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          <View style={styles.categoryIcon}>
+            <Ionicons name="book-outline" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Books</Text>
+        </TouchableOpacity>
       </View>
+
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
         <TouchableOpacity 
           style={styles.categoryBtn} 
@@ -169,6 +181,7 @@ const HomeScreen = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Clothing</Text>
         </TouchableOpacity>
+
         <TouchableOpacity 
           style={styles.categoryBtn} 
           onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
@@ -177,15 +190,26 @@ const HomeScreen = ({navigation}) => {
           </View>
           <Text style={styles.categoryBtnTxt}>Sports</Text>
         </TouchableOpacity>
+
         <TouchableOpacity 
           style={styles.categoryBtn} 
           onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
           </View>
-          <Text style={styles.categoryBtnTxt}>Movies & Music</Text>
+          <Text style={styles.categoryBtnTxt}>Entertainment</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          <View style={styles.categoryIcon}>
+            <MaterialIcons name="expand-more" size={35} color="#74b49b" />
+          </View>
+          <Text style={styles.categoryBtnTxt}>Others</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.santaContainer}>
         <Text style={styles.sectionHeader}> 
           Find your items
@@ -237,15 +261,15 @@ const HomeScreen = ({navigation}) => {
           ))}
           </MapView>
         </View>
-        <View style={styles.LoadContainer}>
-          <LottieView
+        <LottieView
             autoPlay
             loop
             source={require("../assets/animations/loading-button.json")}
             style={styles.dotanimation}
           />
-          <Text style={styles.text}>Made for you</Text>
-        </View>
+       
+        <Text style={styles.text}>Made for you</Text>
+       
         <View style={styles.listingContainer}>
           <HorizontalListing listings={listings}/>
         </View>
@@ -307,7 +331,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
     color: "#515E63",
-    alignSelf:'baseline'
+    alignSelf:'flex-start'
   },
   categoryContainer: {
     flexDirection: 'row',
@@ -327,8 +351,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     backgroundColor: '#FBF6F0' /* '#5c8d89' */,
     borderRadius: 50,
   },
@@ -336,17 +360,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 5,
     color: '#5c8d89',
+    fontSize: 13
   },
   searchBar:{
     marginBottom: 10
   },
   animation: {
-    width: 70,
+    width: 60,
     alignSelf:'baseline',
+    marginLeft: 70
   },
   santaContainer:{
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
   },
   listingContainer:{
@@ -366,7 +392,8 @@ const styles = StyleSheet.create({
     color: "#515E63",
   },
   dotanimation:{
-    paddingBottom: 10
+    width: 80,
+    marginLeft: '30%'
   }
 });
 
