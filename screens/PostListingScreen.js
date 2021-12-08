@@ -30,26 +30,16 @@ function PostListingScreen({navigation}) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({
+    latitude: 40.752714,
+    longitude: -73.97722689999999,
+    description: "Grand central station, East 42nd Street, New York, NY, USA",
+  });
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
-      setLocation({ latitude, longitude });
-    })();
-  }, []);
 
   let text = "Waiting..";
   let lat = "";
@@ -60,17 +50,43 @@ function PostListingScreen({navigation}) {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
-  
+
+  const clearInputs = () => {
+    const post = {
+      title: title,
+      price: price,
+      description: description,
+      category: selectedValue,
+      location: location,
+      images: imageUris,
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = "";
+      }
+      if (typeof post[key] === "object") {
+        post[key] = {};
+      }
+      if (typeof post[key] === "array") {
+        post[key] = [];
+      }
+    }
+  }
+
   const validatePost = () => {
     const post = {
       title: title,
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(40.75, -73.996),
+      location: location,
       images: imageUris,
-      uid: user.uid,
-      sold: false,
+
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+      // uid: user.uid,
+      // sold: false
+
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -89,18 +105,20 @@ function PostListingScreen({navigation}) {
   const handlePost = async () => {
     try {
       validatePost();
+      setPostVisible(true);
       await db.collection("listings").add({
         title: title,
         price: price,
         description: description,
         category: selectedValue,
-        location: new firebase.firestore.GeoPoint(40.75, -73.996),
+        location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
         images: imageUris,
+        date: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });
-      setPostVisible("Failed:", true);
-      navigation.navigate("My Listings");
+      clearInputs();
+      navigation.navigate("Account");
     } catch (error) {
       setErrorMsg(error.message);
       if (errorMsg) {
@@ -131,9 +149,7 @@ function PostListingScreen({navigation}) {
           setPostVisible(false);
         }}
         visible={PostVisible}
-        navigation
       />
-
       <View style={styles.imgContainer}>
         <PhotoInputList
           imageUris={imageUris}
@@ -219,7 +235,7 @@ function PostListingScreen({navigation}) {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete />
+      <GoogleAutoComplete location={location} setLocation={setLocation}/>
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
         <Text style={styles.errorMsg}>{errorMsg}</Text>
@@ -260,6 +276,9 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     marginVertical: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   btn: {
     marginTop: 10,

@@ -51,12 +51,6 @@ function ListingsScreen({ navigation }) {
     }
   };
 
-  // const handleLiked = () => {
-  //   setLiked(!liked);
-  //   console.log(liked)
-  // }
-  // console.log(liked)
-
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <SearchBar
@@ -79,16 +73,17 @@ function ListingsScreen({ navigation }) {
             description={item.description}
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             onLikePost={(_id) =>
-              setListings(() => {
-                return listings.map((list) => {
-                  console.log(list);
-                  if (list.id === _id) {
-                    return { ...list, isLiked: !list.isLiked };
-                  }
-                  return list;
-                });
-              })
-            }
+
+              setFilteredLists(() => {
+              return filteredLists.map((list) => {
+                if (list.id === _id) {
+                  return { ...list, isLiked: !list.isLiked };
+                }
+                return list;
+              });
+            })
+          }
+
           />
         )}
       />

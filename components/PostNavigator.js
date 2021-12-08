@@ -25,7 +25,6 @@ function PostNavigator() {
         name="Posted Screen"
         component={PostedScreen}
       />
-      {/* <Stack.Screen name="Search Location" component={SearchLocationScreen}/> */}
     </Stack.Navigator>
   );
 }

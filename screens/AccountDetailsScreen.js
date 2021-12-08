@@ -66,7 +66,7 @@ function AccountDetailsScreen() {
 
   // the save button will sign the user in again with the entered current password and then update the collection with the new info
   const handleSave = async () => {
-    checkTextInput();
+    // checkTextInput();
     auth
       .signInWithEmailAndPassword(user.email, currPassword)
         .then((userCredential) => {
