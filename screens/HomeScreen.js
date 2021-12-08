@@ -5,7 +5,7 @@ import { db } from '../firebase'
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
 import Swiper from 'react-native-swiper';
 
-import Searchbar from "../components/SearchBar" 
+import Searchbar from "../components/SearchBar"
 import * as Location from 'expo-location'
 import HorizontalListing from '../components/HorizontalListing';
 import AuthContext from "../components/Config/context";
@@ -37,7 +37,7 @@ const HomeScreen = ({navigation}) => {
       })
   const [search, setSearch] = useState("");
   const {user, setUser} = useContext(AuthContext);
-   
+
   const getLocation = async () => {
     try {
       const {granted} = await Location.requestForegroundPermissionsAsync();
@@ -55,7 +55,7 @@ const HomeScreen = ({navigation}) => {
       console.log(error);
     }
   }
-  
+
   async function readAllListing() {
     try {
       const getListingsPromise = db.collection("listings").get()
@@ -82,12 +82,12 @@ const HomeScreen = ({navigation}) => {
     setSearch({ search });
   }
 
- 
+
   return (
 
     <SafeAreaView style={styles.container}>
 
-      <Image 
+      <Image
         style={styles.header}
         source={require("../assets/B.png")}
       />
@@ -161,8 +161,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Cars</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ELECTRONICS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
@@ -170,8 +170,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Electronics</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.BOOKS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="book-outline" size={35} color="#74b49b" />
@@ -181,8 +181,8 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.CLOTHING)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="shirt" size={35} color="#74b49b" />
@@ -190,8 +190,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Clothing</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.SPORTS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
@@ -199,8 +199,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Sports</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ENTERTAINMENT)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
@@ -208,8 +208,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Entertainment</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.OTHERS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="expand-more" size={35} color="#74b49b" />
@@ -219,7 +219,7 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={styles.santaContainer}>
-        <Text style={styles.sectionHeader}> 
+        <Text style={styles.sectionHeader}>
           Find your items
 
         </Text>
@@ -230,7 +230,7 @@ const HomeScreen = ({navigation}) => {
             style={styles.animation}
           />
       </View>
-        
+
         <View style={styles.searchBar}>
           <Searchbar
             onChangeText={updateSearch}
@@ -258,9 +258,9 @@ const HomeScreen = ({navigation}) => {
               anchor={{ x: 0.84, y: 1 }}
               title={listing.title}
             >
-              <Callout>
+              <Callout onPress={() => navigation.navigate("All Listings")}>
                 <Text>
-                  <Image 
+                  <Image
                     style={{width: 40, height: 40 }}
                     source={{uri: listing.images[0]}}>
                   </Image>
