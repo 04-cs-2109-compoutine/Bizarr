@@ -62,8 +62,8 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
-      uid: user.uid,
-      sold: false,
+      // uid: user.uid,
+      // sold: false,
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -90,8 +90,8 @@ function PostListingScreen() {
         location: new firebase.firestore.GeoPoint(40.75, -73.996),
         images: imageUris,
         date: firebase.firestore.Timestamp.now().toDate().toString(),
-        uid: user.uid,
-        sold: false,
+        // uid: user.uid,
+        // sold: false,
       });
       setPostVisible("Failed:", true);
       // navigation.navigate("My Listings");

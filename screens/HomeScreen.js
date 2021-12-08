@@ -77,6 +77,7 @@ const HomeScreen = () => {
  
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
+            <SafeAreaView style={{ flex: 1 }}>
       <Image 
         style={styles.header}
         source={require("../assets/B.png")}
@@ -129,7 +130,9 @@ const HomeScreen = () => {
           <HorizontalListing listings={listings}/>
         </View>
       </View>
-    </ScrollView>
+    </SafeAreaView>
+      </ScrollView>
+  
     );
 }
 
