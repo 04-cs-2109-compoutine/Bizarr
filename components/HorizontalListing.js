@@ -28,7 +28,6 @@ return(
 
 const styles = StyleSheet.create({
   container: {
-  
     backgroundColor: 'red',
   },
   sectionHeader: {

@@ -12,4 +12,5 @@ export default Object.freeze({
   USER_SINGLE_LISTING: "User Single Listing Screen",
   SOLD_LISTINGS: "Sold Listing Screen",
   CHAT: "Chat",
+  ALL_LISTINGS: 'All listings',
 });

@@ -11,8 +11,8 @@ import AuthContext from "../components/Config/context";
 import {useTheme} from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import routes from '../components/Config/routes';
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -24,7 +24,7 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   const [listings, setListings] = useState([])
   const [region, setRegion] = useState({
@@ -133,9 +133,7 @@ const HomeScreen = () => {
           <View style={styles.categoryContainer}>
         <TouchableOpacity
           style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('CardListScreen', {title: 'Furniture'})
-          }>
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="floor-lamp" size={35} color="#74b49b" />
           </View>
@@ -143,9 +141,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('CardListScreen', {title: 'Fastfood Center'})
-          }>
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons
               name="car"
@@ -155,7 +151,9 @@ const HomeScreen = () => {
           </View>
           <Text style={styles.categoryBtnTxt}>Cars</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
           </View>
@@ -163,19 +161,25 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="shirt" size={35} color="#74b49b" />
           </View>
           <Text style={styles.categoryBtnTxt}>Clothing</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
           </View>
           <Text style={styles.categoryBtnTxt}>Sports</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
+        <TouchableOpacity 
+          style={styles.categoryBtn} 
+          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
           </View>
@@ -281,11 +285,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   sectionHeader: {
-    fontWeight: '800',
+    fontWeight: '700',
     fontSize: 18,
     marginTop: 20,
     marginBottom: 5,
-    color: colors.grey
+    color: "#515E63"
   },
   categoryContainer: {
     flexDirection: 'row',
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 70,
     height: 70,
-    backgroundColor: '#fdeae7' /* '#5c8d89' */,
+    backgroundColor: '#FBF6F0' /* '#5c8d89' */,
     borderRadius: 50,
   },
   categoryBtnTxt: {
