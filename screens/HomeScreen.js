@@ -8,6 +8,7 @@ import Searchbar from "../components/SearchBar"
 import * as Location from 'expo-location'
 import colors from "../components/Config/colors";
 import defaultStyles from '../components/Config/styles';
+import HorizontalListing from '../components/HorizontalListing';
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -86,6 +87,7 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.text}> 
             Shop nearby
           </Text>
+          <HorizontalListing />
           <Searchbar
             onChangeText={this.updateSearch}
             value={search}

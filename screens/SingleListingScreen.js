@@ -39,14 +39,14 @@ function SingleListingScreen({ route, navigation }) {
       console.log(e);
     }
   }
-  
-   useEffect(()=>{
+  useEffect(()=>{
     getListings();
   }, [])
 
   useEffect(()=>{
     getUser();
   }, [])
+
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
