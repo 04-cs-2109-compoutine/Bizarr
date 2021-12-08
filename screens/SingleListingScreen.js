@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
   image: {
     width: "95%",
     height: 350,
-
   },
   price: {
     color: colors.secondary,
@@ -199,19 +198,16 @@ const styles = StyleSheet.create({
   sellerContainer: {
     marginBottom: 10,
   },
-  map: {
-    marginBottom: 260,
-  },
+
   submitButton: {
     width: 650,
     marginLeft: 70,
-    marginBottom: 50,
+    marginBottom: 300,
     flexDirection: "row",
   },
-  map:{
-    marginBottom: 10,
-    paddingBottom: 100
-  }
-});
+  map: {
+    paddingTop: 275,
+  },
+})
 
 export default SingleListingScreen;

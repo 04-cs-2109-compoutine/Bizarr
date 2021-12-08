@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     width: 500,
     height: height / 4,
-    marginLeft: 20,
+    marginLeft: 10,
     flexDirection: "row",
     // flexWrap: "wrap",
     flex: 1

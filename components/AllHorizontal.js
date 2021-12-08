@@ -28,7 +28,6 @@ const AllHorizontal = ({title, imageUris, price}) => {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    backgroundColor: "green",
     overflow: "hidden",
     margin: 5,
     height: 180,
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "black"
   },
   image: {
     width: "100%",
