@@ -6,8 +6,9 @@ import { db, auth } from "../firebase";
 import UploadImage from "../components/ImagePicker";
 import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
+import PostedScreen from "./PostedScreen";
 
-function AccountDetailsScreen() {
+function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
   // const user = auth.currentUser;
@@ -18,6 +19,7 @@ function AccountDetailsScreen() {
   const [currPassword, setCurrPassword] = useState("");
   const [location, setLocation] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [PostVisible, setPostVisible] = useState(false);
 
   const id = user.uid;
   async function getUser() {
@@ -68,7 +70,7 @@ function AccountDetailsScreen() {
   const handleSave = async () => {
     // checkTextInput();
     auth
-      .signInWithEmailAndPassword(user.email, currPassword)
+      .signInWithEmailAndPassword(email, currPassword)
         .then((userCredential) => {
           const user = userCredential.user;
           user.updateEmail(email);
@@ -85,12 +87,19 @@ function AccountDetailsScreen() {
       .catch(function (error) {
         alert(error.message);
       });
+      navigation.navigate("Account");
     }
 
   return (
     <ScrollView>
+      <PostedScreen
+        onDone={() => {
+          setPostVisible(false);
+        }}
+        visible={PostVisible}
+      />
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
+        <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
