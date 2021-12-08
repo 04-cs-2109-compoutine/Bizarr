@@ -73,7 +73,6 @@ function ListingsScreen({ navigation }) {
             description={item.description}
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             onLikePost={(_id) =>
-
               setFilteredLists(() => {
               return filteredLists.map((list) => {
                 if (list.id === _id) {
@@ -83,7 +82,6 @@ function ListingsScreen({ navigation }) {
               });
             })
           }
-
           />
         )}
       />

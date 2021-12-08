@@ -1,11 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-
 import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
 import Swiper from 'react-native-swiper';
-
-import Searchbar from "../components/SearchBar" 
 import * as Location from 'expo-location'
 import HorizontalListing from '../components/HorizontalListing';
 import AuthContext from "../components/Config/context";
@@ -25,19 +22,19 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-
 const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   const [listings, setListings] = useState([])
+  console.log(listings)
+
   const [region, setRegion] = useState({
         latitude: LATITUDE,
         longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       })
-  const [search, setSearch] = useState("");
   const {user, setUser} = useContext(AuthContext);
-   
+
   const getLocation = async () => {
     try {
       const {granted} = await Location.requestForegroundPermissionsAsync();
@@ -55,16 +52,15 @@ const HomeScreen = ({navigation}) => {
       console.log(error);
     }
   }
-  
+
   async function readAllListing() {
     try {
       const getListingsPromise = db.collection("listings").get()
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      let datedList = userLists.filter(listing => listing.date !== null)
+      let datedList = userLists.sort((a, b) => b.createdAt - a.createdAt).slice(0,10)
       setListings(datedList)
-      // console.log(userLists);
     } catch(e) {
       console.log(e);
     }
@@ -78,15 +74,10 @@ const HomeScreen = ({navigation}) => {
     getLocation();
   }, [])
 
-  const updateSearch = (search)=>{
-    setSearch({ search });
-  }
-
  
   return (
 
     <SafeAreaView style={styles.container}>
-
       <Image 
         style={styles.header}
         source={require("../assets/B.png")}
@@ -161,8 +152,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Cars</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ELECTRONICS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
@@ -170,8 +161,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Electronics</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.BOOKS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="book-outline" size={35} color="#74b49b" />
@@ -181,8 +172,8 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.CLOTHING)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="shirt" size={35} color="#74b49b" />
@@ -190,8 +181,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Clothing</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.SPORTS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
@@ -199,8 +190,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Sports</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.ENTERTAINMENT)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
@@ -208,8 +199,8 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Entertainment</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.categoryBtn} 
+        <TouchableOpacity
+          style={styles.categoryBtn}
           onPress={() => navigation.navigate(routes.OTHERS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="expand-more" size={35} color="#74b49b" />
@@ -218,25 +209,9 @@ const HomeScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.santaContainer}>
-        <Text style={styles.sectionHeader}> 
-          Find your items
-
-        </Text>
-        <LottieView
-            autoPlay
-            loop
-            source={require("../assets/animations/santa-pop-up.json")}
-            style={styles.animation}
-          />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Shop Locally</Text>
       </View>
-        
-        <View style={styles.searchBar}>
-          <Searchbar
-            onChangeText={updateSearch}
-            value={search}
-          />
-        </View>
 
         <View>
           <MapView
@@ -258,9 +233,9 @@ const HomeScreen = ({navigation}) => {
               anchor={{ x: 0.84, y: 1 }}
               title={listing.title}
             >
-              <Callout>
+              <Callout onPress={() => navigation.navigate("All Listings")}>
                 <Text>
-                  <Image 
+                  <Image
                     style={{width: 40, height: 40 }}
                     source={{uri: listing.images[0]}}>
                   </Image>
@@ -270,16 +245,11 @@ const HomeScreen = ({navigation}) => {
           ))}
           </MapView>
         </View>
-
-        <LottieView
-            autoPlay
-            loop
-            source={require("../assets/animations/loading-button.json")}
-            style={styles.dotanimation}
-          />
-        <Text style={styles.text}>Made for you</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Made for you</Text>
+        </View>
         <View style={styles.listingContainer}>
-          <HorizontalListing listings={listings}/>
+          <HorizontalListing listings={listings} navigation={navigation}/>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -327,7 +297,8 @@ const styles = StyleSheet.create({
   map: {
     height: 300,
     marginBottom: 10,
-    borderColor: '#79B4B7'
+    borderColor: '#79B4B7',
+    marginTop: 5
   },
   buttonContainer: {
     flexDirection: "row",
@@ -393,10 +364,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  textContainer:{
+    alignItems: 'center'
+  },
   text:{
     fontWeight: '700',
     fontSize: 18,
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 5,
     color: "#515E63",
   },

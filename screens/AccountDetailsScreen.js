@@ -6,8 +6,9 @@ import { db, auth } from "../firebase";
 import UploadImage from "../components/ImagePicker";
 import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
+import PostedScreen from "./PostedScreen";
 
-function AccountDetailsScreen() {
+function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
   // const user = auth.currentUser;
@@ -18,6 +19,7 @@ function AccountDetailsScreen() {
   const [currPassword, setCurrPassword] = useState("");
   const [location, setLocation] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const [PostVisible, setPostVisible] = useState(false);
 
   const id = user.uid;
   async function getUser() {
@@ -68,7 +70,7 @@ function AccountDetailsScreen() {
   const handleSave = async () => {
     // checkTextInput();
     auth
-      .signInWithEmailAndPassword(user.email, currPassword)
+      .signInWithEmailAndPassword(email, currPassword)
         .then((userCredential) => {
           const user = userCredential.user;
           user.updateEmail(email);
@@ -85,18 +87,25 @@ function AccountDetailsScreen() {
       .catch(function (error) {
         alert(error.message);
       });
+      navigation.navigate("Account");
     }
 
   return (
     <ScrollView>
+      <PostedScreen
+        onDone={() => {
+          setPostVisible(false);
+        }}
+        visible={PostVisible}
+      />
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
+        <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder={userName.displayName}
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={name}
           onChangeText={(text) => setName(text)}
         />
@@ -106,7 +115,7 @@ function AccountDetailsScreen() {
           placeholder="Phone"
           keyboardType="numeric"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={phone}
           onChangeText={(text) => setPhone(text)}
         />
@@ -115,7 +124,7 @@ function AccountDetailsScreen() {
         <TextInput
           placeholder={user.email}
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
@@ -124,7 +133,7 @@ function AccountDetailsScreen() {
         <TextInput
           placeholder="Current Password"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={currPassword}
           onChangeText={(text) => setCurrPassword(text)}
           secureTextEntry
@@ -134,7 +143,7 @@ function AccountDetailsScreen() {
         <TextInput
           placeholder="New Password"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={newPassword}
           onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
@@ -144,7 +153,7 @@ function AccountDetailsScreen() {
         <TextInput
           placeholder="Location"
           placeholderTextColor={defaultStyles.colors.grey}
-          style={defaultStyles.text}
+          style={[defaultStyles.text, {flex: 1}]}
           value={location}
           onChangeText={(text) => setLocation(text)}
         />
@@ -178,12 +187,16 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   inputContainer: {
-    backgroundColor: defaultStyles.colors.light,
-    borderRadius: 25,
-    flexDirection: "row",
     width: "100%",
     padding: 15,
     marginVertical: 10,
+    backgroundColor: '#FEFBF3',
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#79B4B7',
+    flexDirection: "row",
+    elevation: 2,
+    alignItems: "center"
   },
   btn: {
     margin: 10,

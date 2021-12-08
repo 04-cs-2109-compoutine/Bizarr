@@ -22,4 +22,5 @@ export default Object.freeze({
   SPORTS: 'Sports',
   ENTERTAINMENT: 'Entertainment',
   OTHERS: 'Others',
+  HOME_SINGLE_LISTING: 'HomeSingleListing'
 });
