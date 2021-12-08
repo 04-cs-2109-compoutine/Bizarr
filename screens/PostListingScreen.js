@@ -171,9 +171,7 @@ function PostListingScreen() {
                 style={{ height: 200, width: 200 }}
                 onValueChange={(itemValue) => setCategory(itemValue)}>
                 <Picker.Item label="Car" value="Car" />
-                <Picker.Item label="Camera" value="Camera" />
                 <Picker.Item label="Furniture" value="Furniture" />
-                <Picker.Item label="Game" value="Game" />
                 <Picker.Item label="Sports" value="Sports" />
                 <Picker.Item label="Clothing" value="Clothing" />
                 <Picker.Item label="Movies & Music" value="Movie&music" />

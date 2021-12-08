@@ -133,7 +133,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.categoryContainer}>
         <TouchableOpacity
           style={styles.categoryBtn}
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.FURNITURE)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="floor-lamp" size={35} color="#74b49b" />
           </View>
@@ -142,7 +142,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity
           style={styles.categoryBtn}
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.CAR)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons
               name="car"
@@ -155,7 +155,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.ELECTRONICS)}>
           <View style={styles.categoryIcon}>
             <MaterialCommunityIcons name="camera-enhance" size={35} color="#74b49b" />
           </View>
@@ -164,7 +164,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.BOOKS)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="book-outline" size={35} color="#74b49b" />
           </View>
@@ -175,7 +175,7 @@ const HomeScreen = ({navigation}) => {
       <View style={[styles.categoryContainer, {marginTop: 10}]}>
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.CLOTHING)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="shirt" size={35} color="#74b49b" />
           </View>
@@ -184,7 +184,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.SPORTS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="sports-baseball" size={35} color="#74b49b" />
           </View>
@@ -193,7 +193,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.ENTERTAINMENT)}>
           <View style={styles.categoryIcon}>
             <Ionicons name="musical-notes-outline" size={35} color="#74b49b" />
           </View>
@@ -202,7 +202,7 @@ const HomeScreen = ({navigation}) => {
 
         <TouchableOpacity 
           style={styles.categoryBtn} 
-          onPress={() => navigation.navigate(routes.ALL_LISTINGS)}>
+          onPress={() => navigation.navigate(routes.OTHERS)}>
           <View style={styles.categoryIcon}>
             <MaterialIcons name="expand-more" size={35} color="#74b49b" />
           </View>

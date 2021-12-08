@@ -13,5 +13,13 @@ export default Object.freeze({
   SOLD_LISTINGS: "Sold Listing Screen",
   CHAT: "Chat",
   ALL_LISTINGS: 'All listings',
-  MY_ACCOUNT: 'My Account'
+  MY_ACCOUNT: 'My Account',
+  FURNITURE: 'Furniture',
+  CAR: 'Car',
+  ELECTRONICS: 'Electronics',
+  BOOKS: 'Books',
+  CLOTHING: 'Clothing',
+  SPORTS: 'Sports',
+  ENTERTAINMENT: 'Entertainment',
+  OTHERS: 'Others',
 });
