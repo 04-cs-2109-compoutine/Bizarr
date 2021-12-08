@@ -55,7 +55,8 @@ const HomeScreen = () => {
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      setListings(userLists)
+      let datedList = userLists.filter(listing => listing.date !== null)
+      setListings(datedList)
       // console.log(userLists);
     } catch(e) {
       console.log(e);
@@ -126,6 +127,9 @@ const HomeScreen = () => {
             
           </View>
         </View>
+        <Text style={styles.text}> 
+          Shop new items
+        </Text>
         <View onStartShouldSetResponderCapture={false}>
           <HorizontalListing listings={listings}/>
         </View>

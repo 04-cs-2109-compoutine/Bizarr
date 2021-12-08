@@ -21,16 +21,14 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
-// import routes from "../components/Config/routes";
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen() {
+function PostListingScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
-  const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState({
     latitude: 40.752714,
@@ -52,18 +50,41 @@ function PostListingScreen() {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
-  
+
+  const clearInputs = () => {
+    const post = {
+      title: title,
+      price: price,
+      description: description,
+      category: selectedValue,
+      location: location,
+      images: imageUris,
+      date: firebase.firestore.Timestamp.now().toDate().toString(),
+    };
+    for (const key in post) {
+      if (typeof post[key] === "string") {
+        post[key] = "";
+      }
+      if (typeof post[key] === "object") {
+        post[key] = {};
+      }
+      if (typeof post[key] === "array") {
+        post[key] = [];
+      }
+    }
+  }
+
   const validatePost = () => {
     const post = {
       title: title,
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(40.75, -73.996),
+      location: location,
       images: imageUris,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
       // uid: user.uid,
-      // sold: false,
+      // sold: false
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -82,19 +103,20 @@ function PostListingScreen() {
   const handlePost = async () => {
     try {
       validatePost();
+      setPostVisible(true);
       await db.collection("listings").add({
         title: title,
         price: price,
         description: description,
         category: selectedValue,
-        location: new firebase.firestore.GeoPoint(40.75, -73.996),
+        location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
         images: imageUris,
-        date: firebase.firestore.Timestamp.now().toDate().toString(),
-        // uid: user.uid,
-        // sold: false,
+        date: firebase.firestore.Timestamp.now(),
+        uid: user.uid,
+        sold: false,
       });
-      setPostVisible("Failed:", true);
-      // navigation.navigate("My Listings");
+      clearInputs();
+      navigation.navigate("Account");
     } catch (error) {
       setErrorMsg(error.message);
       if (errorMsg) {
@@ -126,7 +148,6 @@ function PostListingScreen() {
         }}
         visible={PostVisible}
       />
-
       <View style={styles.imgContainer}>
         <PhotoInputList
           imageUris={imageUris}
@@ -251,6 +272,9 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     marginVertical: 10,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   btn: {
     marginTop: 10,
