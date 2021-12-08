@@ -10,20 +10,15 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
-export default function UploadImage({ photoURL, setPhotoURL }) {
+export default function UploadImage({ photoURL, setPhotoURL, userName }) {
   if (process.env.NODE_ENV !== "production") require("../secrets");
   let CLOUDINARY_URL = process.env.CLOUDINARY_URL;
 
   const handlePress = () => {
-    if (photoURL) {
       pickImage();
-    } else {
-      Alert.alert("Delete", "Are you sure you want to delete this photo?", [
-        { text: "Yes", onPress: () => setPhotoURL(null) },
-        { text: "No" },
-      ]);
-    }
   };
+
+
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -66,7 +61,7 @@ export default function UploadImage({ photoURL, setPhotoURL }) {
 
   return (
     <View style={Styles.container}>
-      <Image source={{ uri: photoURL }} style={Styles.img}/>
+      <Image source={{ uri: userName.photoURL }} style={Styles.img}/>
       <View style={Styles.uploadBtnContainer}>
         <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn}>
           <Text>{photoURL ? "Edit" : "Upload"} Image</Text>

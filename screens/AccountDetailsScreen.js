@@ -17,7 +17,7 @@ function AccountDetailsScreen() {
   const [newPassword, setNewPassword] = useState("");
   const [currPassword, setCurrPassword] = useState("");
   const [location, setLocation] = useState("");
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [photoURL, setPhotoURL] = useState("");
 
   const id = user.uid;
   async function getUser() {
@@ -33,7 +33,7 @@ function AccountDetailsScreen() {
 
   useEffect(() => {
     getUser();
-    setPhotoURL(photoURL);
+    setPhotoURL(userName.photoURL);
   }, []);
 
   // helper function to check if fields have been left empty (they are required)
@@ -90,7 +90,7 @@ function AccountDetailsScreen() {
   return (
     <ScrollView>
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} />
+        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
