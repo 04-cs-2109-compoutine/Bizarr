@@ -103,7 +103,7 @@ function AccountScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: "#cce3de",
   },
   logoContainer: {
     marginTop: 15,

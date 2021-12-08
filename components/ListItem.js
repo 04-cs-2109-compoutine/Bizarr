@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    padding: 15,
+    padding: 11,
     backgroundColor: colors.light,
-    borderTopColor: colors.light,
-    borderBottomColor: colors.main,
+    borderTopColor: colors.main,
+    borderBottomColor: colors.light,
     borderWidth: 1,
   },
   detailsContainer: {
