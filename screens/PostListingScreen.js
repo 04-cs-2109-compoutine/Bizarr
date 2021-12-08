@@ -60,7 +60,7 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
 
     };
     for (const key in post) {
@@ -84,7 +84,7 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
 
     };
     for (const key in post) {
