@@ -25,7 +25,7 @@ import GoogleAutoComplete from "../components/GoogleAutoComplete";
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen({navigation}) {
+function PostListingScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -60,7 +60,7 @@ function PostListingScreen({navigation}) {
     lat = JSON.stringify(location.latitude);
     log = JSON.stringify(location.longitude);
   }
-  
+
   const validatePost = () => {
     const post = {
       title: title,
@@ -69,8 +69,6 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
-      uid: user.uid,
-      sold: false,
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
