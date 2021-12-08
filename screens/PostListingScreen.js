@@ -24,7 +24,7 @@ import GoogleAutoComplete from "../components/GoogleAutoComplete";
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen({navigation}) {
+function PostListingScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -59,7 +59,6 @@ function PostListingScreen({navigation}) {
       location: location,
       images: imageUris,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
-
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -72,7 +71,7 @@ function PostListingScreen({navigation}) {
         post[key] = [];
       }
     }
-  }
+  };
 
   const validatePost = () => {
     const post = {
@@ -83,7 +82,6 @@ function PostListingScreen({navigation}) {
       location: location,
       images: imageUris,
       date: firebase.firestore.Timestamp.now().toDate().toString(),
-
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -108,7 +106,10 @@ function PostListingScreen({navigation}) {
         price: price,
         description: description,
         category: selectedValue,
-        location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
+        location: new firebase.firestore.GeoPoint(
+          location.latitude,
+          location.longitude
+        ),
         images: imageUris,
         date: firebase.firestore.Timestamp.now(),
         uid: user.uid,
@@ -230,7 +231,7 @@ function PostListingScreen({navigation}) {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete location={location} setLocation={setLocation}/>
+      <GoogleAutoComplete location={location} setLocation={setLocation} />
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
         <Text style={styles.errorMsg}>{errorMsg}</Text>

@@ -40,17 +40,13 @@ function SingleListingScreen({ route, navigation }) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getListings();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     getUser();
   }, []);
-
-
-
 
   //group functions
   async function createGroup(userArray, createdBy, name, type, listingId) {
@@ -180,7 +176,6 @@ const styles = StyleSheet.create({
   image: {
     width: "95%",
     height: 350,
-
   },
   price: {
     color: colors.secondary,
@@ -199,19 +194,14 @@ const styles = StyleSheet.create({
   sellerContainer: {
     marginBottom: 10,
   },
-  map: {
-    marginBottom: 260,
-  },
+
   submitButton: {
     width: 650,
     marginLeft: 70,
-    marginBottom: 50,
+    marginBottom: 300,
     flexDirection: "row",
+    paddingTop: 260,
   },
-  map:{
-    marginBottom: 10,
-    paddingBottom: 100
-  }
 });
 
 export default SingleListingScreen;
