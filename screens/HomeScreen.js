@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 5,
     color: '#5c8d89',
-    fontSize: 13
+    fontSize: 12
   },
   searchBar:{
     marginBottom: 10
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   animation: {
     width: 60,
     alignSelf:'baseline',
-    marginLeft: 70
+    marginLeft: 60
   },
   santaContainer:{
     flex: 1,
@@ -393,7 +393,7 @@ const styles = StyleSheet.create({
   },
   dotanimation:{
     width: 80,
-    marginLeft: '30%'
+    marginLeft: '28%'
   }
 });
 

@@ -15,7 +15,6 @@ import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
 import { db } from "../firebase";
-import * as Location from "expo-location";
 import firebase from "firebase";
 import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
@@ -61,7 +60,7 @@ function PostListingScreen() {
       location: new firebase.firestore.GeoPoint(40.75, -73.996),
       images: imageUris,
       uid: user.uid,
-      sold: false,
+      // sold: false,
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -174,7 +173,7 @@ function PostListingScreen() {
                 <Picker.Item label="Furniture" value="Furniture" />
                 <Picker.Item label="Sports" value="Sports" />
                 <Picker.Item label="Clothing" value="Clothing" />
-                <Picker.Item label="Movies & Music" value="Movie&music" />
+                <Picker.Item label="Entertainment" value="Entertainment" />
                 <Picker.Item label="Books" value="Books" />
                 <Picker.Item label="Electronics" value="Electronics" />
                 <Picker.Item label="Others" value="Others" />

@@ -182,11 +182,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",
-    padding: 20,
+    padding: 15,
     marginVertical: 10,
   },
   btn: {
-    margin: 20,
+    margin: 10,
     alignItems: "center",
   },
 });
