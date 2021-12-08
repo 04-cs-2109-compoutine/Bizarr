@@ -11,7 +11,10 @@ const HorizontalListing = ({listings}) => {
   const scrollRef = useRef();
 
 return(
-    <GestureHandlerScrollView horizontal scrollEnabled contentContainerStyle={styles.contentContainer}
+    <GestureHandlerScrollView 
+      horizontal 
+      scrollEnabled 
+      contentContainerStyle={styles.contentContainer}
     >
     <FlatList
     // horizontal={true}
@@ -27,20 +30,17 @@ return(
       )}
     />
     </GestureHandlerScrollView>
-
-)
+  )
 }
 
 const styles = StyleSheet.create({
 
   contentContainer: {
-    // backgroundColor: 'red',
-    width: 500,
-    height: height / 4,
-    marginLeft: 20,
+    width: width,
+    height: height,
     flexDirection: "row",
-    // flexWrap: "wrap",
-    flex: 1
+    flex: 1,
+    marginBottom: 20,
   },
 });
 
