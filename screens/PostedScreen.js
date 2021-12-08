@@ -28,11 +28,9 @@ function PostedScreen({ onDone, visible = false, navigation }) {
         <LottieView
           autoPlay
           loop={false}
-          // progress={progress}
           onAnimationFinish={onDone}
-          source={require("../assets/animations/done.json")}
+          source={require("../assets/animations/done3.json")}
           style={styles.animation}
-          duration={3000}
         />
       </View>
     </Modal>

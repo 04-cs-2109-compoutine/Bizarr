@@ -26,7 +26,7 @@ const LaunchScreen = ({ navigation }) => {
             // borderTopRightRadius: 30,
             // borderTopLeftRadius: 15,
             overflow: 'hidden',}}
-        /> 
+        />
         </View>
         <View>
         <Image

@@ -77,7 +77,7 @@ function PostListingScreen({navigation}) {
       images: imageUris,
       uid: user.uid,
     });
-    await navigation.navigate("My Listings");
+    navigation.navigate("Account");
   };
 
   //push a new image uri into the list and show it on screen
@@ -97,6 +97,7 @@ function PostListingScreen({navigation}) {
           setPostVisible(false);
         }}
         visible={PostVisible}
+        navigation={navigation}
       />
 
       <View style={styles.imgContainer}>
