@@ -1,30 +1,19 @@
-
-import { StyleSheet, Text, View, Image, SafeAreaView, Dimensions} from "react-native";
-import { Button } from "react-native-elements";
+import { StyleSheet, Text, View, Image, Dimensions} from "react-native";
 import RaisedButton from "../components/Button/launchButton";
-import Login from "./LoginScreen";
-import Screen from "../components/Screen";
 import React, { useState, useEffect } from 'react';
 const mapGif = require('../assets/image/transpmap2.gif')
 const {width, height} = Dimensions.get('window')
 
 
 const LaunchScreen = ({ navigation }) => {
-//   [isReady, setIsReady] = useState(false)
-//   useEffect( () => {
-//     console.log(isReady);
-// }, [isReady]);
 
   return (
       <View style={styles.container}>
         <View style={{...StyleSheet.absoluteFill}}>
          <Image
           source={mapGif}
-          // resizeMode="cover"
           style={{flex: 1, height: null, width: null, borderBottomLeftRadius: 30,
             borderBottomRightRadius: 15,
-            // borderTopRightRadius: 30,
-            // borderTopLeftRadius: 15,
             overflow: 'hidden',}}
         />
         </View>
@@ -68,8 +57,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    // justifyContent: "center",
-    // resizeMode: "stretch",
     width: "100%",
     height: "100%"
   },
@@ -77,12 +64,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
   },
-  // buttonsContainer: {
-  //   // padding: 20,
-  //   // width: width / 3,
-  //   height: height / 3,
-  //   backgroundColor: 'white'
-  // },
   button:{
     backgroundColor: 'white',
     height: 70,
