@@ -30,26 +30,30 @@ function PostListingScreen({navigation}) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({
+    latitude: 40.752714,
+    longitude: -73.97722689999999,
+    description: "Grand central station, East 42nd Street, New York, NY, USA",
+  });
   const [selectedValue, setCategory] = useState("Category");
   const [errorMsg, setErrorMsg] = useState(null);
   const [imageUris, setImageUris] = useState([]);
   const { user, setUser } = useContext(AuthContext);
   const [PostVisible, setPostVisible] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      let {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
-      setLocation({ latitude, longitude });
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
+  //     let {
+  //       coords: { latitude, longitude },
+  //     } = await Location.getCurrentPositionAsync();
+  //     setLocation({ latitude, longitude });
+  //   })();
+  // }, []);
 
   let text = "Waiting..";
   let lat = "";
@@ -69,7 +73,7 @@ function PostListingScreen({navigation}) {
       price: price,
       description: description,
       category: selectedValue,
-      location: new firebase.firestore.GeoPoint(40.75, -73.996),
+      location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
       images: imageUris,
       uid: user.uid,
     });
@@ -93,7 +97,6 @@ function PostListingScreen({navigation}) {
           setPostVisible(false);
         }}
         visible={PostVisible}
-        navigation
       />
 
       <View style={styles.imgContainer}>
@@ -181,7 +184,7 @@ function PostListingScreen({navigation}) {
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-      <GoogleAutoComplete location={location}/>
+      <GoogleAutoComplete location={location} setLocation={setLocation}/>
       <View style={styles.btn}>
         <SubmitButton title="Post" onPress={handlePost} />
       </View>

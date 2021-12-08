@@ -29,6 +29,7 @@ function ListingsScreen({ navigation }) {
 
   useEffect(() => {
     readAllListing();
+    return () => {console.log("Unmounting :)")}
   }, [])
 
   const searchFilterFunction = (text)=>{

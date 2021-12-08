@@ -7,25 +7,25 @@ import PostedScreen from "../screens/PostedScreen";
 
 const Stack = createNativeStackNavigator();
 
-function PostNavigator() {
+const PostNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Post Listing"
-        component={PostListingScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="My Listings"
-        component={MyListingScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Posted Screen"
-        component={PostedScreen}
-      />
-      {/* <Stack.Screen name="Search Location" component={SearchLocationScreen}/> */}
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="My Listings"
+          component={MyListingScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Post Listing"
+          component={PostListingScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Posted Screen"
+          component={PostedScreen}
+        />
+
     </Stack.Navigator>
   );
 }
