@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import firebase from "firebase";
 
 import ListItem from "../components/ListItem";
@@ -12,6 +12,7 @@ import { auth, db } from "../firebase";
 
 function MessageScreen({ navigation }) {
   const [groups, setGroups] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     if (auth.currentUser.uid) {
@@ -84,7 +85,14 @@ function MessageScreen({ navigation }) {
   //delete the message
   const handleDelete = (message) => {
     setGroups(groups.filter((m) => m.id !== message.id));
+    // db.collection("groups").delete();
   };
+
+  // const onRefresh =
+  //   (() => {
+  //     fetchGroupByUserID();
+  //   },
+  //   [refreshing]);
 
   return (
     <Screen>
@@ -106,6 +114,8 @@ function MessageScreen({ navigation }) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
+        // refreshing={refreshing}
+        // onRefresh={onRefresh}
       />
     </Screen>
   );
@@ -113,7 +123,7 @@ function MessageScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: colors.main,
+    backgroundColor: colors.primary,
   },
 });
 
