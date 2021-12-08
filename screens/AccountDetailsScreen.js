@@ -17,7 +17,7 @@ function AccountDetailsScreen() {
   const [newPassword, setNewPassword] = useState("");
   const [currPassword, setCurrPassword] = useState("");
   const [location, setLocation] = useState("");
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [photoURL, setPhotoURL] = useState("");
 
   const id = user.uid;
   async function getUser() {
@@ -90,7 +90,7 @@ function AccountDetailsScreen() {
   return (
     <ScrollView>
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={user.photoURL} setPhotoURL={setPhotoURL} />
+        <UploadImage photoURL={photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -113,7 +113,7 @@ function AccountDetailsScreen() {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder={userName.email}
+          placeholder={user.email}
           placeholderTextColor={defaultStyles.colors.grey}
           style={defaultStyles.text}
           value={email}
