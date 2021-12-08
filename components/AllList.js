@@ -54,7 +54,7 @@ function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost
           <Text style={styles.price} numberOfLines={2}>
             {price}
           </Text>
-
+          
         </View>
       </TouchableOpacity>
         

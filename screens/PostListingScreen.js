@@ -111,7 +111,7 @@ function PostListingScreen({ navigation }) {
           location.longitude
         ),
         images: imageUris,
-        date: firebase.firestore.Timestamp.now(),
+        cratedAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });

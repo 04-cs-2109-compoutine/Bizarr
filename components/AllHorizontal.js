@@ -1,44 +1,67 @@
-
 import React from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback, Dimensions} from "react-native";
+import {View, StyleSheet, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
+import colors from "./Config/colors";
 
-const { width, height } = Dimensions.get("window");
-
-const AllHorizontal = ({imageUris}) => {
+function AllHorizontal({imageUris, onRowPress}) {
 
   return (
-    <View style={styles.detailsContainer}>
-      <TouchableWithoutFeedback>
+    <SafeAreaView style={styles.detailsContainer}>
+     <TouchableOpacity onPress={onRowPress}>
         <View style={styles.card}>
-          <SliderBox images={imageUris} style={styles.image}/>
+          <SliderBox 
+            images={imageUris} 
+            style={styles.image}
+            onCurrentImagePressed={onRowPress}
+          />
         </View>
-      </TouchableWithoutFeedback>
-    </View>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
-    // borderRadius: 0,
+    borderRadius: 15,
+    backgroundColor: colors.white,
     overflow: "hidden",
-    // margin: 5,
-    height: 180,
-    width: 190,
-    flex: 1,
+    margin: 5,
   },
   detailsContainer: {
     padding: 0,
-    // borderRadius: 2,
-    borderWidth: 2,
-    margin: 5,
-    borderColor: '#79B4B7'
+    borderRadius: 8,
+    flex: 2,
   },
   image: {
-    width: "50%",
-    height: 180,
-    resizeMode: "contain"
+    width: "45%",
+    height: 200,
+    alignItems: 'center'
   },
+  price: {
+    color: colors.secondary,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: -10,
+    marginBottom: 5
+  },
+  title: {
+    flex: 2,
+    textAlign: "center",
+    marginLeft: -5
+  },
+  heartLottie: {
+    flex: 1,
+    width: 50,
+    height: 50,
+    marginLeft: -2
+  },
+  likeContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    width: "80%",
+  }
 });
 
 export default AllHorizontal;
