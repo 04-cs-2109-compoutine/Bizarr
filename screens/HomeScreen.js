@@ -25,7 +25,6 @@ const SPACE = 0.01;
 const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   const [listings, setListings] = useState([])
-  console.log(listings)
 
   const [region, setRegion] = useState({
         latitude: LATITUDE,
@@ -59,7 +58,7 @@ const HomeScreen = ({navigation}) => {
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      let datedList = userLists.sort((a, b) => b.createdAt - a.createdAt).slice(0,10)
+      let datedList = userLists.sort((a, b) => b.createdAt - a.createdAt).slice(0,6)
       setListings(datedList)
     } catch(e) {
       console.log(e);
@@ -343,16 +342,6 @@ const styles = StyleSheet.create({
   searchBar:{
     marginBottom: 10
   },
-  animation: {
-    width: 60,
-    alignSelf:'baseline',
-    marginLeft: 60
-  },
-  santaContainer:{
-    flex: 1,
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-  },
   listingContainer:{
     marginTop: 5
   },
@@ -369,7 +358,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 18,
     marginTop: 20,
-    marginBottom: 5,
+    marginBottom: 15,
     color: "#515E63",
   },
   dotanimation:{
