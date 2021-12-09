@@ -155,20 +155,6 @@ function PostListingScreen({ navigation }) {
             }}
             visible={PostVisible}
           />
-<<<<<<< HEAD
-        </View>
-      <View style={styles.inputSection}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Title"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={[defaultStyles.text, {flex: 1}]}
-            value={title}
-            onChangeText={(text) => setTitle(text)}
-            maxLength={255}
-          />
-        </View>
-=======
           <View style={styles.imgContainer}>
             <PhotoInputList
               imageUris={imageUris}
@@ -187,7 +173,6 @@ function PostListingScreen({ navigation }) {
               maxLength={255}
             />
           </View>
->>>>>>> main
 
           <View style={styles.inputContainer}>
             <TextInput
@@ -258,33 +243,6 @@ function PostListingScreen({ navigation }) {
             <SubmitButton title="Post" onPress={handlePost} />
             <Text style={styles.errorMsg}>{errorMsg}</Text>
           </View>
-<<<<<<< HEAD
-        </Modal>
-        <Pressable
-          style={styles.inputContainer}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={defaultStyles.text}>{selectedValue}</Text>
-        </Pressable>
-        <View style={styles.inputContainer}>
-          <TextInput
-            multiline
-            numberOfLines={3}
-            placeholder="Description"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={[defaultStyles.text, {flex: 1}]}
-            value={description}
-            onChangeText={(text) => setDescription(text)}
-          />
-        </View>
-      </View>
-        <GoogleAutoComplete location={location} setLocation={setLocation} />
-        <View style={styles.btn}>
-          <SubmitButton title="Post" onPress={handlePost} />
-          <Text style={styles.errorMsg}>{errorMsg}</Text>
-        </View>
-=======
->>>>>>> main
         </View>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -321,26 +279,13 @@ const styles = StyleSheet.create({
     marginEnd: 8,
   },
   inputContainer: {
-<<<<<<< HEAD
     width: "100%",
-    padding: 15,
-    marginVertical: 10,
+    padding: pixelSizeVertical(15),
+    marginVertical: pixelSizeVertical(10),
     backgroundColor: colors.light,
     borderRadius: 10,
-    // borderWidth: 2,
     borderColor: '#79B4B7',
     flexDirection: "row",
-=======
-    backgroundColor: "#FEFBF3",
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#79B4B7",
-    flexDirection: "row",
-    flex: 1,
-    width: "100%",
-    padding: pixelSizeVertical(10),
-    marginVertical: pixelSizeVertical(10),
->>>>>>> main
     elevation: 2,
     alignItems: "center",
   },

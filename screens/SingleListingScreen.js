@@ -7,11 +7,8 @@ import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
-<<<<<<< HEAD
 import UserListItem from "../components/UserListItem";
-=======
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
->>>>>>> main
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;

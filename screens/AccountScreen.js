@@ -108,12 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#cce3de",
   },
   logoContainer: {
-<<<<<<< HEAD
-    marginTop: 7,
-    marginBottom: 10,
-=======
-    marginTop: pixelSizeVertical(15),
->>>>>>> main
+    marginTop: pixelSizeVertical(7),
+    marginBottom: pixelSizeVertical(10),
   },
   userLogo: {
     width: widthPixel(90),

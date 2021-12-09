@@ -88,7 +88,7 @@ const HomeScreen = ({navigation}) => {
             <Swiper
               autoplay
               horizontal={false}
-              height={200}
+              height={heightPixel(200)}
               activeDotColor= "#74b49b">
               <View style={styles.slide}>
                 <Image
