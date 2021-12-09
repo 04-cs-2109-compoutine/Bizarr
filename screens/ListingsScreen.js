@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
 import AllList from "../components/AllList";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
@@ -12,6 +12,7 @@ import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizon
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
+  const [descending, setDescending] = useState([])
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
   //const [liked, setLiked] = useState(false);
@@ -32,9 +33,24 @@ function ListingsScreen({ navigation }) {
     }
   }
 
+  async function readAllListingsAndSortByPrice() {
+    try {
+      const getListingsPromise = db.collection("listings").get()
+      const data = await getListingsPromise
+      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id}));
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
+      let sortByPriceList = userLists.map(listing => ({...listing, price: parseInt(listing.price)}))
+        .sort(function(a, b){ return a.price - b.price})
+      setFilteredLists(sortByPriceList)
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
     readAllListing();
   }, []);
+
 
   const searchFilterFunction = (text) => {
     if (text) {
@@ -62,6 +78,11 @@ function ListingsScreen({ navigation }) {
         showCancel
         lightTheme
       />
+      <View style={styles.iconContainer}>
+      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
+      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
+      </TouchableOpacity>
+      </View>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -98,6 +119,15 @@ const styles = StyleSheet.create({
     padding: pixelSizeVertical(10),
     backgroundColor: colors.light,
   },
+  icon:{
+    marginLeft: pixelSizeHorizontal(345),
+    marginBottom: pixelSizeVertical(60),
+
+  },
+  iconContainer:{
+    height: heightPixel(1), width: widthPixel(1), paddingBottom: pixelSizeVertical(40)
+  }
+
 });
 
 export default ListingsScreen;
