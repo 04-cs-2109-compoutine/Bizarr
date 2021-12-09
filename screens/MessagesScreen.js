@@ -84,10 +84,8 @@ function MessageScreen({ navigation }) {
 
   //delete the message
   const handleDelete = async (message) => {
+    const res = await db.collection("group").doc(message.id).delete();
     setGroups(groups.filter((m) => m.id !== message.id));
-    console.log("message.id", message.id);
-    const res = await db.collection("groups").doc(message.id).delete();
-    console.log("res", res);
   };
 
   const handleRefresh = async () => {
