@@ -102,18 +102,19 @@ function ListingsScreen({ navigation }) {
 
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
+      <View style={styles.iconContainer}>
+      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
+      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
+      </TouchableOpacity>
+      </View>
       <SearchBar
         placeholder="Type Here..."
         onChangeText={(text) => searchFilterFunction(text)}
         value={search}
         showCancel
         lightTheme
+        containerStyle={{width: "85%"}}
       />
-      <View style={styles.iconContainer}>
-      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
-      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
-      </TouchableOpacity>
-      </View>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -143,13 +144,13 @@ const styles = StyleSheet.create({
   },
   icon:{
     marginLeft: pixelSizeHorizontal(345),
-    marginBottom: pixelSizeVertical(60),
+    marginTop: pixelSizeVertical(8),
 
   },
   iconContainer:{
-    height: heightPixel(1), width: widthPixel(1), paddingBottom: pixelSizeVertical(40)
+    height: heightPixel(8), width: widthPixel(8),
+    paddingBottom: pixelSizeVertical(5),
   }
-
 });
 
 export default ListingsScreen;
