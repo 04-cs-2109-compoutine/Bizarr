@@ -211,6 +211,29 @@ const HomeScreen = ({navigation}) => {
         <LottieView 
           autoPlay
           loop
+          source={require("../assets/animations/banner.json")}
+          style={styles.waves}
+        />
+      </View>
+      <View style={styles.lottieView}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/train.json")}
+          style={styles.animation}
+        />
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
           source={require("../assets/animations/seperator.json")}
           style={styles.seperator}
         />
@@ -253,6 +276,8 @@ const HomeScreen = ({navigation}) => {
         </MapView>
       </View>
 
+     
+
       <View style={styles.seperatorContainer}>
         <LottieView 
           autoPlay
@@ -260,17 +285,6 @@ const HomeScreen = ({navigation}) => {
           source={require("../assets/animations/seperator.json")}
           style={styles.seperator}
         />
-      </View>
-      <View style={styles.lottieView}>
-        <LottieView 
-          autoPlay
-          loop
-          source={require("../assets/animations/train.json")}
-          style={styles.animation}
-        />
-      </View>
-
-      <View style={styles.seperatorContainer}>
         <LottieView 
           autoPlay
           loop
@@ -288,6 +302,12 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
         <LottieView 
           autoPlay
           loop
@@ -438,13 +458,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   seperatorContainer:{
-    marginTop: 10,
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 15,
     marginBottom: 10,
     alignContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   seperator:{
     height: 20,
+  },
+  waves:{
+    height: 50,
   },
   flatContainer: {
     flex: 1, 

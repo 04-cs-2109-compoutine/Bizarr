@@ -11,6 +11,7 @@ import Others from './CategoryScreen/Others';
 import Books from './CategoryScreen/Books';
 import SingleListingScreen from "../screens/SingleListingScreen";
 import SellerListingScreen from '../screens/SellerListingScreen';
+import SingleMessageScreen from "../screens/SingleMessageScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,7 @@ const HomeNavigator =  () => (
     <Stack.Screen options={{headerTitle: ""}} name="Sports" component={Sports}/>
     <Stack.Screen options={{headerTitle: ""}} name="Entertainment" component={Entertainment}/>
     <Stack.Screen options={{headerTitle: ""}} name="Others" component={Others}/>
-    {/* <Stack.Screen name="HomeSingleListing" component={SingleListingScreen} options={{headerTitle: ""}}/> */}
+    <Stack.Screen name="SingleMessage" component={SingleMessageScreen} options={{headerTitle: "Chat"}}/>
     <Stack.Screen name="Seller Listings" component={SellerListingScreen} options={{headerTitle: ""}}/>
     <Stack.Screen name="Listing Details" component={SingleListingScreen} options={{headerTitle: ""}}/>
   </Stack.Navigator>

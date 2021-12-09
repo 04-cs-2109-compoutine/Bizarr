@@ -37,7 +37,7 @@ function ListingsScreen({ navigation }) {
     readAllListing();
   }, []);
 
-  const updateUser = async () => {
+  const updateUser = async (favoriteList) => {
     await db.collection("users").doc(user.uid).update({
       likedItems: favoriteList
     })
@@ -65,7 +65,7 @@ function ListingsScreen({ navigation }) {
 
   const onFavorite = listing => {
     setFavoriteList([...favoriteList, listing]);
-    updateUser();
+    updateUser(favoriteList);
   };
 
   const onRemoveFavorite = listing => {
@@ -73,7 +73,7 @@ function ListingsScreen({ navigation }) {
       item => item.id !== listing.id
     );
     setFavoriteList(filteredList);
-    updateUser();
+    updateUser(favoriteList);
   };
 
    const ifExists = listing => {

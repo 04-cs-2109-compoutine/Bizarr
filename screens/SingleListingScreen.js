@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import { SliderBox } from "react-native-image-slider-box";
-import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
@@ -156,7 +155,7 @@ function SingleListingScreen({ route, navigation }) {
                 listing.uid
               );
             }
-            navigation.navigate(routes.CHAT, {
+            navigation.navigate(routes.SINGLE_MESSAGE, {
               group,
             });
           }}
