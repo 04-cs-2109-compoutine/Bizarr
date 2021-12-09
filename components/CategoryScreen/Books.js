@@ -7,6 +7,8 @@ import Screen from "../Screen";
 import { db } from "../../firebase";
 import { SearchBar } from "react-native-elements";
 import AuthContext from "../Config/context";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../Config/responsive"
+
 
 function Books({ navigation }) {
   const [listings, setListings] = useState([]);
@@ -90,7 +92,7 @@ function Books({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 10,
+    padding: pixelSizeVertical(10),
     backgroundColor: colors.light,
   },
 });

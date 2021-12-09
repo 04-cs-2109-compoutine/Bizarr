@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 export default function UploadImage({ photoURL, setPhotoURL, userName }) {
   let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/bizarr/upload"
@@ -73,16 +75,16 @@ export default function UploadImage({ photoURL, setPhotoURL, userName }) {
 const Styles = StyleSheet.create({
   container: {
     elevation: 2,
-    height: 110,
-    width: 110,
+    height: heightPixel(110),
+    width: widthPixel(110),
     backgroundColor: "#efefef",
     position: "relative",
     borderRadius: 999,
     overflow: "hidden",
   },
   img: {
-    width: 110,
-    height: 110,
+    width: widthPixel(110),
+    height: heightPixel(110),
   },
   uploadBtnContainer: {
     opacity: 0.7,

@@ -3,6 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 function List({ title, price, imageUris, onPress, description }) {
 
@@ -35,27 +37,27 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     backgroundColor: colors.white,
-    marginBottom: 20,
+    marginBottom: pixelSizeVertical(20),
     overflow: "hidden",
   },
   detailsContainer: {
-    padding: 20,
+    padding: pixelSizeVertical(20),
   },
   image: {
     width: "100%",
-    height: 200,
+    height: heightPixel(200),
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
   },
   title:{
-    marginBottom: 5,
+    marginBottom: pixelSizeVertical(5),
     fontWeight: "500",
-    fontSize: 18
+    fontSize: fontPixel(18)
   },
   description: {
-    marginBottom: 7,
+    marginBottom: pixelSizeVertical(7),
   },
 });
 

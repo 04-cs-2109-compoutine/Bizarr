@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -54,17 +56,17 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    height: 250,
+    height: heightPixel(250),
   },
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+    paddingHorizontal: pixelSizeHorizontal(18),
+    paddingVertical: pixelSizeVertical(12),
     borderRadius: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginVertical: 20,
+    marginVertical: pixelSizeVertical(20),
     backgroundColor: 'transparent',
   },
 });

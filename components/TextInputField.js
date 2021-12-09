@@ -3,6 +3,8 @@ import { View, TextInput, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "./Config/styles";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 function TextInputField({ icon, width = "100%", ...otherProps }) {
   return (
@@ -29,11 +31,11 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    padding: 15,
-    marginVertical: 10,
+    padding: pixelSizeVertical(15),
+    marginVertical: pixelSizeVertical(10),
   },
   icon: {
-    marginRight: 10,
+    marginRight: pixelSizeHorizontal(10),
   },
 });
 

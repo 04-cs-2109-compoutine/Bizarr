@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import defaultStyles from '../Config/styles';
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../Config/responsive"
+
 
 function SubmitPostButton({ onPress, text }) {
   return (
@@ -18,8 +20,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",
-    padding: 20,
-    marginVertical: 10,
+    padding: pixelSizeVertical(20),
+    marginVertical: pixelSizeVertical(10),
   }
 })
 
