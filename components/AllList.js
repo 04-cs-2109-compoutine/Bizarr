@@ -4,6 +4,7 @@ import { SliderBox } from "react-native-image-slider-box";
 import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
 
 function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost = () => {}, _id }) {
 
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.white,
     overflow: "hidden",
-    margin: 5,
+    margin: pixelSizeVertical(5),
   },
   detailsContainer: {
     padding: 0,
@@ -76,26 +77,26 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "45%",
-    height: 200,
+    height: heightPixel(200),
     alignItems: 'center'
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: -10,
-    marginBottom: 5
+    marginTop: pixelSizeVertical(-10),
+    marginBottom: pixelSizeVertical(5)
   },
   title: {
     flex: 2,
     textAlign: "center",
-    marginLeft: -5
+    marginLeft: pixelSizeHorizontal(-5)
   },
   heartLottie: {
     flex: 1,
-    width: 50,
-    height: 50,
-    marginLeft: -2
+    width: widthPixel(50),
+    height: heightPixel(50),
+    marginLeft: pixelSizeHorizontal(-2)
   },
   likeContainer:{
     flex: 1,

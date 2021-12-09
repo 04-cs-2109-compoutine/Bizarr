@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import colors from "./Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
 
 if (process.env.NODE_ENV !== "production") require("../secrets");
 const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
@@ -17,7 +18,7 @@ const App = ({location, setLocation}) => {
     <View style={styles.modalView}>
       <View
         style={{
-          paddingVertical: 12,
+          paddingVertical: pixelSizeVertical(12),
           borderRadius: 20,
         }}
       >
@@ -25,17 +26,17 @@ const App = ({location, setLocation}) => {
           styles={{
             textInputContainer: {
               borderRadius: 10,
-              height: 50,
+              height: heightPixel(50),
               alignItems: "flex-start",
-              marginBottom: 10,
+              marginBottom: pixelSizeVertical(10),
               marginTop: 0,
             },
             textInput: {
               borderRadius: 15,
-              height: 54,
+              height: heightPixel(54),
               color: "grey",
               backgroundColor: colors.light,
-              padding: 5,
+              padding: pixelSizeVertical(5),
               margin: 0,
             },
           }}
@@ -103,10 +104,10 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     alignItems: "center",
-    marginTop: 22,
+    marginTop: pixelSizeVertical(22),
   },
   modalView: {
-    margin: 10,
+    margin: pixelSizeVertical(10),
     backgroundColor: "white",
     borderRadius: 30,
     elevation: 5,
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: pixelSizeVertical(15),
     textAlign: "center",
   },
 });

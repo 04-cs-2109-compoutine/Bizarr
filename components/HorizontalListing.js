@@ -4,6 +4,8 @@ import AllHorizontal from "./AllHorizontal";
 import {FlatList,ScrollView as GestureHandlerScrollView,} from "react-native-gesture-handler";
 import { Screen } from "react-native-screens";
 import routes from "./Config/routes";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,10 +38,10 @@ return(
 const styles = StyleSheet.create({
   contentContainer: {
     width: '100%',
-    height: height,
+    height: heightPixel(height),
     flexDirection: "row",
     flex: 1,
-    marginBottom: 20,
+    marginBottom: pixelSizeVertical(20),
   },
 });
 
