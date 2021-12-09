@@ -8,6 +8,7 @@ import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
+import UserListItem from "../components/UserListItem";
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -128,7 +129,7 @@ function SingleListingScreen({ route, navigation }) {
       </View>
 
       <View style={styles.sellerContainer}>
-        <ListItem
+        <UserListItem
           image={userName.photoURL}
           title={userName.displayName}
           subTitle={listings.length.toString()}

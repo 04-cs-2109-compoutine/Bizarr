@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TextInput, ScrollView } from "react-native";
 import defaultStyles from "../components/Config/styles";
-import Screen from "../components/Screen";
 import { db, auth } from "../firebase";
 import UploadImage from "../components/ImagePicker";
 import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
 import PostedScreen from "./PostedScreen";
+import colors from "../components/Config/colors";
 
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
@@ -91,7 +91,7 @@ function AccountDetailsScreen({navigation}) {
     }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <PostedScreen
         onDone={() => {
           setPostVisible(false);
@@ -165,10 +165,9 @@ function AccountDetailsScreen({navigation}) {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 5,
+    margin: 7
   },
   uploadImg: {
     paddingBottom: 20,
@@ -190,8 +189,8 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 15,
     marginVertical: 10,
-    backgroundColor: '#FEFBF3',
-    borderRadius: 15,
+    backgroundColor: colors.light,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: '#79B4B7',
     flexDirection: "row",

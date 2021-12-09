@@ -212,46 +212,77 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.text}>Shop Locally</Text>
       </View>
 
-        <View>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            region={region}
-            loadingEnabled
-            loadingIndicatorColor='#666666'
-            loadingBackgroundColor='#EEEEEE'
+      <View>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          region={region}
+          loadingEnabled
+          loadingIndicatorColor='#666666'
+          loadingBackgroundColor='#EEEEEE'
+        >
+        {listings.map((listing, index) => (
+          <Marker
+            key={index}
+            coordinate = {{
+              latitude: listing.location.latitude,
+              longitude: listing.location.longitude,
+            }}
+            centerOffset={{ x: -42, y: -60 }}
+            anchor={{ x: 0.84, y: 1 }}
+            title={listing.title}
           >
-          {listings.map((listing, index) => (
-            <Marker
-              key={index}
-              coordinate = {{
-                latitude: listing.location.latitude,
-                longitude: listing.location.longitude,
-              }}
-              centerOffset={{ x: -42, y: -60 }}
-              anchor={{ x: 0.84, y: 1 }}
-              title={listing.title}
-            >
-              <Callout onPress={() => navigation.navigate("All Listings")}>
-                <Text>
-                  <Image
-                    style={{width: 40, height: 40 }}
-                    source={{uri: listing.images[0]}}>
-                  </Image>
-                </Text>
-              </Callout>
-            </Marker>
-          ))}
-          </MapView>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Made for you</Text>
-        </View>
-        <View style={styles.listingContainer}>
-          <HorizontalListing listings={listings} navigation={navigation}/>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <Callout onPress={() => navigation.navigate(routes.LISTING_DETAILS, listing)}>
+              <Text>
+                <Image
+                  style={{width: 40, height: 40 }}
+                  source={{uri: listing.images[0]}}>
+                </Image>
+              </Text>
+            </Callout>
+          </Marker>
+        ))}
+        </MapView>
+      </View>
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+      <View style={styles.lottieView}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/train.json")}
+          style={styles.animation}
+        />
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Made for you</Text>
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>New Listings</Text>
+      </View>
+      <View style={styles.listingContainer}>
+        <HorizontalListing listings={listings} navigation={navigation}/>
+      </View>
+
+    </ScrollView>
+  </SafeAreaView>
   );
 }
 
@@ -366,6 +397,22 @@ const styles = StyleSheet.create({
   dotanimation:{
     width: 80,
     marginLeft: '28%'
+  },
+  animation:{
+    height: 120
+  },
+  lottieView:{
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  seperatorContainer:{
+    marginTop: 10,
+    marginBottom: 10,
+    alignContent: 'center',
+    alignItems: 'center'
+  },
+  seperator:{
+    height: 20,
   }
 });
 

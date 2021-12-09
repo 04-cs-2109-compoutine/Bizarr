@@ -5,7 +5,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 
-function ListItem({
+function UserListItem({
   title,
   image,
   subTitle,
@@ -46,10 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 11,
     backgroundColor: colors.light,
-    // borderTopColor: colors.main,
-    borderBottomColor: colors.main,
-    borderBottomWidth: 1,
-    opacity: 2,
   },
   detailsContainer: {
     flex: 1,
@@ -69,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default UserListItem;

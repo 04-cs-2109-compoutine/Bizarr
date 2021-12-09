@@ -158,7 +158,7 @@ function PostListingScreen({navigation}) {
             onRemove={(uri) => handleRemove(uri)}
           />
         </View>
-
+      <View style={styles.inputSection}>
         <View style={styles.inputContainer}>
           <TextInput
             placeholder="Title"
@@ -234,6 +234,7 @@ function PostListingScreen({navigation}) {
             onChangeText={(text) => setDescription(text)}
           />
         </View>
+      </View>
         <GoogleAutoComplete location={location} setLocation={setLocation} />
         <View style={styles.btn}>
           <SubmitButton title="Post" onPress={handlePost} />
@@ -270,18 +271,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  inputSection:{
+    marginLeft: 8,
+    marginEnd: 8,
+  },
   inputContainer: {
-    backgroundColor: '#FEFBF3',
-    borderRadius: 15,
-    borderWidth: 2,
+    width: "100%",
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: colors.light,
+    borderRadius: 10,
+    // borderWidth: 2,
     borderColor: '#79B4B7',
     flexDirection: "row",
-    flex: 1,
-    width: "100%",
-    padding: 10,
-    marginVertical: 10,
     elevation: 2,
-    alignItems: "center"
+    alignItems: "center",
   },
   btn: {
     marginTop: 10,

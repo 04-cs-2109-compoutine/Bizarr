@@ -24,7 +24,7 @@ return(
             title={item.title}
             price={"$" + item.price}
             imageUris={item.images}
-            onRowPress={()=> navigation.navigate(routes.HOME_SINGLE_LISTING, item)}
+            onRowPress={()=> navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
       />
