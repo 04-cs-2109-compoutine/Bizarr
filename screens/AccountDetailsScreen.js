@@ -7,6 +7,7 @@ import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
 import PostedScreen from "./PostedScreen";
 import colors from "../components/Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
@@ -166,28 +167,28 @@ function AccountDetailsScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 7
+    marginVertical: pixelSizeVertical(7),
   },
   uploadImg: {
-    paddingBottom: 20,
-    paddingTop: 5,
+    paddingBottom: pixelSizeVertical(20),
+    paddingTop: pixelSizeVertical(5),
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   userLogo: {
-    width: 100,
-    height: 100,
+    width: widthPixel(100),
+    height: heightPixel(100),
     alignSelf: "center",
-    padding: 10,
+    padding: pixelSizeVertical(10),
     borderRadius: 50,
-    top: 10,
-    margin: 10,
+    top: pixelSizeVertical(10),
+    margin: pixelSizeVertical(10),
   },
   inputContainer: {
     width: "100%",
-    padding: 15,
-    marginVertical: 10,
+    padding: pixelSizeVertical(15),
+    marginVertical: pixelSizeVertical(10),
     backgroundColor: colors.light,
     borderRadius: 10,
     borderWidth: 2,
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   btn: {
-    margin: 10,
+    margin: pixelSizeVertical(10),
     alignItems: "center",
   },
 });

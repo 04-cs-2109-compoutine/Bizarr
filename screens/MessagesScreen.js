@@ -8,6 +8,7 @@ import Screen from "../components/Screen";
 import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 
+
 import { auth, db } from "../firebase";
 
 function MessageScreen({ navigation }) {
@@ -83,16 +84,18 @@ function MessageScreen({ navigation }) {
   };
 
   //delete the message
-  const handleDelete = (message) => {
+  const handleDelete = async (message) => {
+    const res = await db.collection("group").doc(message.id).delete();
     setGroups(groups.filter((m) => m.id !== message.id));
-    // db.collection("groups").delete();
   };
 
-  // const onRefresh =
-  //   (() => {
-  //     fetchGroupByUserID();
-  //   },
-  //   [refreshing]);
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    if (auth.currentUser.uid) {
+      await fetchGroupByUserID(auth.currentUser.uid);
+    }
+    setRefreshing(false);
+  };
 
   return (
     <Screen>
@@ -114,8 +117,8 @@ function MessageScreen({ navigation }) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
-        // refreshing={refreshing}
-        // onRefresh={onRefresh}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </Screen>
   );

@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 
+
 export function SingleMessageScreen({ route, navigation }) {
   const [messages, setMessages] = useState([]);
 

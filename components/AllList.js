@@ -4,6 +4,7 @@ import { SliderBox } from "react-native-image-slider-box";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
 import { AntDesign } from '@expo/vector-icons';
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
 
 function List({ price, imageUris, onRowPress, onPress, ifExists}) {
 
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.white,
     overflow: "hidden",
-    margin: 5,
+    margin: pixelSizeVertical(5),
   },
   detailsContainer: {
     padding: 0,
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "45%",
-    height: 200,
+    height: heightPixel(200),
     alignItems: 'center'
   },
   price: {
@@ -53,10 +54,10 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontWeight: "bold",
     textAlign: "center",
-    marginLeft: -8
+    marginLeft: pixelSizeHorizontal(-8)
   },
   liked:{
-    margin: 10
+    margin: pixelSizeVertical(10)
   },
   likeContainer:{
     flex: 1,

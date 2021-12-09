@@ -4,6 +4,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import Text from "./Config/Text";
 import colors from "./Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 function ListItem({
   title,
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    padding: 11,
+    padding: pixelSizeVertical(11),
     backgroundColor: colors.light,
     // borderTopColor: colors.main,
     borderBottomColor: colors.main,
@@ -53,12 +55,12 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: pixelSizeHorizontal(10),
     justifyContent: "center",
   },
   image: {
-    width: 50,
-    height: 50,
+    width: widthPixel(50),
+    height: heightPixel(50),
     borderRadius: 35,
   },
   subTitle: {

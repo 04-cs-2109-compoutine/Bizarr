@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 import PhotoInput from './PhotoInput';
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from ".././Config/responsive"
 
 //when add photos, make all photos in a row and save them in a list. Also need remove and add functions
 function PhotoInputList({imageUris = [], onRemove, onAdd}) {
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   img:{
-    marginRight: 10,
+    marginRight: pixelSizeVertical(10),
   }
 });
 

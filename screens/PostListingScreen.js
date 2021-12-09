@@ -9,9 +9,10 @@ import {
   Text,
   Pressable,
   ScrollView,
-  Dimensions,
   Keyboard,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Dimensions, 
+  PixelRatio
 } from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
@@ -22,11 +23,12 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 
-function PostListingScreen({navigation}) {
+function PostListingScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -60,8 +62,7 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
-
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -74,7 +75,7 @@ function PostListingScreen({navigation}) {
         post[key] = [];
       }
     }
-  }
+  };
 
   const validatePost = () => {
     const post = {
@@ -84,8 +85,7 @@ function PostListingScreen({navigation}) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
-
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -110,9 +110,12 @@ function PostListingScreen({navigation}) {
         price: price,
         description: description,
         category: selectedValue,
-        location: new firebase.firestore.GeoPoint(location.latitude, location.longitude),
+        location: new firebase.firestore.GeoPoint(
+          location.latitude,
+          location.longitude
+        ),
         images: imageUris,
-        cratedAt: firebase.firestore.Timestamp.now(),
+        createdAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
         isLiked: false,
@@ -143,21 +146,16 @@ function PostListingScreen({navigation}) {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View>
-        <PostedScreen
-          onDone={() => {
-            setPostVisible(false);
-          }}
-          visible={PostVisible}
-        />
-        <View style={styles.imgContainer}>
-          <PhotoInputList
-            imageUris={imageUris}
-            onAdd={(uri) => handleAdd(uri)}
-            onRemove={(uri) => handleRemove(uri)}
+          <PostedScreen
+            onDone={() => {
+              setPostVisible(false);
+            }}
+            visible={PostVisible}
           />
+<<<<<<< HEAD
         </View>
       <View style={styles.inputSection}>
         <View style={styles.inputContainer}>
@@ -170,53 +168,97 @@ function PostListingScreen({navigation}) {
             maxLength={255}
           />
         </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Price"
-            keyboardType="numeric"
-            placeholderTextColor={defaultStyles.colors.grey}
-            style={[defaultStyles.text, {flex: 1}]}
-            value={price}
-            onChangeText={(text) => setPrice(text)}
-          />
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  mode={"dialog"}
-                  selectedValue={selectedValue}
-                  style={{ height: 200, width: 200 }}
-                  onValueChange={(itemValue) => setCategory(itemValue)}
-                >
-                  <Picker.Item label="Car" value="Car" />
-                  <Picker.Item label="Furniture" value="Furniture" />
-                  <Picker.Item label="Sports" value="Sports" />
-                  <Picker.Item label="Clothing" value="Clothing" />
-                  <Picker.Item label="Entertainment" value="Entertainment" />
-                  <Picker.Item label="Books" value="Books" />
-                  <Picker.Item label="Electronics" value="Electronics" />
-                  <Picker.Item label="Others" value="Others" />
-                </Picker>
-              </View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={defaultStyles.text}>Ok</Text>
-              </Pressable>
-            </View>
+=======
+          <View style={styles.imgContainer}>
+            <PhotoInputList
+              imageUris={imageUris}
+              onAdd={(uri) => handleAdd(uri)}
+              onRemove={(uri) => handleRemove(uri)}
+            />
           </View>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Title"
+              placeholderTextColor={defaultStyles.colors.grey}
+              style={[defaultStyles.text, { flex: 1 }]}
+              value={title}
+              onChangeText={(text) => setTitle(text)}
+              maxLength={255}
+            />
+          </View>
+>>>>>>> main
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              placeholder="Price"
+              keyboardType="numeric"
+              placeholderTextColor={defaultStyles.colors.grey}
+              style={[defaultStyles.text, { flex: 1 }]}
+              value={price}
+              onChangeText={(text) => setPrice(text)}
+            />
+          </View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <View style={styles.pickerContainer}>
+                  <Picker
+                    mode={"dialog"}
+                    selectedValue={selectedValue}
+                    style={{ height: heightPixel(200), width: widthPixel(200) }}
+                    onValueChange={(itemValue) => setCategory(itemValue)}
+                  >
+                    <Picker.Item label="Car" value="Car" />
+                    <Picker.Item label="Furniture" value="Furniture" />
+                    <Picker.Item label="Sports" value="Sports" />
+                    <Picker.Item label="Clothing" value="Clothing" />
+                    <Picker.Item label="Entertainment" value="Entertainment" />
+                    <Picker.Item label="Books" value="Books" />
+                    <Picker.Item label="Electronics" value="Electronics" />
+                    <Picker.Item label="Others" value="Others" />
+                  </Picker>
+                </View>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={defaultStyles.text}>Ok</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          <Pressable
+            style={styles.inputContainer}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={defaultStyles.text}>{selectedValue}</Text>
+          </Pressable>
+          <View style={styles.inputContainer}>
+            <TextInput
+              multiline
+              numberOfLines={3}
+              placeholder="Description"
+              placeholderTextColor={defaultStyles.colors.grey}
+              style={[defaultStyles.text, { flex: 1 }]}
+              value={description}
+              onChangeText={(text) => setDescription(text)}
+            />
+          </View>
+          <GoogleAutoComplete location={location} setLocation={setLocation} />
+          <View style={styles.btn}>
+            <SubmitButton title="Post" onPress={handlePost} />
+            <Text style={styles.errorMsg}>{errorMsg}</Text>
+          </View>
+<<<<<<< HEAD
         </Modal>
         <Pressable
           style={styles.inputContainer}
@@ -241,6 +283,8 @@ function PostListingScreen({navigation}) {
           <SubmitButton title="Post" onPress={handlePost} />
           <Text style={styles.errorMsg}>{errorMsg}</Text>
         </View>
+=======
+>>>>>>> main
         </View>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -249,11 +293,11 @@ function PostListingScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
-    marginBottom: 50,
+    padding: pixelSizeVertical(5),
+    marginBottom: pixelSizeVertical(50),
   },
   map: {
-    height: 300,
+    height: heightPixel(300),
   },
   errorMsg: {
     color: "red",
@@ -262,8 +306,8 @@ const styles = StyleSheet.create({
   imgContainer: {
     flexDirection: "row",
     width: "100%",
-    padding: 5,
-    marginVertical: 5,
+    padding: pixelSizeVertical(5),
+    marginVertical: pixelSizeVertical(5),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -277,6 +321,7 @@ const styles = StyleSheet.create({
     marginEnd: 8,
   },
   inputContainer: {
+<<<<<<< HEAD
     width: "100%",
     padding: 15,
     marginVertical: 10,
@@ -285,14 +330,25 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     borderColor: '#79B4B7',
     flexDirection: "row",
+=======
+    backgroundColor: "#FEFBF3",
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: "#79B4B7",
+    flexDirection: "row",
+    flex: 1,
+    width: "100%",
+    padding: pixelSizeVertical(10),
+    marginVertical: pixelSizeVertical(10),
+>>>>>>> main
     elevation: 2,
     alignItems: "center",
   },
   btn: {
-    marginTop: 10,
+    marginTop: pixelSizeVertical(10),
     alignItems: "center",
-    marginBottom: 20,
-    paddingBottom: 20,
+    marginBottom: pixelSizeVertical(20),
+    paddingBottom: pixelSizeVertical(20),
   },
   pickerContainer: {
     flex: 1,
@@ -303,19 +359,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    marginTop: pixelSizeVertical(22),
   },
   modalView: {
     width: "60%",
     height: "50%",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 25,
+    padding: pixelSizeVertical(25),
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: heightPixel(2),
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -326,9 +382,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: pixelSizeVertical(10),
     width: "50%",
-    marginVertical: 10,
+    marginVertical: pixelSizeVertical(10),
   },
   buttonClose: {
     backgroundColor: colors.main,
@@ -339,7 +395,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: pixelSizeVertical(15),
     textAlign: "center",
   },
 });

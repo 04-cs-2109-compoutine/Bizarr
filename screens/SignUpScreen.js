@@ -9,10 +9,11 @@ import {
   View,
   Image,
 } from "react-native";
-import colors from "../components/Config/colors";
-import { Input, Button } from "react-native-elements";
+import { Input } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const SignUpScreen = () => {
               photoURL: user.photoURL,
               likedItems: [],
               phone: "000-000-0000",
-              location: '',
+              location: "",
             });
           })
           .catch(function (error) {
@@ -51,11 +52,11 @@ const SignUpScreen = () => {
   };
 
   //sign in with google
-  async function signInWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const { user } = await auth.signInWithPopup(provider);
-    return user;
-  }
+  // async function signInWithGoogle() {
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   const { user } = await auth.signInWithPopup(provider);
+  //   return user;
+  // }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -87,11 +88,6 @@ const SignUpScreen = () => {
             style={styles.input}
           />
         </View>
-        {/* <Button
-          title="Register"
-          buttonStyle={{ backgroundColor: colors.main }}
-          onPress={handleSignUp}
-        ></Button> */}
         <LoginButton text="Register" onPress={handleSignUp} />
       </View>
       <View style={styles.google}>
@@ -117,25 +113,25 @@ const styles = StyleSheet.create({
     width: "75%",
   },
   logo: {
-    width: 250,
-    height: 250,
-    bottom: 10,
+    width: widthPixel(250),
+    height: heightPixel(250),
+    bottom: pixelSizeVertical(10),
   },
   loginContainer: {
     backgroundColor: "#F4F9F4",
     width: "90%",
     height: "auto",
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: pixelSizeVertical(20),
+    paddingBottom: pixelSizeVertical(20),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 35,
   },
   input: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: pixelSizeHorizontal(15),
+    paddingVertical: pixelSizeVertical(10),
     borderRadius: 10,
-    marginTop: 5,
+    marginTop: pixelSizeVertical(5),
   },
   button: {
     width: "60%",
@@ -148,18 +144,18 @@ const styles = StyleSheet.create({
   buttonOutlineText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 16,
+    fontSize: fontPixel(16),
   },
   LoginLink: {
     color: "white",
-    top: 70,
+    top: pixelSizeVertical(70),
   },
   signUpText: {
     color: "gray",
     fontWeight: "bold",
   },
   google: {
-    padding: 15,
+    padding: pixelSizeVertical(15),
   },
 });
 export default SignUpScreen;

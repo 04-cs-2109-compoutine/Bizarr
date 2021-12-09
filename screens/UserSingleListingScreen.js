@@ -8,6 +8,8 @@ import routes from "../components/Config/routes";
 import { db } from "../firebase";
 import { SliderBox } from "react-native-image-slider-box";
 import UserListItem from "../components/UserListItem";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+
 
 function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -117,32 +119,32 @@ function UserSingleListingScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: pixelSizeVertical(10),
     backgroundColor: colors.white,
-    marginBottom: 10,
+    marginBottom: pixelSizeVertical(10),
   },
   detailsContainer: {
-    padding: 10,
+    padding: pixelSizeVertical(10),
   },
   image: {
     width: "95%",
-    height: 300,
+    height: heightPixel(300),
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
-    fontSize: 20,
-    marginVertical: 10,
+    fontSize: fontPixel(20),
+    marginVertical: pixelSizeVertical(10),
   },
   title: {
-    fontSize: 24,
+    fontSize: fontPixel(24),
     fontWeight: "500",
   },
   description: {
-    marginTop: 10,
+    marginTop: pixelSizeVertical(10),
   },
   sellerContainer: {
-    marginBottom: 10,
+    marginBottom: pixelSizeVertical(10),
   },
   message: {
     flex: 2,
@@ -151,8 +153,8 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   delete:{
-    marginTop: 280,
-    paddingBottom: 40,
+    marginTop: pixelSizeVertical(280),
+    paddingBottom: pixelSizeVertical(40),
     alignItems: 'center'
   }
 });
