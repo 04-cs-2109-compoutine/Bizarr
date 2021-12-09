@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: fontPixel(18),
     marginTop: pixelSizeVertical(20),
     marginBottom: pixelSizeVertical(5),
     color: "#515E63",
