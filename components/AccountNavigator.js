@@ -6,6 +6,7 @@ import MyListingScreen from "../screens/MyListingScreen";
 import UserSingleListingScreen from "../screens/UserSingleListingScreen";
 import SoldListingScreen from "../screens/SoldListing"
 import PostedScreen from "../screens/PostedScreen";
+import FavoriteListing from "../screens/FavoriteListing";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,11 @@ const AccountNavigator = () => (
       name="Sold Listing Screen"
       component={SoldListingScreen}
       options={{headerTitle: ""}}/>
+
+    <Stack.Screen
+      name="Saved Items"
+      component={FavoriteListing}
+      options={{headerTitle: ""}}/>   
 
   </Stack.Navigator>
 )

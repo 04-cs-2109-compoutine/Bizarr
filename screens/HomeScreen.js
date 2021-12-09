@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, FlatList} from "react-native";
 import Swiper from 'react-native-swiper';
 import * as Location from 'expo-location'
 import HorizontalListing from '../components/HorizontalListing';
@@ -12,8 +12,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import routes from '../components/Config/routes';
 import LottieView from "lottie-react-native";
+import Card from '../components/Card';
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -27,6 +27,7 @@ const SPACE = 0.01;
 const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   const [listings, setListings] = useState([])
+  const [picklistings, setPickListings] = useState([])
 
   const [region, setRegion] = useState({
         latitude: LATITUDE,
@@ -62,6 +63,7 @@ const HomeScreen = ({navigation}) => {
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
       let datedList = userLists.sort((a, b) => b.createdAt - a.createdAt).slice(0,6)
       setListings(datedList)
+      setPickListings(allListings.slice(0,10))
     } catch(e) {
       console.log(e);
     }
@@ -69,12 +71,8 @@ const HomeScreen = ({navigation}) => {
 
   useEffect(() => {
     readAllListing();
-  }, []);
-
-  useEffect(()=>{
     getLocation();
-  }, [])
-
+  }, []);
  
   return (
 
@@ -90,7 +88,7 @@ const HomeScreen = ({navigation}) => {
             <Swiper
               autoplay
               horizontal={false}
-              height={200}
+              height={heightPixel(200)}
               activeDotColor= "#74b49b">
               <View style={styles.slide}>
                 <Image
@@ -209,50 +207,140 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.categoryBtnTxt}>Others</Text>
         </TouchableOpacity>
       </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+      
+      <View style={styles.lottieView}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/train.json")}
+          style={styles.animation}
+        />
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
       <View style={styles.textContainer}>
         <Text style={styles.text}>Shop Locally</Text>
       </View>
 
-        <View>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            region={region}
-            loadingEnabled
-            loadingIndicatorColor='#666666'
-            loadingBackgroundColor='#EEEEEE'
+      <View>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          region={region}
+          loadingEnabled
+          loadingIndicatorColor='#666666'
+          loadingBackgroundColor='#EEEEEE'
+        >
+        {listings.map((listing, index) => (
+          <Marker
+            key={index}
+            coordinate = {{
+              latitude: listing.location.latitude,
+              longitude: listing.location.longitude,
+            }}
+            centerOffset={{ x: -42, y: -60 }}
+            anchor={{ x: 0.84, y: 1 }}
+            title={listing.title}
           >
-          {listings.map((listing, index) => (
-            <Marker
-              key={index}
-              coordinate = {{
-                latitude: listing.location.latitude,
-                longitude: listing.location.longitude,
-              }}
-              centerOffset={{ x: -42, y: -60 }}
-              anchor={{ x: 0.84, y: 1 }}
-              title={listing.title}
-            >
-              <Callout onPress={() => navigation.navigate("All Listings")}>
-                <Text>
-                  <Image
-                    style={{width: widthPixel(40), height: heightPixel(40) }}
-                    source={{uri: listing.images[0]}}>
-                  </Image>
-                </Text>
-              </Callout>
-            </Marker>
-          ))}
-          </MapView>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Made for you</Text>
-        </View>
-        <View style={styles.listingContainer}>
-          <HorizontalListing listings={listings} navigation={navigation}/>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <Callout onPress={() => navigation.navigate(routes.LISTING_DETAILS, listing)}>
+              <Text>
+                <Image
+                  style={{width: widthPixel(40), height: heightPixel(40)}}
+                  source={{uri: listing.images[0]}}>
+                </Image>
+              </Text>
+            </Callout>
+          </Marker>
+        ))}
+        </MapView>
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
+      
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>New Listings</Text>
+      </View>
+      <View style={styles.listingContainer}>
+        <HorizontalListing listings={listings} navigation={navigation}/>
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Made for you</Text>
+      </View>
+          
+      <View style={styles.flatContainer}>
+      <FlatList 
+          data={picklistings}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Card
+            itemData={item}
+            onPress={()=> navigation.navigate(routes.LISTING_DETAILS, item)}
+            />
+          )}
+      />
+      </View>
+
+    </ScrollView>
+  </SafeAreaView>
   );
 }
 
@@ -367,7 +455,34 @@ const styles = StyleSheet.create({
   dotanimation:{
     width: widthPixel(80),
     marginLeft: '28%'
-  }
+  },
+  animation:{
+    height: heightPixel(120)
+  },
+  lottieView:{
+    marginTop: pixelSizeVertical(10),
+    marginBottom: pixelSizeVertical(10),
+  },
+  seperatorContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: pixelSizeVertical(15),
+    marginBottom: pixelSizeVertical(10),
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  seperator:{
+    height: heightPixel(20),
+  },
+  waves:{
+    height: heightPixel(50),
+  },
+  flatContainer: {
+    flex: 1, 
+    width: '95%',
+    alignSelf: 'center'
+  },
 });
 
 export default HomeScreen;

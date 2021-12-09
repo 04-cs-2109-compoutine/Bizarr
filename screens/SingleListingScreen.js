@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import { SliderBox } from "react-native-image-slider-box";
-import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
+import UserListItem from "../components/UserListItem";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 function SingleListingScreen({ route, navigation }) {
@@ -129,7 +129,7 @@ function SingleListingScreen({ route, navigation }) {
       </View>
 
       <View style={styles.sellerContainer}>
-        <ListItem
+        <UserListItem
           image={userName.photoURL}
           title={userName.displayName}
           subTitle={listings.length.toString()}
@@ -156,7 +156,7 @@ function SingleListingScreen({ route, navigation }) {
                 listing.uid
               );
             }
-            navigation.navigate(routes.CHAT, {
+            navigation.navigate(routes.SINGLE_MESSAGE, {
               group,
             });
           }}

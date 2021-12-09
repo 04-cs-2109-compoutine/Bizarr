@@ -15,8 +15,11 @@ function ListingsScreen({ navigation }) {
   const [descending, setDescending] = useState([])
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
-  //const [liked, setLiked] = useState(false);
   const { user, setUser } = useContext(AuthContext);
+  const [favoriteList, setFavoriteList] = useState([]);
+
+  //console.log(favoriteList)
+  // console.log(user)
 
   async function readAllListing() {
     try {
@@ -51,6 +54,14 @@ function ListingsScreen({ navigation }) {
     readAllListing();
   }, []);
 
+  const updateUser = async (favoriteList) => {
+    await db.collection("users").doc(user.uid).update({
+      likedItems: favoriteList
+    })
+    .catch(function (error) {
+      alert(error.message);
+    });
+  }
 
   const searchFilterFunction = (text) => {
     if (text) {
@@ -67,6 +78,26 @@ function ListingsScreen({ navigation }) {
       setFilteredLists(listings);
       setSearch(text);
     }
+  };
+
+  const onFavorite = listing => {
+    setFavoriteList([...favoriteList, listing]);
+    updateUser(favoriteList);
+  };
+
+  const onRemoveFavorite = listing => {
+    const filteredList = favoriteList.filter(
+      item => item.id !== listing.id
+    );
+    setFavoriteList(filteredList);
+    updateUser(favoriteList);
+  };
+
+   const ifExists = listing => {
+    if (favoriteList.filter(item => item.id === listing.id).length > 0) {
+      return true;
+    }
+    return false;
   };
 
   return filteredLists instanceof Object ? (
@@ -90,21 +121,12 @@ function ListingsScreen({ navigation }) {
         keyExtractor={(listing, index) => listing.id.toString()}
         renderItem={({ item }) => (
           <AllList
-            title={item.title}
             price={"$" + item.price}
             imageUris={item.images}
-            description={item.description}
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-            onLikePost={(_id) =>
-              setFilteredLists(() => {
-              return filteredLists.map((list) => {
-                if (list.id === _id) {
-                  return { ...list, isLiked: !list.isLiked };
-                }
-                return list;
-              });
-            })
-          }
+            ifExists={ifExists(item)}
+            onPress={()=> 
+              ifExists(item) ?  onRemoveFavorite(item) : onFavorite(item)}
           />
         )}
       />

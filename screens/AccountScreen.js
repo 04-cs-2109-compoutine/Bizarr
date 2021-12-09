@@ -80,7 +80,7 @@ function AccountScreen({ navigation }) {
         ></Image>
         <Text style={styles.tagline}>{userName.displayName}</Text>
       </View>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={menuItems}
           keyExtractor={(menuItem) => menuItem.title}
@@ -98,12 +98,12 @@ function AccountScreen({ navigation }) {
             />
           )}
         />
+        <ListItem
+          title="Log Out"
+          IconComponent={<Icon name="logout" backgroundColor={colors.main} />}
+          onPress={() => setUser(null)}
+        />
       </View>
-      <ListItem
-        title="Log Out"
-        IconComponent={<Icon name="logout" backgroundColor={colors.main} />}
-        onPress={() => setUser(null)}
-      />
     </Screen>
   );
 }
@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   logoContainer: {
-    marginTop: pixelSizeVertical(15),
+    marginTop: pixelSizeVertical(7),
+    marginBottom: pixelSizeVertical(10),
   },
   userLogo: {
     width: widthPixel(90),
@@ -123,6 +124,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     top: pixelSizeVertical(10),
     marginBottom: pixelSizeVertical(20),
+  },
+  listContainer:{
+    borderRadius: 5,
+    padding: 2
   },
   tagline: {
     fontSize: fontPixel(20),

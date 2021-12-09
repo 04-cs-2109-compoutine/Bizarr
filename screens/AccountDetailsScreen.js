@@ -1,19 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TextInput, ScrollView } from "react-native";
 import defaultStyles from "../components/Config/styles";
-import Screen from "../components/Screen";
 import { db, auth } from "../firebase";
 import UploadImage from "../components/ImagePicker";
 import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
 import PostedScreen from "./PostedScreen";
+import colors from "../components/Config/colors";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
 
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
-  // const user = auth.currentUser;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -93,7 +91,7 @@ function AccountDetailsScreen({navigation}) {
     }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <PostedScreen
         onDone={() => {
           setPostVisible(false);
@@ -153,7 +151,7 @@ function AccountDetailsScreen({navigation}) {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Location"
+          placeholder="location"
           placeholderTextColor={defaultStyles.colors.grey}
           style={[defaultStyles.text, {flex: 1}]}
           value={location}
@@ -167,10 +165,9 @@ function AccountDetailsScreen({navigation}) {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
-    marginVertical: pixelSizeVertical(5),
+    marginVertical: pixelSizeVertical(7),
   },
   uploadImg: {
     paddingBottom: pixelSizeVertical(20),
@@ -192,8 +189,8 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: pixelSizeVertical(15),
     marginVertical: pixelSizeVertical(10),
-    backgroundColor: '#FEFBF3',
-    borderRadius: 15,
+    backgroundColor: colors.light,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: '#79B4B7',
     flexDirection: "row",

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
-import ListItem from "../components/ListItem";
 import LoadingMap from "../components/LocationMap";
 import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { db } from "../firebase";
 import { SliderBox } from "react-native-image-slider-box";
+import UserListItem from "../components/UserListItem";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 
@@ -93,7 +93,7 @@ function UserSingleListingScreen({ route, navigation }) {
       </View>
 
       <View style={styles.sellerContainer}>
-        <ListItem
+        <UserListItem
           image={userName.photoURL}
           title={userName.displayName}
           subTitle={listings.length.toString()}

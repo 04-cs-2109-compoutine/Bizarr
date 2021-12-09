@@ -118,6 +118,7 @@ function PostListingScreen({ navigation }) {
         createdAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
+        isLiked: false,
       });
       clearInputs();
       navigation.navigate("Account");
@@ -273,16 +274,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  inputSection:{
+    marginLeft: 8,
+    marginEnd: 8,
+  },
   inputContainer: {
-    backgroundColor: "#FEFBF3",
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#79B4B7",
-    flexDirection: "row",
-    flex: 1,
     width: "100%",
-    padding: pixelSizeVertical(10),
+    padding: pixelSizeVertical(15),
     marginVertical: pixelSizeVertical(10),
+    backgroundColor: colors.light,
+    borderRadius: 10,
+    borderColor: '#79B4B7',
+    flexDirection: "row",
     elevation: 2,
     alignItems: "center",
   },

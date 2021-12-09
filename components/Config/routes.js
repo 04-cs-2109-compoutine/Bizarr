@@ -22,5 +22,6 @@ export default Object.freeze({
   SPORTS: 'Sports',
   ENTERTAINMENT: 'Entertainment',
   OTHERS: 'Others',
-  HOME_SINGLE_LISTING: 'HomeSingleListing'
+  HOME_SINGLE_LISTING: 'HomeSingleListing',
+  SAVED: 'Saved Items'
 });
