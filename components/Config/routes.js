@@ -23,4 +23,5 @@ export default Object.freeze({
   ENTERTAINMENT: 'Entertainment',
   OTHERS: 'Others',
   HOME_SINGLE_LISTING: 'HomeSingleListing',
+  SAVED: 'Saved Items'
 });
