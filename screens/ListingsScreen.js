@@ -104,7 +104,7 @@ function ListingsScreen({ navigation }) {
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             ifExists={ifExists(item)}
             onPress={()=> 
-              ifExists(item) ? onRemoveFavorite(item) : onFavorite(item)}
+              ifExists(item) ?  onRemoveFavorite(item) : onFavorite(item)}
           />
         )}
       />

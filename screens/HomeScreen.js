@@ -211,10 +211,17 @@ const HomeScreen = ({navigation}) => {
         <LottieView 
           autoPlay
           loop
-          source={require("../assets/animations/banner.json")}
-          style={styles.waves}
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
         />
       </View>
+      
       <View style={styles.lottieView}>
         <LottieView 
           autoPlay
@@ -275,8 +282,6 @@ const HomeScreen = ({navigation}) => {
         ))}
         </MapView>
       </View>
-
-     
 
       <View style={styles.seperatorContainer}>
         <LottieView 

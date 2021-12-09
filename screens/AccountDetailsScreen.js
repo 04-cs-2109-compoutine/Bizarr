@@ -150,7 +150,7 @@ function AccountDetailsScreen({navigation}) {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder={user.location}
+          placeholder="location"
           placeholderTextColor={defaultStyles.colors.grey}
           style={[defaultStyles.text, {flex: 1}]}
           value={location}
