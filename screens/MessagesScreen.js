@@ -83,16 +83,20 @@ function MessageScreen({ navigation }) {
   };
 
   //delete the message
-  const handleDelete = (message) => {
+  const handleDelete = async (message) => {
     setGroups(groups.filter((m) => m.id !== message.id));
-    // db.collection("groups").delete();
+    console.log("message.id", message.id);
+    const res = await db.collection("groups").doc(message.id).delete();
+    console.log("res", res);
   };
 
-  // const onRefresh =
-  //   (() => {
-  //     fetchGroupByUserID();
-  //   },
-  //   [refreshing]);
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    if (auth.currentUser.uid) {
+      await fetchGroupByUserID(auth.currentUser.uid);
+    }
+    setRefreshing(false);
+  };
 
   return (
     <Screen>
@@ -114,8 +118,8 @@ function MessageScreen({ navigation }) {
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
-        // refreshing={refreshing}
-        // onRefresh={onRefresh}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </Screen>
   );
