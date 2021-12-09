@@ -1,15 +1,6 @@
 import React, { useState, useContext } from "react";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
-import { Input, Button, Icon } from "react-native-elements";
-import colors from "../components/Config/colors";
+import { KeyboardAvoidingView, StyleSheet, View, Image } from "react-native";
+import { Input } from "react-native-elements";
 import LoginButton from "../components/Button/LoginButton";
 import AuthContext from "../components/Config/context";
 
@@ -60,20 +51,8 @@ const LoginScreen = ({ navigation }) => {
         </View>
       </View>
       <View>
-        {/* <Button
-            onPress={handleLogin}
-            title="Log in"
-            buttonStyle={{ backgroundColor: "#E4EFE7"}}
-            style={styles.loginButton}
-          ></Button> */}
         <LoginButton text="Login" onPress={handleLogin} />
       </View>
-      {/* <Text
-        style={styles.signUpLink}
-        onPress={() => navigation.navigate("Sign Up")}
-      >
-        Don't have an Account? Sign up!
-      </Text> */}
     </KeyboardAvoidingView>
   );
 };
@@ -117,8 +96,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonOutline: {
-    // backgroundColor: "white",
-    // marginTop: 5,
     borderColor: "#5C8389",
     borderWidth: 2,
   },
