@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../Config/colors";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../Config/responsive"
 
 function SubmitButton({ title, onPress, color = "primary" }) {
   return (
@@ -19,13 +20,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: pixelSizeVertical(10),
     width: "35%",
-    marginVertical: 10,
+    marginVertical: pixelSizeVertical(10),
   },
   text: {
     color: colors.white,
-    fontSize: 18,
+    fontSize: fontPixel(18),
     textTransform: "uppercase",
     fontWeight: "bold",
   },

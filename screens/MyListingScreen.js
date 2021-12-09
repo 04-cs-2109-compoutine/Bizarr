@@ -6,6 +6,7 @@ import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { db } from "../firebase";
 import AuthContext from "../components/Config/context";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 function MyListingScreen({navigation}) {
 
@@ -50,7 +51,7 @@ function MyListingScreen({navigation}) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
+    padding: pixelSizeVertical(20),
     backgroundColor: colors.light,
   },
 });

@@ -9,6 +9,7 @@ import {
 import colors from "../Config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from ".././Config/responsive"
 
 function PhotoInput({ imageUri, onChangeImage }) {
   let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/bizarr/upload";
@@ -84,8 +85,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     borderRadius: 15,
     justifyContent: "center",
-    height: 150,
-    width: 150,
+    height: heightPixel(150),
+    width: widthPixel(150),
     overflow: "hidden",
   },
   image: {

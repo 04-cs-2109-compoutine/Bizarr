@@ -9,9 +9,10 @@ import {
   Text,
   Pressable,
   ScrollView,
-  Dimensions,
   Keyboard,
   TouchableWithoutFeedback,
+  Dimensions, 
+  PixelRatio
 } from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
@@ -22,6 +23,7 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -60,7 +62,7 @@ function PostListingScreen({ navigation }) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -83,7 +85,7 @@ function PostListingScreen({ navigation }) {
       category: selectedValue,
       location: location,
       images: imageUris,
-      date: firebase.firestore.Timestamp.now().toDate().toString(),
+      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
     };
     for (const key in post) {
       if (typeof post[key] === "string") {
@@ -113,7 +115,7 @@ function PostListingScreen({ navigation }) {
           location.longitude
         ),
         images: imageUris,
-        cratedAt: firebase.firestore.Timestamp.now(),
+        createdAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
       });
@@ -196,7 +198,7 @@ function PostListingScreen({ navigation }) {
                   <Picker
                     mode={"dialog"}
                     selectedValue={selectedValue}
-                    style={{ height: 200, width: 200 }}
+                    style={{ height: heightPixel(200), width: widthPixel(200) }}
                     onValueChange={(itemValue) => setCategory(itemValue)}
                   >
                     <Picker.Item label="Car" value="Car" />
@@ -248,11 +250,11 @@ function PostListingScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
-    marginBottom: 50,
+    padding: pixelSizeVertical(5),
+    marginBottom: pixelSizeVertical(50),
   },
   map: {
-    height: 300,
+    height: heightPixel(300),
   },
   errorMsg: {
     color: "red",
@@ -261,8 +263,8 @@ const styles = StyleSheet.create({
   imgContainer: {
     flexDirection: "row",
     width: "100%",
-    padding: 5,
-    marginVertical: 5,
+    padding: pixelSizeVertical(5),
+    marginVertical: pixelSizeVertical(5),
     alignItems: "center",
     justifyContent: "center",
   },
@@ -279,16 +281,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     width: "100%",
-    padding: 10,
-    marginVertical: 10,
+    padding: pixelSizeVertical(10),
+    marginVertical: pixelSizeVertical(10),
     elevation: 2,
     alignItems: "center",
   },
   btn: {
-    marginTop: 10,
+    marginTop: pixelSizeVertical(10),
     alignItems: "center",
-    marginBottom: 20,
-    paddingBottom: 20,
+    marginBottom: pixelSizeVertical(20),
+    paddingBottom: pixelSizeVertical(20),
   },
   pickerContainer: {
     flex: 1,
@@ -299,19 +301,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    marginTop: pixelSizeVertical(22),
   },
   modalView: {
     width: "60%",
     height: "50%",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 25,
+    padding: pixelSizeVertical(25),
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: heightPixel(2),
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -322,9 +324,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: pixelSizeVertical(10),
     width: "50%",
-    marginVertical: 10,
+    marginVertical: pixelSizeVertical(10),
   },
   buttonClose: {
     backgroundColor: colors.main,
@@ -335,7 +337,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: pixelSizeVertical(15),
     textAlign: "center",
   },
 });
