@@ -60,20 +60,8 @@ const LoginScreen = ({ navigation }) => {
         </View>
       </View>
       <View>
-        {/* <Button
-            onPress={handleLogin}
-            title="Log in"
-            buttonStyle={{ backgroundColor: "#E4EFE7"}}
-            style={styles.loginButton}
-          ></Button> */}
         <LoginButton text="Login" onPress={handleLogin} />
       </View>
-      {/* <Text
-        style={styles.signUpLink}
-        onPress={() => navigation.navigate("Sign Up")}
-      >
-        Don't have an Account? Sign up!
-      </Text> */}
     </KeyboardAvoidingView>
   );
 };

@@ -115,6 +115,7 @@ function PostListingScreen({navigation}) {
         cratedAt: firebase.firestore.Timestamp.now(),
         uid: user.uid,
         sold: false,
+        isLiked: false,
       });
       clearInputs();
       navigation.navigate("Account");

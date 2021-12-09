@@ -70,12 +70,8 @@ const HomeScreen = ({navigation}) => {
 
   useEffect(() => {
     readAllListing();
-  }, []);
-
-  useEffect(()=>{
     getLocation();
-  }, [])
-
+  }, []);
  
   return (
 

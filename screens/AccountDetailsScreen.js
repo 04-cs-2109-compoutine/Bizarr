@@ -11,7 +11,6 @@ import colors from "../components/Config/colors";
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
   const { user, setUser } = useContext(AuthContext);
-  // const user = auth.currentUser;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -151,7 +150,7 @@ function AccountDetailsScreen({navigation}) {
       </View>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Location"
+          placeholder={user.location}
           placeholderTextColor={defaultStyles.colors.grey}
           style={[defaultStyles.text, {flex: 1}]}
           value={location}

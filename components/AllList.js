@@ -1,29 +1,11 @@
-import React, {useEffect, useRef} from 'react';
-import {View, StyleSheet, TouchableWithoutFeedback, SafeAreaView, TouchableOpacity} from "react-native";
+import React from 'react';
+import {View, StyleSheet, SafeAreaView, TouchableOpacity} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
-import LottieView from 'lottie-react-native';
 import Text from "./Config/Text";
 import colors from "./Config/colors";
+import { AntDesign } from '@expo/vector-icons';
 
-function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost = () => {}, _id }) {
-
-  const animation = useRef(null);
-  const isFirstRun = useRef(true);
-
-  useEffect(()=>{
-    if(isFirstRun.current){
-      if(isLiked){
-        animation.current.play(66, 66)
-      } else {
-        animation.current.play(19, 19)
-      }
-      isFirstRun.current = false;
-    }else if(isLiked){
-      animation.current.play(19, 50)
-    } else {
-      animation.current.play(0, 19);
-    }
-  }, [isLiked])
+function List({ price, imageUris, onRowPress, onPress, ifExists}) {
 
   return (
     <SafeAreaView style={styles.detailsContainer}>
@@ -34,27 +16,14 @@ function List({ title, price, imageUris, onRowPress, isLiked = false, onLikePost
             style={styles.image}
             onCurrentImagePressed={onRowPress}
           />
-            <View style={styles.likeContainer}>
-              <TouchableOpacity onPress={() => {
-                onLikePost(_id);
-              }} >
-                <LottieView
-                  ref={animation}
-                  style={styles.heartLottie}
-                  source={require("../assets/animations/like.json")}
-                  autoPlay={false}
-                  loop={false}/>
-              </TouchableOpacity>
-            
-            <Text style={styles.title} numberOfLines={1}>
-              {title}
+          <View style={styles.likeContainer}>
+          <TouchableOpacity style={styles.liked} onPress={onPress}>
+            <AntDesign name={ifExists ? "heart" : "hearto"} size={20} color="red"/>
+          </TouchableOpacity>
+            <Text style={styles.price} numberOfLines={2}>
+              {price}
             </Text>
           </View>
-          
-          <Text style={styles.price} numberOfLines={2}>
-            {price}
-          </Text>
-          
         </View>
       </TouchableOpacity>
         
@@ -80,22 +49,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   price: {
+    flex: 2,
     color: colors.secondary,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: -10,
-    marginBottom: 5
+    marginLeft: -8
   },
-  title: {
-    flex: 2,
-    textAlign: "center",
-    marginLeft: -5
-  },
-  heartLottie: {
-    flex: 1,
-    width: 50,
-    height: 50,
-    marginLeft: -2
+  liked:{
+    margin: 10
   },
   likeContainer:{
     flex: 1,
@@ -103,6 +64,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     width: "80%",
+    justifyContent: 'space-between',
+  
   }
 });
 

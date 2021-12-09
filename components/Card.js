@@ -1,16 +1,18 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from './Config/colors';
+import { SliderBox } from "react-native-image-slider-box";
 
 const Card = ({itemData, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.card}>
         <View style={styles.cardImgWrapper}>
-          <Image
-            source={itemData.images}
-            resizeMode="cover"
-            style={styles.cardImg}
+        <SliderBox 
+            images={itemData.images} 
+            ImageComponentStyle={styles.cardImg}
+            onCurrentImagePressed={onPress}
+            parentWidth={123}
           />
         </View>
         <View style={styles.cardInfo}>
@@ -29,7 +31,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   card: {
-    height: 110,
+    height: 120,
     marginVertical: 10,
     flexDirection: 'row',
     shadowColor: '#999',
