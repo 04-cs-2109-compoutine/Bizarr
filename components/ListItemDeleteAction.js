@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+
 
 import colors from "./Config/colors";
 
@@ -21,7 +23,7 @@ function ListItemDeleteAction({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.danger,
-    width: 70,
+    width: widthPixel(70),
     justifyContent: "center",
     alignItems: "center",
   },

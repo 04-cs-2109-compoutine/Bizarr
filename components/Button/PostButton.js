@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../Config/responsive"
 
 import colors from "../Config/colors";
 
@@ -25,10 +26,10 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     borderRadius: 40,
     borderWidth: 10,
-    bottom: 20,
-    height: 80,
+    bottom: pixelSizeVertical(20),
+    height: heightPixel(80),
     justifyContent: "center",
-    width: 80,
+    width: widthPixel(80),
   },
 });
 

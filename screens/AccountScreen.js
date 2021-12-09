@@ -8,6 +8,8 @@ import Screen from "../components/Screen";
 import Text from "../components/Config/Text";
 import { db } from "../firebase";
 import AuthContext from "../components/Config/context";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+
 
 const menuItems = [
   {
@@ -106,23 +108,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#cce3de",
   },
   logoContainer: {
-    marginTop: 15,
+    marginTop: pixelSizeVertical(15),
   },
   userLogo: {
-    width: 90,
-    height: 90,
+    width: widthPixel(90),
+    height: heightPixel(90),
     alignSelf: "center",
-    padding: 10,
+    padding: pixelSizeVertical(10),
     borderRadius: 50,
-    top: 10,
-    marginBottom: 20,
+    top: pixelSizeVertical(10),
+    marginBottom: pixelSizeVertical(20),
   },
   tagline: {
-    fontSize: 20,
+    fontSize: fontPixel(20),
     fontWeight: "500",
     alignSelf: "center",
     color: "black",
-    paddingVertical: 5,
+    paddingVertical: pixelSizeVertical(5),
   },
 });
 

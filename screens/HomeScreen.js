@@ -12,6 +12,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import routes from '../components/Config/routes';
 import LottieView from "lottie-react-native";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -234,7 +236,7 @@ const HomeScreen = ({navigation}) => {
               <Callout onPress={() => navigation.navigate("All Listings")}>
                 <Text>
                   <Image
-                    style={{width: 40, height: 40 }}
+                    style={{width: widthPixel(40), height: heightPixel(40) }}
                     source={{uri: listing.images[0]}}>
                   </Image>
                 </Text>
@@ -261,9 +263,9 @@ const styles = StyleSheet.create({
     margin: '2%',
   },
   sliderContainer: {
-    height: 200,
+    height: heightPixel(200),
     width: '100%',
-    marginTop: 10,
+    marginTop: pixelSizeVertical(10),
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 8,
@@ -276,8 +278,8 @@ const styles = StyleSheet.create({
 
   },
   header:{
-    marginTop: 10,
-    height: 70,
+    marginTop: pixelSizeVertical(10),
+    height: heightPixel(70),
     width: "50%",
     alignItems: 'center',
     marginLeft: '25%',
@@ -289,25 +291,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   banner: {
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: pixelSizeVertical(20),
+    paddingBottom: pixelSizeVertical(20),
   },
   map: {
-    height: 300,
-    marginBottom: 10,
+    height: widthPixel(300),
+    marginBottom: pixelSizeVertical(10),
     borderColor: '#79B4B7',
-    marginTop: 5
+    marginTop: pixelSizeVertical(5)
   },
   buttonContainer: {
     flexDirection: "row",
-    marginVertical: 20,
+    marginVertical: pixelSizeVertical(20),
     backgroundColor: "transparent",
   },
   sectionHeader: {
     fontWeight: '700',
     fontSize: 18,
-    marginTop: 20,
-    marginBottom: 5,
+    marginTop: pixelSizeVertical(20),
+    marginBottom: pixelSizeVertical(5),
     color: "#515E63",
     alignSelf:'flex-start'
   },
@@ -315,8 +317,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '90%',
     alignSelf: 'center',
-    marginTop: 25,
-    marginBottom: 10,
+    marginTop: pixelSizeVertical(25),
+    marginBottom: pixelSizeVertical(10),
   },
   categoryBtn: {
     flex: 1,
@@ -329,22 +331,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    width: 60,
-    height: 60,
+    width: widthPixel(60),
+    height: widthPixel(60),
     backgroundColor: '#FBF6F0' /* '#5c8d89' */,
     borderRadius: 50,
   },
   categoryBtnTxt: {
     alignSelf: 'center',
-    marginTop: 5,
+    marginTop: pixelSizeVertical(5),
     color: '#5c8d89',
-    fontSize: 12
+    fontSize: fontPixel(12)
   },
   searchBar:{
-    marginBottom: 10
+    marginBottom: pixelSizeVertical(10)
   },
   listingContainer:{
-    marginTop: 5
+    marginTop: pixelSizeVertical(5)
   },
   LoadContainer:{
     flex: 1,
@@ -357,13 +359,13 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: '700',
-    fontSize: 18,
-    marginTop: 20,
-    marginBottom: 15,
+    fontSize: fontPixel(18),
+    marginTop: pixelSizeVertical(20),
+    marginBottom: pixelSizeVertical(15),
     color: "#515E63",
   },
   dotanimation:{
-    width: 80,
+    width: widthPixel(80),
     marginLeft: '28%'
   }
 });

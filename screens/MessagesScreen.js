@@ -8,6 +8,7 @@ import Screen from "../components/Screen";
 import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 
+
 import { auth, db } from "../firebase";
 
 function MessageScreen({ navigation }) {

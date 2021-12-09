@@ -8,6 +8,7 @@ import Text from "../components/Config/Text";
 import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -167,44 +168,44 @@ function SingleListingScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 10,
+    padding: pixelSizeVertical(10),
     backgroundColor: colors.white,
   },
   detailsContainer: {
-    padding: 10,
+    padding: pixelSizeVertical(10),
   },
   image: {
     width: "95%",
-    height: 350,
+    height: heightPixel(350),
   },
   price: {
     color: colors.secondary,
     fontWeight: "bold",
-    fontSize: 25,
-    marginVertical: 10,
+    fontSize: fontPixel(25),
+    marginVertical: pixelSizeVertical(10),
   },
   title: {
-    fontSize: 26,
+    fontSize: fontPixel(26),
     fontWeight: "500",
   },
   description: {
-    marginTop: 10,
-    fontSize: 15.5,
+    marginTop: pixelSizeVertical(10),
+    fontSize: fontPixel(15.5),
   },
   sellerContainer: {
-    marginBottom: 10,
+    marginBottom: pixelSizeVertical(10),
   },
 
   submitButton: {
-    width: 650,
+    width: widthPixel(650),
 
     marginLeft: "20%",
 
     alignContent: 'center',
 
-    marginBottom: 300,
+    marginBottom: pixelSizeVertical(300),
     flexDirection: "row",
-    paddingTop: 260,
+    paddingTop: pixelSizeVertical(260),
   },
 });
 
