@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { db } from '../firebase'
-import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity} from "react-native";
+import { View, Text, Dimensions, StyleSheet, SafeAreaView, Image, ScrollView, StatusBar, TouchableOpacity, FlatList} from "react-native";
 import Swiper from 'react-native-swiper';
 import * as Location from 'expo-location'
 import HorizontalListing from '../components/HorizontalListing';
@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import routes from '../components/Config/routes';
 import LottieView from "lottie-react-native";
+import Card from '../components/Card';
 
 // setting up for a default region and map view size
 const { width, height } = Dimensions.get("window");
@@ -25,6 +26,7 @@ const SPACE = 0.01;
 const HomeScreen = ({navigation}) => {
   const theme = useTheme();
   const [listings, setListings] = useState([])
+  const [picklistings, setPickListings] = useState([])
 
   const [region, setRegion] = useState({
         latitude: LATITUDE,
@@ -60,6 +62,7 @@ const HomeScreen = ({navigation}) => {
       let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
       let datedList = userLists.sort((a, b) => b.createdAt - a.createdAt).slice(0,6)
       setListings(datedList)
+      setPickListings(allListings.slice(0,10))
     } catch(e) {
       console.log(e);
     }
@@ -208,6 +211,15 @@ const HomeScreen = ({navigation}) => {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
       <View style={styles.textContainer}>
         <Text style={styles.text}>Shop Locally</Text>
       </View>
@@ -244,6 +256,7 @@ const HomeScreen = ({navigation}) => {
         ))}
         </MapView>
       </View>
+
       <View style={styles.seperatorContainer}>
         <LottieView 
           autoPlay
@@ -270,15 +283,38 @@ const HomeScreen = ({navigation}) => {
         />
       </View>
 
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>Made for you</Text>
-      </View>
-
+      
       <View style={styles.textContainer}>
         <Text style={styles.text}>New Listings</Text>
       </View>
       <View style={styles.listingContainer}>
         <HorizontalListing listings={listings} navigation={navigation}/>
+      </View>
+
+      <View style={styles.seperatorContainer}>
+        <LottieView 
+          autoPlay
+          loop
+          source={require("../assets/animations/seperator.json")}
+          style={styles.seperator}
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Made for you</Text>
+      </View>
+          
+      <View style={styles.flatContainer}>
+      <FlatList 
+          data={picklistings}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Card
+            itemData={item}
+            onPress={()=> navigation.navigate(routes.LISTING_DETAILS, item)}
+            />
+          )}
+      />
       </View>
 
     </ScrollView>
@@ -413,7 +449,12 @@ const styles = StyleSheet.create({
   },
   seperator:{
     height: 20,
-  }
+  },
+  flatContainer: {
+    flex: 1, 
+    width: '95%',
+    alignSelf: 'center'
+  },
 });
 
 export default HomeScreen;
