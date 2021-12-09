@@ -8,8 +8,13 @@ import Screen from "../components/Screen";
 import Text from "../components/Config/Text";
 import { db } from "../firebase";
 import AuthContext from "../components/Config/context";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "../components/Config/responsive";
 
 const menuItems = [
   {
@@ -105,7 +110,7 @@ function AccountScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: "#cce3de",
+    backgroundColor: colors.primary,
   },
   logoContainer: {
     marginTop: pixelSizeVertical(15),
