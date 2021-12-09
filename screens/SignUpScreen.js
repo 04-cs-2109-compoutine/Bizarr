@@ -9,8 +9,7 @@ import {
   View,
   Image,
 } from "react-native";
-import colors from "../components/Config/colors";
-import { Input, Button } from "react-native-elements";
+import { Input } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
@@ -43,7 +42,7 @@ const SignUpScreen = () => {
               photoURL: user.photoURL,
               likedItems: [],
               phone: "000-000-0000",
-              location: '',
+              location: "",
             });
           })
           .catch(function (error) {
@@ -53,11 +52,11 @@ const SignUpScreen = () => {
   };
 
   //sign in with google
-  async function signInWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const { user } = await auth.signInWithPopup(provider);
-    return user;
-  }
+  // async function signInWithGoogle() {
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   const { user } = await auth.signInWithPopup(provider);
+  //   return user;
+  // }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -89,11 +88,6 @@ const SignUpScreen = () => {
             style={styles.input}
           />
         </View>
-        {/* <Button
-          title="Register"
-          buttonStyle={{ backgroundColor: colors.main }}
-          onPress={handleSignUp}
-        ></Button> */}
         <LoginButton text="Register" onPress={handleSignUp} />
       </View>
       <View style={styles.google}>
