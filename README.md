@@ -95,10 +95,10 @@ process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 The future of Bizarr includes making our application accessible to Android users and adding a payment function so that users can actually complete their transactions in-app. We may also add a calendar so that users can choose dates and times for their meet-ups. 
 
 ## Creators
-- :blue_heart: &nbsp Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
-- :green_heart: &nbsp Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
-- :yellow_heart: &nbsp Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
-- :purple_heart: &nbsp Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
+- :blue_heart: :heavy_minus_sign: Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+- :green_heart: :heavy_minus_sign: Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
+- :yellow_heart: :heavy_minus_sign: Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
+- :purple_heart: :heavy_minus_sign: Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
 ## Acknowledgements  :heart:
 Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)
