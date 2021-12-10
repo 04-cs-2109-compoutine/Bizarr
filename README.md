@@ -16,7 +16,7 @@ Bizarr is a collaborative marketplace where all users are able to buy and sell t
 
 Bizarr keeps it simple but having everything you would need in a Marketplace in one simple application. Bizarr uses your location in order to find the listing close to you and pinpoints it to the map for your convenience. Users can also chat with each other about items in order to discuss any details and finalize their purchases. No more fuss and no more uncertainty about when and where your desired item will be in your hands.
 
-Watch our full 4-minute demo cideo [here](https://www.youtube....) or a short one-minute demo [here](https:www.youtube...)
+Watch our full 4-minute demo video [here](https://www.youtube....) or a short one-minute demo [here](https:www.youtube...)
 
 ## Tech Stack
 
