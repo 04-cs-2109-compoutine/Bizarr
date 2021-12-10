@@ -59,7 +59,7 @@ When a user is logged in and signed up, they can navigate to their account detai
 
 (assets/apple-touch-icon.png)[image or screencast]
 
-### Marked as Sold
+### Marked as sold
 
 ### Favorite listings
 
