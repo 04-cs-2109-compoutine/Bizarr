@@ -54,10 +54,15 @@ When you see a product you are interested in, you can click on it to bring up in
 
 (assets/apple-touch-icon.png)[image or screencast]
 
-### Change Account Details
+### Change account details
 When a user is logged in and signed up, they can navigate to their account details screen to change their email, password, profile and profile picture.
 
 (assets/apple-touch-icon.png)[image or screencast]
+
+### Marked as Sold
+
+### Favorite listings
+
 
 ## Getting Started
 
