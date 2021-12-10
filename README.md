@@ -9,7 +9,7 @@ A marketplace app that is fully integrated with mapping, allowing users to find 
 - [Getting Started](#next-steps)
 - [Next Steps](#creators)
 - [Creators](#creators)
-- [Docs](#docs)
+- [Acknowledgements](#acknowledgements )
 
 ## Introduction
 Bizarr is a collaborative marketplace where all users are able to buy and sell their items.
@@ -95,10 +95,10 @@ process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 The future of Bizarr includes making our application accessible to Android users and adding a payment function so that users can actually complete their transactions in-app. We may also add a calendar so that users can choose dates and times for their meet-ups. 
 
 ## Creators
-:blue_heart:   - Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
-:green_heart:   - Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
-:yellow_heart:   - Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
-:purple_heart:   - Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
+- :blue_heart: <pre> Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+- :green_heart: <pre> Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
+- :yellow_heart: <pre> Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
+- :purple_heart: <pre> Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
 ## Acknowledgements  :heart:
 Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)
