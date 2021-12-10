@@ -37,7 +37,7 @@ function FavoriteListing({ navigation }) {
             imageUris={item.images}
             description={item.description}
             onPress={() =>
-              navigation.navigate(routes.USER_SINGLE_LISTING, item)
+              navigation.navigate(routes. LISTING_DETAILS, item)
             }
           />
         )}

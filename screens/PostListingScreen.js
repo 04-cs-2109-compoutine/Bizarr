@@ -55,26 +55,11 @@ function PostListingScreen({ navigation }) {
   }
 
   const clearInputs = () => {
-    const post = {
-      title: title,
-      price: price,
-      description: description,
-      category: selectedValue,
-      location: location,
-      images: imageUris,
-      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
-    };
-    for (const key in post) {
-      if (typeof post[key] === "string") {
-        post[key] = "";
-      }
-      if (typeof post[key] === "object") {
-        post[key] = {};
-      }
-      if (typeof post[key] === "array") {
-        post[key] = [];
-      }
-    }
+    setTitle("");
+    setPrice("");
+    setCategory("Category");
+    setDescription("");
+    setImageUris([])
   };
 
   const validatePost = () => {

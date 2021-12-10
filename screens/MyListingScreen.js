@@ -4,7 +4,7 @@ import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import AuthContext from "../components/Config/context";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
@@ -12,6 +12,7 @@ function MyListingScreen({navigation}) {
 
   const [listings, setListings] = useState([]);
   const {user, setUser} = useContext(AuthContext);
+  const [refreshing, setRefreshing] = useState(false);
 
   async function getListings() {
     try {
@@ -29,6 +30,11 @@ function MyListingScreen({navigation}) {
     getListings();
   }, [])
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    getListings();
+    setRefreshing(false);
+  };
 
   return (
     <Screen style={styles.screen}>
@@ -44,6 +50,8 @@ function MyListingScreen({navigation}) {
             onPress={() => navigation.navigate(routes.USER_SINGLE_LISTING, item)}
           />
         )}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </Screen>
   )

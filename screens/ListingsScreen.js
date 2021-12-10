@@ -9,7 +9,6 @@ import { SearchBar } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
-
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const [descending, setDescending] = useState([])
@@ -102,18 +101,18 @@ function ListingsScreen({ navigation }) {
 
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={(text) => searchFilterFunction(text)}
-        value={search}
-        showCancel
-        lightTheme
-      />
-      <View style={styles.iconContainer}>
-      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
-      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
-      </TouchableOpacity>
-      </View>
+      <View>
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          showCancel
+          lightTheme
+        />
+        <TouchableOpacity style={styles.iconContainer} activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
+          <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
+        </TouchableOpacity>
+        </View>
       <FlatList
         numColumns={2}
         columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -141,13 +140,20 @@ const styles = StyleSheet.create({
     padding: pixelSizeVertical(10),
     backgroundColor: colors.light,
   },
+  // searchBarContainer:{
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   margin: 100
+  // },
   icon:{
     marginLeft: pixelSizeHorizontal(345),
     marginBottom: pixelSizeVertical(60),
-
   },
   iconContainer:{
-    height: heightPixel(1), width: widthPixel(1), paddingBottom: pixelSizeVertical(40)
+    height: heightPixel(1), 
+    width: widthPixel(1), 
+    paddingBottom: pixelSizeVertical(40)
   }
 
 });
