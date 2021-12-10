@@ -9,7 +9,7 @@ A marketplace app that is fully integrated with mapping, allowing users to find 
 - [Getting Started](#next-steps)
 - [Next Steps](#creators)
 - [Creators](#creators)
-- [Acknowledgements](#acknowledgements )
+- [Acknowledgements](#acknowledgements :heart:)
 
 ## Introduction
 Bizarr is a collaborative marketplace where all users are able to buy and sell their items.
@@ -100,7 +100,7 @@ The future of Bizarr includes making our application accessible to Android users
 - :yellow_heart:   Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
 - :purple_heart:   Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
-## Acknowledgements  :heart:
+## Acknowledgements :heart:
 Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)
 
 
