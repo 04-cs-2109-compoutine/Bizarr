@@ -16,7 +16,7 @@ Bizarr is a collaborative marketplace where all users are able to buy and sell t
 
 Bizarr keeps it simple but having everything you would need in a Marketplace in one simple application. Bizarr uses your location in order to find the listing close to you and pinpoints it to the map for your convenience. Users can also chat with each other about items in order to discuss any details and finalize their purchases. No more fuss and no more uncertainty about when and where your desired item will be in your hands.
 
-Watch our full 4-minute demo cideo [here](https://www.youtube....) or a short one-minute demo [here](https:www.youtube...)
+Watch our full 4-minute demo video [here](https://www.youtube....) or a short one-minute demo [here](https:www.youtube...)
 
 ## Tech Stack
 
@@ -66,51 +66,10 @@ In 'My listings' under 'Account Screen', users can see their own posts. Navigate
 In 'All Listings' screen, if user tab the heart in a single item, they can save them into 'Saved' under Account Screen. Users can de-selected if they don't want to save them anymore.
 
 ## Getting Started
-1. Fork and clone this repo, then npm install or Expo install.
+1. Fork and clone this repo, then npm install or expo install
 2. Create a Firebase config file, called as firebase.js
-
-````git
-cd Bizarr && touch firebase.js 
-````
-Add your Firebase configuration into firebase.js
-
-````javascript
-import * as firebase from "firebase";
-
-if (process.env.NODE_ENV !== "production") require("./secrets");
-
-const FIRESTORE_API_KEY = process.env.FIRESTORE_API_KEY;
-const FIRESTORE_AUTH_DOMAIN = process.env.FIRESTORE_AUTH_DOMAIN;
-const FIRESTORE_DATABASE_URL = process.env.FIRESTORE_DATABASE_URL;
-const FIRESTORE_PROJECT_ID = process.env.FIRESTORE_PROJECT_ID;
-const FIRESTORE_STORAGE_BUCKET = process.env.FIRESTORE_STORAGE_BUCKET;
-const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
-const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
-
-const firebaseConfig = {
-  apiKey: FIRESTORE_API_KEY,
-  authDomain: FIRESTORE_AUTH_DOMAIN,
-  databaseURL: FIRESTORE_DATABASE_URL,
-  projectId: FIRESTORE_PROJECT_ID,
-  storageBucket: FIRESTORE_STORAGE_BUCKET,
-  messagingSenderId: FIRESTORE_MESSAGING_SENDER_ID,
-  appId: FIRESTORE_APP_ID,
-};
-
-let app;
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
-} else {
-  app = firebase.app();
-}
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-export { auth, db, firebase };
-````
-
-Create a file in Bizarr folder as secret.js
+3. Create a file in Bizarr folder as secret.js
+4. Follow this tutorial and create a project in fire base [https://www.youtube.com/watch?v=eeGKcZGkKrc]
 
 ````git
 cd Bizarr && touch secret.js 
@@ -127,6 +86,7 @@ process.env.FIRESTORE_MESSAGING_SENDER_ID = "YOUR MESSAGING_SENDER_ID";
 process.env.FIRESTORE_APP_ID = "YOUR FIRESTORE_APP_ID";
 process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 ````
+5. Start this project: npm start/expo start
 
 * You may need to reconfigure some other files that call these keys to match what you have in this file. 
 
@@ -134,9 +94,12 @@ process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 The future of Bizarr includes making our application accessible to Android users and adding a payment function so that users can actually complete their transactions in-app. We may also add a calendar so that users can choose dates and times for their meet-ups. 
 
 ## Creators
-Grace Lin
-Liat Guvenc
-Zoe Zhang
-Sen Cai
+- :blue_heart: Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+- :green_heart: Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
+- :yellow_heart: Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
+- :purple_heart: Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
-## Docs
+## Acknowledgements :heart:
+Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)(mailto:ben@b17z.io)
+
+
