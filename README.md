@@ -31,6 +31,31 @@ Watch our full 4-minute demo cideo [here](https://www.youtube....) or a short on
 
 ## Features
 
+### Create an account
+First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
+
+(assets/apple-touch-icon.png)[image or screencast]
+
+### View all our product listings
+Starting at the Homepage, you can see all the products our users have listed that are near you on the map, as well as latest listings and a special section of listings made just for you! You can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. You can also tap the filter icon to sort items by price in descending order.
+
+(assets/apple-touch-icon.png)[image or screencast]
+
+### Post a product
+Click on the post button in the middle of the bottom navigator to switch to the Post Listing screen, which will prompt you to enter information about and images of your product. Enter a location you would like for people to pick up the product — it could be a specific address or just the city that you’re in. Your product’s location will automatically be rendered in the map view! Once you’re done, click ‘Post’ and you should see your product under the ‘My Listings’ screen in your account page.
+
+(assets/apple-touch-icon.png)[image or screencast]
+
+### Contact sellers
+When you see a product you are interested in, you can click on it to bring up information about that specific product, including the seller’s information and a ‘Message’ button to contact the seller. Any messages you send to sellers can be viewed by navigating to the ‘Messages’ screen in the bottom navigator
+
+(assets/apple-touch-icon.png)[image or screencast]
+
+### Change Account Details
+When a user is logged in and signed up, they can navigate to their account details screen to change their email, password, profile and profile picture.
+
+(assets/apple-touch-icon.png)[image or screencast]
+
 ## Getting Started
 
 ## Next Steps
