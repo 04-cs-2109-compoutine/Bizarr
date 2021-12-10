@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
   icon:{
     marginLeft: pixelSizeHorizontal(345),
     marginTop: pixelSizeVertical(8),
-
   },
   iconContainer:{
     height: heightPixel(8), width: widthPixel(8),
