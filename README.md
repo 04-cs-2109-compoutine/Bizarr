@@ -36,6 +36,9 @@ First register by entering your full name, email, and a password! Then, navigate
 
 (assets/apple-touch-icon.png)[image or screencast]
 
+### Homepage navigation with map view
+After login, users can see the Home screen. There are 4 sections in the home screen. First one is the category section, users can find their product through click into different categories. After that, it’s a map view. In the map view, users can see all products near to them based on the user's current location. Meanwhile, they can also click a marker in the map and see the listing's detailed information. Next section in Homescreen is New Listings. There are 6 new listings that the seller just posted. In this way, users can check the latest listings. The last section is Made for You. In this section, there will be 10 random items that are recommended to users.
+
 ### View all our product listings
 Starting at the Homepage, you can see all the products our users have listed that are near you on the map, as well as latest listings and a special section of listings made just for you! You can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. You can also tap the filter icon to sort items by price in descending order.
 
