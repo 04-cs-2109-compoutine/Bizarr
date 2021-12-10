@@ -60,6 +60,7 @@ When a user is logged in and signed up, they can navigate to their account detai
 (assets/apple-touch-icon.png)[image or screencast]
 
 ### Marked as sold
+In My listings under Account Screen, users can see their own posts. Navigate into a single listing, there is a button with Available. If that item is sold, users can toggle the button and mark it as sold. Then the sold item will be pushed into Sold History. 
 
 ### Favorite listings
 
