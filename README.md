@@ -9,7 +9,7 @@ A marketplace app that is fully integrated with mapping, allowing users to find 
 - [Getting Started](#next-steps)
 - [Next Steps](#creators)
 - [Creators](#creators)
-- [Acknowledgements](#acknowledgements :heart:)
+- [Acknowledgements](#acknowledgements)
 
 ## Introduction
 Bizarr is a collaborative marketplace where all users are able to buy and sell their items.
