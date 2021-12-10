@@ -67,14 +67,14 @@ In 'All Listings' screen, if user tab the heart in a single item, they can save 
 
 ## Getting Started
 1. Fork and clone this repo, then npm install or expo install
-2. Create a Firebase config file, called as firebase.js
-3. Create a file in Bizarr folder as secret.js
-4. Follow this tutorial and create a project in fire base [https://www.youtube.com/watch?v=eeGKcZGkKrc]
+2. Create a file in Bizarr folder as secret.js
+3. Follow this tutorial and create a project in fire base [https://www.youtube.com/watch?v=eeGKcZGkKrc]
+4. Follow this tutorial and create your own Google API key [https://www.youtube.com/watch?v=xLHiVsR7hX0]
 
 ````git
 cd Bizarr && touch secret.js 
 ````
-Put all your configs from firebase into secret.js as this:
+Put all your firebase configs and google api key from firebase into secret.js as this:
 
 ````javascript
 process.env.FIRESTORE_API_KEY = "YOUR KEY";
@@ -84,22 +84,23 @@ process.env.FIRESTORE_PROJECT_ID = "YOUR FIREBASE PROJECT ID";
 process.env.FIRESTORE_STORAGE_BUCKET = "YOUR STORAGE_BUCKET";
 process.env.FIRESTORE_MESSAGING_SENDER_ID = "YOUR MESSAGING_SENDER_ID";
 process.env.FIRESTORE_APP_ID = "YOUR FIRESTORE_APP_ID";
+
 process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 ````
-5. Start this project: npm start/expo start
+4. Start this project: npm start/expo start
 
-* You may need to reconfigure some other files that call these keys to match what you have in this file. 
+*** You may need to reconfigure some other files that call these keys to match what you have in this file *** 
 
 ## Next Steps
 The future of Bizarr includes making our application accessible to Android users and adding a payment function so that users can actually complete their transactions in-app. We may also add a calendar so that users can choose dates and times for their meet-ups. 
 
 ## Creators
-- :blue_heart: Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
-- :green_heart: Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
-- :yellow_heart: Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
-- :purple_heart: Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
+- :blue_heart:   Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+- :green_heart:   Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
+- :yellow_heart:   Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
+- :purple_heart:   Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
-## Acknowledgements :heart:
-Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)(mailto:ben@b17z.io)
+## Acknowledgements  :heart:
+Bizarr cannot express enough thanks to our fellows and instructors for their continued support and encouragement: [Josephine Wang](https://github.com/joseewang) | [McKenna Warren](https://github.com/mckennakayyy) | [Ben Rodriguez](https://github.com/b17z)
 
 
