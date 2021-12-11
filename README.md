@@ -121,7 +121,7 @@ The future of Bizarr includes making our application accessible to Android users
 
 ## Creators
 
-<img src="assets/readmePics/grace.png" width="150"/>  <img src="assets/readmePics/Liat.png" width="150" />  <img src="assets/readmePics/zoe.png" width="150"/>   <img src="assets/readmePics/sen.png" width="150"/>
+<img src="assets/readmePics/grace.png" width="150"/>  <img src="assets/readmePics/Liat.png" width="150" />  <img src="assets/readmePics/zoe.png" width="150"/>  <img src="assets/readmePics/sen.png" width="150"/>
 <br />
   Grace Lin :blue_heart:     Liat Guvenc :green_heart:    Zoe Zhang :yellow_heart:    Sen Cai :purple_heart:
 <br />
