@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import AllList from "../components/AllList";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
@@ -7,12 +14,17 @@ import Screen from "../components/Screen";
 import { db } from "../firebase";
 import { SearchBar } from "react-native-elements";
 import AuthContext from "../components/Config/context";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "../components/Config/responsive";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
-  const [descending, setDescending] = useState([])
+  const [descending, setDescending] = useState([]);
   const [filteredLists, setFilteredLists] = useState([]);
   const [search, setSearch] = useState();
   const { user, setUser } = useContext(AuthContext);
@@ -38,14 +50,19 @@ function ListingsScreen({ navigation }) {
 
   async function readAllListingsAndSortByPrice() {
     try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id}));
-      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false)
-      let sortByPriceList = userLists.map(listing => ({...listing, price: parseInt(listing.price)}))
-        .sort(function(a, b){ return a.price - b.price})
-      setFilteredLists(sortByPriceList)
-    } catch(e) {
+      const getListingsPromise = db.collection("listings").get();
+      const data = await getListingsPromise;
+      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter(
+        (listing) => listing.uid !== user.uid && listing.sold === false
+      );
+      let sortByPriceList = userLists
+        .map((listing) => ({ ...listing, price: parseInt(listing.price) }))
+        .sort(function (a, b) {
+          return a.price - b.price;
+        });
+      setFilteredLists(sortByPriceList);
+    } catch (e) {
       console.log(e);
     }
   }
@@ -55,13 +72,16 @@ function ListingsScreen({ navigation }) {
   }, []);
 
   const updateUser = async (favoriteList) => {
-    await db.collection("users").doc(user.uid).update({
-      likedItems: favoriteList
-    })
-    .catch(function (error) {
-      alert(error.message);
-    });
-  }
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        likedItems: favoriteList,
+      })
+      .catch(function (error) {
+        alert(error.message);
+      });
+  };
 
   const searchFilterFunction = (text) => {
     if (text) {
@@ -80,21 +100,19 @@ function ListingsScreen({ navigation }) {
     }
   };
 
-  const onFavorite = listing => {
+  const onFavorite = (listing) => {
     setFavoriteList([...favoriteList, listing]);
     updateUser(favoriteList);
   };
 
-  const onRemoveFavorite = listing => {
-    const filteredList = favoriteList.filter(
-      item => item.id !== listing.id
-    );
+  const onRemoveFavorite = (listing) => {
+    const filteredList = favoriteList.filter((item) => item.id !== listing.id);
     setFavoriteList(filteredList);
     updateUser(favoriteList);
   };
 
-   const ifExists = listing => {
-    if (favoriteList.filter(item => item.id === listing.id).length > 0) {
+  const ifExists = (listing) => {
+    if (favoriteList.filter((item) => item.id === listing.id).length > 0) {
       return true;
     }
     return false;
@@ -110,9 +128,15 @@ function ListingsScreen({ navigation }) {
         lightTheme
       />
       <View style={styles.iconContainer}>
-      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
-      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={readAllListingsAndSortByPrice}
+        >
+          <Image
+            source={require("../assets/baseline_filter_list_black_24dp.png")}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
       <FlatList
         numColumns={2}
@@ -125,8 +149,9 @@ function ListingsScreen({ navigation }) {
             imageUris={item.images}
             onRowPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
             ifExists={ifExists(item)}
-            onPress={()=> 
-              ifExists(item) ?  onRemoveFavorite(item) : onFavorite(item)}
+            onPress={() =>
+              ifExists(item) ? onRemoveFavorite(item) : onFavorite(item)
+            }
           />
         )}
       />
@@ -141,15 +166,15 @@ const styles = StyleSheet.create({
     padding: pixelSizeVertical(10),
     backgroundColor: colors.light,
   },
-  icon:{
+  icon: {
     marginLeft: pixelSizeHorizontal(345),
     marginBottom: pixelSizeVertical(60),
-
   },
-  iconContainer:{
-    height: heightPixel(1), width: widthPixel(1), paddingBottom: pixelSizeVertical(40)
-  }
-
+  iconContainer: {
+    height: heightPixel(1),
+    width: widthPixel(1),
+    paddingBottom: pixelSizeVertical(40),
+  },
 });
 
 export default ListingsScreen;
