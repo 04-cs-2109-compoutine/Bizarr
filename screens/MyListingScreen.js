@@ -1,31 +1,31 @@
-import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, FlatList, Text} from 'react-native';
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, FlatList} from "react-native";
 import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
-import { db, auth } from "../firebase";
+import {db} from "../firebase";
 import AuthContext from "../components/Config/context";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import {pixelSizeVertical} from "../components/Config/responsive";
 
-function MyListingScreen({navigation}) {
-
+function MyListingScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const {user, setUser} = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
 
   async function getListings() {
     try {
-      const getListingsPromise = db.collection("listings").get()
-      const data = await getListingsPromise
-      let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid === user.uid)
+      const getListingsPromise = db.collection("listings").get();
+      const data = await getListingsPromise;
+      let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      let userLists = allListings.filter((listing) => listing.uid === user.uid);
       setListings(userLists);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
+  console.log("listing", listings);
   useEffect(() => {
     getListings();
   }, [])
@@ -47,14 +47,16 @@ function MyListingScreen({navigation}) {
             price={"$" + item.price}
             imageUris={item.images}
             description={item.description}
-            onPress={() => navigation.navigate(routes.USER_SINGLE_LISTING, item)}
+            onPress={() =>
+              navigation.navigate(routes.USER_SINGLE_LISTING, item)
+            }
           />
         )}
         refreshing={refreshing}
         onRefresh={handleRefresh}
       />
     </Screen>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

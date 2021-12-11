@@ -1,19 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Picker,
-  Alert,
-  Modal,
-  Text,
-  Pressable,
-  ScrollView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions, 
-  PixelRatio
-} from "react-native";
+import React, { useState, useContext } from "react";
+import {View,StyleSheet,TextInput,Picker,Alert,Modal,Text,Pressable,ScrollView,Keyboard,TouchableWithoutFeedback,Dimensions} from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
