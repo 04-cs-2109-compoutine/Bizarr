@@ -37,7 +37,7 @@ Watch our full 4-minute demo video [here](https://www.youtube....) or a short on
 
 First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
 
-![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif) ![signup]("assets/signup.png")  ![login]("assets/login.png")
+![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif) ![signup](https://media.giphy.com/media/T88a6DnJQxdlZUDu9n/giphy.gif)  ![login](https://media.giphy.com/media/IJ743J65t9YmPXso8K/giphy.gif)
 
 ### Homepage navigation with map view
 
