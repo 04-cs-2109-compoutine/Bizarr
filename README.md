@@ -37,8 +37,9 @@ Watch our full 4-minute demo video [here](https://www.youtube....) or a short on
 
 First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
 
+![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif)
+
 <p float="left">
-  ![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif)
   <img src = "assets/signup.png" width = 200>
   <img src = "assets/login.png" width = 200>
 </p>
