@@ -130,7 +130,11 @@ The future of Bizarr includes making our application accessible to Android users
 
 <img src="assets/readmePics/sen.png" width="50"/> :purple_heart: | Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
-
+The action of every agent <br />
+  into the world <br />
+starts <br />
+  from their physical selves. <br />
+  
 ## Acknowledgements :heart:
 
 Bizarr cannot express enough thanks to Fullstack Academy, our fellows and instructors for their continued support and encouragement:
