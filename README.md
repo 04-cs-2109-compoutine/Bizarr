@@ -120,9 +120,7 @@ The future of Bizarr includes making our application accessible to Android users
 
 
 :blue_heart:
-<img src="assets/readmePics/grace.png" width="50" />
-Grace Lin:
-[Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+<img src="assets/readmePics/grace.png" width="50" /> Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
 
 :green_heart:
 <img src="assets/readmePics/grace.png" width="50" />
