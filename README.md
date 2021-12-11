@@ -47,7 +47,7 @@ Starting at the Homepage, you can see all the products our users have listed tha
 ### Post a product
 Click on the post button in the middle of the bottom navigator to switch to the Post Listing screen, which will prompt you to enter information about and images of your product. Enter a location you would like for people to pick up the product — it could be a specific address or just the city that you’re in. Your product’s location will automatically be rendered in the map view! Once you’re done, click ‘Post’ and you should see your product under the 'My Listings' screen in your account page.
 
-<img src="assets/posting_chair_and_showing_post_in_my_listings_after_MP4_SparkVideo.gif" width=100% height=100%>
+<img src="assets/posting_chair_and_showing_post_in_my_listings_after_MP4_SparkVideo.gif" width=80% height=80%>
 
 (assets/apple-touch-icon.png)[image or screencast]
 
