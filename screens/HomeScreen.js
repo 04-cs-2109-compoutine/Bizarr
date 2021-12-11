@@ -75,7 +75,6 @@ const HomeScreen = ({navigation}) => {
   }, []);
  
   return (
-
     <SafeAreaView style={styles.container}>
       <Image 
         style={styles.header}

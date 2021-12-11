@@ -1,22 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text } from "react-native";
+import { StyleSheet, FlatList} from "react-native";
 import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
-import { db } from "../firebase";
+import {db} from "../firebase";
 import AuthContext from "../components/Config/context";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "../components/Config/responsive";
+import {pixelSizeVertical} from "../components/Config/responsive";
 
 function MyListingScreen({ navigation }) {
   const [listings, setListings] = useState([]);
-  const { user, setUser } = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
+  const [refreshing, setRefreshing] = useState(false);
 
   async function getListings() {
     try {
@@ -33,7 +28,13 @@ function MyListingScreen({ navigation }) {
   console.log("listing", listings);
   useEffect(() => {
     getListings();
-  }, []);
+  }, [])
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    getListings();
+    setRefreshing(false);
+  };
 
   return (
     <Screen style={styles.screen}>
@@ -51,6 +52,8 @@ function MyListingScreen({ navigation }) {
             }
           />
         )}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </Screen>
   );

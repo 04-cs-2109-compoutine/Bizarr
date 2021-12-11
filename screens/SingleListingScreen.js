@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import colors from "../components/Config/colors";
 import { SliderBox } from "react-native-image-slider-box";
 import LoadingMap from "../components/LocationMap";
@@ -8,7 +8,7 @@ import SubmitButton from "../components/Button/SubmitButton";
 import routes from "../components/Config/routes";
 import { auth, db } from "../firebase";
 import UserListItem from "../components/UserListItem";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import { widthPixel, heightPixel, fontPixel, pixelSizeVertical} from "../components/Config/responsive"
 
 function SingleListingScreen({ route, navigation }) {
   const listing = route.params;

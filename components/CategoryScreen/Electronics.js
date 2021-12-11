@@ -20,7 +20,7 @@ function Electronics({ navigation }) {
       const getListingsPromise = db.collection("listings").get()
       const data = await getListingsPromise
       let allListings = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false && listing.category === 'Camera')
+      let userLists = allListings.filter(listing => listing.uid !== user.uid && listing.sold === false && listing.category === 'Electronics')
       setListings(userLists)
       setFilteredLists(userLists)
     } catch(e) {

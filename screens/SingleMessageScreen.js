@@ -5,7 +5,7 @@ import colors from "../components/Config/colors";
 import { GiftedChat } from "react-native-gifted-chat";
 
 
-export function SingleMessageScreen({ route, navigation }) {
+export function SingleMessageScreen({ route }) {
   const [messages, setMessages] = useState([]);
 
   const chatsRef = db.collection("chats");

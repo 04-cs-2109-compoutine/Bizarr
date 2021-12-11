@@ -1,19 +1,10 @@
 import React, { useState, useContext } from "react";
-import * as firebase from "firebase";
 import { auth, db } from "../firebase";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import {KeyboardAvoidingView,StyleSheet,View,Image} from "react-native";
 import { Input } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -51,13 +42,6 @@ const SignUpScreen = () => {
       });
   };
 
-  //sign in with google
-  // async function signInWithGoogle() {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   const { user } = await auth.signInWithPopup(provider);
-  //   return user;
-  // }
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image style={styles.logo} source={require("../assets/B.png")} />
@@ -89,14 +73,6 @@ const SignUpScreen = () => {
           />
         </View>
         <LoginButton text="Register" onPress={handleSignUp} />
-      </View>
-      <View style={styles.google}>
-        <TouchableOpacity
-          onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Google</Text>
-        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

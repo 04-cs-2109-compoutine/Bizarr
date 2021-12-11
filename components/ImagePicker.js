@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Image,
   View,
@@ -9,17 +9,14 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "./Config/responsive"
+import { widthPixel, heightPixel} from "./Config/responsive"
 
-
-export default function UploadImage({ photoURL, setPhotoURL, userName }) {
+export default function UploadImage({imageURL, onChangeImage}) {
   let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/bizarr/upload"
 
   const handlePress = () => {
       pickImage();
   };
-
-
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -54,17 +51,17 @@ export default function UploadImage({ photoURL, setPhotoURL, userName }) {
     })
       .then(async (r) => {
         let data = await r.json();
-        setPhotoURL(data.url);
+        onChangeImage(data.url)
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <View style={Styles.container}>
-      <Image source={{ uri: photoURL }} key={photoURL} style={Styles.img} />
+      <Image source={{ uri: imageURL }} key={imageURL} style={Styles.img} />
       <View style={Styles.uploadBtnContainer}>
         <TouchableOpacity onPress={handlePress} style={Styles.uploadBtn}>
-          <Text>{photoURL ? "Edit" : "Upload"} </Text>
+          <Text>{imageURL ? "Edit" : "Upload"} </Text>
           <AntDesign name="camera" size={20} color="black" />
         </TouchableOpacity>
       </View>

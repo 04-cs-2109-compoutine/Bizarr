@@ -1,19 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Picker,
-  Alert,
-  Modal,
-  Text,
-  Pressable,
-  ScrollView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions, 
-  PixelRatio
-} from "react-native";
+import React, { useState, useContext } from "react";
+import {View,StyleSheet,TextInput,Picker,Alert,Modal,Text,Pressable,ScrollView,Keyboard,TouchableWithoutFeedback,Dimensions} from "react-native";
 import defaultStyles from "../components/Config/styles";
 import SubmitButton from "../components/Button/SubmitButton";
 import colors from "../components/Config/colors";
@@ -23,7 +9,10 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import { widthPixel, heightPixel, pixelSizeVertical} from "../components/Config/responsive"
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log no
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -55,26 +44,11 @@ function PostListingScreen({ navigation }) {
   }
 
   const clearInputs = () => {
-    const post = {
-      title: title,
-      price: price,
-      description: description,
-      category: selectedValue,
-      location: location,
-      images: imageUris,
-      createdAt: firebase.firestore.Timestamp.now().toDate().toString(),
-    };
-    for (const key in post) {
-      if (typeof post[key] === "string") {
-        post[key] = "";
-      }
-      if (typeof post[key] === "object") {
-        post[key] = {};
-      }
-      if (typeof post[key] === "array") {
-        post[key] = [];
-      }
-    }
+    setTitle("");
+    setPrice("");
+    setCategory("Category");
+    setDescription("");
+    setImageUris([])
   };
 
   const validatePost = () => {
@@ -238,6 +212,7 @@ function PostListingScreen({ navigation }) {
               onChangeText={(text) => setDescription(text)}
             />
           </View>
+  
           <GoogleAutoComplete location={location} setLocation={setLocation} />
           <View style={styles.btn}>
             <SubmitButton title="Post" onPress={handlePost} />

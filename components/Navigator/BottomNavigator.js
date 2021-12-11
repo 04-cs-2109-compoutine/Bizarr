@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import HomeNavigator from './HomeNavigator'
 import MessageNavigator from "./MessageNavigator";
-import PostButton from "./Button/PostButton";
+import PostButton from "../Button/PostButton";
 import ListNavigator from "./ListNavigator";
 import AccountNavigator from "./AccountNavigator";
-import routes from "./Config/routes";
-import PostListingScreen from "../screens/PostListingScreen";
+import routes from "../Config/routes";
+import PostListingScreen from "../../screens/PostListingScreen";
 
 const Tab = createBottomTabNavigator();
 

@@ -7,7 +7,7 @@ import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
 import PostedScreen from "./PostedScreen";
 import colors from "../components/Config/colors";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import { widthPixel, heightPixel, pixelSizeVertical} from "../components/Config/responsive"
 
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");
@@ -35,7 +35,7 @@ function AccountDetailsScreen({navigation}) {
 
   useEffect(() => {
     getUser();
-    setPhotoURL(userName.photoURL);
+    setPhotoURL(userName.photoURL)
   }, []);
 
   // helper function to check if fields have been left empty (they are required)
@@ -90,6 +90,16 @@ function AccountDetailsScreen({navigation}) {
       navigation.navigate("Account");
     }
 
+  const handleUpload = async(uri) => {
+    let userNow = auth.currentUser;
+    await userNow.updateProfile({
+      photoURL: uri
+    })
+      .catch(function (error) {
+        alert(error.message);
+      });
+  }
+
   return (
     <ScrollView style={styles.container}>
       <PostedScreen
@@ -99,7 +109,10 @@ function AccountDetailsScreen({navigation}) {
         visible={PostVisible}
       />
       <View style={styles.uploadImg}>
-        <UploadImage photoURL={userName.photoURL} setPhotoURL={setPhotoURL} userName={userName}/>
+        <UploadImage 
+          imageURL={photoURL} 
+          onChangeImage={(uri) => handleUpload(uri)} 
+        />
       </View>
       <View style={styles.inputContainer}>
         <TextInput

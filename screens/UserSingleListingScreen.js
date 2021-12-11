@@ -8,13 +8,7 @@ import routes from "../components/Config/routes";
 import { db } from "../firebase";
 import { SliderBox } from "react-native-image-slider-box";
 import UserListItem from "../components/UserListItem";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "../components/Config/responsive";
+import { heightPixel, fontPixel, pixelSizeVertical } from "../components/Config/responsive";
 
 function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;

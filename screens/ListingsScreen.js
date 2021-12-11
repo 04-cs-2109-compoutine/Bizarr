@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View} from "react-native";
 import AllList from "../components/AllList";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
@@ -14,13 +7,7 @@ import Screen from "../components/Screen";
 import { db } from "../firebase";
 import { SearchBar } from "react-native-elements";
 import AuthContext from "../components/Config/context";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "../components/Config/responsive";
+import { widthPixel, heightPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);
@@ -118,18 +105,18 @@ function ListingsScreen({ navigation }) {
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <View style={styles.iconContainer}>
-      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
-      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
-      </TouchableOpacity>
+        <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
+          <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
+        </TouchableOpacity>
       </View>
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={(text) => searchFilterFunction(text)}
-        value={search}
-        showCancel
-        lightTheme
-        containerStyle={{width: "85%"}}
-      />
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          showCancel
+          lightTheme
+          containerStyle={{width: "85%"}}
+        />
 
       <View style={styles.iconContainer}>
         <TouchableOpacity
