@@ -23,7 +23,10 @@ import AuthContext from "../components/Config/context";
 import PhotoInputList from "../components/PhotoSelector/PhotoInputList";
 import PostedScreen from "./PostedScreen";
 import GoogleAutoComplete from "../components/GoogleAutoComplete";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import { widthPixel, heightPixel, pixelSizeVertical} from "../components/Config/responsive"
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log no
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -223,6 +226,7 @@ function PostListingScreen({ navigation }) {
               onChangeText={(text) => setDescription(text)}
             />
           </View>
+  
           <GoogleAutoComplete location={location} setLocation={setLocation} />
           <View style={styles.btn}>
             <SubmitButton title="Post" onPress={handlePost} />

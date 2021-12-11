@@ -1,8 +1,4 @@
 import * as firebase from "firebase";
-// import { getStorage } from "firebase/storage";
-// import 'firebase/storage'; 
-// import firebase from 'firebase/app'
-// var cl = new cloudinary.Cloudinary({cloud_name: "bizarr", secure: true});
 
 if (process.env.NODE_ENV !== "production") require("./secrets");
 
@@ -31,7 +27,6 @@ if (firebase.apps.length === 0) {
 } else {
   app = firebase.app();
 }
-// const storage = firebase.storage().ref();
 
 const auth = firebase.auth();
 const db = firebase.firestore();

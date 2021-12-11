@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import * as firebase from "firebase";
 import { auth, db } from "../firebase";
 import {
   KeyboardAvoidingView,
@@ -89,14 +88,6 @@ const SignUpScreen = () => {
           />
         </View>
         <LoginButton text="Register" onPress={handleSignUp} />
-      </View>
-      <View style={styles.google}>
-        <TouchableOpacity
-          onPress={signInWithGoogle}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Google</Text>
-        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
