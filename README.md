@@ -48,7 +48,7 @@ After logging in, users can see the Home screen. There are 4 sections in the hom
 Next section is New Listings. New Listings will show the user 6 of the new listings on the applicaiton. The last section is Made for You. Made for You will display 10 randomly chosen items to the user.
 
 
-![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif) ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif) ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif)
+![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif)   ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif)   ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif)
 
 ### View all our product listings
 
