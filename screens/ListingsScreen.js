@@ -30,9 +30,6 @@ function ListingsScreen({ navigation }) {
   const { user, setUser } = useContext(AuthContext);
   const [favoriteList, setFavoriteList] = useState([]);
 
-  //console.log(favoriteList)
-  // console.log(user)
-
   async function readAllListing() {
     try {
       const getListingsPromise = db.collection("listings").get();

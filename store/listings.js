@@ -16,7 +16,6 @@ export const fetchListings = () => {
       const getPromise = collectionRef.get();
       const snapshot = await getPromise;
       const listings = snapshot.docs.map((doc) => ({}));
-      // console.log("action creator", listings)
       dispatch(_fetchListings(listings));
     } catch (e) {
       console.log(e);
