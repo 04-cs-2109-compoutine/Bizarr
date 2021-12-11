@@ -117,24 +117,17 @@ process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 The future of Bizarr includes making our application accessible to Android users and adding a payment function so that users can actually complete their transactions in-app. We may also add a calendar so that users can choose dates and times for their meet-ups.
 
 ## Creators
-<p align="center">
-  <img src="assets/readmePics/grace.png" width="50"/> 
-<p>
+
+<img src="assets/readmePics/grace.png" width="50"/> <br>
 :blue_heart: | Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
 
-<p align="center">
-  <img src="assets/readmePics/grace.png" width="50" /> 
-<p>
+<img src="assets/readmePics/grace.png" width="50" /> <br>
 :green_heart: | Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
 
-<p align="center">
-  <img src="assets/readmePics/zoe.png" width="50"/> 
-<p>
+<img src="assets/readmePics/zoe.png" width="50"/> <br>
 :yellow_heart: | Zoe Zhang:[Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
 
-<p align="center">
-  <img src="assets/readmePics/sen.png" width="50"/>
-<p>
+<img src="assets/readmePics/sen.png" width="50"/> <br>
 :purple_heart: | Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
 
