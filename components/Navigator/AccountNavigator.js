@@ -1,14 +1,14 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AccountScreen from "../screens/AccountScreen";
-import AccountDetailsScreen from "../screens/AccountDetailsScreen";
-import MyListingScreen from "../screens/MyListingScreen";
-import SoldListingScreen from "../screens/SoldListing"
-import PostedScreen from "../screens/PostedScreen";
-import FavoriteListing from "../screens/FavoriteListing";
-import SingleListingScreen from "../screens/SingleListingScreen";
-import UserSingleListingScreen from "../screens/UserSingleListingScreen";
-import SellerListingScreen from "../screens/SellerListingScreen";
+import AccountScreen from "../../screens/AccountScreen";
+import AccountDetailsScreen from "../../screens/AccountDetailsScreen";
+import MyListingScreen from "../../screens/MyListingScreen";
+import SoldListingScreen from "../../screens/SoldListing"
+import PostedScreen from "../../screens/PostedScreen";
+import FavoriteListing from "../../screens/FavoriteListing";
+import SingleListingScreen from "../../screens/SingleListingScreen";
+import UserSingleListingScreen from "../../screens/UserSingleListingScreen";
+import SellerListingScreen from "../../screens/SellerListingScreen";
 
 const Stack = createNativeStackNavigator();
 

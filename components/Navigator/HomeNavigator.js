@@ -1,17 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from '../screens/HomeScreen';
-import Funiture from './CategoryScreen/Funiture';
-import Cars from './CategoryScreen/Cars';
-import Electronics from './CategoryScreen/Electronics';
-import Clothing from './CategoryScreen/Clothing';
-import Sports from './CategoryScreen/Sports';
-import Entertainment from './CategoryScreen/Entertainment';
-import Others from './CategoryScreen/Others';
-import Books from './CategoryScreen/Books';
-import SingleListingScreen from "../screens/SingleListingScreen";
-import SellerListingScreen from '../screens/SellerListingScreen';
-import SingleMessageScreen from "../screens/SingleMessageScreen";
+import HomeScreen from '../../screens/HomeScreen';
+import Funiture from '../CategoryScreen/Funiture';
+import Cars from '../CategoryScreen/Cars';
+import Electronics from '../CategoryScreen/Electronics';
+import Clothing from '../CategoryScreen/Clothing';
+import Sports from '../CategoryScreen/Sports';
+import Entertainment from '../CategoryScreen/Entertainment';
+import Others from '../CategoryScreen/Others';
+import Books from '../CategoryScreen/Books';
+import SingleListingScreen from "../../screens/SingleListingScreen";
+import SellerListingScreen from '../../screens/SellerListingScreen';
+import SingleMessageScreen from "../../screens/SingleMessageScreen";
 
 const Stack = createNativeStackNavigator();
 

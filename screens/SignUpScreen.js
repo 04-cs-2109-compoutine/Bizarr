@@ -1,13 +1,6 @@
 import React, { useState, useContext } from "react";
 import { auth, db } from "../firebase";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import {KeyboardAvoidingView,StyleSheet,View,Image} from "react-native";
 import { Input } from "react-native-elements";
 import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
@@ -49,13 +42,6 @@ const SignUpScreen = () => {
           });
       });
   };
-
-  //sign in with google
-  // async function signInWithGoogle() {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   const { user } = await auth.signInWithPopup(provider);
-  //   return user;
-  // }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">

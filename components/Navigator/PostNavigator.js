@@ -1,7 +1,7 @@
 import React from "react";
-import PostListingScreen from "../screens/PostListingScreen";
-import MyListingScreen from "../screens/MyListingScreen";
-import PostedScreen from "../screens/PostedScreen";
+import PostListingScreen from "../../screens/PostListingScreen";
+import MyListingScreen from "../../screens/MyListingScreen";
+import PostedScreen from "../../screens/PostedScreen";
 
 function PostNavigator() {
   return (

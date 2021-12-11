@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import navigationTheme from "../components/Config/NavigationTheme";
-import BottomNavigator from "../components/BottomNavigator";
-import AuthNavigator from "../components/AuthNavigator";
+import BottomNavigator from "../components/Navigator/BottomNavigator";
+import AuthNavigator from "../components/Navigator/AuthNavigator";
 import AuthContext from "../components/Config/context";
 
 function Main() {

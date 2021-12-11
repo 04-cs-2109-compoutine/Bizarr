@@ -117,18 +117,18 @@ function ListingsScreen({ navigation }) {
   return filteredLists instanceof Object ? (
     <Screen style={styles.screen}>
       <View style={styles.iconContainer}>
-      <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
-      <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
-      </TouchableOpacity>
+        <TouchableOpacity activeOpacity = { .5 } onPress={readAllListingsAndSortByPrice}>
+          <Image source={require('../assets/baseline_filter_list_black_24dp.png')} style={styles.icon}/>
+        </TouchableOpacity>
       </View>
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={(text) => searchFilterFunction(text)}
-        value={search}
-        showCancel
-        lightTheme
-        containerStyle={{width: "85%"}}
-      />
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          showCancel
+          lightTheme
+          containerStyle={{width: "85%"}}
+        />
 
       <View style={styles.iconContainer}>
         <TouchableOpacity

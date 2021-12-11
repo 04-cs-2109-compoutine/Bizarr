@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SingleMessageScreen from "../screens/SingleMessageScreen";
-import MessagesScreen from "../screens/MessagesScreen";
+import SingleMessageScreen from "../../screens/SingleMessageScreen";
+import MessagesScreen from "../../screens/MessagesScreen";
 
 const Stack = createNativeStackNavigator();
 
