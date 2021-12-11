@@ -45,11 +45,13 @@ After logging in, users can see the Home screen. There are 4 sections in the hom
 
 Next section is New Listings. New Listings will show the user 6 of the new listings on the applicaiton. The last section is Made for You. Made for You will display 10 randomly chosen items to the user.
 
+![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif) ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif) ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif) ![Home navigation3](https://media.giphy.com/media/RGIJsYZc0QF2blOBrB/giphy.gif)
+
 ### View all our product listings
 
 Starting at the Homepage, users can see all the products that are listed for sell near them on the map, as well as latest listings and a special section of listings made just for the user! Users can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. The filter icon on the top allows the users to filter all the items based on price in descending order. The search bar also provides users the abilitiy to easily search for a specific item and will continuously search based on each key stroke.
 
-(assets/apple-touch-icon.png)[image or screencast]
+![All Listings Page](https://media.giphy.com/media/HZqmjmXWP0bg5W6l1W/giphy.gif) ![Search bar](https://media.giphy.com/media/PK0mYlFS8ctfuhSHSt/giphy.gif)
 
 ### Post a product
 
