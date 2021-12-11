@@ -54,20 +54,19 @@ Next section is New Listings. New Listings will show the user 6 of the new listi
 
 Starting at the Homepage, users can see all the products that are listed for sell near them on the map, as well as latest listings and a special section of listings made just for the user! Users can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. The filter icon on the top allows the users to filter all the items based on price in descending order. The search bar also provides users the abilitiy to easily search for a specific item and will continuously search based on each key stroke.
 
-
 ![All Listings Page](https://media.giphy.com/media/HZqmjmXWP0bg5W6l1W/giphy.gif) ![Search bar](https://media.giphy.com/media/PK0mYlFS8ctfuhSHSt/giphy.gif)
 
 ### Post a product
 
 Click on the post button in the middle of the bottom navigator to switch to the Post Listing screen. When creating a post, the user is prompted to enter information about the product with an image. Enter a location you would like for people to pick up the product — it could be a specific address or just the city that you’re in. Your product’s location will automatically be rendered in the map view! Once you’re done, click ‘Post’ and you should see your product under the 'My Listings' screen in your account page.
 
-(assets/apple-touch-icon.png)[image or screencast]
+![post1](https://media.giphy.com/media/GIpLFMeROhP0xNhvI8/giphy.gif) ![post2](https://media.giphy.com/media/EGYCpCVmPDDlW92Nyu/giphy.gif)
 
 ### Contact sellers
 
 When you see a product you are interested in, you can click on it to bring up information about that specific product, including the seller’s information and a ‘Message’ button to contact the seller. Any messages you send to sellers can be viewed by navigating to the ‘Messages’ screen in the bottom navigator. Users can also pull down to refresh the message screen and swipe left on the message to delete.
 
-(assets/apple-touch-icon.png)[image or screencast]
+![Message](https://media.giphy.com/media/fQ8JZHzDAlDlC5rUf2/giphy.gif)  ![refresh](https://media.giphy.com/media/XCMlq5K7qOxP4hMeO5/giphy.gif)
 
 ### Change account details
 
@@ -79,9 +78,13 @@ When a user is logged in and signed up, they can navigate to the 'Account Detail
 
 In 'My listings' under 'Account Screen', users can see their own posts. Navigate into a single listing, there is a button with Available. If that item is sold, users can toggle the button and mark it as sold. Then the sold item will be pushed into 'Sold History'.
 
+![sold](https://media.giphy.com/media/aJECRzFnnLE7IwZ9Ye/giphy.gif)
+
 ### Favorite listings
 
 In 'All Listings' screen, if the user tab the heart in a single item, they can save the item into 'Saved' under Account Screen. Users can de-selected if they no longer want to favorite the item.
+
+![liked item](https://media.giphy.com/media/kfiPRUvSqfxmJXTGvb/giphy.gif)
 
 ## Getting Started
 
