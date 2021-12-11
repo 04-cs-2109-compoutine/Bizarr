@@ -37,7 +37,9 @@ Watch our full 4-minute demo video [here](https://www.youtube....) or a short on
 
 First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
 
+
 ![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif) ![signup](https://media.giphy.com/media/T88a6DnJQxdlZUDu9n/giphy.gif)  ![login](https://media.giphy.com/media/IJ743J65t9YmPXso8K/giphy.gif)
+
 
 ### Homepage navigation with map view
 
@@ -45,11 +47,13 @@ After logging in, users can see the Home screen. There are 4 sections in the hom
 
 Next section is New Listings. New Listings will show the user 6 of the new listings on the applicaiton. The last section is Made for You. Made for You will display 10 randomly chosen items to the user.
 
+
 ![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif) ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif) ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif) ![Home navigation3](https://media.giphy.com/media/RGIJsYZc0QF2blOBrB/giphy.gif)
 
 ### View all our product listings
 
 Starting at the Homepage, users can see all the products that are listed for sell near them on the map, as well as latest listings and a special section of listings made just for the user! Users can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. The filter icon on the top allows the users to filter all the items based on price in descending order. The search bar also provides users the abilitiy to easily search for a specific item and will continuously search based on each key stroke.
+
 
 ![All Listings Page](https://media.giphy.com/media/HZqmjmXWP0bg5W6l1W/giphy.gif) ![Search bar](https://media.giphy.com/media/PK0mYlFS8ctfuhSHSt/giphy.gif)
 
@@ -114,10 +118,23 @@ The future of Bizarr includes making our application accessible to Android users
 
 ## Creators
 
-:blue_heart: Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
-:green_heart: Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
-:yellow_heart: Zoe Zhang: [Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
-:purple_heart: Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
+
+:blue_heart:
+![grace-profile](assets/readmePics/grace.png "grace-profile-pic")
+Grace Lin:
+[Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+
+:green_heart:
+Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
+
+:yellow_heart:
+![zoe-profile](assets/readmePics/zoe.png "zoe-profile-pic")
+Zoe Zhang:[Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
+
+:purple_heart:
+![sen-profile](assets/readmePics/sen.png "sen-profile-pic")
+Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
+
 
 ## Acknowledgements :heart:
 

@@ -8,8 +8,13 @@ import routes from "../components/Config/routes";
 import { db } from "../firebase";
 import { SliderBox } from "react-native-image-slider-box";
 import UserListItem from "../components/UserListItem";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "../components/Config/responsive";
 
 function UserSingleListingScreen({ route, navigation }) {
   const listing = route.params;
@@ -36,7 +41,9 @@ function UserSingleListingScreen({ route, navigation }) {
       const getListingsPromise = db.collection("listings").get();
       const data = await getListingsPromise;
       let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      let userLists = allListings.filter((listing) => listing.uid === id && listing.sold === false);
+      let userLists = allListings.filter(
+        (listing) => listing.uid === id && listing.sold === false
+      );
       setListings(userLists);
     } catch (e) {
       console.log(e);
@@ -52,26 +59,23 @@ function UserSingleListingScreen({ route, navigation }) {
   }, []);
 
   async function handleChange() {
-    try{
+    try {
       setSold(!sold);
-      // console.log(listing)
-      await db.collection("listings").doc(listing.id).update({sold: !sold});
-    }catch(e){
-      console.log(e)
+      await db.collection("listings").doc(listing.id).update({ sold: !sold });
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     try {
-      await db.collection('listings')
-        .doc(listing.id)
-        .delete();
+      await db.collection("listings").doc(listing.id).delete();
       setListings(listings.filter((listing) => listing.id !== id));
-      navigation.navigate(routes.MY_ACCOUNT)
+      navigation.navigate(routes.MY_ACCOUNT);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -100,17 +104,14 @@ function UserSingleListingScreen({ route, navigation }) {
           onPress={() => navigation.navigate(routes.SELLER_LISTINGS, listings)}
         />
       </View>
-      <View >
+      <View>
         <LoadingMap
           latitude={listing.location.latitude}
           longitude={listing.location.longitude}
         />
       </View>
       <View style={styles.delete}>
-        <SubmitButton
-          title={"Delete"}
-          onPress={() => handleDelete()}
-        />
+        <SubmitButton title={"Delete"} onPress={() => handleDelete()} />
       </View>
     </ScrollView>
   );
@@ -152,11 +153,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "baseline",
   },
-  delete:{
+  delete: {
     marginTop: pixelSizeVertical(280),
     paddingBottom: pixelSizeVertical(40),
-    alignItems: 'center'
-  }
+    alignItems: "center",
+  },
 });
 
 export default UserSingleListingScreen;

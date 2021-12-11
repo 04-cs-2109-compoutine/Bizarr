@@ -10,7 +10,6 @@ const FIRESTORE_STORAGE_BUCKET = process.env.FIRESTORE_STORAGE_BUCKET;
 const FIRESTORE_MESSAGING_SENDER_ID = process.env.FIRESTORE_MESSAGING_SENDER_ID;
 const FIRESTORE_APP_ID = process.env.FIRESTORE_APP_ID;
 
-
 const firebaseConfig = {
   apiKey: FIRESTORE_API_KEY,
   authDomain: FIRESTORE_AUTH_DOMAIN,
@@ -27,7 +26,6 @@ if (firebase.apps.length === 0) {
 } else {
   app = firebase.app();
 }
-// const storage = firebase.storage().ref();
 
 const auth = firebase.auth();
 const db = firebase.firestore();
