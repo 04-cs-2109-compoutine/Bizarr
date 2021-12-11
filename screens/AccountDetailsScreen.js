@@ -7,7 +7,7 @@ import SubmitButton from "../components/Button/SubmitButton";
 import AuthContext from "../components/Config/context";
 import PostedScreen from "./PostedScreen";
 import colors from "../components/Config/colors";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import { widthPixel, heightPixel, pixelSizeVertical} from "../components/Config/responsive"
 
 function AccountDetailsScreen({navigation}) {
   const [userName, setUsername] = useState("");

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text } from "react-native";
+import React from "react";
+import { StyleSheet, FlatList } from "react-native";
 import List from "../components/List";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
+import {pixelSizeVertical} from "../components/Config/responsive"
 
 
 function SellerListingScreen({ navigation, route }) {

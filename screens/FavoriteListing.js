@@ -11,8 +11,6 @@ function FavoriteListing({ navigation }) {
   const [favoriteLists, setfavoriteLists] = useState([]);
   const { user, setUser } = useContext(AuthContext);
 
-  console.log(favoriteLists)
-
   async function getfavoriteListings() {
     try {
      await db.collection("users").doc(user.uid).get().then((snapshot) => setfavoriteLists(snapshot.data().likedItems));
@@ -36,9 +34,7 @@ function FavoriteListing({ navigation }) {
             price={"$" + item.price}
             imageUris={item.images}
             description={item.description}
-            onPress={() =>
-              navigation.navigate(routes. LISTING_DETAILS, item)
-            }
+            onPress={() => navigation.navigate(routes. LISTING_DETAILS, item)}
           />
         )}
       />

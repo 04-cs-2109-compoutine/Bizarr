@@ -6,7 +6,6 @@ import AuthContext from "../components/Config/context";
 import LoginButton from "../components/Button/LoginButton";
 import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
 
-
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

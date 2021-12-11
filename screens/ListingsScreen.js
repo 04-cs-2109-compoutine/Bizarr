@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, Image, TouchableOpacity, View} from "react-native";
 import AllList from "../components/AllList";
 import colors from "../components/Config/colors";
 import routes from "../components/Config/routes";
@@ -14,12 +7,7 @@ import Screen from "../components/Screen";
 import { db } from "../firebase";
 import { SearchBar } from "react-native-elements";
 import AuthContext from "../components/Config/context";
-import {
-  widthPixel,
-  heightPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "../components/Config/responsive";
+import { widthPixel, heightPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive";
 
 function ListingsScreen({ navigation }) {
   const [listings, setListings] = useState([]);

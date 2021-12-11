@@ -1,12 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { View, StyleSheet, Modal, Animated, Easing } from "react-native";
-// import * as Progress from "react-native-progress";
 import LottieView from "lottie-react-native";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
+import { widthPixel} from "../components/Config/responsive"
 
 function PostedScreen({ onDone, visible = false, navigation }) {
-
   return (
     <Modal visible={visible}>
       <View style={styles.container}>

@@ -3,9 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, View, Image } from "react-native";
 import { Input } from "react-native-elements";
 import LoginButton from "../components/Button/LoginButton";
 import AuthContext from "../components/Config/context";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
-
+import { widthPixel, heightPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive";
 import { auth } from "../firebase";
 
 const LoginScreen = ({ navigation }) => {

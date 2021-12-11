@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import firebase from "firebase";
-
 import ListItem from "../components/ListItem";
 import ListItemDeleteAction from "../components/ListItemDeleteAction";
 import Screen from "../components/Screen";
 import colors from "../components/Config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
-
-
 import { auth, db } from "../firebase";
 
 function MessageScreen({ navigation }) {
@@ -45,9 +42,7 @@ function MessageScreen({ navigation }) {
     return new Promise(async (resolve) => {
       const newArr = [];
       for (const group of groups) {
-        // lookup on users per userid
         for (const user of group.members) {
-          // lookup on user
           if (user !== auth.currentUser.uid) {
             const res = await getUser(user);
             if (group.name === auth.currentUser.displayName) {

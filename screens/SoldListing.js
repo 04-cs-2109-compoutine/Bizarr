@@ -6,13 +6,7 @@ import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { db } from "../firebase";
 import AuthContext from "../components/Config/context";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "../components/Config/responsive";
+import { pixelSizeVertical } from "../components/Config/responsive";
 
 function SoldListingScreen({ navigation }) {
   const [listings, setListings] = useState([]);
