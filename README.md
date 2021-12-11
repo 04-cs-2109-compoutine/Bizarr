@@ -120,19 +120,20 @@ The future of Bizarr includes making our application accessible to Android users
 
 
 :blue_heart:
-![grace-profile](assets/readmePics/grace.png "grace-profile-pic")
+<img src="assets/readmePics/grace.png" width="200" />
 Grace Lin:
 [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
 
 :green_heart:
+<img src="assets/readmePics/grace.png" width="200" />
 Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
 
 :yellow_heart:
-![zoe-profile](assets/readmePics/zoe.png "zoe-profile-pic")
+<img src="(assets/readmePics/zoe.png" width="200" />
 Zoe Zhang:[Github](https://github.com/YizhuoZhang3) | [Linkedin](https://www.linkedin.com/in/zoezhang33/)
 
 :purple_heart:
-![sen-profile](assets/readmePics/sen.png "sen-profile-pic")
+<img src="assets/readmePics/sen.png" width="200" />
 Sen Cai: [Github](https://github.com/sencaichi) | [Linkedin](https://www.linkedin.com/in/sentsai/)
 
 
