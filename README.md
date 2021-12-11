@@ -37,7 +37,8 @@ Watch our full 4-minute demo video [here](https://www.youtube....) or a short on
 
 First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
 
-(assets/welcomePage.png) (assets/login.png) (assets/signup.png)
+![alt text here](welcomePage.png) ![alt text here](assets/signup.png)
+
 
 ### Homepage navigation with map view
 
