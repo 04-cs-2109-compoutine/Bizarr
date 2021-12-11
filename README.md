@@ -60,7 +60,7 @@ Starting at the Homepage, users can see all the products that are listed for sel
 
 Click on the post button in the middle of the bottom navigator to switch to the Post Listing screen. When creating a post, the user is prompted to enter information about the product with an image. Enter a location you would like for people to pick up the product — it could be a specific address or just the city that you’re in. Your product’s location will automatically be rendered in the map view! Once you’re done, click ‘Post’ and you should see your product under the 'My Listings' screen in your account page.
 
-![post1](https://media.giphy.com/media/GIpLFMeROhP0xNhvI8/giphy.gif) ![post2](https://media.giphy.com/media/EGYCpCVmPDDlW92Nyu/giphy.gif)
+![post1](https://media.giphy.com/media/GIpLFMeROhP0xNhvI8/giphy.gif) ![post2](https://media.giphy.com/media/EGYCpCVmPDDlW92Nyu/giphy.gif) ![post3](https://media.giphy.com/media/NfKIeSEnFVqodTU1m0/giphy.gif)
 
 ### Contact sellers
 
