@@ -121,7 +121,8 @@ The future of Bizarr includes making our application accessible to Android users
 
 ## Creators
 
-<img src="assets/readmePics/grace.png" width="50"/> :blue_heart: | Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
+<img src="assets/readmePics/grace.png" width="50"/>  
+:blue_heart: | Grace Lin: [Github](https://github.com/gracelin95) | [Linkedin](https://www.linkedin.com/in/gracesqlin/)
 
 <img src="assets/readmePics/Liat.png" width="50" /> :green_heart: | Liat Guvenc: [Github](https://github.com/liat-g) | [Linkedin](https://www.linkedin.com/in/liat-guvenc-8394b0179/)
 
