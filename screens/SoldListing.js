@@ -6,22 +6,26 @@ import routes from "../components/Config/routes";
 import Screen from "../components/Screen";
 import { db } from "../firebase";
 import AuthContext from "../components/Config/context";
-import { widthPixel, heightPixel, fontPixel, pixelSizeVertical, pixelSizeHorizontal} from "../components/Config/responsive"
-
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "../components/Config/responsive";
 
 function SoldListingScreen({ navigation }) {
   const [listings, setListings] = useState([]);
   const { user, setUser } = useContext(AuthContext);
-
-  // console.log(listings);
 
   async function getListings() {
     try {
       const getListingsPromise = db.collection("listings").get();
       const data = await getListingsPromise;
       let allListings = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      // console.log(allListings)
-      let soldLists = allListings.filter(listing => listing.uid === user.uid && listing.sold === true);
+      let soldLists = allListings.filter(
+        (listing) => listing.uid === user.uid && listing.sold === true
+      );
       setListings(soldLists);
     } catch (e) {
       console.log(e);

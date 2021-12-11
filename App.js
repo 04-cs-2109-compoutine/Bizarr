@@ -6,6 +6,11 @@ import { store, persistor } from "./store";
 import AppLoading from "expo-app-loading";
 import { Asset } from "expo-asset";
 
+//remove this line to display errors
+import { LogBox } from "react-native";
+
+LogBox.ignoreAllLogs(true);
+
 export default function App() {
   const [launchLoaded, setLaunchLoaded] = useState(false);
   const _cacheResourcesAsync = async () => {
