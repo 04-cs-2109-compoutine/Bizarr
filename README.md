@@ -38,7 +38,7 @@ Watch our full 4-minute demo video [here](https://www.youtube....) or a short on
 First register by entering your full name, email, and a password! Then, navigate to My Account using the bottom navigator and go to Account details to finish setting up your account with Bizarr!
 
 
-![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif)    ![signup](https://media.giphy.com/media/T88a6DnJQxdlZUDu9n/giphy.gif)    ![login](https://media.giphy.com/media/IJ743J65t9YmPXso8K/giphy.gif)
+![Welcome Page](https://media.giphy.com/media/fdE2bIVqGQKYRFkam4/giphy.gif)  ![signup](https://media.giphy.com/media/T88a6DnJQxdlZUDu9n/giphy.gif)  ![login](https://media.giphy.com/media/IJ743J65t9YmPXso8K/giphy.gif)
 
 
 ### Homepage navigation with map view
@@ -48,25 +48,25 @@ After logging in, users can see the Home screen. There are 4 sections in the hom
 Next section is New Listings. New Listings will show the user 6 of the new listings on the applicaiton. The last section is Made for You. Made for You will display 10 randomly chosen items to the user.
 
 
-![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif)    ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif)    ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif)
+![Home Page](https://media.giphy.com/media/FfgM2OomITDDufZCWL/giphy.gif)  ![Home navigation1](https://media.giphy.com/media/9CosLsua5BY6icjvGD/giphy.gif)  ![Home navigation2](https://media.giphy.com/media/6OfnKR4ZnOWNOXDm6T/giphy.gif)
 
 ### View all our product listings
 
 Starting at the Homepage, users can see all the products that are listed for sell near them on the map, as well as latest listings and a special section of listings made just for the user! Users can also click on ‘All Listings’ in the bottom navigator to scroll through a list of products. The filter icon on the top allows the users to filter all the items based on price in descending order. The search bar also provides users the abilitiy to easily search for a specific item and will continuously search based on each key stroke.
 
-![All Listings Page](https://media.giphy.com/media/HZqmjmXWP0bg5W6l1W/giphy.gif)    ![Search bar](https://media.giphy.com/media/PK0mYlFS8ctfuhSHSt/giphy.gif)
+![All Listings Page](https://media.giphy.com/media/HZqmjmXWP0bg5W6l1W/giphy.gif)  ![Search bar](https://media.giphy.com/media/PK0mYlFS8ctfuhSHSt/giphy.gif)
 
 ### Post a product
 
 Click on the post button in the middle of the bottom navigator to switch to the Post Listing screen. When creating a post, the user is prompted to enter information about the product with an image. Enter a location you would like for people to pick up the product — it could be a specific address or just the city that you’re in. Your product’s location will automatically be rendered in the map view! Once you’re done, click ‘Post’ and you should see your product under the 'My Listings' screen in your account page.
 
-![post1](https://media.giphy.com/media/GIpLFMeROhP0xNhvI8/giphy.gif)    ![post2](https://media.giphy.com/media/EGYCpCVmPDDlW92Nyu/giphy.gif)    ![post3](https://media.giphy.com/media/NfKIeSEnFVqodTU1m0/giphy.gif)
+![post1](https://media.giphy.com/media/GIpLFMeROhP0xNhvI8/giphy.gif)  ![post2](https://media.giphy.com/media/EGYCpCVmPDDlW92Nyu/giphy.gif)  ![post3](https://media.giphy.com/media/NfKIeSEnFVqodTU1m0/giphy.gif)
 
 ### Contact sellers
 
 When you see a product you are interested in, you can click on it to bring up information about that specific product, including the seller’s information and a ‘Message’ button to contact the seller. Any messages you send to sellers can be viewed by navigating to the ‘Messages’ screen in the bottom navigator. Users can also pull down to refresh the message screen and swipe left on the message to delete.
 
-![Message](https://media.giphy.com/media/fQ8JZHzDAlDlC5rUf2/giphy.gif)    ![refresh](https://media.giphy.com/media/XCMlq5K7qOxP4hMeO5/giphy.gif)
+![Message](https://media.giphy.com/media/fQ8JZHzDAlDlC5rUf2/giphy.gif)  ![refresh](https://media.giphy.com/media/XCMlq5K7qOxP4hMeO5/giphy.gif)
 
 ### Change account details
 
