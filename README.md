@@ -7,8 +7,8 @@ A marketplace app that is fully integrated with mapping, allowing users to find 
 - [Introduction](#introduction)
 - [Tech Stack](#tech-stack)
 - [Features](#features)
-- [Getting Started](#next-steps)
-- [Next Steps](#creators)
+- [Getting Started](#getting-started)
+- [Next Steps](#next-steps)
 - [Creators](#creators)
 - [Acknowledgements](#acknowledgements)
 
@@ -71,8 +71,6 @@ When you see a product you are interested in, you can click on it to bring up in
 ### Change account details
 
 When a user is logged in and signed up, they can navigate to the 'Account Details' screen to change their email, password, name, phone number and profile picture.
-
-(assets/apple-touch-icon.png)[image or screencast]
 
 ### Marked as sold
 
