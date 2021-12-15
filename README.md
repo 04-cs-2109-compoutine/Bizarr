@@ -111,7 +111,7 @@ process.env.GOOGLE_PLACES_API_KEY = "YOUR OWN GOOGLE API KEY";
 
 4. Start this project: npm start/expo start
 
-**_ You may need to reconfigure some other files that call these keys to match what you have in this file _**
+Note **You may need to reconfigure some other files that call these keys to match what you have in this file**
 
 ## Next Steps
 
